@@ -1,0 +1,2 @@
+module ProtipsHelper
+end
