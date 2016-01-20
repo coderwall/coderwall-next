@@ -1,6 +1,15 @@
-%div
+.protip
   %h4
     %a.black{:href => protip_path(protip)}
       =protip.title
   .details
-    discussion
+    .heart 23
+    =fa_icon "heart-o", style: 'color: red;'
+    =fa_icon "heart", style: 'color: red;'
+
+    .responses 5 response
+    %h6=protip.updated_at.strftime("%B")
+    .user mdeiters
+    %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/24.jpg', style: 'border-radius: 50%' }
+    .team Heroku
+    %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/vladabazhan/24.jpg', style: 'border-radius: 50%' }

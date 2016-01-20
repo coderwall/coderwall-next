@@ -1,5 +1,5 @@
 # encoding: utf-8
-
+require 'github/markup'
 #coderwall flavored markdown
 module CFM
   class Markdown
@@ -17,6 +17,8 @@ module CFM
         redcarpet = Redcarpet::Markdown.new(renderer, extensions)
         html      = redcarpet.render(render_cfm(text))
         html
+
+        # GitHub::Markup::Markdown.new.render(text)
       end
 
       USERNAME_BLACKLIST = %w(include)

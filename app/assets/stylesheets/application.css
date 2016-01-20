@@ -13,11 +13,52 @@
  *= require_tree .
  *= require_self
  *= require "basscss/basscss"
- *= require fonts
+ *= require font-awesome
+
  */
 
-nav{
+
+
+
+ body{
+   color: #333 !important;
+   background-color: #fff !important;
+ }
+
+.boom {
+  /*background-color: #5AA3E8;*/
+
+}
+footer {
+  background-color: #303544 ;
+  color: #fff;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+header nav{
   background-color: #FAFAFA;
+}
+
+
+.content {
+  color: #4d5957 !important;
+  font-family: Georgia,Times,Times New Roman,serif !important;
+}
+
+.protip h4 {
+  font-size: 1.6em;
+  line-height: 1.6em;
+}
+
+.protip h6 {
+  color: #333;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+  font-size: .68em;
+  line-height: .68em;
+  text-transform: uppercase;
 }
 
 ::selection {

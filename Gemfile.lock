@@ -62,6 +62,9 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.6.0)
+    font-awesome-rails (4.5.0.0)
+      railties (>= 3.2, < 5.0)
+    github-markup (1.4.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     haml (4.0.7)
@@ -199,6 +202,8 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
+  font-awesome-rails
+  github-markup
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails

@@ -1,3 +1,99 @@
+html {
+    font-family: "soleil", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+    color: #333;
+    font-family: "soleil", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    margin: 0 0 20px
+}
+
+h1,
+.h1 {
+    font-size: 2.82353em;
+    line-height: 1.05882em
+}
+
+.h1 {
+    font-family: "capitolium-news-2", Georgia, Times, Times New Roman, serif;
+    font-style: italic;
+    font-weight: 900;
+    text-transform: lowercase
+}
+
+@media screen and (min-width: 840px) {
+    h1,
+    .h1 {
+        font-size: 3.52941em
+    }
+    .tagpage h1,
+    .tagpage .h1 {
+        font-size: 4.23529em;
+        margin: 80px 0 40px
+    }
+}
+@media screen and (min-width: 1200px) {
+    h1,
+    .h1 {
+        font-size: 4.23529em
+    }
+}
+h2,
+.h2 {
+    font-size: 1.76471em;
+    line-height: 1.17647em
+}
+
+h3,
+.h3 {
+    font-size: 1.64706em;
+    line-height: 1.17647em
+}
+h4,
+.h4 {
+    font-size: 1.17647em;
+    line-height: 1.41176em
+}
+@media screen and (min-width: 840px) {
+    h4,
+    .h4 {
+        font-size: 1.41176em
+    }
+}
+h5,
+.h5,
+h6,
+.h6 {
+    font-size: 0.82353em;
+    line-height: 1.05882em;
+    text-transform: uppercase;
+    color: #C4DAD7;
+}
+
+a {
+    color: #5AA3E8;
+    text-decoration: none;
+    -webkit-transition: all 0.35s ease;
+    -moz-transition: all 0.35s ease;
+    -o-transition: all 0.35s ease;
+    transition: all 0.35s ease
+}
+a:hover {
+    color: #9dc8f1
+}
+
+
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /*! normalize.css v3.0.0 | HTML5 Display Definitions | MIT License | git.io/normalize */
 

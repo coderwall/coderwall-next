@@ -8,5 +8,10 @@ This tip is filed under
 ="Published last #{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
 -# user
 -# avatar
+-# views / awards
+-# share on twitter
+-# comments - author/avatar/like/comment
+-# like article
 
-=raw CFM::Markdown.render(@protip.body)
+
+.content=raw CFM::Markdown.render(@protip.body)

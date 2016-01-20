@@ -1,5 +1,28 @@
+%nav.clearfix
+  .sm-col
+    %a.py2{:href => "/"} Popular
+    %a.py2{:href => "/"} Trending
+    %a.py2{:href => "/"} New
+  .sm-col-right.my1
+    %a.py1.btn.btn-primary{:href => "/"} Share Protip
+
 %section.continer
-  .clearfix.mxn2
-    .sm-col.sm-col-11.md-col-12.px2
+  .clearfix.mxn2.px2
+    .sm-col.sm-col-7.md-col-8
       =render @protips
       %a{:href => "#"} Read more
+    -# .sm-col.sm-col-4.md-col-3.sm-show.boom
+    -#   %h3.h4 Categories
+    -#   %ul.list-reset
+    -#     %li
+    -#       %a{:href => "#"} Bacon
+    -#     %li
+    -#       %a{:href => "#"} Bratwurst
+    -#     %li
+    -#       %a{:href => "#"} Andouille
+    -#     %li
+    -#       %a{:href => "#"} Pork Loin
+    -#     %li
+    -#       %a{:href => "#"} Corned Beef
+    -#     %li
+    -#       %a{:href => "#"} Pastrami
