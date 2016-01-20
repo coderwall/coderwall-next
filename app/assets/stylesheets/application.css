@@ -12,6 +12,23 @@
  *
  *= require_tree .
  *= require_self
+ *= require "basscss/basscss"
+ *= require fonts
  */
 
- = require basscss/basscss;
+nav{
+  background-color: #FAFAFA;
+}
+
+::selection {
+  background: #fffc00;
+  color: #5AA3E8;
+}
+
+.active-text {
+  color: #5AA3E8 !important;
+}
+
+.light-text {
+  color: #869D9A !important;
+}

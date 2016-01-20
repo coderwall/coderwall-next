@@ -34,13 +34,15 @@ gem 'puma'
 gem "haml-rails"
 gem 'rails_12factor'
 gem 'basscss-rails'
-# gem 'activerecord-postgresql-citext'
+gem 'redcarpet', ">=3.3.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'rspec-rails'
   gem 'capybara'
+
+  gem 'sequel'
 
 end
 

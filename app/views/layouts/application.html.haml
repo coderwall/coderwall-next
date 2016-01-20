@@ -2,9 +2,35 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title CoderwallNext
+    %title Coderwall : A community space for open source developers.
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    .flex.flex-column{:style => "min-height:100vh"}
+      %header
+        %nav.clearfix.p2
+          .sm-col
+            %a.py2.btn{:href => "/"} Coderwall
+          .sm-col-right.my1
+            %a.py2.btn.active-text{:href => "/"} Log In
+            %a.py1.btn.btn-primary{:href => "/"} Sign Up
+      %main.flex-auto.px3.mt2
+        = yield
+      %footer
+        %nav.clearfix
+          .sm-col.mt1.mb1
+            %a.py2.btn{:href => "/"} Follow Coderwall
+          .sm-col-right.mt1.mb1
+            %p.mr2.mt2.light-text="Copyright 2012-#{Time.now.strftime('%Y')}"
+
+
+    -# %nav.clearfix.p2
+    -#   .sm-col
+    -#     %a.py2.btn{:href => "/"} Coderwall
+    -#   .sm-col-right.my1
+    -#     %a.py2.btn.active-text{:href => "/"} Log In
+    -#     %a.py1.btn.btn-primary{:href => "/"} Sign Up
+    -# .container.px2
+    -#   .clearfix
+    -#     = yield

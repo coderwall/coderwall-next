@@ -1,1 +1,12 @@
-%h1 HI there 
+%h1=@protip.title
+This tip is filed under
+%h6 RUBY
+,
+%h6 RAILS
+, &
+%h6 OSX
+="Published last #{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
+-# user
+-# avatar
+
+=raw CFM::Markdown.render(@protip.body)
