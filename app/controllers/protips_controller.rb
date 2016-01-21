@@ -1,4 +1,5 @@
 class ProtipsController < ApplicationController
+  # before_action :require_login, only: :index
 
   def index
     @protips = Protip.order("score DESC").limit(30)

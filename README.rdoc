@@ -1,6 +1,6 @@
 == README
 
-* Protip list (trending / popular / new / user / tag)
+* Protip list (trending / popular / new / saved / user / tag)
 * Protip view
 * Profile view
 * Team view

@@ -37,6 +37,8 @@ gem 'basscss-rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'github-markup'
 gem "font-awesome-rails"
+gem 'clearance'
+gem 'kaminari'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

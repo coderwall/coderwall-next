@@ -39,6 +39,7 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     basscss-rails (2.0.1)
+    bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
@@ -50,6 +51,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    clearance (1.12.1)
+      bcrypt
+      email_validator (~> 1.4)
+      rails (>= 3.1)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -60,6 +65,8 @@ GEM
     concurrent-ruby (1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.6.0)
     font-awesome-rails (4.5.0.0)
@@ -89,6 +96,9 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -201,12 +211,14 @@ DEPENDENCIES
   basscss-rails
   byebug
   capybara
+  clearance
   coffee-rails (~> 4.1.0)
   font-awesome-rails
   github-markup
   haml-rails
   jbuilder (~> 2.0)
   jquery-rails
+  kaminari
   pg (~> 0.15)
   puma
   rails (= 4.2.5)
