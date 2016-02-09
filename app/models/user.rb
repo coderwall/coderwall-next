@@ -1,8 +1,12 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
-  has_many :protips, dependent: :destroy
+  mount_uploader :avatar, AvatarUploader
+
+  has_many :likes,    dependent: :destroy
+  has_many :protips,  dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :badges,   dependent: :destroy
 
 
   RESERVED = %w{
@@ -33,5 +37,20 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username
   validates_presence_of :email
+
+
+  def to_param
+    username.downcase
+  end
+
+  def display_name
+    name.presence || username
+  end
+
+  def color
+    # 303544
+    # ActiveSupport::SecureRandom.hex(3)
+    @color ||= ("#%06x" % (rand * 0xffffff))
+  end
 
 end

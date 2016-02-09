@@ -38,7 +38,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.4.0)
     arel (6.0.3)
-    basscss-rails (2.0.1)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -51,6 +50,13 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+    carrierwave_backgrounder (0.4.2)
+      carrierwave (~> 0.5)
     clearance (1.12.1)
       bcrypt
       email_validator (~> 1.4)
@@ -104,6 +110,7 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.99)
+    mini_magick (4.4.0)
     mini_portile2 (2.0.0)
     minitest (5.8.3)
     multi_json (1.11.2)
@@ -208,9 +215,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  basscss-rails
   byebug
   capybara
+  carrierwave
+  carrierwave_backgrounder
   clearance
   coffee-rails (~> 4.1.0)
   font-awesome-rails
@@ -219,6 +227,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  mini_magick
   pg (~> 0.15)
   puma
   rails (= 4.2.5)

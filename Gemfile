@@ -33,12 +33,14 @@ gem 'puma'
 # gem 'capistrano-rails', group: :development
 gem "haml-rails"
 gem 'rails_12factor'
-gem 'basscss-rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'github-markup'
 gem "font-awesome-rails"
 gem 'clearance'
 gem 'kaminari'
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'carrierwave_backgrounder'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

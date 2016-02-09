@@ -1,6 +1,7 @@
 == README
 
 * Protip list (trending / popular / new / saved / user / tag)
+* Protip tags
 * Protip view
 * Profile view
 * Team view
@@ -10,3 +11,5 @@
 * Migrate tags
 * Sign In / Settings
 * 404 & 500 Page
+
+* Generate a unique avatar color for background when missing

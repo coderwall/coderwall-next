@@ -1,15 +1,15 @@
-.protip
-  %h4
+.protip.clearfix.mb2
+  %a.left.mr3{href: '/'}
+    =fa_icon("heart-o")
+    .heart.center.mt0=rand(44)
+    -# =fa_icon "heart-o", style: 'color: red;'
+    -# =fa_icon "heart", style: 'color: red;'
+  .overflow-hidden
     %a.black{:href => protip_path(protip)}
-      =protip.title
-  .details
-    .heart 23
-    =fa_icon "heart-o", style: 'color: red;'
-    =fa_icon "heart", style: 'color: red;'
-
-    .responses 5 response
-    %h6=protip.updated_at.strftime("%B")
-    .user=protip.user.try(:username)
-    %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/24.jpg', style: 'border-radius: 50%' }
-    .team Heroku
-    %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/vladabazhan/24.jpg', style: 'border-radius: 50%' }
+      %h5=protip.title
+    .details.mt0.mb0
+      ="5 response #{protip.updated_at.strftime('%B')}"
+      =link_to protip.user.try(:username), profile_path(protip.user)
+      -# %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/fffabs/24.jpg', style: 'border-radius: 50%' }
+      -# Heroku
+      -# %img{ src: 'https://s3.amazonaws.com/uifaces/faces/twitter/vladabazhan/24.jpg', style: 'border-radius: 50%' }

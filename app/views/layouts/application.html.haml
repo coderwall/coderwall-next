@@ -2,19 +2,19 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Coderwall : A community space for open source developers.
+    %title=yield(:title)    
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    = csrf_meta_tags        
+    = csrf_meta_tags
   %body
     .flex.flex-column{:style => "min-height:100vh"}
       %header
         %nav.clearfix.p2
           .sm-col
-            %a.py2.btn.logo{:href => "/"} Coderwall
+            %a.py2.btn.logo{:href => root_url} Coderwall
           .sm-col-right.my1
-            %a.py2.btn.active-text{:href => "/"} Log In
-            %a.py1.btn.btn-primary{:href => "/"} Sign Up
+            %a.py2.btn.active-text{:href => sign_in_path} Log In
+            %a.py1.btn.btn-primary{:href => sign_up_path} Sign Up
       %main.flex-auto.px3.mt2
         = yield
       %footer

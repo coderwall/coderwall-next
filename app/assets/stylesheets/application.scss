@@ -10,22 +10,27 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require "basscss/basscss"
  *= require font-awesome
  *= require_tree .
  *= require_self
  */
 
+$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-family-serif:      Georgia, "Times New Roman", Times, serif;
+$font-family-monospace:  "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+$font-family-base:       $font-family-sans-serif;
 
- body{
+@import "https://npmcdn.com/basscss@8.0.0-beta5/css/basscss.min.css";
+
+body{
    color: #333 !important;
    background-color: #fff !important;
  }
 
-.boom {
-  /*background-color: #5AA3E8;*/
+ .btn-primary {
+   font-family: 'Roboto';
+ }
 
-}
 footer {
   background-color: #303544 ;
   color: #fff;
@@ -39,20 +44,41 @@ header nav{
   background-color: #FAFAFA;
 }
 
-
 .content {
   color: #4d5957 !important;
   font-family: Georgia,Times,Times New Roman,serif !important;
 }
 
-.protip h4 {
-  font-size: 1.6em;
-  line-height: 1.6em;
+.protip h5 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 18px;
+  // line-height: 1.6em;
+
+}
+
+.heart {
+  font-size: 12px;
+}
+
+.protip i.fa{
+  color: #fa2f26;
+  font-size: 14px;
+  top: -5px;
+}
+
+.details  {
+  font-size: 14px;
+  a {
+    color: black;
+    text-decoration: underline !important;
+  }
 }
 
 .protip h6 {
   color: #333;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+  // font-family: 'Muli', sans-serif !important;
+  // font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
   font-size: .68em;
   line-height: .68em;
   text-transform: uppercase;
@@ -64,7 +90,9 @@ header nav{
 }
 
 .active-text {
-  color: #5AA3E8 !important;
+  // color: #5AA3E8 !important;
+  color: #fa2f26 !important;
+
 }
 
 .light-text {

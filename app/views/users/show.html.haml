@@ -1,0 +1,31 @@
+=content_for :title do
+  ="#{@user.display_name}'s profile : @#{@user.username}"
+.col-8.mt2
+  .clearfix
+    .left.avatar{style: "background-color: #{@user.color}; width: 70px; height: 70px"}
+    .overflow-hidden
+      %h1.ml2.mt0.mb0=@user.display_name
+      %h4.ml2.mt1
+        ="#{@user.title} at Assembly" if @user.title
+        ="&middot;".html_safe if @user.title && @user.location
+        =@user.location
+        ="&middot;".html_safe
+        =link_to fa_icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/mdeiters"
+        &middot;
+        =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "http://twitter.com/mdeiters"
+
+  .clearfix.p0
+    %p.italic.mt3.center.p0
+      =@user.about
+      ruby &middot; rails &middot; jquery
+
+  %h4== #{@user.badges.size} achivements
+  =render @user.badges
+  %h4== #{@user.protips.size} protips
+  -@user.protips.each do |protip|
+    .protip
+      .upvote
+        =fa_icon "heart", style: 'color: red;'
+        %span 23
+      %a.black{:href => protip_path(protip)}
+        =protip.title

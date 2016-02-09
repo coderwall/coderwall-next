@@ -2,7 +2,8 @@ class ProtipsController < ApplicationController
   # before_action :require_login, only: :index
 
   def index
-    @protips = Protip.order("score DESC").limit(30)
+    order_by = params[:order_by] || 'created_at'
+    @protips = Protip.includes(:user).order({order_by => :desc}).page params[:page]
   end
 
   def show

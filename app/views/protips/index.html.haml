@@ -1,8 +1,11 @@
+-content_for :title do
+  Coderwall : A community space for developers.
+
 %nav.clearfix
   .sm-col
-    %a.py2{:href => "/"} Popular
-    %a.py2{:href => "/"} Trending
-    %a.py2{:href => "/"} New
+    %a.py2{:href => popular_path} Popular
+    %a.py2{:href => trending_path} Trending
+    %a.py2{:href => fresh_path} New
   .sm-col-right.my1
     %a.py1.btn.btn-primary{:href => "/"} Share Protip
 
@@ -10,7 +13,9 @@
   .clearfix.mxn2.px2
     .sm-col.sm-col-7.md-col-8
       =render @protips
-      %a{:href => "#"} Read more
+      = link_to_previous_page @protips, 'Previous'
+      = link_to_next_page @protips, 'Next'
+
     -# .sm-col.sm-col-4.md-col-3.sm-show.boom
     -#   %h3.h4 Categories
     -#   %ul.list-reset
