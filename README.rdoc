@@ -1,5 +1,6 @@
 == README
 
+* add protip tags
 * Protip list (trending / popular / new / saved / user / tag)
 * Protip tags
 * Protip view

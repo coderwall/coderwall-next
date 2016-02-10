@@ -15,4 +15,8 @@ class Protip < ActiveRecord::Base
     created_at.strftime('%B')
   end
 
+  def tags
+    ['ruby', 'rails', 'python', 'docker', 'osx', 'linux'].sample(rand(6))
+  end
+
 end
