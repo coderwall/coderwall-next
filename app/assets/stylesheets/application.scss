@@ -1,100 +1,113 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require font-awesome
- *= require_tree .
- *= require_self
- */
+@import 'vars';
+@import 'fonts';
 
-$font-family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-family-serif:      Georgia, "Times New Roman", Times, serif;
-$font-family-monospace:  "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
-$font-family-base:       $font-family-sans-serif;
+$red: #fa2f26;
 
-@import "https://npmcdn.com/basscss@8.0.0-beta5/css/basscss.min.css";
+$font-family: 'Muli', sans-serif;
+// Helvetica, Arial, sans-serif;
+$button-background-color: $red;
+$body-background-color: #fff;
 
-body{
-   color: #333 !important;
-   background-color: #fff !important;
- }
 
- .btn-primary {
-   font-family: 'Roboto';
- }
+$body-font-size: 16px;
+$font-sm: 14px;
+.font-sm {
+  font-size: $font-sm;
+}
+$font-tiny: 12px;
+.font-tiny{
+  font-size: $font-tiny;
+}
+$h3: $body-font-size;
 
-footer {
-  background-color: #303544 ;
-  color: #fff;
+h3{
+  font-family: 'Muli', sans-serif !important;
+  font-weight: 400;
 }
 
-a {
-  text-decoration: none !important;
-}
+@import 'font-awesome';
+@import 'basscss';
 
-header nav{
-  background-color: #FAFAFA;
-}
+a.heart {
+  font-size: $font-sm;
+  color: red;
+  text-decoration: none;
 
-.content {
-  color: #4d5957 !important;
-  font-family: Georgia,Times,Times New Roman,serif !important;
-}
-
-.protip h5 {
-  margin: 0px;
-  padding: 0px;
-  font-size: 18px;
-  // line-height: 1.6em;
-
-}
-
-.heart {
-  font-size: 12px;
-}
-
-.protip i.fa{
-  color: #fa2f26;
-  font-size: 14px;
-  top: -5px;
-}
-
-.details  {
-  font-size: 14px;
-  a {
-    color: black;
-    text-decoration: underline !important;
+  i {
+    font-size: $font-sm;
   }
 }
 
-.protip h6 {
-  color: #333;
-  // font-family: 'Muli', sans-serif !important;
-  // font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
-  font-size: .68em;
-  line-height: .68em;
-  text-transform: uppercase;
+.protip {
+  a {
+    color: black;
+
+  }
 }
 
-::selection {
-  background: #fffc00;
-  color: #5AA3E8;
-}
-
-.active-text {
-  // color: #5AA3E8 !important;
-  color: #fa2f26 !important;
-
-}
-
-.light-text {
-  color: #869D9A !important;
-}
+//  .btn-primary {
+//    font-family: 'Roboto';
+//  }
+//
+// footer {
+//    background-color: #303544;
+//   color: #fff;
+// }
+// header nav{
+//   background-color: #FAFAFA;
+// }
+//
+// .content {
+//   color: #4d5957 !important;
+//   font-family: Georgia,Times,Times New Roman,serif !important;
+// }
+//
+// .protip h5 {
+//   margin: 0px;
+//   padding: 0px;
+//   font-size: 18px;
+//   // line-height: 1.6em;
+//
+// }
+//
+// .heart {
+//   font-size: 12px;
+// }
+//
+// .protip i.fa{
+//   color: #fa2f26;
+//   font-size: 14px;
+//   top: -5px;
+// }
+//
+// .details  {
+//   font-size: 14px;
+//   a {
+//     color: black;
+//     text-decoration: underline !important;
+//   }
+// }
+//
+// .protip h6 {
+//   color: #333;
+//   // font-family: 'Muli', sans-serif !important;
+//   // font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
+//   font-size: .68em;
+//   line-height: .68em;
+//   text-transform: uppercase;
+// }
+//
+// ::selection {
+//   background: #fffc00;
+//   color: #5AA3E8;
+// }
+//
+// .active-text {
+//   // color: #5AA3E8 !important;
+//   color: #fa2f26 !important;
+//
+// }
+//
+// .light-text {
+//   color: #869D9A !important;
+// }

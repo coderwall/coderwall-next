@@ -2,23 +2,27 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title=yield(:title)    
+    %title=yield(:title)
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
     .flex.flex-column{:style => "min-height:100vh"}
-      %header
-        %nav.clearfix.p2
-          .sm-col
-            %a.py2.btn.logo{:href => root_url} Coderwall
-          .sm-col-right.my1
-            %a.py2.btn.active-text{:href => sign_in_path} Log In
-            %a.py1.btn.btn-primary{:href => sign_up_path} Sign Up
-      %main.flex-auto.px3.mt2
-        = yield
-      %footer
-        %nav.clearfix
+      %header.border
+        %nav.clearfix.px2
+          .sm-col.py2
+            %a.btn.logo{:href => root_url} Coderwall
+            %a.mr2{:href => popular_path} Popular
+            %a.mr2{:href => trending_path} Trending
+            %a{:href => fresh_path} New
+
+          .sm-col-right.py2
+            %a.btn.active-text{:href => sign_in_path} Log In
+            %a.btn.btn-primary{:href => sign_up_path} Sign Up
+      %main.flex-auto.px3.py3
+        =yield
+      %footer.border
+        %nav.clearfix.px2
           .sm-col.mt1.mb1
             %a.py2.btn{:href => "/"} Follow Coderwall
           .sm-col-right.mt1.mb1
