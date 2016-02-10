@@ -3,32 +3,34 @@
 
 $red: #fa2f26;
 
-$font-family: 'Muli', sans-serif;
-// Helvetica, Arial, sans-serif;
+$font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $button-background-color: $red;
-$body-background-color: #fff;
+$body-background-color: rgb(250, 250, 250);
 
+$body-font-size: 14px;
+$font-sm: 12px;
+$font-tiny: 10px;
 
-$body-font-size: 16px;
-$font-sm: 14px;
 .font-sm {
   font-size: $font-sm;
 }
-$font-tiny: 12px;
+
 .font-tiny{
   font-size: $font-tiny;
 }
-$h3: $body-font-size;
+
+$h3: 18px;
 
 h3{
-  font-family: 'Muli', sans-serif !important;
-  font-weight: 400;
+
+  font-weight: 500 !important;
 }
 
 @import 'font-awesome';
 @import 'basscss';
 
 a.heart {
+  padding-top: 4px;
   font-size: $font-sm;
   color: red;
   text-decoration: none;
@@ -38,7 +40,12 @@ a.heart {
   }
 }
 
+header {
+  background-color: #fff;
+}
+
 .protip {
+  background-color: #fff;
   a {
     color: black;
 
