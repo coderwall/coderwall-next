@@ -11,4 +11,8 @@ class Protip < ActiveRecord::Base
     self.public_id
   end
 
+  def display_date
+    created_at.strftime('%B')
+  end
+
 end

@@ -1,34 +1,14 @@
 -content_for :title do
   Coderwall : A community space for developers.
 
--# %nav.clearfix
--#   .sm-col
--#     %a.py2{:href => popular_path} Popular
--#     %a.py2{:href => trending_path} Trending
--#     %a.py2{:href => fresh_path} New
--#   .sm-col-right.my1
--#     %a.py1.btn.btn-primary{:href => "/"} Share Protip
-
 .continer
   .clearfix
     .sm-col.sm-col.sm-col-12.md-col-8.pr2
       =render @protips
-      = link_to_previous_page @protips, 'Previous'
-      = link_to_next_page @protips, 'Next'
+      .clearfix
+        .btn.left=  link_to_previous_page @protips, 'Previous'
+        .btn.right= link_to_next_page @protips, 'Next'
     .md-col.md-col-4.md-show.px2
-      =image_tag 'http://lorempixel.com/400/200/'
-    -# .sm-col.sm-col-4.md-col-3.sm-show.boom
-    -#   %h3.h4 Categories
-    -#   %ul.list-reset
-    -#     %li
-    -#       %a{:href => "#"} Bacon
-    -#     %li
-    -#       %a{:href => "#"} Bratwurst
-    -#     %li
-    -#       %a{:href => "#"} Andouille
-    -#     %li
-    -#       %a{:href => "#"} Pork Loin
-    -#     %li
-    -#       %a{:href => "#"} Corned Beef
-    -#     %li
-    -#       %a{:href => "#"} Pastrami
+      %img{src: image_path('announcing-next.png')}
+      -# popular ruby tips
+      -# popular xx tips

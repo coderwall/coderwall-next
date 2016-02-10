@@ -1,17 +1,21 @@
-%h1=@protip.title
-This tip is filed under
-%h6 RUBY
-,
-%h6 RAILS
-, &
-%h6 OSX
-="Published last #{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
--# user
--# avatar
--# views / awards
--# share on twitter
--# comments - author/avatar/like/comment
--# like article
-
-
-.content=raw CFM::Markdown.render(@protip.body)
+.continer
+  .clearfix
+    .md-col.md-col-2.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .card.p1
+        %h1.mt0.center=@protip.title
+        .mx-auto This tip is filed under
+        %h6 RUBY
+        ,
+        %h6 RAILS
+        , &
+        %h6 OSX
+        ="Published last #{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
+        -# user
+        -# avatar
+        -# views / awards
+        -# share on twitter
+        -# comments - author/avatar/like/comment
+        -# like article
+        .content=raw CFM::Markdown.render(@protip.body)
+    .md-col.md-col-2.md-show &nbsp;

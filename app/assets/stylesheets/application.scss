@@ -1,7 +1,12 @@
 @import 'vars';
 @import 'fonts';
 
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
 $red: #fa2f26;
+$blue: #5AA3E8;
 
 $font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $button-background-color: $red;
@@ -10,6 +15,19 @@ $body-background-color: rgb(250, 250, 250);
 $body-font-size: 14px;
 $font-sm: 12px;
 $font-tiny: 10px;
+
+$highlight-color: $red;
+.highlight{
+  display: inline;
+  color: $highlight-color !important;
+  a {
+    color: $highlight-color !important;
+  }
+}
+
+.diminish{
+  color: rgba(0,0,0,0.5) !important;
+}
 
 .font-sm {
   font-size: $font-sm;
@@ -44,11 +62,10 @@ header {
   background-color: #fff;
 }
 
-.protip {
+.card {
   background-color: #fff;
   a {
     color: black;
-
   }
 }
 
