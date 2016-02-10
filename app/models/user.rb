@@ -47,6 +47,14 @@ class User < ActiveRecord::Base
     name.presence || username
   end
 
+  def karma
+    rand(100)
+  end
+
+  def skills
+    ['ruby', 'rails', 'python', 'docker', 'osx', 'linux'].sample(rand(6))
+  end
+
   def color
     # 303544
     # ActiveSupport::SecureRandom.hex(3)

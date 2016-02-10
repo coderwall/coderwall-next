@@ -15,6 +15,14 @@ class Protip < ActiveRecord::Base
     created_at.strftime('%B')
   end
 
+  def heart_count
+    rand(99)
+  end
+
+  def view_count
+    rand(1000)
+  end
+
   def tags
     ['ruby', 'rails', 'python', 'docker', 'osx', 'linux'].sample(rand(6))
   end

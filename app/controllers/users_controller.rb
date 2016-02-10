@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
 
   def show
-    # @user = User.order("random()").first 
-    @user = User.find_by_username(params[:username])
+    if params[:username] == 'random'
+      @user = User.order("random()").first
+    else
+      @user = User.find_by_username(params[:username])
+    end
   end
 
 end

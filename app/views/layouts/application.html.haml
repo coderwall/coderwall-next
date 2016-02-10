@@ -22,19 +22,12 @@
       %main.flex-auto.px3.py3
         =yield
       %footer.border-top
-        %nav.clearfix.px2
-          .sm-col.mt1.mb1
-            %a.py2.btn{:href => "/"} Follow Coderwall
-          .sm-col-right.mt1.mb1
-            %p.mr2.mt2.light-text="Copyright 2012-#{Time.now.strftime('%Y')}"
-
-
-    -# %nav.clearfix.p2
-    -#   .sm-col
-    -#     %a.py2.btn{:href => "/"} Coderwall
-    -#   .sm-col-right.my1
-    -#     %a.py2.btn.active-text{:href => "/"} Log In
-    -#     %a.py1.btn.btn-primary{:href => "/"} Sign Up
-    -# .container.px2
-    -#   .clearfix
-    -#     = yield
+        %nav.clearfix.px2.mt1
+          .sm-col.py2
+            %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}
+              Follow Coderwall
+              =fa_icon("twitter", class: "fa-1x")
+          .sm-col-right.py2
+            %a.inline-block.ml2.mr2{href: '/'} Contact
+            %a.inline-block.mr2{href: '/'} Terms
+            %p.inline-block.diminish.inline="Copyright 2012-#{Time.now.strftime('%Y')}"

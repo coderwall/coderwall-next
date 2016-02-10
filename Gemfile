@@ -34,6 +34,8 @@ gem 'puma'
 gem "haml-rails"
 gem 'rails_12factor'
 gem 'redcarpet', ">=3.3.4"
+gem 'kramdown'
+gem 'coderay'
 gem 'github-markup'
 gem "font-awesome-rails"
 gem 'clearance'

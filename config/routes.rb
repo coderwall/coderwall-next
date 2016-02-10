@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   resources :protips
   resources :team
 
-  get '/:username' => 'users#show', as: :profile
+  get '/:username'         => 'users#show', as: :profile
+  get '/:username/protips' => 'users#show', as: :profile_protips, protips: true
   resources :users, :only => [:index, :new, :create, :update, :destroy]
 
 end

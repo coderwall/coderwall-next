@@ -3,11 +3,11 @@
     .center.highlight=fa_icon("heart-o")
     .center.font-tiny.diminish=rand(44)
   .overflow-hidden
-    %a{:href => protip_path(protip)}
-      %h3.mt0.mb0=protip.title
-    .font-sm.diminish
+    %h3.mt0.mb0
+      %a{:href => protip_path(protip)}=protip.title
+    .font-sm.diminish.inline
       =protip.display_date
       &middot;
-      ="5 response"
+      =link_to "5 response", protip_path(protip)
       &middot;
-      =link_to protip.user.try(:username), profile_path(protip.user)
+    .font-sm.inline=link_to protip.user.try(:username), profile_path(protip.user)

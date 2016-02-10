@@ -1,3 +1,6 @@
+=content_for :title do
+  =@protip.title
+
 .continer
   .clearfix
     .md-col.md-col-2.md-show &nbsp;
@@ -6,20 +9,20 @@
         .left.mt1
           %a.heart.flat{href: '/'}
             .highlight.mr1=fa_icon("heart-o")
-            .diminish.inline=rand(44)
+            .diminish.inline=@protip.heart_count
         .right.pt0.mt0
           .diminish.inline.mr1
             =fa_icon("eye")
-            =rand(1000)
+            =@protip.view_count
           &middot;
           .diminish.inline.ml1.mr1="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
           &middot;
           .ml1.mr1.inline=link_to @protip.user.try(:username), profile_path(@protip.user)
-          .avatar=image_tag 'https://s3.amazonaws.com/uifaces/faces/twitter/felipenogs/24.jpg'
+          .avatar=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
         %h1.px2.mt4.center=@protip.title
         .center
           -@protip.tags.each do |tag|
-            %h6.inline=tag          
+            %h6.inline=tag
         .content.p2.mt3=raw CFM::Markdown.render(@protip.body)
     .md-col.md-col-2.md-show &nbsp;

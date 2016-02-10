@@ -7,7 +7,7 @@ html {
 
 $red: #fa2f26;
 $blue: #5AA3E8;
-
+$diminish-color: rgba(0,0,0,0.5) !important;
 $font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 $button-background-color: $red;
 $body-background-color: rgb(250, 250, 250);
@@ -19,7 +19,7 @@ $font-lg: 16px;
 $font-x-lg: 18px;
 
 $highlight-color: $red;
-.highlight{
+.highlight {
   display: inline;
   color: $highlight-color !important;
   a {
@@ -28,7 +28,13 @@ $highlight-color: $red;
 }
 
 .diminish{
-  color: rgba(0,0,0,0.5) !important;
+  color: $diminish-color;
+	a{
+		color: $diminish-color;
+		&:hover {
+			color: $diminish-color;
+		}
+	}
 }
 
 .font-sm {
@@ -39,10 +45,26 @@ $highlight-color: $red;
   font-size: $font-tiny;
 }
 
+.font-lg {
+	font-size: $font-lg;
+}
+
+.active {
+	border-bottom: solid 3px $blue;
+}
+
 $h3: 18px;
 
-h3{
+h1, h3 {
+	a{
+		color: black;
+		&:hover{
+				text-decoration: none !important;
+			}
+	}
+}
 
+h3 {
   font-weight: 500 !important;
 }
 
@@ -53,6 +75,7 @@ h6 {
 @import 'font-awesome';
 @import 'basscss';
 @import 'content';
+@import 'twilight_theme';
 
 a.heart {
   padding-top: 4px;
@@ -74,15 +97,17 @@ a.heart {
   }
 }
 
+a.no-hover {
+	&:hover{
+		text-decoration: none;
+	}
+}
 header {
   background-color: #fff;
 }
 
 .card {
   background-color: #fff;
-  a {
-    color: black;
-  }
 }
 
 .avatar {
@@ -94,70 +119,3 @@ header {
     height: 25px;
   }
 }
-
-//  .btn-primary {
-//    font-family: 'Roboto';
-//  }
-//
-// footer {
-//    background-color: #303544;
-//   color: #fff;
-// }
-// header nav{
-//   background-color: #FAFAFA;
-// }
-//
-// .content {
-//   color: #4d5957 !important;
-//   font-family: Georgia,Times,Times New Roman,serif !important;
-// }
-//
-// .protip h5 {
-//   margin: 0px;
-//   padding: 0px;
-//   font-size: 18px;
-//   // line-height: 1.6em;
-//
-// }
-//
-// .heart {
-//   font-size: 12px;
-// }
-//
-// .protip i.fa{
-//   color: #fa2f26;
-//   font-size: 14px;
-//   top: -5px;
-// }
-//
-// .details  {
-//   font-size: 14px;
-//   a {
-//     color: black;
-//     text-decoration: underline !important;
-//   }
-// }
-//
-// .protip h6 {
-//   color: #333;
-//   // font-family: 'Muli', sans-serif !important;
-//   // font-family: 'Helvetica Neue', Helvetica, sans-serif !important;
-//   font-size: .68em;
-//   line-height: .68em;
-//   text-transform: uppercase;
-// }
-//
-// ::selection {
-//   background: #fffc00;
-//   color: #5AA3E8;
-// }
-//
-// .active-text {
-//   // color: #5AA3E8 !important;
-//   color: #fa2f26 !important;
-//
-// }
-//
-// .light-text {
-//   color: #869D9A !important;
-// }

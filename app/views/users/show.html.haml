@@ -3,8 +3,20 @@
 
 .continer
   .clearfix
-    .sm-col.sm-col.sm-col-12.md-col-8.pr2
-      .card.p1
+    .md-col.md-col-2.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .clearfix.mt0.mb2
+        .right.pt0.mt0
+          .diminish.inline.mr1
+            =@user.karma
+            Karma
+          &middot;
+          .diminish.inline.ml1.mr1
+            ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
+          &middot;
+          .ml1.mr1.inline=link_to @user.try(:username), profile_path(@user)
+
+      .card.p3.mt1{style: "border-top:solid 5px #{@user.color}"}
         .clearfix
           .left.avatar{style: "background-color: #{@user.color}; width: 70px; height: 70px"}
           .overflow-hidden
@@ -16,22 +28,49 @@
               ="&middot;".html_safe
               =link_to fa_icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/mdeiters"
               &middot;
-              =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "http://twitter.com/mdeiters"
-        .clearfix.p0
-          %p.italic.mt3.center.p0
-            =@user.about
-            ruby &middot; rails &middot; jquery
+              =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/mdeiters"
 
-        %h4== #{@user.badges.size} achivements
-        =render @user.badges
-        %h4== #{@user.protips.size} protips
-        -@user.protips.each do |protip|
-          .protip
-            .upvote
-              =fa_icon "heart", style: 'color: red;'
-              %span 23
-            %a.black{:href => protip_path(protip)}
-              =protip.title
+        .clearfix.p0.mt2
+          %p
+            .content
+              =raw CFM::Markdown.render(@user.about)
+              -@user.skills.each do |tag|
+                =tag
 
-    .md-col.md-col-4.md-show.px2
-      %img{src: image_path('announcing-next.png')}
+        %nav.clearfix.mt2
+          %a.font-lg.py1.no-hover.mr3{href: profile_path(@user), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
+            ==#{@user.badges.size} Achivements
+          %a.font-lg.py1.no-hover{href: profile_protips_path(@user), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
+            ==#{@user.protips.size} Protips
+
+        -if show_badges?
+          .clearfix.mt1.py2.border-top
+            -if @user.badges.empty?
+              .clearfix.mt3.p4.center
+                .diminish=fa_icon('hand-peace-o', class: 'fa-3x')
+            -@user.badges.each do |badge|
+              .badge.clearfix.py2
+                .left.mr2=image_tag badge.path, width: 50, height: 50
+                .overflow-hidden
+                  %h6.mt0="Unlocked #{badge.name}"
+                  .mt0.diminish=badge.description
+        -else
+          .clearfix.mt1.py2.border-top
+            -if @user.protips.empty?
+              .clearfix.mt3.p4.center
+                .diminish=fa_icon('hand-peace-o', class: 'fa-3x')
+            -@user.protips.each do |protip|
+              .protip.clearfix.py2
+                .overflow-hidden
+                  %h6.mt0
+                    %a.black{:href => protip_path(protip)}=protip.title
+                  .mt0.diminish
+                    .font-tiny.inline=fa_icon('heart')
+                    =protip.heart_count
+                    .inline &middot;
+                    .font-sm.inline=fa_icon('eye')
+                    =protip.view_count
+                    .inline &middot;
+                    .inline
+                      -protip.tags.each do |tag|
+                        =tag

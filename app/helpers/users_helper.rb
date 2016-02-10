@@ -1,6 +1,19 @@
 module UsersHelper
 
+  def show_badges?
+    !params[:protips].present?
+  end
+
+  def show_badges_active
+    return 'active' if show_badges?
+  end
+
+  def show_protips_active
+    return 'active' unless show_badges?
+  end
+
   def avatar_url(user)
+    return 'https://s3.amazonaws.com/uifaces/faces/twitter/felipenogs/24.jpg'
     user.avatar.url
   end
 
