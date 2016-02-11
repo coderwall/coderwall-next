@@ -1,8 +1,17 @@
-#clearance.sign-up
-  %h2= t(".title")
-  = form_for @user do |form|
-    = render partial: '/users/form', object: form
-    .submit-field
-      = form.submit
-    .other-links
-      = link_to t(".sign_in"), sign_in_path
+%h2 Sign up to Coderwall
+%p Become a better programmer. Discover helpful protips, unlock achievements, and connect with other developers
+
+= form_for @user, class: 'sm-col-6' do |form|
+  = form.label :username
+  = form.text_field :username, type: 'text', class: 'block mb1 col-6 field'
+  = form.label :email
+  = form.text_field :email, type: 'email', class: 'block mb1 col-6 field'
+  = form.label :password
+  = form.password_field :password, class: 'block mb1 col-6 field'
+  %button.btn.btn-primary.mt1{type: 'submit'} Sign Up
+  .mt1.font-sm.diminish
+    Creating an account means you’re okay with Coderwall's
+    =link_to 'Terms of Service', tos_path
+.clearfix.mt3
+  Already have an account?
+  = link_to "Sign In", sign_in_path

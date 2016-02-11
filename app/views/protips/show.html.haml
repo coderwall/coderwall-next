@@ -17,7 +17,8 @@
           &middot;
           .diminish.inline.ml1.mr1="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
           &middot;
-          .ml1.mr1.inline=link_to @protip.user.try(:username), profile_path(@protip.user)
+          .ml1.mr1.inline
+            =link_to @protip.user.try(:username), profile_path(username: @protip.user.username)
           .avatar=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
         %h1.px2.mt4.center=@protip.title

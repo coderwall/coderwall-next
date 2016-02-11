@@ -40,10 +40,9 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :email
 
-
-  def to_param
-    username.downcase
-  end
+  # def to_param
+  #   username.downcase
+  # end
 
   def email_optional?
     true #added this hack so clereance doesn't do email validation while bulk loading

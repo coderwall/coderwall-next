@@ -1,13 +1,15 @@
-= form_for :session, url: session_path do |form|
-  .text-field
-    = form.label :email
-    = form.text_field :email, type: 'email'
-  .password-field
-    = form.label :password
-    = form.password_field :password
-  .submit-field
-    = form.submit
-  .other-links
-    - if Clearance.configuration.allow_sign_up?
-      = link_to t(".sign_up"), sign_up_path
-    = link_to t(".forgot_password"), new_password_path
+=form_for :session, url: session_path, class: 'sm-col-6' do |form|
+  .mb2.sm-col-6.font-sm.diminish
+    NOTE: If you previously signed in using your Twitter or GitHub account, you'll now need to
+    = link_to "reset your password", new_password_path
+    to get a new first time password to further access your account.
+  = form.label :email
+  = form.text_field :email, type: 'email', class: 'block mb1 col-6 field'
+  = form.label :password
+  = form.password_field :password, class: 'block mb1 col-6 field'
+  %button.btn.btn-primary.mt1{type: 'submit'} Sign In
+.clearfix.mt3
+  = link_to "I forgot my passowrd", new_password_path
+.clearfix.mt2
+  Don't have an account?
+  = link_to "Sign Up", sign_up_path

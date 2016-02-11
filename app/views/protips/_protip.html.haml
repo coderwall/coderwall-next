@@ -10,4 +10,4 @@
       &middot;
       =link_to "5 response", protip_path(protip)
       &middot;
-    .font-sm.inline=link_to protip.user.try(:username), profile_path(protip.user)
+    .font-sm.inline=link_to protip.user.try(:username), profile_path(username: protip.user)

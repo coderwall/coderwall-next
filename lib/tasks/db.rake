@@ -9,12 +9,14 @@ namespace :db do
     task :comments => :connect do
       Comment.delete_all
       Legacy[:comments].each do |row|
-        comment = Comment.new
-        comment.attributes.except(:comment).keys.each do |key|
-          comment[key] = row[key.to_sym]
+        if row[:comment].to_s.size >= 2
+          comment = Comment.new
+          comment.attributes.except(:comment).keys.each do |key|
+            comment[key] = row[key.to_sym]
+          end
+          comment.body = row[:comment]
+          comment.save!
         end
-        comment.body = row[:comment]
-        comment.save!
       end
     end
 

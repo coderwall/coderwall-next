@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title=yield(:title)
+    %title=yield(:title)    
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -12,11 +12,11 @@
         %nav.clearfix.px2
           .sm-col.py2
             %a.btn.logo{:href => root_url} Coderwall
-            %a.mr2{:href => popular_path} Popular
-            %a.mr2{:href => trending_path} Trending
-            %a{:href => fresh_path} Fresh
+            %a.mr2{:href => popular_path, class: hide_on_auth} Popular
+            %a.mr2{:href => trending_path, class: hide_on_auth} Trending
+            %a{:href => fresh_path, class: hide_on_auth} Fresh
 
-          .sm-col-right.py2
+          .sm-col-right.py2{class: hide_on_auth}
             %a.btn.active-text{:href => sign_in_path} Log In
             %a.btn.btn-primary{:href => sign_up_path} Sign Up
       %main.flex-auto.px3.py3
@@ -28,6 +28,8 @@
               Follow Coderwall
               =fa_icon("twitter", class: "fa-1x")
           .sm-col-right.py2
-            %a.inline-block.ml2.mr2{href: '/'} Contact
-            %a.inline-block.mr2{href: '/'} Terms
+            %a.inline-block.ml2.mr2{href: 'mailto:support@coderwall.com'}
+              Contact
+            %a.inline-block.mr2{href: privacy_path} Privacy
+            %a.inline-block.mr2{href: tos_path} Terms
             %p.inline-block.diminish.inline="Copyright 2012-#{Time.now.strftime('%Y')}"

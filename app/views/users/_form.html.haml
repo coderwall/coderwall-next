@@ -1,6 +1,6 @@
-.text-field
-  = form.label :email
-  = form.text_field :email, type: 'email'
-.password-field
-  = form.label :password
-  = form.password_field :password
+= form.label :username
+= form.text_field :username, type: 'text', class: 'block mb1 col-6 field'
+= form.label :email
+= form.text_field :email, type: 'email', class: 'block mb1 col-6 field'
+= form.label :password
+= form.password_field :password, class: 'block mb1 col-6 field'

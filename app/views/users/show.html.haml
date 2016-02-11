@@ -14,7 +14,7 @@
           .diminish.inline.ml1.mr1
             ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
           &middot;
-          .ml1.mr1.inline=link_to @user.try(:username), profile_path(@user)
+          .ml1.mr1.inline=link_to @user.try(:username), profile_path(username: @user.username)
 
       .card.p3.mt1{style: "border-top:solid 5px #{@user.color}"}
         .clearfix
@@ -39,9 +39,9 @@
               =tag
 
         %nav.clearfix.mt2
-          %a.font-lg.py1.no-hover.mr3{href: profile_path(@user), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
+          %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
             ==#{@user.badges.size} Achivements
-          %a.font-lg.py1.no-hover{href: profile_protips_path(@user), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
+          %a.font-lg.py1.no-hover{href: profile_protips_path(username: @user.username), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
             ==#{@user.protips.size} Protips
 
         -if show_badges?
@@ -67,10 +67,10 @@
                     %a.black{:href => protip_path(protip)}=protip.title
                   .mt0.diminish
                     .font-tiny.inline=fa_icon('heart')
-                    =protip.heart_count
+                    =protip.hearts_count
                     .inline &middot;
                     .font-sm.inline=fa_icon('eye')
-                    =protip.view_count
+                    =protip.views_count
                     .inline &middot;
                     .inline
                       -protip.tags.each do |tag|
