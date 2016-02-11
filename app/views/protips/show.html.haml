@@ -5,7 +5,7 @@
   .clearfix
     .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
-      .clearfix.mt0.mb2
+      .clearfix.mt0.mb1
         .left.mt1
           %a.heart.flat{href: '/'}
             .highlight.mr1=fa_icon("heart-o")
@@ -19,7 +19,7 @@
           &middot;
           .ml1.mr1.inline
             =link_to @protip.user.try(:username), profile_path(username: @protip.user.username)
-          .avatar=image_tag(avatar_url(@protip.user))
+          .avatar{style: "background-color: #{@protip.user.color};"}=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
         %h1.px2.mt4.center=@protip.title
         .center

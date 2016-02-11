@@ -13,8 +13,8 @@ module UsersHelper
   end
 
   def avatar_url(user)
-    return 'https://s3.amazonaws.com/uifaces/faces/twitter/felipenogs/24.jpg'
-    user.avatar.url
+    # return 'https://s3.amazonaws.com/uifaces/faces/twitter/felipenogs/24.jpg'
+    # user.avatar.url
   end
 
   # .avatar{style: "background-color: #303544; width: 50px; height: 50px"}

@@ -5,8 +5,8 @@
   .clearfix
     .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
-      .clearfix.mt0.mb2
-        .right.pt0.mt0
+      .clearfix.mt0.mb1
+        .right.mt1
           .diminish.inline.mr1
             =@user.karma
             Karma
@@ -16,19 +16,26 @@
           &middot;
           .ml1.mr1.inline=link_to @user.try(:username), profile_path(username: @user.username)
 
-      .card.p3.mt1{style: "border-top:solid 5px #{@user.color}"}
+      .card.p3{style: "border-top:solid 5px #{@user.color}"}
+        -if current_user == @user || current_user.try(:admin?)
+          .clearfix.mb3
+            %a.right.btn.btn.bg-green.white{href: edit_user_path(@user)}
+              Edit Profile
+
         .clearfix
-          .left.avatar{style: "background-color: #{@user.color}; width: 70px; height: 70px"}
+          .left.avatar.big{style: "background-color: #{@user.color};"}
           .overflow-hidden
             %h1.ml2.mt0.mb0=@user.display_name
             %h4.ml2.mt1
               =@user.display_title
               ="&middot;".html_safe if @user.title && @user.location
               =@user.location
-              ="&middot;".html_safe
-              =link_to fa_icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/mdeiters"
-              &middot;
-              =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/mdeiters"
+              -if @user.twitter.present?
+                &middot;
+                =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
+              -if @user.github.present?
+                &middot;
+                =link_to fa_icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
 
         .clearfix.p0.mt2
           %p
@@ -75,3 +82,5 @@
                     .inline
                       -protip.tags.each do |tag|
                         =tag
+
+    .sm-col.sm-col12.md-col.md-col-2 &nbsp;

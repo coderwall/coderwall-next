@@ -2,7 +2,7 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title=yield(:title)    
+    %title=yield(:title)
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -17,8 +17,13 @@
             %a{:href => fresh_path, class: hide_on_auth} Fresh
 
           .sm-col-right.py2{class: hide_on_auth}
-            %a.btn.active-text{:href => sign_in_path} Log In
-            %a.btn.btn-primary{:href => sign_up_path} Sign Up
+            -if signed_in?
+              %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
+                .mr1.inline=current_user.username
+                .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user))
+            -else
+              %a.btn.active-text{:href => sign_in_path} Log In
+              %a.btn.btn-primary{:href => sign_up_path} Sign Up
       %main.flex-auto.px3.py3
         =yield
       %footer.border-top
