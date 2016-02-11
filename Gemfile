@@ -5,6 +5,7 @@ ruby "2.2.0"
 gem 'rails', '4.2.5'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
+gem 'sequel'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -22,15 +23,11 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 gem 'puma'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 gem "haml-rails"
 gem 'rails_12factor'
 gem 'redcarpet', ">=3.3.4"
@@ -50,9 +47,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'capybara'
-
-  gem 'sequel'
-
+  gem 'letter_opener'
 end
 
 group :development do

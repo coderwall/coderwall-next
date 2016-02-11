@@ -109,6 +109,10 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kramdown (1.9.0)
+    launchy (2.4.3)
+      addressable (~> 2.3)
+    letter_opener (1.4.1)
+      launchy (~> 2.2)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -219,6 +223,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   byebug
   capybara
   carrierwave
@@ -234,6 +239,7 @@ DEPENDENCIES
   jquery-rails
   kaminari
   kramdown
+  letter_opener
   mini_magick
   pg (~> 0.15)
   puma

@@ -2,5 +2,6 @@
 Clearance.configure do |config|
   config.cookie_domain = '.coderall.com'
   config.httponly = false
+  config.routes = false
   config.mailer_sender = "support@coderwall.com"
 end
