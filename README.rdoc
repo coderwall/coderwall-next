@@ -1,16 +1,11 @@
 == README
 
-* add protip tags
-* Protip list (trending / popular / new / saved / user / tag)
-* Protip tags
-* Protip view
-* Profile view
-* Team view
-* Heart (and migration)
-* Counts
-* Comments (and migration)
-* Migrate tags
 * Sign In / Settings
 * 404 & 500 Page
-
-* Generate a unique avatar color for background when missing
+* Protip list (trending / popular / new / saved / user / tag)
+* Comments (and migration)
+* Heart (and migration)
+* Counts
+* Team view
+* Creating protips / comments
+* Editing profile

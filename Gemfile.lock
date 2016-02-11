@@ -78,6 +78,8 @@ GEM
     execjs (2.6.0)
     font-awesome-rails (4.5.0.0)
       railties (>= 3.2, < 5.0)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     github-markup (1.4.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -225,6 +227,7 @@ DEPENDENCIES
   coderay
   coffee-rails (~> 4.1.0)
   font-awesome-rails
+  friendly_id
   github-markup
   haml-rails
   jbuilder (~> 2.0)

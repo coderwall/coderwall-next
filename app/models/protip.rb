@@ -1,4 +1,6 @@
 class Protip < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :slug_format, :use => :slugged
   paginates_per 30
 
   belongs_to :user, autosave: true
@@ -6,6 +8,7 @@ class Protip < ActiveRecord::Base
   has_many :likes, as: :likable, dependent: :destroy
 
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
+
 
   def to_param
     self.public_id
@@ -15,16 +18,12 @@ class Protip < ActiveRecord::Base
     created_at.strftime('%B')
   end
 
-  def heart_count
-    rand(99)
+  def hearts_count
+    likes_count
   end
 
-  def view_count
-    rand(1000)
-  end
-
-  def tags
-    ['ruby', 'rails', 'python', 'docker', 'osx', 'linux'].sample(rand(6))
+  def slug_format
+    "#{title}"
   end
 
 end

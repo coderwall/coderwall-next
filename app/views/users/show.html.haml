@@ -22,7 +22,7 @@
           .overflow-hidden
             %h1.ml2.mt0.mb0=@user.display_name
             %h4.ml2.mt1
-              ="#{@user.title} at Assembly" if @user.title
+              =@user.display_title
               ="&middot;".html_safe if @user.title && @user.location
               =@user.location
               ="&middot;".html_safe
@@ -34,8 +34,9 @@
           %p
             .content
               =raw CFM::Markdown.render(@user.about)
-              -@user.skills.each do |tag|
-                =tag
+          .mt1
+            -@user.skills.each do |tag|
+              =tag
 
         %nav.clearfix.mt2
           %a.font-lg.py1.no-hover.mr3{href: profile_path(@user), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}

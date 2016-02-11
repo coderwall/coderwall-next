@@ -8,11 +8,17 @@ Rails.application.routes.draw do
   resources :badges
   resources :likes
   resources :comments
-  resources :protips
   resources :team
+
+  resources :protips, path: '/p' do
+    collection do
+      get '/:id/:slug' => 'protips#show', as: :slug, :constraints => { slug: /(?!.*?edit).*/ }
+    end    
+  end
 
   get '/:username'         => 'users#show', as: :profile
   get '/:username/protips' => 'users#show', as: :profile_protips, protips: true
+  get '/p/u/:username'     => 'users#show', to: redirect("/%{username}/protips", status: 302)
   resources :users, :only => [:index, :new, :create, :update, :destroy]
 
 end

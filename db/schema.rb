@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121013050) do
+ActiveRecord::Schema.define(version: 20160210222721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,9 +54,14 @@ ActiveRecord::Schema.define(version: 20160121013050) do
     t.float    "score"
     t.float    "boost_factor"
     t.datetime "featured_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "tags",         default: [],              array: true
+    t.integer  "likes_count",  default: 0
+    t.integer  "views_count",  default: 0
   end
+
+  add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
@@ -66,20 +71,36 @@ ActiveRecord::Schema.define(version: 20160121013050) do
     t.string   "country"
     t.string   "city"
     t.string   "state_name"
+    t.string   "company"
     t.text     "about"
+    t.integer  "team_id"
+    t.string   "api_key"
     t.boolean  "admin"
+    t.boolean  "receive_newsletter",                default: true
+    t.boolean  "receive_weekly_digest",             default: true
     t.integer  "login_count"
+    t.integer  "last_ip"
     t.datetime "banned_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "last_email_sent"
+    t.datetime "last_request_at"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.citext   "username"
     t.citext   "email"
-    t.string   "encrypted_password", limit: 128
-    t.string   "confirmation_token", limit: 128
-    t.string   "remember_token",     limit: 128
+    t.string   "encrypted_password",    limit: 128
+    t.string   "confirmation_token",    limit: 128
+    t.string   "remember_token",        limit: 128
+    t.string   "skills",                            default: [],                  array: true
+    t.string   "github_id"
+    t.string   "twitter_id"
+    t.string   "github"
+    t.string   "twitter"
+    t.string   "color",                             default: "#111"
+    t.integer  "karma",                             default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
 
 end

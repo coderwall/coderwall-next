@@ -9,11 +9,11 @@
         .left.mt1
           %a.heart.flat{href: '/'}
             .highlight.mr1=fa_icon("heart-o")
-            .diminish.inline=@protip.heart_count
+            .diminish.inline=@protip.hearts_count
         .right.pt0.mt0
           .diminish.inline.mr1
             =fa_icon("eye")
-            =@protip.view_count
+            =@protip.views_count
           &middot;
           .diminish.inline.ml1.mr1="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
           &middot;

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  before_create :generate_unique_color
+
   has_many :likes,    dependent: :destroy
   has_many :protips,  dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -43,22 +45,21 @@ class User < ActiveRecord::Base
     username.downcase
   end
 
+  def email_optional?
+    true #added this hack so clereance doesn't do email validation while bulk loading
+  end
+
   def display_name
     name.presence || username
   end
 
-  def karma
-    rand(100)
+  def display_title
+    "#{title} at Acme, Inc." if title
   end
 
-  def skills
-    ['ruby', 'rails', 'python', 'docker', 'osx', 'linux'].sample(rand(6))
-  end
-
-  def color
-    # 303544
+  def generate_unique_color
     # ActiveSupport::SecureRandom.hex(3)
-    @color ||= ("#%06x" % (rand * 0xffffff))
+    self.color = ("#%06x" % (rand * 0xffffff))
   end
 
 end
