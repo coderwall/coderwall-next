@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:edit, :update, :create]
 
   def show
     if params[:username] == 'random'

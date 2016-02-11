@@ -1,7 +1,26 @@
 =content_for :title do
-  =@protip.title
+  ==#{@protip.title} : #{@protip.public_id}
+
+-# - meta description: protip_summary
+-# - meta og: { description: protip_summary }
+-# - meta og: { image: users_image_path(@protip.user) }
+-#
+-# - if ENV['ENABLE_TWITTER_CARDS']
+-#   - meta twitter: { card: 'summary' }
+-#   - meta twitter: { site: '@coderwall' }
+-#   - meta twitter: { title: sanitize(@protip.title) }
+-#   - meta twitter: { url: protip_url(@protip) }
+-#   - meta twitter: { description: protip_summary }
+-#   - meta twitter: { image: @protip.featured_image }
+-#   - meta twitter: { creator: { id: @protip.author.twitter_id } }
+-#
+-# = content_for :head do
+-#   %link{ rel: 'canonical', href: slug_protips_url(id: @protip.public_id, slug: @protip.slug) }
+-# {itemscope: true, itemtype:meta_article_schema_url}
+-# {itemprop: :dateCreated, content: @protip.created_at}
 
 .continer
+  %meta
   .clearfix
     .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
@@ -15,7 +34,8 @@
             =fa_icon("eye")
             =@protip.views_count
           &middot;
-          .diminish.inline.ml1.mr1="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
+          %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}
+            ="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
           &middot;
           .ml1.mr1.inline
             =link_to @protip.user.try(:username), profile_path(username: @protip.user.username)

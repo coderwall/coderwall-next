@@ -1,9 +1,12 @@
+=content_for :title do
+  Reset your Coderwall password
+
 %h2 Reset your password
-%p To be emailed a link to reset your password, please enter the email address for your Coderwall account.
+%p Enter the email address for your Coderwall account to be emailed a link so you can reset your password.
 = form_for :password, url: passwords_path, class: 'sm-col-6' do |form|
   = form.label :email
   = form.text_field :email, type: 'email', class: 'block mb1 col-6 field'
   %button.btn.btn-primary.mt1{type: 'submit'} Reset password
 .clearfix.mt2
-  Oh you just remembered it?
+  You just remembered it? Nice!
   = link_to "Sign In", sign_in_path

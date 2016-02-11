@@ -1,5 +1,4 @@
 class ProtipsController < ApplicationController
-  # before_action :require_login, only: :index
 
   def index
     order_by = params[:order_by] || 'created_at'
@@ -7,6 +6,7 @@ class ProtipsController < ApplicationController
   end
 
   def show
+    return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.find_by_public_id!(params[:id])
 
     if params[:slug] != @protip.slug
