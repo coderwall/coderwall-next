@@ -19,8 +19,10 @@
       .card.p3{style: "border-top:solid 5px #{@user.color}"}
         -if current_user == @user || current_user.try(:admin?)
           .clearfix.mb3
-            %a.right.btn.btn.bg-green.white{href: edit_user_path(@user)}
-              Edit Profile
+            .right
+              =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
+              %a.ml1.btn.btn.bg-green.white{href: edit_user_path(@user)}
+                Edit Profile
 
         .clearfix
           .left.avatar.big{style: "background-color: #{@user.color};"}
