@@ -1,6 +1,6 @@
 == README
 
-* Sign In / Settings
+* Settings
 * 404 & 500 Page
 * Protip list (trending / popular / new / saved / user / tag)
 * Comments (and migration)
@@ -8,4 +8,3 @@
 * Counts
 * Team view
 * Creating protips / comments
-* Editing profile
