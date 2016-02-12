@@ -20,8 +20,8 @@
   hr {
     margin-bottom: $space-2;
     border: 0;
-    height: 5px;
-    background-color: #efefef;
+    height: 2px;
+    background-color: $border-color;
   }
 
   em {
@@ -34,19 +34,11 @@
     padding: $space-2;
 
     code{
-      // overflow: scroll;
-      // white-space:pre-line;
-      //white-space: nowrap;
     }
   }
 
   code {
     // white-space:nowrap;
-
-    // margin-top: $space-1;
-    // margin-bottom: 0px;
-    // padding-bottom: 0px;
-
     a {
       color: $black;
     }
@@ -63,7 +55,7 @@
   h1, h2, h3, h4 {
     margin-top: $space-1;
     margin-bottom: $space-2;
-    font-size: $font-x-lg;
+    font-size: $font-lg;
     a {
       color: $black;
     }
@@ -72,39 +64,8 @@
   blockquote {
     padding-left: $space-1;
     margin-bottom: $space-2;
-    // background-color: rgba(0,0,0,0.9);
-
     p {
       margin: 0;
     }
-  }
-
-  ol, ul {
-    margin-bottom: $space-2;
-    li {
-      list-style-position: inside;
-      padding-left: $space-2;
-      margin-bottom: $space-1;
-
-      li {
-
-      }
-
-      p {
-
-      }
-
-      code {
-
-      }
-    }
-  }
-
-  ul li {
-    list-style-type: disc;
-  }
-
-  ol li {
-    list-style-type: upper-roman;
   }
 }

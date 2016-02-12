@@ -5,14 +5,13 @@
 -# - meta og: { description: protip_summary }
 -# - meta og: { image: users_image_path(@protip.user) }
 -#
--# - if ENV['ENABLE_TWITTER_CARDS']
--#   - meta twitter: { card: 'summary' }
--#   - meta twitter: { site: '@coderwall' }
--#   - meta twitter: { title: sanitize(@protip.title) }
--#   - meta twitter: { url: protip_url(@protip) }
--#   - meta twitter: { description: protip_summary }
--#   - meta twitter: { image: @protip.featured_image }
--#   - meta twitter: { creator: { id: @protip.author.twitter_id } }
+-# - meta twitter: { card: 'summary' }
+-# - meta twitter: { site: '@coderwall' }
+-# - meta twitter: { title: sanitize(@protip.title) }
+-# - meta twitter: { url: protip_url(@protip) }
+-# - meta twitter: { description: protip_summary }
+-# - meta twitter: { image: @protip.featured_image }
+-# - meta twitter: { creator: { id: @protip.author.twitter_id } }
 -#
 -# = content_for :head do
 -#   %link{ rel: 'canonical', href: slug_protips_url(id: @protip.public_id, slug: @protip.slug) }
@@ -46,4 +45,8 @@
           -@protip.tags.each do |tag|
             %h6.inline=tag
         .content.p2.mt3=raw CFM::Markdown.render(@protip.body)
+      -if @protip.comments.present?
+        .clearfix.mt1.px2
+          %h4==#{@protip.comments.size} Responses
+          =render @protip.comments
     .md-col.md-col-2.md-show &nbsp;
