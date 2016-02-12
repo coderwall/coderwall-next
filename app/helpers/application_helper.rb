@@ -1,9 +1,11 @@
 module ApplicationHelper
 
   def hide_on_auth
-    if params[:controller] == 'clearance/sessions' ||
-       params[:controller] == 'clearance/users'    ||
-       params[:controller] == 'clearance/passwords'
+    if params[:controller] == 'clearance/sessions'  ||
+       params[:controller] == 'clearance/users'     ||
+       params[:controller] == 'clearance/passwords' ||
+       params[:page] == 'not_found' ||
+       params[:page] == 'server_error'
       return 'hide'
     end
   end

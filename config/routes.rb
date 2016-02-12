@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get    'faq'       => 'pages#show',          page: 'faq',      as: :faq
   get    '/tos'      => 'pages#show',          page: 'tos',      as: :tos
   get    '/privacy_policy' => 'pages#show',    page: 'privacy',  as: :privacy
-
+  get    '/404'            => "pages#show",    page: 'not_found'
+  get    '/500'            => "pages#show",    page: 'server_error'
+  
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
