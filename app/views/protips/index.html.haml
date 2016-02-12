@@ -2,13 +2,46 @@
   Coderwall : A community space for developers.
 
 .continer
+  -if protips_view_breadcrumbs.present?
+    .mxn1.mb3
+      -protips_view_breadcrumbs.each do |name, link|
+        %a.btn.m0.px1{href: link}=name
+        .inline.hide_last_child /
+        -# =fa_icon 'chevron-right', class: 'hide_last_child'
+
+
   .clearfix
-    .sm-col.sm-col.sm-col-12.md-col-8.pr2
+    .sm-col.sm-col.sm-col-12.md-col-8
       =render @protips
       .clearfix
-        .btn.left=  link_to_previous_page @protips, 'Previous'
+        .btn.left= link_to_previous_page @protips, 'Previous'
         .btn.right= link_to_next_page @protips, 'Next'
-    .md-col.md-col-4.md-show.px2
-      %img{src: image_path('announcing-next.png')}
-      -# popular ruby tips
-      -# popular xx tips
+    .md-col.md-show.md-col-4{class: hide_on_protip_exploration}
+      .clearfix.ml3
+        %h4
+          =fa_icon 'bolt', class: 'mr1'
+          Welcome to Coderwall 3.0
+        %p.mt2 We hope this shiny brand new version of Coderwall makes you smile. We're on a mission make the software world smaller and better - watch for alot more to come.
+        %a Read the full announcement
+
+        %h4.mt4
+          =fa_icon 'calendar', class: 'mr1'
+          Most viewed this month
+        -Protip.recently_most_viewed.each do |protip|
+          .clearfix.mt2
+            =link_to(protip.title, protip_path(protip), class: 'black no-hover')
+            .diminish
+              =link_to protip.user.username, profile_path(username: protip.user.username)
+              ==wrote #{time_ago_in_words(protip.created_at)} ago
+        .block.mt1=link_to 'more most viewed protips', popular_path
+
+        %h4.mt4
+          =fa_icon 'magic', class: 'mr1'
+          Recent activity
+        -Protip.recently_created.each do |protip|
+          .clearfix.mt2
+            =link_to(protip.title, protip_path(protip), class: 'black no-hover')
+            .diminish
+              =link_to protip.user.username, profile_path(username: protip.user.username)
+              ==wrote #{time_ago_in_words(protip.created_at)} ago
+        .block.mt2=link_to 'more new protips', fresh_path

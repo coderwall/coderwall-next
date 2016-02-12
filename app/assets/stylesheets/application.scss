@@ -27,6 +27,10 @@ $highlight-color: $red;
   }
 }
 
+.hide_last_child:last-child {
+	display: none;
+}
+
 .diminish{
   color: $diminish-color;
 	a{

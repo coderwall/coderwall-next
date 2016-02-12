@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
   root 'protips#index'
 
-  get    '/trending' => 'protips#index', order_by: :score,       as: :trending
-  get    '/popular'  => 'protips#index', order_by: :score,       as: :popular
-  get    '/fresh'    => 'protips#index', order_by: :created_at,  as: :fresh
-  get    "/signin"   => "clearance/sessions#new",                as: :sign_in
-  delete "/signout"  => "clearance/sessions#destroy",            as: :sign_out
-  get    "/signup"   => "clearance/users#new",                   as: :sign_up
-  get    'faq'       => 'pages#show',          page: 'faq',      as: :faq
-  get    '/tos'      => 'pages#show',          page: 'tos',      as: :tos
+  get    '/p/trending' => 'protips#index', order_by: :score,       as: :trending
+  get    '/p/popular'  => 'protips#index', order_by: :views_count, as: :popular
+  get    '/p/fresh'    => 'protips#index', order_by: :created_at,  as: :fresh
+  get    "/signin"     => "clearance/sessions#new",                as: :sign_in
+  delete "/signout"    => "clearance/sessions#destroy",            as: :sign_out
+  get    "/signup"     => "clearance/users#new",                   as: :sign_up
+  get    'faq'         => 'pages#show',          page: 'faq',      as: :faq
+  get    '/tos'        => 'pages#show',          page: 'tos',      as: :tos
   get    '/privacy_policy' => 'pages#show',    page: 'privacy',  as: :privacy
   get    '/404'            => "pages#show",    page: 'not_found'
   get    '/500'            => "pages#show",    page: 'server_error'
-  
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 

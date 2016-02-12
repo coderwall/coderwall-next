@@ -1,8 +1,9 @@
 == README
 
 Pre Release
-* Protip list (trending / popular / new / saved / user / tag)
+* Protip algo
 * Homepage sidebar
+* Fix formatting issue with bad comments (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
 * Creating protips / comments
 * Settings
 * Getting avatars/uploads/cdn to work

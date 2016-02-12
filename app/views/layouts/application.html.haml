@@ -14,10 +14,7 @@
       %header.border-bottom
         %nav.clearfix.px2
           .sm-col.py2
-            %a.btn.logo{:href => root_url} Coderwall
-            %a.mr2{:href => popular_path, class: hide_on_auth} Popular
-            %a.mr2{:href => trending_path, class: hide_on_auth} Trending
-            %a{:href => fresh_path, class: hide_on_auth} Fresh
+            %a.btn.logo{:href => root_url} Coderwall            
 
           .sm-col-right.py2{class: hide_on_auth}
             -if signed_in?

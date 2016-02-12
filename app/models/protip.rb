@@ -8,6 +8,8 @@ class Protip < ActiveRecord::Base
   has_many :likes, as: :likable, dependent: :destroy
 
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
+  scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
+  scope :recently_most_viewed, ->{ order(views_count: :desc).where(public_id: %w{ewk0mq kvzbpa vsdrug os6woq w7npmq _kakfa}) }
 
 
   def to_param

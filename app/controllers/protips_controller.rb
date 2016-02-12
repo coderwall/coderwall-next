@@ -13,7 +13,6 @@ class ProtipsController < ApplicationController
       seo_url = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
       return redirect_to(seo_url, status: 301)
     end
-
   end
 
 end
