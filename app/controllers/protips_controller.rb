@@ -1,4 +1,5 @@
 class ProtipsController < ApplicationController
+  before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
     order_by = params[:order_by] || 'created_at'
@@ -13,6 +14,9 @@ class ProtipsController < ApplicationController
       seo_url = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
       return redirect_to(seo_url, status: 301)
     end
+  end
+
+  def new
   end
 
 end

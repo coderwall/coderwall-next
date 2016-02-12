@@ -33,7 +33,7 @@
             .diminish
               =link_to protip.user.username, profile_path(username: protip.user.username)
               ==wrote #{time_ago_in_words(protip.created_at)} ago
-        .block.mt1=link_to 'more most viewed protips', popular_path
+        .block.mt1=link_to 'More frequently viewed protips', popular_path
 
         %h4.mt4
           =fa_icon 'magic', class: 'mr1'
@@ -44,4 +44,4 @@
             .diminish
               =link_to protip.user.username, profile_path(username: protip.user.username)
               ==wrote #{time_ago_in_words(protip.created_at)} ago
-        .block.mt2=link_to 'more new protips', fresh_path
+        .block.mt2=link_to 'More new protips', fresh_path
