@@ -3,7 +3,8 @@ namespace :db do
 
   namespace :port do
     task :connect => :environment do
-      Legacy = Sequel.connect(ENV['LEGACY_DB'] || 'postgres://localhost/coderwall_development')
+      LegacyRedis = Redis.new(url: ENV['LEGACY_REDIS_URL'])
+      Legacy = Sequel.connect(ENV['LEGACY_DB_URL'])
     end
 
     task :comments => :connect do
@@ -114,7 +115,18 @@ namespace :db do
           taggable_type: 'Protip'
         ).collect{|row| row[:name]}
 
+        legacy_impressions_key = "protip:#{protip.public_id}:impressions"
+        protip.views_count = LegacyRedis.current.get(impressions_key).to_i
         protip.save!
+      end
+    end
+
+    task :protips_count => :connect do
+      Protip.find_each do |protip|
+        legacy_impressions_key = "protip:#{protip.public_id}:impressions"
+        count = LegacyRedis.current.get(impressions_key).to_i
+        protip.update_column(:views_count, count)
+        puts "#{protip.public_id} => #{count}"
       end
     end
 
