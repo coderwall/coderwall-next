@@ -1,7 +1,6 @@
 == README
 
 Pre Release
-* Import counts and implement in new version
 * Hosting under next.coderwall.com
 * 404 & 500 Page
 * Protip list (trending / popular / new / saved / user / tag)
@@ -9,6 +8,9 @@ Pre Release
 * Creating protips / comments
 * Settings
 * Basic Caching
+* Implement view counts with cookie detection
+* Implement user sign metrics
+* Implement Google Analytics
 
 Post Release
 * Team view

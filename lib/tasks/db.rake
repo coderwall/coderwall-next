@@ -116,7 +116,7 @@ namespace :db do
         ).collect{|row| row[:name]}
 
         legacy_impressions_key = "protip:#{protip.public_id}:impressions"
-        protip.views_count = LegacyRedis.current.get(impressions_key).to_i
+        protip.views_count = LegacyRedis.get(legacy_impressions_key).to_i
         protip.save!
       end
     end
@@ -124,7 +124,7 @@ namespace :db do
     task :protips_count => :connect do
       Protip.find_each do |protip|
         legacy_impressions_key = "protip:#{protip.public_id}:impressions"
-        count = LegacyRedis.current.get(impressions_key).to_i
+        count = LegacyRedis.get(legacy_impressions_key).to_i
         protip.update_column(:views_count, count)
         puts "#{protip.public_id} => #{count}"
       end
