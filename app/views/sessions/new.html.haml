@@ -1,5 +1,20 @@
 =content_for :title do
   Sign in to Coderwall
-  
+
 %h2 Sign in to Coderwall
-= render partial: '/sessions/form'
+.sm-col-6
+  =form_for :session, url: session_path do |form|
+    .mb2.font-sm.diminish
+      NOTE: If you previously signed in using your Twitter or GitHub account, you'll now need to
+      = link_to "reset your password", new_password_path
+      to get a new first time password to further access your account.
+    = form.label :email
+    = form.text_field :email, type: 'email', class: 'field block col-10 mb1'
+    = form.label :password
+    = form.password_field :password, class: 'field block col-10 mb1'
+    %button.btn.btn-primary.mt1{type: 'submit'} Sign In
+  .clearfix.mt3
+    = link_to "Reset a forgotten password", new_password_path
+  .clearfix.mt2
+    Don't have an account?
+    = link_to "Sign Up", sign_up_path
