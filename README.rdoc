@@ -2,6 +2,7 @@
 
 Pre Release
 * Import counts and implement in new version
+* Hosting under next.coderwall.com
 * 404 & 500 Page
 * Protip list (trending / popular / new / saved / user / tag)
 * Homepage sidebar
