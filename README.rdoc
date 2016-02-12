@@ -1,10 +1,13 @@
 == README
 
-* Settings
+Pre Release
+* Import counts and implement in new version
 * 404 & 500 Page
 * Protip list (trending / popular / new / saved / user / tag)
-* Comments (and migration)
-* Heart (and migration)
-* Counts
-* Team view
+* Homepage sidebar
 * Creating protips / comments
+* Settings
+* Basic Caching
+
+Post Release
+* Team view

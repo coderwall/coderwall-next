@@ -2,6 +2,11 @@
   font-size: $font-lg;
   line-height: 25px;
 
+  &.small{
+    font-size: $body-font-size !important;
+    line-height: $line-height !important;
+  }
+
   a {
     color: $blue !important;
   }

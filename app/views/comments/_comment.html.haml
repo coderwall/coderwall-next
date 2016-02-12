@@ -3,8 +3,8 @@
   .overflow-hidden.py0.mt0
     .clearfix
       =link_to comment.user.try(:username), profile_path(username: comment.user.username), class: 'bold black no-hover'
-      =raw CFM::Markdown.render(comment.body)
-      .diminish
-        =time_ago_in_words comment.created_at
+      .content.small=raw CFM::Markdown.render(comment.body)
+      .diminish.mt1
+        ==#{time_ago_in_words(comment.created_at)} ago
         &middot;
         %a{} Like?
