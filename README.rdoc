@@ -1,16 +1,15 @@
 == README
 
 Pre Release
-* Hosting under next.coderwall.com
-* 404 & 500 Page
 * Protip list (trending / popular / new / saved / user / tag)
 * Homepage sidebar
 * Creating protips / comments
 * Settings
-* Basic Caching
+* Getting avatars/uploads/cdn to work
 * Implement view counts with cookie detection
 * Implement user sign metrics
 * Implement Google Analytics
 
 Post Release
+* Basic Caching
 * Team view

@@ -1,9 +1,11 @@
 !!!
 %html
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title=yield(:title)
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %meta{name: "viewport", content: "width=device-width,initial-scale=1">}
     %meta{name:"description", content: "Coderwall makes the software world smaller so you can meet, learn from, and work with other inspiring developers"}
+    %meta{name:'keywords', content: 'coderwall, open source, OSS, developers, programming'}
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
