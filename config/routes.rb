@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   root 'protips#index'
-
-  get    '/p/trending' => 'protips#index', order_by: :score,       as: :trending
-  get    '/p/popular'  => 'protips#index', order_by: :views_count, as: :popular
-  get    '/p/fresh'    => 'protips#index', order_by: :created_at,  as: :fresh
+  get   '/trending(/:page)' => 'protips#index', order_by: :score,       as: :trending
+  get   '/popular(/:page)'  => 'protips#index', order_by: :views_count, as: :popular
+  get   '/fresh(/:page)'    => 'protips#index', order_by: :created_at,  as: :fresh
+  get   '/p/trending'       => redirect("/trending", status: 302)
+  get   '/p/popular'        => redirect("/popular", status: 302)
+  get   '/p/fresh'          => redirect("/fresh", status: 302)
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   delete "/signout"    => "clearance/sessions#destroy",            as: :sign_out
   get    "/signup"     => "clearance/users#new",                   as: :sign_up

@@ -8,7 +8,8 @@
     .font-sm.diminish.inline
       =protip.display_date
       &middot;
-      =link_to "5 response", protip_path(protip)
+      %a{href: protip_path(protip)}
+        =pluralize(protip.comments.size, 'responses')
       &middot;
     .font-sm.inline
       =link_to protip.user.try(:username), profile_path(username: protip.user.username)

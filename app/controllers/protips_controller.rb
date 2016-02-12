@@ -2,7 +2,7 @@ class ProtipsController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def index
-    order_by = params[:order_by] || 'created_at'
+    order_by = (params[:order_by] ||= 'score')
     @protips = Protip.includes(:user).order({order_by => :desc}).page params[:page]
   end
 
@@ -17,6 +17,7 @@ class ProtipsController < ApplicationController
   end
 
   def new
+
   end
 
 end
