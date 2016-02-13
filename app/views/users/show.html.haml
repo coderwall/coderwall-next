@@ -34,10 +34,10 @@
               =@user.location
               -if @user.twitter.present?
                 &middot;
-                =link_to fa_icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
+                =link_to icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
               -if @user.github.present?
                 &middot;
-                =link_to fa_icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
+                =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
 
         .clearfix.p0.mt2
           %p
@@ -57,7 +57,7 @@
           .clearfix.mt1.py2.border-top
             -if @user.badges.empty?
               .clearfix.mt3.p4.center
-                .diminish=fa_icon('hand-peace-o', class: 'fa-3x')
+                .diminish=icon('hand-peace-o', class: 'fa-3x')
             -@user.badges.each do |badge|
               .badge.clearfix.py2
                 .left.mr2=image_tag badge.path, width: 50, height: 50
@@ -68,17 +68,17 @@
           .clearfix.mt1.py2.border-top
             -if @user.protips.empty?
               .clearfix.mt3.p4.center
-                .diminish=fa_icon('hand-peace-o', class: 'fa-3x')
+                .diminish=icon('hand-peace-o', class: 'fa-3x')
             -@user.protips.each do |protip|
               .protip.clearfix.py2
                 .overflow-hidden
                   %h6.mt0
                     %a.black{:href => protip_path(protip)}=protip.title
                   .mt0.diminish
-                    .font-tiny.inline=fa_icon('heart')
+                    .font-tiny.inline=icon('heart')
                     =protip.hearts_count
                     .inline &middot;
-                    .font-sm.inline=fa_icon('eye')
+                    .font-sm.inline=icon('eye')
                     =protip.views_count
                     .inline &middot;
                     .inline

@@ -25,5 +25,5 @@ module ApplicationHelper
   def meta_comment_schema_url
     'https://schema.org/Comment'
   end
-
+  
 end

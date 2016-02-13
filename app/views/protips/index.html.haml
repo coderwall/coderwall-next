@@ -17,13 +17,13 @@
     .md-col.md-show.md-col-4{class: hide_on_protip_exploration}
       .clearfix.ml3
         %h4
-          =fa_icon 'bolt', class: 'mr1'
+          =icon 'bolt', class: 'mr1'
           Welcome to Coderwall 3.0
         %p.mt2 We hope this shiny brand new version of Coderwall makes you smile. We're on a mission to make the software world smaller and better - watch for alot more to come.
         %a Read the full announcement
 
         %h4.mt4
-          =fa_icon 'calendar', class: 'mr1'
+          =icon 'calendar', class: 'mr1'
           Most viewed this month
         -Protip.recently_most_viewed.each do |protip|
           .clearfix.mt2
@@ -34,7 +34,7 @@
         .block.mt1=link_to 'More frequently viewed protips', popular_path
 
         %h4.mt4
-          =fa_icon 'magic', class: 'mr1'
+          =icon 'magic', class: 'mr1'
           Recent activity
         -Protip.recently_created.each do |protip|
           .clearfix.mt2
