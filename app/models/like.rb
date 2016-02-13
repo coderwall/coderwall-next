@@ -4,5 +4,4 @@ class Like < ActiveRecord::Base
 
   validates :likable, presence: true
   validates :value, presence: true, numericality: { min: 1 }
-
 end

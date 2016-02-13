@@ -40,12 +40,12 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :email
 
-  # def to_param
-  #   username.downcase
-  # end
-
   def email_optional?
     true #added this hack so clereance doesn't do email validation while bulk loading
+  end
+
+  def account_age_in_days
+    ((Time.now - created_at) / 60 / 60 / 24 ).floor
   end
 
   def display_name
@@ -57,7 +57,6 @@ class User < ActiveRecord::Base
   end
 
   def generate_unique_color
-    # ActiveSupport::SecureRandom.hex(3)
     self.color = ("#%06x" % (rand * 0xffffff))
   end
 

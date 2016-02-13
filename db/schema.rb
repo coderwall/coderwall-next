@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160210222721) do
+ActiveRecord::Schema.define(version: 20160213012958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,9 @@ ActiveRecord::Schema.define(version: 20160210222721) do
     t.text     "body"
     t.integer  "protip_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "likes_count", default: 0
   end
 
   create_table "likes", force: :cascade do |t|
@@ -52,13 +53,13 @@ ActiveRecord::Schema.define(version: 20160210222721) do
     t.text     "body"
     t.integer  "user_id"
     t.float    "score"
-    t.float    "boost_factor"
     t.datetime "featured_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.string   "tags",         default: [],              array: true
-    t.integer  "likes_count",  default: 0
-    t.integer  "views_count",  default: 0
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "tags",        default: [],                 array: true
+    t.integer  "likes_count", default: 0
+    t.integer  "views_count", default: 0
+    t.boolean  "flagged",     default: false
   end
 
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin

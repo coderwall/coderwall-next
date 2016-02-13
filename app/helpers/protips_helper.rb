@@ -20,4 +20,5 @@ module ProtipsHelper
     tags << 'programming' if tags.empty?
     "A protip by #{@protip.user.username} about #{tags.to_sentence}."
   end
+
 end

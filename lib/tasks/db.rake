@@ -1,8 +1,15 @@
 namespace :db do
-  task :port => ['db:port:users', 'db:port:comments', 'db:port:protips', 'db:port:teams', 'db:port:likes', 'db:port:badges']
+  task :port => [
+    'db:port:users',
+    'db:port:badges',
+    'db:port:protips',
+    'db:port:comments',
+    'db:port:teams',
+    'db:port:likes']
 
   namespace :port do
     task :connect => :environment do
+      ActiveRecord::Base.logger.level = Logger::INFO #hide sql output
       LegacyRedis = Redis.new(url: ENV['LEGACY_REDIS_URL'])
       Legacy = Sequel.connect(ENV['LEGACY_DB_URL'])
     end
@@ -30,9 +37,14 @@ namespace :db do
       Legacy[:likes].each do |row|
         like = Like.new
         like.attributes.keys.each do |key|
+          # puts "#{key} #{row[key.to_sym]}"
           like[key] = row[key.to_sym]
         end
-        like.save!
+        if like.save
+          puts like.id
+        else
+          puts "#{row[:id]} skipped #{like.errors.inspect}"
+        end
       end
     end
 
@@ -117,6 +129,9 @@ namespace :db do
 
         legacy_impressions_key = "protip:#{protip.public_id}:impressions"
         protip.views_count = LegacyRedis.get(legacy_impressions_key).to_i
+
+        protip.flagged = row[:inappropriate].to_i > 0
+
         protip.save!
       end
     end
