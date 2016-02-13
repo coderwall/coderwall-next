@@ -78,7 +78,6 @@ namespace :db do
       User.delete_all
       Legacy[:users].each do |row|
         begin
-          puts "#{row[:username]} : #{row[:email]}"
           user = User.new
           user.attributes.keys.each do |key|
             user[key] = row[key.to_sym]
@@ -102,10 +101,13 @@ namespace :db do
           user.skills = Legacy[:skills].select(:name, :tokenized).where(
             deleted: false,
             user_id: row[:id]).collect{|row| row[:name]}
-          user.save!
 
-        # rescue Exception => ex
-        #   puts "Skipping user #{row[:username]} #{ex.message}"
+          if row[:banned_at].nil?
+            Rails.logger.info "#{row[:username]} => #{row[:email]}"
+            user.save!
+          else
+            Rails.logger.info "skipping banned user #{row[:username]}"
+          end
         end
       end
     end

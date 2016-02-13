@@ -1,15 +1,13 @@
 == README
 
 Pre Release
-* Protip algo
-* Homepage sidebar
-* Fix formatting issue with bad comments (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
-* Creating protips / comments
-* Settings
-* Getting avatars/uploads/cdn to work
-* Implement view counts with cookie detection
-* Implement user sign metrics
 * Implement Google Analytics
+* Implement view counts with cookie detection
+* Settings
+* Creating users / protips / comments
+* Getting avatars/uploads/cdn to work
+* Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
+* Fix code block formatting
 
 Post Release
 * Basic Caching
