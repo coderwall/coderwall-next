@@ -8,4 +8,4 @@
       .diminish.mt1
         ==#{time_ago_in_words(comment.created_at)} ago
         &middot;
-        %a{} Like?
+        %a{:href => comment_likes_path(comment), 'data-remote'=>"true", 'data-method'=>'post'} Like?

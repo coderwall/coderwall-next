@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     true #added this hack so clereance doesn't do email validation while bulk loading
   end
 
+  def likes?(obj)
+    likes.exists?(likable_id: obj.id, likable_type: obj.class.name)
+  end
+
   def account_age_in_days
     ((Time.now - created_at) / 60 / 60 / 24 ).floor
   end
