@@ -31,7 +31,7 @@
         .right.pt0.mt0
           .diminish.inline.mr1
             =icon("eye")
-            =@protip.views_count
+            =number_to_human(@protip.views_count, precision: 4)
           &middot;
           %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}
             ="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"

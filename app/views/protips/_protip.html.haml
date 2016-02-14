@@ -1,7 +1,7 @@
 .protip.card.clearfix.p1.mb2
   %a.heart.left.ml1.mr2{href: '/'}
     .center.highlight=icon("heart-o")
-    .center.font-tiny.diminish=rand(44)
+    .center.font-tiny.diminish=number_to_human(protip.likes_count, precision: 2)
   .overflow-hidden
     %h3.mt0.mb0
       %a{:href => protip_path(protip)}=protip.title

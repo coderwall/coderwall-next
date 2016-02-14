@@ -1,14 +1,12 @@
-== README
+# Features remaining prior release
+* TODO: Settings
+* TODO: Creating users / protips / comments
+* TODO: Getting avatars/uploads/cdn to work
+* TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
+* TODO: Fix code block formatting
+* TODO: Write announcement protip and link it on homepage
 
-Pre Release
-* Implement Google Analytics
-* Implement view counts with cookie detection
-* Settings
-* Creating users / protips / comments
-* Getting avatars/uploads/cdn to work
-* Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
-* Fix code block formatting
-
-Post Release
-* Basic Caching
-* Team view
+# Post release backlog
+* TODO: Basic Caching
+* TODO: Team view
+* TODO: Advance tracking in google analytics

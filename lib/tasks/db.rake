@@ -5,11 +5,14 @@ namespace :db do
     'db:port:protips',
     'db:port:comments',
     'db:port:teams',
-    'db:port:likes']
+    'db:port:likes',
+    'cache:score:recalculate']
 
   namespace :port do
     task :connect => :environment do
-      ActiveRecord::Base.logger.level = Logger::INFO #hide sql output
+      if hide_sql_out == Rails.env.development?
+        ActiveRecord::Base.logger.level = Logger::INFO
+      end
       LegacyRedis = Redis.new(url: ENV['LEGACY_REDIS_URL'])
       Legacy = Sequel.connect(ENV['LEGACY_DB_URL'])
     end

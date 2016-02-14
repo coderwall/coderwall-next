@@ -1,3 +1,4 @@
+# https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits
 jQuery ->
   $(document).on 'page:change', ->
     if window.ga?
