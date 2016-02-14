@@ -33,8 +33,7 @@
             =icon("eye")
             =number_to_human(@protip.views_count, precision: 4)
           &middot;
-          %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}
-            ="#{@protip.updated_at.to_formatted_s(:explicitly_bold)}"
+          %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
           &middot;
           .ml1.mr1.inline
             =link_to @protip.user.username, profile_path(username: @protip.user.username)

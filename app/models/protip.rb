@@ -19,7 +19,7 @@ class Protip < ActiveRecord::Base
   end
 
   def display_date
-    created_at.strftime('%B')
+    created_at.to_formatted_s(:explicitly_bold)
   end
 
   def hearts_count
