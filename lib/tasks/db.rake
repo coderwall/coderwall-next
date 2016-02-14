@@ -10,7 +10,7 @@ namespace :db do
 
   namespace :port do
     task :connect => :environment do
-      if hide_sql_out == Rails.env.development?
+      if hide_sql_out = Rails.env.development?
         ActiveRecord::Base.logger.level = Logger::INFO
       end
       LegacyRedis = Redis.new(url: ENV['LEGACY_REDIS_URL'])
