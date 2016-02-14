@@ -55,17 +55,16 @@ namespace :db do
       Badge.delete_all
       Legacy[:badges].each do |row|
         unless row[:badge_class_name].nil?
+          if LEGACY_BADGES[row[:badge_class_name]].nil?
+            raise row[:badge_class_name].inspect
+          end
+
           badge = Badge.new
           badge.user_id = row[:user_id]
           badge.created_at = row[:created_at]
           badge.updated_at = row[:updated_at]
 
           legacy_badge      = LEGACY_BADGES[row[:badge_class_name]]
-
-          if LEGACY_BADGES[row[:badge_class_name]].nil?
-            raise row[:badge_class_name].to_s
-          end
-
           badge.name        = legacy_badge[0]
           badge.image_name  = legacy_badge[1]
           badge.description = legacy_badge[2]
@@ -200,6 +199,140 @@ namespace :db do
     "Komododragon3" => ["Komodo Dragon 3", "komododragon3.png", "Have at least three original repos where Java is the dominant language", "having at least three original repos where Java is the dominant language."],
     "Platypus" => ["Platypus", "platypus.png", "Have at least one original repo where scala is the dominant language", "having at least one original repo where scala is the dominant language."],
     "Platypus3" => ["Platypus 3", "platypus3.png", "Have at least three original repo where scala is the dominant language", "having at least three original repo where scala is the dominant language."],
-    "Entrepreneur" => ["Entrepreneur", "entrepreneur.png", "Help build a product by contributing to an Assembly product", "working on an Assembly product when your commit was accepted."]
+    "Entrepreneur" => ["Entrepreneur", "entrepreneur.png", "Help build a product by contributing to an Assembly product", "working on an Assembly product when your commit was accepted."],
+    "HackathonStanford" => ["Stanford Hackathon", 'hackathonStanford.png', "Participated in Stanford's premier Hackathon, organized by the ACM, SVI Hackspace and BASES.", "participating in Stanford's premier Hackathon, organized by the ACM, SVI Hackspace and BASES."],
+    "WrocLover" => [
+      'wroc_love.rb',
+      'wrocloverb.png',
+      "Attended the 2012 wroc_love.rb ruby conference.",
+      "attending the 2012 wroc_love.rb ruby conference."
+    ],
+    "Neo4jContest::Participant" => [
+      "Neo4j Challenger",
+      'neo4j-challenge.png',
+      "Participated in 2012 Neo4j Challenge",
+      "participating in the 2012 Neo4j seed the cloud challenge."
+    ],
+    "Neo4jContest::Winner" => [
+      "Neo4j Winner",
+      'neo4j-winner.png',
+      "Won the 2012 Neo4j Challenge",
+      "winning the 2012 Neo4j seed the cloud challenge."
+    ],
+    "Hackathon" => [
+      "Hackathon",
+      'hackathon.png',
+      "Participated in a hackathon.",
+      "participating in a hackathon."
+    ],
+    "Railsberry" => [
+      "Railsberry",
+      'railsberry.png',
+      "Attended the 2012 Railsberry conference.",
+      "attending the 2012 Railsberry conference."
+    ],
+    "HackathonCmu" => [
+      "CMU Hackathon",
+      'hackathonCMU.png',
+      "Participated in CMU's Hackathon, organized by ScottyLabs.",
+      "participating in CMU's Hackathon, organized by ScottyLabs."
+    ]
   }
+  (2011...2016).each do |year|
+    LEGACY_BADGES["NodeKnockout::Contender#{year}"] = [
+      'KO Contender',
+      "ko-contender-#{year}.png",
+      "Participated in #{year} Node Knockout",
+      "participating in #{year} Node Knockout."
+    ]
+    LEGACY_BADGES["NodeKnockout::Judge#{year}"] = [
+      'KO Judge',
+      "ko-judge-#{year}.png",
+      "Official Judge of the #{year} Node Knockout",
+      "judging the #{year} Node Knockout."
+    ]
+    LEGACY_BADGES["NodeKnockout::Champion#{year}"] = [
+      'KO Champion',
+      "ko-champion-#{year}.png",
+      "Won first place in the #{year} Node Knockout",
+      "winning first place in the #{year} Node Knockout."
+    ]
+    LEGACY_BADGES["NodeKnockout::BestDesign#{year}"] = [
+      'KO Design',
+      "ko-best-design-#{year}.png",
+      "Won the best designed app in the #{year} Node Knockout",
+      "winning the best designed app in the #{year} Node Knockout"
+    ]
+    LEGACY_BADGES["NodeKnockout::MostVotes#{year}"] = [
+      'KO Popular',
+      "ko-most-votes-#{year}.png",
+      "Won the most votes in the #{year} Node Knockout",
+      "winning the most votes in the #{year} Node Knockout"
+    ]
+    LEGACY_BADGES["NodeKnockout::MostUseful#{year}"] = [
+      'KO Innovation',
+      "ko-most-innovative-#{year}.png",
+      "Won the most innovative app in the #{year} Node Knockout",
+      "winning the most innovative app in the #{year} Node Knockout"
+    ]
+    LEGACY_BADGES["NodeKnockout::MostComplete#{year}"] = [
+      'KO Complete',
+      "ko-most-complete-#{year}.png",
+      "Won the most complete app in the #{year} Node Knockout",
+      "winning the most complete app in the #{year} Node Knockout"
+    ]
+    LEGACY_BADGES["NodeKnockout::MostInnovative#{year}"] = [
+      'KO Innovation',
+      "ko-most-innovative-#{year}.png",
+      "Won the most innovative app in the #{year} Node Knockout",
+      "winning the most innovative app in the #{year} Node Knockout"
+    ],
+    LEGACY_BADGES["GithubGameoffJudge#{year}"] = [
+      'Github Gameoff Judge',
+      "github-gameoff-judge-#{year}.png",
+      "Was a judge in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc",
+      "judging the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc"
+    ]
+
+    LEGACY_BADGES["GithubGameoffWinner#{year}"] = [
+      'Github Gameoff Winner',
+      "github-gameoff-winner-#{year}.png",
+      "Won the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc",
+      "winning the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc"
+    ]
+
+    LEGACY_BADGES["GithubGameoffRunnerUp#{year}"] = [
+      'Github Gameoff Runner Up',
+      "github-gameoff-runner-up-#{year}.png",
+      "Was runner up in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc",
+      "being the runner up in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc"
+    ]
+
+    LEGACY_BADGES["GithubGameoffHonorableMention#{year}"] = [
+      'Github Gameoff Honorable Mention',
+      "github-gameoff-honorable-mention-#{year}.png",
+      "Was an honorable mention in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc",
+      "being noted an honorable mention in the Github Gameoff #{year} building a game based on git concepts of forking, branching"
+    ]
+    LEGACY_BADGES["GithubGameoffParticipant#{year}"] = [
+      'Github Gameoff Participant',
+      "github-gameoff-participant-#{year}.png",
+      "Participated in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc",
+      "participating in the Github Gameoff #{year} building a game based on git concepts of forking, branching, etc"
+    ]
+
+    LEGACY_BADGES["TwentyFourPullRequestsParticipant#{year}"] = [
+      "24PullRequests Participant",
+      "24-participant.png",
+      "Sent at least one pull request during the first 24 days of December #{year}",
+      "participating in the 24pullrequest initiative during #{year}"
+    ]
+
+    LEGACY_BADGES["TwentyFourPullRequestsContinuous#{year}"] = [
+      "24PullRequests Continuous Syncs",
+      "24-continuous-sync.png",
+      "Sent at least 24 pull requests during the first 24 days of December #{year}",
+      "Sent at least 24 pull requests during the first 24 days of December #{year}"
+    ]
+  end
 end

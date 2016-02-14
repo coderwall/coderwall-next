@@ -2,6 +2,7 @@
 * TODO: Settings
 * TODO: Creating users / protips / comments
 * TODO: Getting avatars/uploads/cdn to work
+* TODO: Getting Likes / Hearts to work
 * TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
 * TODO: Fix code block formatting
 * TODO: Write announcement protip and link it on homepage
@@ -10,3 +11,4 @@
 * TODO: Basic Caching
 * TODO: Team view
 * TODO: Advance tracking in google analytics
+* TODO: Port API to award new badges w/update. Write details describing out to create new awards
