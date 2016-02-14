@@ -18,9 +18,6 @@ Rails.application.routes.draw do
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
-  resources :badges
-  resources :likes
-  resources :comments
   resources :team
   resources :users
   resources :users, controller: "clearance/users", only: [:create] do
@@ -28,8 +25,11 @@ Rails.application.routes.draw do
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end
-
+  resources :comments do |comment|
+    resources :likes, only: :create
+  end
   resources :protips, path: '/p' do
+    resources :likes, only: :create
     collection do
       get '/:id/:slug' => 'protips#show', as: :slug, :constraints => { slug: /(?!.*?edit).*/ }
     end
@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 
   get '/:username'         => 'users#show', as: :profile
   get '/:username/protips' => 'users#show', as: :profile_protips, protips: true
+  get '/:username/impersonate' => 'users#impersonate', as: :impersonate
   get '/p/u/:username'     => 'users#show', to: redirect("/%{username}/protips", status: 302)
 
 end
