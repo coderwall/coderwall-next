@@ -123,9 +123,7 @@ namespace :db do
           protip[key] = row[key.to_sym]
         end
 
-        protip.likes_count = (Legacy[:Likes].where(
-          likable_id: row[:id],
-          likable_type: 'Protip').count + 1)
+        protip.likes_count = (Legacy[:likes].where( likable_id: row[:id], likable_type: 'Protip').count + 1)        
         protip.tags = Legacy[:tags].select(:name).join(:taggings, :tag_id => :id).where(
           taggable_id: row[:id],
           taggable_type: 'Protip'
