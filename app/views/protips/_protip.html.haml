@@ -1,6 +1,7 @@
-.protip.card.clearfix.p1.mb2
+.protip.card.clearfix.p1.mb2.likeable{id: dom_id(protip)}
   %a.heart.left.ml1.mr2{:href => protip_likes_path(protip), 'data-remote'=>"true", 'data-method'=>'post'}
     .center.highlight=icon("heart-o")
+    .center.highlight.hearted.hide=icon("heart")
     .center.font-tiny.diminish=number_to_human(protip.likes_count, precision: 2)
   .overflow-hidden
     %h3.mt0.mb0

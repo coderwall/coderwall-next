@@ -1,4 +1,5 @@
 # Features remaining prior release
+* TODO: Likes front-end, on load, replace heart-o with hearts on like, like increment count/refresh did like?
 * TODO: Settings
 * TODO: Creating users / protips / comments
 * TODO: Getting avatars/uploads/cdn to work

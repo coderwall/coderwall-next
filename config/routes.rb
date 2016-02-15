@@ -19,15 +19,23 @@ Rails.application.routes.draw do
   resource :session, controller: "clearance/sessions", only: [:create]
 
   resources :team
-  resources :users
+
+  resources :users do
+    member do
+      resources :likes, only: :index
+    end
+  end
+
   resources :users, controller: "clearance/users", only: [:create] do
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
   end
+
   resources :comments do |comment|
     resources :likes, only: :create
   end
+  
   resources :protips, path: '/p' do
     resources :likes, only: :create
     collection do

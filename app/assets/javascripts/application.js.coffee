@@ -19,3 +19,7 @@ $ ->
   $(document).bind "ajax:error", (event, jqXHR, ajaxSettings, thrownError) ->
     if jqXHR.status == 401 # thrownError is 'Unauthorized'
       window.location.replace('/signin')
+
+  $(document).on 'page:change', ->
+    data = $.parseJSON($('#signed-in-user-liked-payload').html())
+    $('.likeable').each ->

@@ -1,5 +1,10 @@
 class LikesController < ApplicationController
-  before_action :require_login
+  before_action :require_login, only: :create
+
+  def index
+    @user  = User.find(params[:id])
+    render json: @user.liked
+  end
 
   def create
     @likeable = find_likeable

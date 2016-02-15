@@ -48,6 +48,12 @@ class User < ActiveRecord::Base
     likes.exists?(likable_id: obj.id, likable_type: obj.class.name)
   end
 
+  def liked
+    likes.includes(:likable).collect do |like|
+      ActionView::RecordIdentifier.dom_id(like.likable)
+    end
+  end
+
   def account_age_in_days
     ((Time.now - created_at) / 60 / 60 / 24 ).floor
   end
