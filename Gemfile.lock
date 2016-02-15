@@ -127,6 +127,12 @@ GEM
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     pg (0.18.4)
+    postmark (1.7.1)
+      json
+      rake
+    postmark-rails (0.12.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.7.0)
     puma (2.14.0)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -246,6 +252,7 @@ DEPENDENCIES
   letter_opener
   mini_magick
   pg (~> 0.15)
+  postmark-rails
   puma
   rack-timeout
   rails (= 4.2.5)
