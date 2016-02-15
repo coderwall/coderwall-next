@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get    '/privacy_policy' => 'pages#show',    page: 'privacy',  as: :privacy
   get    '/404'            => "pages#show",    page: 'not_found'
   get    '/500'            => "pages#show",    page: 'server_error'
+  get    '/helloworld'     => "users#edit",    finish_signup: true, as: :finish_signup
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   resources :comments do |comment|
     resources :likes, only: :create
   end
-  
+
   resources :protips, path: '/p' do
     resources :likes, only: :create
     collection do

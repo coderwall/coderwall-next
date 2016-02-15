@@ -1,5 +1,9 @@
 module UsersHelper
 
+  def finishing_signup?
+    params[:finish_signup] == true
+  end
+
   def show_badges?
     !params[:protips].present?
   end

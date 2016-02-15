@@ -4,8 +4,9 @@ module ApplicationHelper
     if params[:controller] == 'clearance/sessions'  ||
        params[:controller] == 'clearance/users'     ||
        params[:controller] == 'clearance/passwords' ||
-       params[:page] == 'not_found' ||
-       params[:page] == 'server_error'
+       params[:page] == 'not_found'                 ||
+       params[:page] == 'server_error'              ||
+       params[:finish_signup].present?
       return 'hide'
     end
   end
@@ -25,5 +26,5 @@ module ApplicationHelper
   def meta_comment_schema_url
     'https://schema.org/Comment'
   end
-  
+
 end

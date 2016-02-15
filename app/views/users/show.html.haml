@@ -29,15 +29,18 @@
           .overflow-hidden
             %h1.ml2.mt0.mb0=@user.display_name
             %h4.ml2.mt1
-              =@user.display_title
-              ="&middot;".html_safe if @user.title && @user.location
-              =@user.location
+              -if @user.display_title.present?
+                =@user.display_title
+                .hide_last_child.inline &middot;
+              -if @user.location.present?
+                =@user.location
+                .hide_last_child.inline &middot;
               -if @user.twitter.present?
-                &middot;
                 =link_to icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
+                .hide_last_child.inline &middot;
               -if @user.github.present?
-                &middot;
                 =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
+                .hide_last_child.inline &middot;
 
         .clearfix.p0.mt2
           %p

@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
 
   after_action :record_user_access
 
-  private
+  protected
+  def admin?
+    signed_in? && current_user.admin?
+  end
+  helper_method :admin?
+
   def record_user_access
     if signed_in?
       current_user.update_columns(last_request_at: Time.now, last_ip:request.remote_ip)

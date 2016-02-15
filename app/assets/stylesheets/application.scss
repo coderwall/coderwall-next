@@ -24,6 +24,13 @@ $highlight-color: $red;
   }
 }
 
+// Rails error handing
+.field_with_errors {
+	input {
+		border: solid 1px $red;
+	}
+}
+
 .hide_last_child:last-child {
 	display: none;
 }

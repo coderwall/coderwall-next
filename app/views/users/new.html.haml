@@ -4,6 +4,8 @@
 %h2 Join Coderwall Today
 .sm-col-6
   %p Become a better programmer. Discover helpful protips, unlock achievements, and connect with other developers
+  -@user.errors.full_messages.each do |error|
+    %p.red.bold=error
   = form_for @user do |form|
     = form.label :username
     = form.text_field :username, type: 'text', class: 'field block col-10 mb1'

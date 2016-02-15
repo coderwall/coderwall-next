@@ -1,0 +1,50 @@
+=content_for :title do
+  ="Editing profile : @#{@user.username}"
+
+.continer
+  .clearfix
+    .md-col.md-col-2.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .card.p3
+        -if finishing_signup?
+          %h2 Don't worry, that tingly feeling of anticipation is normal
+          %p Spending a few more seconds completing your profile will enable us to create the best experience for you.
+        -else
+          %h2 Edit your profile
+        -@user.errors.full_messages.each do |error|
+          %p.red.bold=error
+        = form_for @user do |form|
+          -if !finishing_signup?
+            = form.label :username
+            = form.text_field :username, type: 'text', class: 'field block col-12 mb3', disabled: admin?
+            = form.label :email
+            = form.text_field :email, type: 'email', class: 'field block col-12 mb3', placeholder: "Where we'll send password reset emails"
+          = form.label :twitter, 'Twitter Username'
+          = form.text_field :twitter, type: 'text', class: 'field block col-12 mb3', placeholder: 'Your username on Twitter'
+          = form.label :github, 'GitHub Username'
+          = form.text_field :github, type: 'text', class: 'field block col-12 mb3', placeholder: 'Your username on GitHub'
+          = form.label :title
+          = form.text_field :title, type: 'text', class: 'field block col-12 mb3', placeholder: 'What you do'
+          = form.label :company
+          = form.text_field :company, type: 'text', class: 'field block col-12 mb3', placeholder: 'Where you work will connect you with others'
+          = form.label :location
+          = form.text_field :location, type: 'text', class: 'field block col-12 mb3', placeholder: 'A city or state works nicely'
+          = form.label :about
+          .diminish.mb1
+            Markdown here is totally
+            =icon('thumbs-o-up')
+          = form.text_area :about, rows: 5, class: 'field block col-12 mb3', placeholder: 'Fun or interesting things about you with maybe a link or two thrown in'
+          -if !finishing_signup?
+            .mb1
+              = form.check_box :receive_newsletter
+              = form.label :receive_newsletter, 'Receieve important updates about Coderwall'
+            .mb3
+              = form.check_box :receive_weekly_digest
+              = form.label :receive_weekly_digest, 'Receive an occasional digest of the best new developer tips.'
+
+          %button.btn.mt1.bg-green.white{type: 'submit'} Save
+
+          .clearfix.mt2
+            =link_to 'Cancel', profile_path(username: @user.username) unless finishing_signup?
+
+    .md-col.md-col-2.md-show &nbsp;

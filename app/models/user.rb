@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def display_title
-    "#{title} at Acme, Inc." if title
+    a = [title, company].reject(&:empty?).join(' at ')    
   end
 
   def generate_unique_color
