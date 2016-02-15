@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def display_title
-    a = [title, company].reject(&:empty?).join(' at ')    
+    a = [title, company].reject(&:blank?).join(' at ')    
   end
 
   def generate_unique_color
