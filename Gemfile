@@ -28,6 +28,7 @@ gem 'carrierwave_backgrounder'
 gem 'friendly_id'
 gem 'browser'
 gem 'postmark-rails'
+gem 'react-rails'
 
 # Legacy gems needed for porting
 gem 'sequel'

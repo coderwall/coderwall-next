@@ -1,0 +1,23 @@
+<h1>Protips</h1>
+
+<div class="protip card clearfix p1 mb2 likeable">
+  <%= react_component('Heart', {count: 4987, hearted: true}, {prerender: true}) %>
+  <div class="overflow-hidden">
+    <h3 class="mt0 mb0">
+      <a href="#">
+        Setup react components in rails
+      </a>
+    </h3>
+    <div class="font-sm diminish inline">
+      <a href="#">
+        <%= pluralize(72, 'responses') %>
+      </a>
+      &middot;
+      <%= time_ago_in_words(4.hours.ago) %> ago
+      &middot;
+    </div>
+    <div class="font-sm inline">
+      <a href="#">whatupdave</a>
+    </div>
+  </div>
+</div>
