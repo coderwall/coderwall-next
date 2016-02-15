@@ -9,6 +9,15 @@ namespace :db do
     'cache:score:recalculate']
 
   namespace :port do
+
+    task :clean   => :environment do
+      Like.delete_all
+      Comment.delete_all
+      Protip.delete_all
+      Badge.delete_all
+      User.delete_all
+    end
+
     task :connect => :environment do
       if hide_sql_out = Rails.env.development?
         ActiveRecord::Base.logger.level = Logger::INFO
@@ -18,10 +27,9 @@ namespace :db do
     end
 
     task :comments => :connect do
-      Comment.delete_all
       Legacy[:comments].each do |row|
         if row[:comment].to_s.size >= 2
-          comment = Comment.new
+          comment = Comment.find_or_initialize_by_id(row[:id])
           comment.attributes.except(:comment).keys.each do |key|
             comment[key] = row[key.to_sym]
           end
@@ -36,9 +44,8 @@ namespace :db do
     end
 
     task :likes => :connect do
-      Like.delete_all
       Legacy[:likes].each do |row|
-        like = Like.new
+        like = Like.find_or_initialize_by_id(row[:id])
         like.attributes.keys.each do |key|
           # puts "#{key} #{row[key.to_sym]}"
           like[key] = row[key.to_sym]
@@ -52,14 +59,13 @@ namespace :db do
     end
 
     task :badges => :connect do
-      Badge.delete_all
       Legacy[:badges].each do |row|
         unless row[:badge_class_name].nil?
           if LEGACY_BADGES[row[:badge_class_name]].nil?
             raise row[:badge_class_name].inspect
           end
 
-          badge = Badge.new
+          badge = Badge.find_or_initialize_by_id(row[:id])
           badge.user_id = row[:user_id]
           badge.created_at = row[:created_at]
           badge.updated_at = row[:updated_at]
@@ -77,10 +83,10 @@ namespace :db do
     end
 
     task :users => :connect do
-      User.delete_all
+
       Legacy[:users].each do |row|
         begin
-          user = User.new
+          user = User.find_or_initialize_by_id(row[:id])
           user.attributes.keys.each do |key|
             user[key] = row[key.to_sym]
           end
@@ -115,15 +121,14 @@ namespace :db do
     end
 
     task :protips => :connect do
-      Protip.delete_all
       Legacy[:protips].each do |row|
         puts "#{row[:id]} : #{row[:public_id]} : #{row[:slug]}"
-        protip = Protip.new
+        protip = Protip.find_or_initialize_by_id(row[:id])
         protip.attributes.keys.each do |key|
           protip[key] = row[key.to_sym]
         end
 
-        protip.likes_count = (Legacy[:likes].where( likable_id: row[:id], likable_type: 'Protip').count + 1)        
+        protip.likes_count = (Legacy[:likes].where( likable_id: row[:id], likable_type: 'Protip').count + 1)
         protip.tags = Legacy[:tags].select(:name).join(:taggings, :tag_id => :id).where(
           taggable_id: row[:id],
           taggable_type: 'Protip'
@@ -137,16 +142,6 @@ namespace :db do
         protip.save!
       end
     end
-
-    task :protips_count => :connect do
-      Protip.find_each do |protip|
-        legacy_impressions_key = "protip:#{protip.public_id}:impressions"
-        count = LegacyRedis.get(legacy_impressions_key).to_i
-        protip.update_column(:views_count, count)
-        puts "#{protip.public_id} => #{count}"
-      end
-    end
-
   end
 
   # rails r 'puts Badges.all.each{|b| puts "\"#{b.name}\" => [\"#{b.display_name}\", \"#{b.image_path.gsub("badges/", "")}\", \"#{b.description}\", \"#{b.for}\"],"  }'

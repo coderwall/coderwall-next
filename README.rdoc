@@ -1,6 +1,6 @@
 # Features remaining prior release
 * TODO: Likes front-end, on load, replace heart-o with hearts on like, like increment count/refresh did like?
-* TODO: Creating protips / comments
+* TODO: Creating protips & comments
 * TODO: Migrate user skills and team names
 * TODO: Getting avatars/uploads/cdn to work
 * TODO: Getting Likes / Hearts to work
@@ -8,7 +8,7 @@
 * TODO: Fix code block formatting
 * TODO: Write announcement protip and link it on homepage
 * TODO: Check all meta tags, especially on pro tips so SEO is retained
-* TODO: Wire up email sending in production
+* TODO: Cleaup (all protips & comments without author, all spam protips)
 
 # Post release backlog
 * TODO: Basic Caching
