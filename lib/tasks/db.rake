@@ -164,8 +164,9 @@ namespace :db do
 
         protip.save!
       end
+      Protip.reset_pk_sequence
     end
-    Protip.reset_pk_sequence
+
   end
 
   # rails r 'puts Badges.all.each{|b| puts "\"#{b.name}\" => [\"#{b.display_name}\", \"#{b.image_path.gsub("badges/", "")}\", \"#{b.description}\", \"#{b.for}\"],"  }'
