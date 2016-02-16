@@ -24,6 +24,22 @@ namespace :db do
       end
       LegacyRedis = Redis.new(url: ENV['LEGACY_REDIS_URL'])
       Legacy = Sequel.connect(ENV['LEGACY_DB_URL'])
+
+      # Monkeypatch methods just for porting needs
+      ActiveRecord::Base.class_eval do
+        def self.find_or_initialize_by_id(id)
+          where(id: id).first || new
+        end
+
+        def self.reset_pk_sequence
+          case ActiveRecord::Base.connection.adapter_name
+          when 'PostgreSQL'
+            ActiveRecord::Base.connection.reset_pk_sequence!(table_name)
+          else
+            raise "Task not implemented for this DB adapter"
+          end
+        end
+      end
     end
 
     task :comments => :connect do
@@ -37,6 +53,7 @@ namespace :db do
           comment.save!
         end
       end
+      Comment.reset_pk_sequence
     end
 
     task :teams => :connect do
@@ -56,6 +73,7 @@ namespace :db do
           puts "#{row[:id]} skipped #{like.errors.inspect}"
         end
       end
+      Like.reset_pk_sequence
     end
 
     task :badges => :connect do
@@ -79,11 +97,10 @@ namespace :db do
           badge.save!
         end
       end
-
+      Badge.reset_pk_sequence
     end
 
     task :users => :connect do
-
       Legacy[:users].each do |row|
         begin
           user = User.find_or_initialize_by_id(row[:id])
@@ -118,6 +135,7 @@ namespace :db do
           end
         end
       end
+      User.reset_pk_sequence
     end
 
     task :protips => :connect do
@@ -142,6 +160,7 @@ namespace :db do
         protip.save!
       end
     end
+    Protip.reset_pk_sequence
   end
 
   # rails r 'puts Badges.all.each{|b| puts "\"#{b.name}\" => [\"#{b.display_name}\", \"#{b.image_path.gsub("badges/", "")}\", \"#{b.description}\", \"#{b.for}\"],"  }'

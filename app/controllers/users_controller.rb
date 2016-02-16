@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.where(id: params[:id]).first || current_user
-    return head(:forbidden) unless authorized?(@user)
+    return head(:forbidden) if !current_user.can_edit?(@user)
   end
 
   def create
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    return head(:forbidden) unless authorized?(@user)
+    return head(:forbidden) if !current_user.can_edit?(@user)
     @user.attributes = user_params
     if @user.save
       redirect_to profile_url(username: @user.username)
@@ -49,9 +49,6 @@ class UsersController < ApplicationController
   end
 
   protected
-  def authorized?(user)
-    current_user == user || admin?
-  end
 
   def new_user_params
     params.require(:user).permit(:username, :password, :email)

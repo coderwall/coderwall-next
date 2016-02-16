@@ -71,7 +71,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit?(obj)
-    return true if admin?
+    return true if admin? || obj == self
     return obj.user == self if obj.respond_to?(:user)
   end
 

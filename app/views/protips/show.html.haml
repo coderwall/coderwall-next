@@ -41,8 +41,8 @@
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
         -if signed_in? && current_user.can_edit?(@protip)
           .clearfix.mb2.mt2
-            .right
-              =link_to('Delete', protip_path(@protip), method: :delete, class: 'diminish')
+            .right.mr1
+              =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
               %a.ml1.btn.btn.bg-green.white{href: edit_protip_path(@protip)}
                 Edit Protip
 

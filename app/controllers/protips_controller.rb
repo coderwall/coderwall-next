@@ -40,7 +40,7 @@ class ProtipsController < ApplicationController
 
   def create
     @protip = Protip.new(protip_params)
-    @protip.user_id = current_user
+    @protip.user = current_user
     if @protip.save
       redirect_to protip_url(@protip)
     else
