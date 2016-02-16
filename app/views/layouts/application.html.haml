@@ -13,6 +13,9 @@
   %body
     .flex.flex-column{:style => "min-height:100vh"}
       %header.border-bottom
+        -if Rails.env.production?
+          .clearfix.center.py1.yellow.bg-navy
+            %strong This is a preview release of the next Coderwall. Any changes made here will be lost.
         %nav.clearfix.px2
           .sm-col.py2
             %a.btn.logo{:href => root_url} Coderwall
