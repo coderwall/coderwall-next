@@ -63,11 +63,16 @@ class User < ActiveRecord::Base
   end
 
   def display_title
-    a = [title, company].reject(&:blank?).join(' at ')    
+    a = [title, company].reject(&:blank?).join(' at ')
   end
 
   def generate_unique_color
     self.color = ("#%06x" % (rand * 0xffffff))
+  end
+
+  def can_edit?(obj)
+    return true if admin?
+    return obj.user == self if obj.respond_to?(:user)
   end
 
 end

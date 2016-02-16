@@ -19,7 +19,9 @@
 
           .sm-col-right.py2{class: hide_on_auth}
             -if signed_in?
-              %a.btn.active-text{:href => new_protip_path} Add Protip
+              %a.btn.active-text{:href => new_protip_path}
+                =icon('pencil')
+                Protip
               %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
                 .mr1.inline=current_user.username
                 .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user))
@@ -36,8 +38,10 @@
               Follow Coderwall
               =icon("twitter", class: "fa-1x")
           .sm-col-right.py2.mt1
+            %a.inline-block.ml2.mr2{href: 'http://github.com/assemblymade/coderwall-next', rel: 'nofollow'}
+              =link_to icon("github-alt")
             %a.inline-block.ml2.mr2{href: 'mailto:support@coderwall.com'}
               Contact
             %a.inline-block.mr2{href: privacy_path} Privacy
             %a.inline-block.mr2{href: tos_path} Terms
-            %p.inline-block.diminish.inline="Copyright 2012-#{Time.now.strftime('%Y')}"      
+            %p.inline-block.diminish.inline="Copyright 2012-#{Time.now.strftime('%Y')}"

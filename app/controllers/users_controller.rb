@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     return head(:forbidden) unless authorized?(@user)
-    @user.update(user_params)
+    @user.attributes = user_params
     if @user.save
       redirect_to profile_url(username: @user.username)
     else

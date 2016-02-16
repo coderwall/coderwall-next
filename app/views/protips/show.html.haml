@@ -39,6 +39,13 @@
             =link_to @protip.user.username, profile_path(username: @protip.user.username)
           .avatar{style: "background-color: #{@protip.user.color};"}=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
+        -if signed_in? && current_user.can_edit?(@protip)
+          .clearfix.mb2.mt2
+            .right
+              =link_to('Delete', protip_path(@protip), method: :delete, class: 'diminish')
+              %a.ml1.btn.btn.bg-green.white{href: edit_protip_path(@protip)}
+                Edit Protip
+
         %h1.px2.mt4.center=@protip.title
         .center
           -@protip.tags.each do |tag|
