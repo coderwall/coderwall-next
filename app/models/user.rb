@@ -75,4 +75,12 @@ class User < ActiveRecord::Base
     return obj.user == self if obj.respond_to?(:user)
   end
 
+  def editable_skills
+    skills.join(', ')
+  end
+
+  def editable_skills=(val)
+    self.skills = val.split(',').collect(&:strip)
+  end
+
 end

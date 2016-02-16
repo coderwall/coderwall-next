@@ -62,6 +62,7 @@ class UsersController < ApplicationController
       :title,
       :company,
       :location,
+      :editable_skills,
       :about,
       :receive_newsletter,
       :receive_weekly_digest
