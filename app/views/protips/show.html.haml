@@ -53,6 +53,6 @@
         .content.p2.mt3=raw CFM::Markdown.render(@protip.body)
       -if @protip.comments.present?
         .clearfix.mt1.px2
-          %h4==#{@protip.comments.size} Responses
+          %h4=pluralize(@protip.comments.size, 'Response')
           =render @protip.comments
     .md-col.md-col-2.md-show &nbsp;
