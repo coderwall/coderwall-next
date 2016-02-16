@@ -131,6 +131,10 @@ namespace :db do
             deleted: false,
             user_id: row[:id]).collect{|row| row[:name]}
 
+          if team = Legacy[:teams].where(id: row[:team_id]).collect.first
+            user.company = team[:name]
+          end
+
           if row[:banned_at].nil?
             Rails.logger.info "#{row[:username]} => #{row[:email]}"
             user.save!
