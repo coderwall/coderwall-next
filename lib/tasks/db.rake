@@ -43,6 +43,7 @@ namespace :db do
     end
 
     task :comments => :connect do
+      Comment.reset_pk_sequence
       Legacy[:comments].each do |row|
         if row[:comment].to_s.size >= 2
           comment = Comment.find_or_initialize_by_id(row[:id])
@@ -61,6 +62,7 @@ namespace :db do
     end
 
     task :likes => :connect do
+      Like.reset_pk_sequence
       Legacy[:likes].each do |row|
         like = Like.find_or_initialize_by_id(row[:id])
         like.attributes.keys.each do |key|
@@ -77,6 +79,7 @@ namespace :db do
     end
 
     task :badges => :connect do
+      Badge.reset_pk_sequence
       Legacy[:badges].each do |row|
         unless row[:badge_class_name].nil?
           if LEGACY_BADGES[row[:badge_class_name]].nil?
@@ -101,6 +104,7 @@ namespace :db do
     end
 
     task :users => :connect do
+      User.reset_pk_sequence
       Legacy[:users].each do |row|
         begin
           user = User.find_or_initialize_by_id(row[:id])
@@ -139,6 +143,7 @@ namespace :db do
     end
 
     task :protips => :connect do
+      Protip.reset_pk_sequence
       Legacy[:protips].each do |row|
         puts "#{row[:id]} : #{row[:public_id]} : #{row[:slug]}"
         protip = Protip.find_or_initialize_by_id(row[:id])
