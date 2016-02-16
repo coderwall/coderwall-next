@@ -48,6 +48,13 @@ class ProtipsController < ApplicationController
     end
   end
 
+  def destroy
+    @protip = Protip.find_by_public_id!(params[:id])
+    return head(:forbidden) unless current_user.can_edit?(@protip)
+    @protip.destroy
+    redirect_to profile_protips_url(username: @protip.user.username, anchor: 'protips')
+  end
+
   protected
   def protip_params
     params.require(:protip).permit(:editable_tags, :body, :title)

@@ -1,5 +1,5 @@
-# Features remaining prior release
-* TODO: Likes front-end, on load, replace heart-o with hearts on like, like increment count/refresh did like?
+## Features remaining prior release
+
 * TODO: Creating comments
 * TODO: Getting avatars/uploads/cdn to work
 * TODO: Dragging files into protip editor https://github.com/feross/drag-drop
@@ -11,8 +11,10 @@
 * TODO: Check all meta tags, especially on pro tips so SEO is retained
 * TODO: Cleaup (all protips & comments without author, all spam protips)
 
-# Post release backlog
+## Post release backlog
+
 * TODO: Basic Caching
+* TODO: Deleting user
 * TODO: Team view
 * TODO: New welcome email on sign up
 * TODO: Spam detection and robot account creation

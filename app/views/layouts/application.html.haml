@@ -20,7 +20,7 @@
           .sm-col-right.py2{class: hide_on_auth}
             -if signed_in?
               %a.btn.active-text{:href => new_protip_path}
-                =icon('pencil')
+                Post
                 Protip
               %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
                 .mr1.inline=current_user.username
