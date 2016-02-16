@@ -15,6 +15,10 @@ $font-tiny: 10px;
 $font-lg: 16px;
 $font-x-lg: 18px;
 
+a {
+	word-break: break-all;
+}
+
 $highlight-color: $red;
 .highlight {
   display: inline;
