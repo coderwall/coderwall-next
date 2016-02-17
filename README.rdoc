@@ -1,6 +1,5 @@
 ## Features remaining prior release
 
-* TODO: Creating comments
 * TODO: Getting avatars/uploads/cdn to work
 * TODO: Dragging files into protip editor https://github.com/feross/drag-drop
 * TODO: Getting Likes / Hearts to work
