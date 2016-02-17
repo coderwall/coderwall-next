@@ -40,7 +40,6 @@ gem 'sequel'
 gem 'redis'
 
 group :development, :test do
-  gem 'rspec-rails'
   gem 'capybara'
   gem 'letter_opener'
   gem 'dotenv-rails'

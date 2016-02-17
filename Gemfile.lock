@@ -93,7 +93,6 @@ GEM
     connection_pool (2.2.0)
     dalli (2.7.6)
     debug_inspector (0.0.2)
-    diff-lcs (1.2.5)
     dotenv (2.1.0)
     dotenv-rails (2.1.0)
       dotenv (= 2.1.0)
@@ -211,23 +210,6 @@ GEM
       tilt
     redcarpet (3.3.4)
     redis (3.2.2)
-    rspec-core (3.4.1)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-rails (3.4.0)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     sass (3.4.21)
@@ -304,7 +286,6 @@ DEPENDENCIES
   react-rails
   redcarpet (>= 3.3.4)
   redis
-  rspec-rails
   sass-rails (~> 5.0)
   sequel
   spring
