@@ -34,7 +34,9 @@ class ProtipHeart extends React.Component {
     $.ajax({
       url: this.props.href,
       method: 'POST',
-      error: () => this.setState({hearted: false, count: this.props.initialCount})
+      error: (xhr) => {
+        this.setState({hearted: false, count: this.props.initialCount})
+        promptUserSignInOn401(xhr)}
     })
   }
 }

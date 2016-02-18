@@ -17,10 +17,23 @@
 #= require react_ujs
 #= require_tree .
 
+@promptUserSignInOn401 = (xhr) ->
+  if xhr.status == 401
+    window.location.replace('/signin')
+  return
+
 $ ->
-  $(document).bind "ajax:error", (event, jqXHR, ajaxSettings, thrownError) ->
-    if jqXHR.status == 401 # thrownError is 'Unauthorized'
-      window.location.replace('/signin')
+  $.ajaxSetup error: (xhr, status, err) ->
+    promptUserSignInOn401(xhr)
+    return
+
+  # $.ajaxSetup statusCode: 401: ->
+  # window.location.replace('/signin')
+  # return
+
+  # $(document).bind "ajax:error", (event, jqXHR, ajaxSettings, thrownError) ->
+  #   if jqXHR.status == 401 # thrownError is 'Unauthorized'
+  #     window.location.replace('/signin')
 
   # resize text areas to adjust for space
   $('textarea').on 'input', ->
@@ -28,4 +41,3 @@ $ ->
     textarea_new_hight = textarea_to_resize.scrollHeight
     textarea_to_resize.style.cssText = 'height:auto;'
     textarea_to_resize.style.cssText = 'height:' + textarea_new_hight + 'px'
-    
