@@ -4,8 +4,10 @@
     .clearfix
       =link_to comment.user.username, profile_path(username: comment.user.username), class: 'bold black no-hover'
       .content.small=raw CFM::Markdown.render(comment.body)
-      -# =comment.body
       .diminish.mt1
         ==#{time_ago_in_words(comment.created_at)} ago
+        -if signed_in? && current_user.can_edit?(comment)
+          &middot;
+          %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
         &middot;
         %a{:href => comment_likes_path(comment), 'data-remote'=>"true", 'data-method'=>'post'} Like?
