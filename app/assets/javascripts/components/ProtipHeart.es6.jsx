@@ -8,7 +8,7 @@ class ProtipHeart extends React.Component {
   }
 
   componentDidMount() {
-    const userLikes = JSON.parse($('#signed-in-user-liked-payload').html() || '[]')
+    const userLikes = JSON.parse($('#signed-in-user-liked-payload').html()) || []
     console.log(userLikes)
     if (userLikes.indexOf(this.props.id) > -1) {
       this.setState({hearted: true})
