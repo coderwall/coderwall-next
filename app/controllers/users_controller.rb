@@ -4,6 +4,8 @@ class UsersController < ApplicationController
   def show
     if params[:username] == 'random'
       @user = User.order("random()").first
+    elsif params[:delete_account]
+      @user = current_user
     else
       @user = User.find_by_username(params[:username])
     end
@@ -46,6 +48,19 @@ class UsersController < ApplicationController
       sign_in(user)
       redirect_to profile_url(username: user.username)
     end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    head(:forbidden) unless current_user.can_edit?(@user)
+    @user.destroy
+    if @user == current_user
+      sign_out
+      flash[:notice] = "You are no longer signed in to Coderwall. Your acccount, #{@user.username}, has been deleted."
+    else
+      flash[:notice] = "#{@user.username}'s account deleted."
+    end
+    redirect_to(root_url)
   end
 
   protected

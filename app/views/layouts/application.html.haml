@@ -33,6 +33,8 @@
               %a.btn.active-text.mr2{:href => sign_in_path} Log In
               %a.btn.btn-primary{:href => sign_up_path} Sign Up
       %main.flex-auto.px3.py3
+        -if flash[:notice].present?
+          .clearfix.rounded.py2.mb2.white.bg-navy.bold.center.font-lg=flash[:notice]
         =yield
       %footer.border-top
         %nav.clearfix

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get    '/500'            => "pages#show",    page: 'server_error'
   get    '/helloworld'     => "users#edit",    finish_signup: true, as: :finish_signup
   get    '/styleguide'     => "pages#show",    page: 'styleguide'
+  get    '/delete_account' => 'users#show',    delete_account: true
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]

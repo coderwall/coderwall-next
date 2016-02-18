@@ -2,7 +2,6 @@
 
 * TODO: Getting avatars/uploads/cdn to work
 * TODO: Dragging files into protip editor https://github.com/feross/drag-drop
-* TODO: Getting Likes / Hearts to work
 * TODO: Check all meta tags, especially on pro tips so SEO is retained
 * TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
 * TODO: Write announcement protip and link it on homepage

@@ -20,6 +20,11 @@
         -if current_user == @user || current_user.try(:admin?)
           .clearfix.mb3
             .right
+              -if current_user.try(:admin?)
+                .inline.diminish.mr1=@user.email
+                .inline.diminish.mr1="accessed #{time_ago_in_words(@user.last_request_at)}"
+              -if current_user.try(:admin?) || params[:delete_account]
+                =link_to(icon('trash'), user_path(@user), method: :delete, class: 'diminish mr1', 'data-confirm': 'This makes us very sad. Are you sure?')
               =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
               %a.ml1.btn.btn.bg-green.white{href: edit_user_path(@user)}
                 Edit Profile
