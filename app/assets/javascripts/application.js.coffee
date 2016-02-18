@@ -13,9 +13,19 @@
 #= require jquery
 #= require jquery_ujs
 #= require turbolinks
+#= require react
+#= require react_ujs
 #= require_tree .
 
 $ ->
   $(document).bind "ajax:error", (event, jqXHR, ajaxSettings, thrownError) ->
     if jqXHR.status == 401 # thrownError is 'Unauthorized'
       window.location.replace('/signin')
+
+  # resize text areas to adjust for space
+  $('textarea').on 'input', ->
+    textarea_to_resize = this
+    textarea_new_hight = textarea_to_resize.scrollHeight
+    textarea_to_resize.style.cssText = 'height:auto;'
+    textarea_to_resize.style.cssText = 'height:' + textarea_new_hight + 'px'
+    
