@@ -22,14 +22,14 @@ $ ->
     promptUserSignInOn401(xhr)
     return
 
-  $('textarea').on 'input', resizeTextAreaForContent
+  $('textarea').on 'input', resizeTextAreaForNewInput
 
 @promptUserSignInOn401 = (xhr) ->
   if xhr.status == 401
     window.location.replace('/signin')
   return
 
-@resizeTextAreaForContent = ->
+@resizeTextAreaForNewInput = ->
   textarea_to_resize = this
   textarea_new_hight = textarea_to_resize.scrollHeight
   textarea_to_resize.style.cssText = 'height:auto;'
