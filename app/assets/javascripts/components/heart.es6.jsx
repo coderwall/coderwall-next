@@ -1,13 +1,13 @@
 class Heart extends React.Component {
   render() {
     let classes = {
-      root: 'heart left ml1 mr2 pointer',
+      root: 'heart left ml1 mr2',
       icon: 'highlight center',
       count: 'diminish center font-tiny'
     }
     if (this.props.layout === 'inline') {
       classes = {
-        root: 'heart left ml1 mr2 pointer flat',
+        root: 'heart left ml1 mr2 flat',
         icon: 'highlight mr1',
         count: 'diminish inline'
       }
@@ -26,11 +26,11 @@ class Heart extends React.Component {
 
   renderHeartState(classes) {
     if (!this.props.hearted) {
-      return <div className={classes}>
+      return <div className={classes + ' pointer'}>
         <i className="fa fa-heart-o" />
       </div>
     }
-    return <div className={classes + ' hearted'}>
+    return <div className={classes + ' hearted default-cursor'}>
       <i className="fa fa-heart" />
     </div>
   }

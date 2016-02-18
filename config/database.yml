@@ -23,7 +23,8 @@ default: &default
 
 development:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: coderwall-next_development
+  url: <%= ENV['DATABASE_URL'] %> # when set overrides all other configurations
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

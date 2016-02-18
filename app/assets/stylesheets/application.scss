@@ -51,10 +51,6 @@ $highlight-color: $red;
 	border-bottom: solid 3px $blue;
 }
 
-.pointer {
-	cursor: pointer;
-}
-
 $h3: 18px;
 
 h1, h3 {
@@ -112,6 +108,14 @@ $placeholder: darken($silver, 20%);
 			color: $diminish-color;
 		}
 	}
+}
+
+.default-cursor{
+	cursor: default !important;
+}
+
+.pointer {
+	cursor: pointer;
 }
 
 a.heart {
