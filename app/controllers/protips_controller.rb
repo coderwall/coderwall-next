@@ -19,10 +19,47 @@ class ProtipsController < ApplicationController
   end
 
   def new
+    @protip = Protip.new
+  end
 
+  def edit
+    @protip = Protip.find_by_public_id!(params[:id])
+    render action: 'new'
+  end
+
+  def update
+    @protip = Protip.find_by_public_id!(params[:id])
+    return head(:forbidden) unless current_user.can_edit?(@protip)
+    @protip.update(protip_params)
+    if @protip.save
+      redirect_to protip_url(@protip)
+    else
+      render action: 'new'
+    end
+  end
+
+  def create
+    @protip = Protip.new(protip_params)
+    @protip.user = current_user
+    if @protip.save
+      redirect_to protip_url(@protip)
+    else
+      render action: 'new'
+    end
+  end
+
+  def destroy
+    @protip = Protip.find_by_public_id!(params[:id])
+    return head(:forbidden) unless current_user.can_edit?(@protip)
+    @protip.destroy
+    redirect_to profile_protips_url(username: @protip.user.username, anchor: 'protips')
   end
 
   protected
+  def protip_params
+    params.require(:protip).permit(:editable_tags, :body, :title)
+  end
+
   def update_view_count(protip)
     if !browser.bot? && browser.known?
       recently_viewed = cookies[:viewd_protips].to_s.split(':')

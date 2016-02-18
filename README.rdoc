@@ -1,19 +1,21 @@
-# Features remaining prior release
-* TODO: Likes front-end, on load, replace heart-o with hearts on like, like increment count/refresh did like?
-* TODO: Creating protips & comments
-* TODO: Migrate user skills and team names
-* TODO: Getting avatars/uploads/cdn to work
-* TODO: Getting Likes / Hearts to work
-* TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
-* TODO: Fix code block formatting
-* TODO: Write announcement protip and link it on homepage
-* TODO: Check all meta tags, especially on pro tips so SEO is retained
-* TODO: Cleaup (all protips & comments without author, all spam protips)
+## Features remaining prior release
 
-# Post release backlog
+* TODO: Getting avatars/uploads/cdn to work
+* TODO: Dragging files into protip editor https://github.com/feross/drag-drop
+* TODO: Getting Likes / Hearts to work
+* TODO: Check all meta tags, especially on pro tips so SEO is retained
+* TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
+* TODO: Write announcement protip and link it on homepage
+* TODO: Cleaup (all protips & comments without author, all spam protips like PST tips)
+* TDOD: Clean up duplicate badges
+
+## Post release backlog
+
 * TODO: Basic Caching
+* TODO: Deleting user
 * TODO: Team view
 * TODO: New welcome email on sign up
+* TODO: Fix heart view count overlap viewing protip on mobile
 * TODO: Spam detection and robot account creation
 * TODO: Reimplement self administration of account deletion
 * TODO: Port API to award new badges w/update. Write details describing out to create new awards

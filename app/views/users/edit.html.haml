@@ -29,11 +29,17 @@
           = form.text_field :company, type: 'text', class: 'field block col-12 mb3', placeholder: 'Where you work will connect you with others'
           = form.label :location
           = form.text_field :location, type: 'text', class: 'field block col-12 mb3', placeholder: 'A city or state works nicely'
+          = form.label :editable_skills, 'Skills'
+          .diminish.mb1
+            When left blank may randomly show 'loving ie6' and 'visual basic'
+            =icon('smile-o')
+          = form.text_field :editable_skills, type: 'text', class: 'field block col-12 mb3', placeholder: 'e.g. open source, ruby, docker'
+
           = form.label :about
           .diminish.mb1
             Markdown here is totally
             =icon('thumbs-o-up')
-          = form.text_area :about, rows: 5, class: 'field block col-12 mb3', placeholder: 'Fun or interesting things about you with maybe a link or two thrown in'
+          = form.text_area :about, rows: 5, class: 'field block col-12 mb3', placeholder: "A fun brief bio about you with maybe a link or two thrown in. Don't fret, you can always change this."
           -if !finishing_signup?
             .mb1
               = form.check_box :receive_newsletter

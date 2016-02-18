@@ -5,10 +5,16 @@ class Protip < ActiveRecord::Base
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_cacluated_score!
+  before_create :generate_public_id
 
   belongs_to :user, autosave: true
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likable, dependent: :destroy
+
+  validates :title, presence: true, length: { minimum: 5, maximum:  255 }
+  validates :body, presence: true
+  validates :tags, presence: true
+  validates :slug, presence: true
 
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
   scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
@@ -27,7 +33,7 @@ class Protip < ActiveRecord::Base
   end
 
   def slug_format
-    "#{title}"
+    title.to_s
   end
 
   def images
@@ -62,7 +68,22 @@ class Protip < ActiveRecord::Base
     total
   end
 
+  def generate_public_id
+    self.public_id = SecureRandom.urlsafe_base64(4).downcase
+    #retry if not unique
+    generate_public_id unless Protip.where(public_id: self.public_id).blank?
+  end
+
   def cache_cacluated_score!
     self.score = cacluate_score
   end
+
+  def editable_tags
+    tags.join(', ')
+  end
+
+  def editable_tags=(val)
+    self.tags = val.split(',').collect(&:strip)
+  end
+
 end

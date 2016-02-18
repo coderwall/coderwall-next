@@ -1,0 +1,38 @@
+=content_for :title do
+  Post a new protip
+
+.continer
+  .clearfix
+    .md-col.md-col-2.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .card.p3
+        -if @protip.new_record?
+          %h2
+            .inline.highlight.mr1=icon('terminal')
+            Post a new protip
+          .diminish.mb3
+            Share new tricks you've learned, code samples to fix a nasty bug, or anything else that you want to remember or think other developers would benefit from. You can even share an inspring link, but please add a comment or additional context to kick start a discussion. Remember to be nice and please don't spam.
+
+        -@protip.errors.full_messages.each do |error|
+          %p.red.bold=error
+        = form_for @protip do |form|
+          = form.label :title
+          = form.text_field :title, type: 'text', class: 'field block col-12 mb3'
+          = form.label :body
+          .diminish.mb1
+            You can drop images on to the body if your browser doesn't blow.
+            %br
+            Markdown here is also
+            =icon('thumbs-o-up')
+          = form.text_area :body, rows: 8, class: 'field block col-12 mb3'
+          = form.label :editable_tags
+          .diminish.mb1
+            Comma seperated (e.g. ruby, docker, machine learning)
+          = form.text_field :editable_tags, type: 'text', class: 'field block col-12 mb3'
+
+          %button.btn.mt1.bg-green.white{type: 'submit'} Save
+
+        .clearfix.mt2
+          =link_to 'Cancel', :back
+
+    .md-col.md-col-2.md-show &nbsp;

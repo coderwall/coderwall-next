@@ -44,13 +44,39 @@
             =link_to @protip.user.username, profile_path(username: @protip.user.username)
           .avatar{style: "background-color: #{@protip.user.color};"}=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
+        -if signed_in? && current_user.can_edit?(@protip)
+          .clearfix.mb2.mt2
+            .right.mr1
+              =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
+              %a.ml1.btn.btn.bg-green.white{href: edit_protip_path(@protip)}
+                Edit Protip
+
         %h1.px2.mt4.center=@protip.title
         .center
           -@protip.tags.each do |tag|
             %h6.inline=tag
         .content.p2.mt3=raw CFM::Markdown.render(@protip.body)
+        -if signed_in?
+          #new-comment.new-comment.mt3.mb2.px2
+            -if flash[:error]
+              .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
+            = form_for Comment.new do |form|
+              .border.rounded
+                = form.hidden_field :protip_id, value: @protip.id
+                = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter your resonse here. Smile and don't forget to be nice.", style: 'border: none; outline: none', value: flash[:data]
+                .text-area-footer.px1.py1.font-sm
+                  Markdown is totally
+                  =icon('thumbs-o-up')
+              %button.btn.rounded.mt2.green.bg-white.border-green{type: 'submit'} Respond
+        -else
+          #new-comment.new-comment.mt3.mb3.px2.center.bold
+            =link_to 'Sign in', sign_in_path
+            or
+            =link_to 'sign up', sign_up_path
+            to add your response.
+
       -if @protip.comments.present?
         .clearfix.mt1.px2
-          %h4==#{@protip.comments.size} Responses
+          %h4=pluralize(@protip.comments.size, 'Response')
           =render @protip.comments
     .md-col.md-col-2.md-show &nbsp;

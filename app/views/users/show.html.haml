@@ -51,13 +51,13 @@
               =tag
 
         %nav.clearfix.mt2
-          %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
-            ==#{@user.badges.size} Achivements
-          %a.font-lg.py1.no-hover{href: profile_protips_path(username: @user.username), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
-            ==#{@user.protips.size} Protips
+          %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username, anchor: 'achievements'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
+            =pluralize(@user.badges.size, 'Achivement')
+          %a.font-lg.py1.no-hover{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
+            =pluralize(@user.protips.size, 'Protip')
 
         -if show_badges?
-          .clearfix.mt1.py2.border-top
+          #achievements.clearfix.mt1.py2.border-top
             -if @user.badges.empty?
               .clearfix.mt3.p4.center
                 .diminish=icon('hand-peace-o', class: 'fa-3x')
@@ -65,10 +65,10 @@
               .badge.clearfix.py2
                 .left.mr2=image_tag badge.path, width: 50, height: 50
                 .overflow-hidden
-                  %h6.mt0="Unlocked #{badge.name}"
+                  %h6.mt0=badge.name
                   .mt0.diminish=badge.description
         -else
-          .clearfix.mt1.py2.border-top
+          #protips.clearfix.mt1.py2.border-top
             -if @user.protips.empty?
               .clearfix.mt3.p4.center
                 .diminish=icon('hand-peace-o', class: 'fa-3x')

@@ -35,16 +35,6 @@ $highlight-color: $red;
 	display: none;
 }
 
-.diminish{
-  color: $diminish-color;
-	a{
-		color: $diminish-color;
-		&:hover {
-			color: $diminish-color;
-		}
-	}
-}
-
 .font-sm {
   font-size: $font-sm;
 }
@@ -87,7 +77,42 @@ h6 {
 @import 'font-awesome';
 @import 'basscss';
 @import 'content';
-@import 'twilight_theme';
+
+$placeholder: darken($silver, 20%);
+
+.text-area-footer{
+	color: $placeholder;
+	border-top-color: $placeholder;
+	border-top-style: dashed;
+	border-top-width: 1px;
+}
+
+::-webkit-input-placeholder {
+		/* WebKit browsers */
+    color: $placeholder;
+}
+:-moz-placeholder {
+		/* Mozilla Firefox 4 to 18 */
+    color: $placeholder;
+}
+::-moz-placeholder {
+	 	/* Mozilla Firefox 19+ */
+    color: $placeholder;
+}
+:-ms-input-placeholder {
+		/* Internet Explorer 10+ */
+    color: $placeholder;
+}
+
+.diminish{
+  color: $diminish-color;
+	a{
+		color: $diminish-color;
+		&:hover {
+			color: $diminish-color;
+		}
+	}
+}
 
 a.heart {
   padding-top: 4px;
@@ -148,4 +173,12 @@ header {
 	    height: 72px;
 	  }
 	}
+}
+
+.focus-no-border:focus {
+	border: none;
+}
+
+.focus-pb3:focus {
+	padding-bottom: $space-3;
 }

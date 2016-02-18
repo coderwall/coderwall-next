@@ -1,9 +1,6 @@
 -content_for :title do
   Coderwall : A community space for developers.
 
--if signed_in?
-  #signed-in-user-liked-payload.hide=current_user.liked
-
 .continer
   -if protips_view_breadcrumbs.present?
     .mxn1.mb3
@@ -21,7 +18,7 @@
       .clearfix.ml3
         %h4
           =icon 'bolt', class: 'mr1'
-          Introducing Coderwall 4.0
+          Introducing Coderwall 3.0
         %p.mt2 We hope this shiny brand new version of Coderwall makes you smile. We're on a mission to make the software world smaller - watch for alot more to come.
         %a Read the full announcement
 

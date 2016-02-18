@@ -63,11 +63,24 @@ class User < ActiveRecord::Base
   end
 
   def display_title
-    a = [title, company].reject(&:blank?).join(' at ')    
+    a = [title, company].reject(&:blank?).join(' at ')
   end
 
   def generate_unique_color
     self.color = ("#%06x" % (rand * 0xffffff))
+  end
+
+  def can_edit?(obj)
+    return true if admin? || obj == self
+    return obj.user == self if obj.respond_to?(:user)
+  end
+
+  def editable_skills
+    skills.join(', ')
+  end
+
+  def editable_skills=(val)
+    self.skills = val.split(',').collect(&:strip)
   end
 
 end
