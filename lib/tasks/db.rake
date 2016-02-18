@@ -6,18 +6,29 @@ namespace :db do
     'db:port:comments',
     'db:port:teams',
     'db:port:likes',
+    'db:fix_counters',
     'cache:score:recalculate']
 
-  namespace :port do
-
-    task :clean   => :environment do
-      Like.delete_all
-      Comment.delete_all
-      Protip.delete_all
-      Badge.delete_all
-      User.delete_all
+  task :fix_counters => :environment do
+    Comment.find_each do |comment|
+      puts comment.id
+      Comment.reset_counters(comment.id, :likes)
     end
+    Protip.find_each do |protip|
+      puts protip.id
+      Protip.reset_counters(protip.id, :likes)
+    end
+  end
 
+  task :clean   => :environment do
+    Like.delete_all
+    Comment.delete_all
+    Protip.delete_all
+    Badge.delete_all
+    User.delete_all
+  end
+
+  namespace :port do
     task :connect => :environment do
       if hide_sql_out = Rails.env.development?
         ActiveRecord::Base.logger.level = Logger::INFO

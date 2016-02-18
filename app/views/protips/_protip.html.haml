@@ -1,8 +1,10 @@
-.protip.card.clearfix.p1.mb2.likeable{id: dom_id(protip)}
-  = react_component 'ProtipHeart',
-    id: dom_id(protip),
-    href: protip_likes_path(protip),
-    initialCount: protip.likes_count
+.protip.card.clearfix.py1.mb2.likeable{id: dom_id(protip)}
+  .left.col.col-1
+    .mt-third
+      = react_component 'Heartable',
+        id: dom_id(protip),
+        href: protip_likes_path(protip),
+        initialCount: protip.likes_count
 
   .overflow-hidden
     %h3.mt0.mb0

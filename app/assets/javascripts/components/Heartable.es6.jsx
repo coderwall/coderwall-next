@@ -1,4 +1,4 @@
-class ProtipHeart extends React.Component {
+class Heartable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -8,8 +8,7 @@ class ProtipHeart extends React.Component {
   }
 
   componentDidMount() {
-    const userLikes = JSON.parse($('#signed-in-user-liked-payload').html()) || []
-    console.log(userLikes)
+    const userLikes = getUserLikes()
     if (userLikes.indexOf(this.props.id) > -1) {
       this.setState({hearted: true})
     }
@@ -41,7 +40,13 @@ class ProtipHeart extends React.Component {
   }
 }
 
-ProtipHeart.propTypes = {
+Heartable.propTypes = {
   initialCount: React.PropTypes.number,
-  protipId: React.PropTypes.string,
+  protipId: React.PropTypes.string
+}
+
+var _userLikes
+function getUserLikes() {
+  _userLikes = _userLikes || JSON.parse($('#current-users-liked-as-json').html())
+  return _userLikes
 }

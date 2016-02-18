@@ -17,7 +17,6 @@ $font-x-lg: 18px;
 
 $highlight-color: $red;
 .highlight {
-  display: inline;
   color: $highlight-color !important;
   a {
     color: $highlight-color !important;
@@ -47,11 +46,15 @@ $highlight-color: $red;
 	font-size: $font-lg;
 }
 
+.font-x-lg {
+	font-size: $font-x-lg;
+}
+
 .active {
 	border-bottom: solid 3px $blue;
 }
 
-$h3: 18px;
+$h3: $font-x-lg;
 
 h1, h3 {
 	a{
@@ -110,32 +113,16 @@ $placeholder: darken($silver, 20%);
 	}
 }
 
+.mt-third {
+	margin-top: .33rem;
+}
+
 .default-cursor{
 	cursor: default !important;
 }
 
 .pointer {
 	cursor: pointer;
-}
-
-a.heart {
-  padding-top: 4px;
-  font-size: $font-sm;
-  color: red;
-  text-decoration: none;
-
-  i {
-    font-size: $font-sm;
-  }
-
-  &.flat {
-    padding-top: 0px;
-    font-size: $font-lg;
-    font-weight: bold;
-    i {
-      font-size: $font-lg;
-    }
-  }
 }
 
 a.no-hover {
@@ -186,4 +173,9 @@ header {
 
 .focus-pb3:focus {
 	padding-bottom: $space-3;
+}
+
+//neutralize rails-react wrappers affect on layout
+div[data-react-class], div[data-reactid] {
+	display: inline;
 }

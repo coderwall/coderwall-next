@@ -1,35 +1,64 @@
 class Heart extends React.Component {
   render() {
     let classes = {
-      root: 'heart left ml1 mr2',
-      icon: 'highlight center',
-      count: 'diminish center font-tiny'
+      root:  'heart no-hover',
+      icon:  'highlight',
+      count: 'diminish font-tiny',
+      inline: ''
     }
     if (this.props.layout === 'inline') {
       classes = {
-        root: 'heart left ml1 mr2 flat',
-        icon: 'highlight mr1',
-        count: 'diminish inline'
+        root:  'heart no-hover font-x-lg',
+        icon:  'highlight',
+        count: 'ml1 diminish bold',
+        inline: 'inline'
+      }
+    }
+    if (this.props.layout === 'simple') {
+      classes = {
+        root:  'heart pointer',
+        icon:  'highlight',
+        count: 'ml1',
+        inline: 'inline'
       }
     }
     return (
-      <div>
+      <div className='inline'>
         <a className={classes.root} onClick={() => this.props.onClick()}>
-          {this.renderHeartState(classes.icon)}
-          <div className={classes.count}>
-            {this.numberToHuman(this.props.count)}
-          </div>
+          <center className={classes.inline}>
+            {this.renderHeartState(classes.icon)}
+          </center>
+          {this.renderHeartCount(classes)}
         </a>
       </div>
     )
   }
 
+  renderHeartCount(classes){
+    if(this.props.layout != 'simple')
+    {
+      return <div className={classes.count}>
+            <center className={classes.inline}>
+              {this.numberToHuman(this.props.count)}
+            </center>
+          </div>
+    }
+  }
+
   renderHeartState(classes) {
     if (!this.props.hearted) {
-      return <div className={classes + ' pointer'}>
-        <i className="fa fa-heart-o" />
-      </div>
+      if(this.props.layout === 'simple')
+      {
+        return <span>Like?</span>
+      }
+      else
+      {
+        return <div className={classes + ' pointer'}>
+          <i className={classes + ' pointer fa fa-heart-o'} />
+        </div>
+      }
     }
+
     return <div className={classes + ' hearted default-cursor'}>
       <i className="fa fa-heart" />
     </div>

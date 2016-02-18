@@ -1,5 +1,15 @@
 module UsersHelper
 
+  def current_user_liked_list
+    # what it was on protip
+    #signed-in-user-liked-payload.hide=current_user.likes?(@protip) && [dom_id(@protip)]
+    if signed_in?
+      current_user.liked
+    else
+      empty_json_array_so_font_end_continues = '[]'
+    end
+  end
+
   def finishing_signup?
     params[:finish_signup] == true
   end

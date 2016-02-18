@@ -1,8 +1,7 @@
 =content_for :title do
   ==#{@protip.title} : #{@protip.public_id}
 
--if signed_in?
-  #signed-in-user-liked-payload.hide=current_user.likes?(@protip) && [dom_id(@protip)]
+#current-users-liked-as-json.hide=current_user_liked_list
 -# .hide
 -# - meta description: protip_summary
 -# - meta og: { description: protip_summary }
@@ -27,13 +26,12 @@
     .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
       .clearfix.mt0.mb1
-        .left.mt1
-          = react_component 'ProtipHeart',
-            id: dom_id(@protip),
-            href: protip_likes_path(@protip),
-            initialCount: @protip.likes_count,
-            layout: 'inline'
-        .right.pt0.mt0
+        .left.mt-third= react_component 'Heartable',
+                id: dom_id(@protip),
+                href: protip_likes_path(@protip),
+                initialCount: @protip.likes_count,
+                layout: 'inline'
+        .right
           .diminish.inline.mr1
             =icon("eye")
             =number_to_human(@protip.views_count, precision: 4)

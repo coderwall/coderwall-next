@@ -1,8 +1,7 @@
 -content_for :title do
   Coderwall : A community space for developers.
 
--if signed_in?
-  #signed-in-user-liked-payload.hide=current_user.liked
+#current-users-liked-as-json.hide=current_user_liked_list
 
 .continer
   -if protips_view_breadcrumbs.present?
