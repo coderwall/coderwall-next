@@ -65,9 +65,15 @@ class Heart extends React.Component {
   }
 
   numberToHuman(number) {
-    const s = ['', 'k', 'M']
-    var e = Math.floor(Math.log(number) / Math.log(1000))
-    return (number / Math.pow(1000, e)).toFixed(0) + s[e]
+    if(number > 0)
+    {
+      const s = ['', 'K', 'M']
+      var e = Math.floor(Math.log(number) / Math.log(1000))
+      return (number / Math.pow(1000, e)).toFixed(0) + s[e]
+    }
+    else {
+      return 0
+    }
   }
 }
 
