@@ -11,6 +11,33 @@ module ApplicationHelper
     end
   end
 
+  def default_meta_tags
+    {
+      site: 'Coderwall',
+      description: "Coderwall makes the software world smaller so you can meet, learn from, and work with other inspiring developers",
+      keywords: 'coderwall, learn to program, code, coding, open source programming, OSS, developers, programmers',
+      og: {
+        title: :title,
+        url: :canonical,
+        site_name: 'Coderwall',
+        description: :description,
+        type: 'website'
+
+      },
+      twitter: {
+        title: :title,
+        url: :canonical,
+        site_name: 'Coderwall',
+        site: '@coderwall',
+        card: 'summary'
+      }
+    }
+  end
+
+  def meta(meta_tags)
+    set_meta_tags(meta_tags)
+  end
+
   def meta_person_schema_url
     'https://schema.org/Person'
   end

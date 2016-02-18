@@ -26,6 +26,8 @@ gem 'friendly_id'
 gem 'browser'
 gem 'postmark-rails'
 gem 'react-rails'
+gem 'meta-tags'
+gem 'green_monkey'
 
 # Legacy gems needed for porting
 gem 'sequel'

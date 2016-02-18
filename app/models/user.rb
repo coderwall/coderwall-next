@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   include Clearance::User
 
+  html_schema_type :Person
   mount_uploader :avatar, AvatarUploader
 
   before_create :generate_unique_color
@@ -9,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :protips,  dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :badges,   dependent: :destroy
-
 
   RESERVED = %w{
     achievements

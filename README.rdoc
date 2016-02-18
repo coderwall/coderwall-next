@@ -1,8 +1,6 @@
 ## Features remaining prior release
 
 * TODO: Getting avatars/uploads/cdn to work
-* TODO: Dragging files into protip editor https://github.com/feross/drag-drop
-* TODO: Check all meta tags, especially on pro tips so SEO is retained
 * TODO: Clean up (all protips & comments without author, all spam protips like PST tips)
 * TDOD: Clean up duplicate badges
 * TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
@@ -10,6 +8,7 @@
 
 ## Post release backlog
 
+* TODO: Dragging files into protip editor https://github.com/feross/drag-drop
 * TODO: Basic Caching
 * TODO: Deleting user
 * TODO: Team view

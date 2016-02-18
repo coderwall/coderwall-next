@@ -2,6 +2,7 @@ class Protip < ActiveRecord::Base
   extend FriendlyId
   friendly_id :slug_format, :use => :slugged
   paginates_per 30
+  html_schema_type :TechArticle
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_cacluated_score!

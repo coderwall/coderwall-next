@@ -18,7 +18,7 @@ class Heart extends React.Component {
       classes = {
         root:  'heart pointer',
         icon:  'highlight',
-        count: 'ml1',
+        count: 'hide',
         inline: 'inline'
       }
     }
@@ -28,21 +28,14 @@ class Heart extends React.Component {
           <center className={classes.inline}>
             {this.renderHeartState(classes.icon)}
           </center>
-          {this.renderHeartCount(classes)}
-        </a>
-      </div>
-    )
-  }
-
-  renderHeartCount(classes){
-    if(this.props.layout != 'simple')
-    {
-      return <div className={classes.count}>
-            <center className={classes.inline}>
+          <div className={classes.count}>
+            <center className={classes.inline} itemscope timetype='upvoteCount'>
               {this.numberToHuman(this.props.count)}
             </center>
           </div>
-    }
+        </a>
+      </div>
+    )
   }
 
   renderHeartState(classes) {

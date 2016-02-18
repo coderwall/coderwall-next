@@ -1,29 +1,24 @@
-=content_for :title do
-  ==#{@protip.title} : #{@protip.public_id}
+- title @protip.title
+- meta canonical: slug_protips_url(id: @protip.public_id, slug: @protip.slug)
+- meta keywords: @protip.tags
+- meta description: protip_summary
+- meta author: profile_url(username: @protip.user.username)
+- meta twitter: { creator: @protip.user.twitter }           if @protip.user.twitter
+- meta twitter: { creator: { id: @protip.user.twitter_id} } if @protip.user.twitter_id
+
+-# - meta og: { image: users_image_path(@protip.user) }
+-# - itemprop image
 
 #current-users-liked-as-json.hide=current_user_liked_list
--# .hide
--# - meta description: protip_summary
--# - meta og: { description: protip_summary }
--# - meta og: { image: users_image_path(@protip.user) }
--#
--# - meta twitter: { card: 'summary' }
--# - meta twitter: { site: '@coderwall' }
--# - meta twitter: { title: sanitize(@protip.title) }
--# - meta twitter: { url: protip_url(@protip) }
--# - meta twitter: { description: protip_summary }
--# - meta twitter: { image: @protip.featured_image }
--# - meta twitter: { creator: { id: @protip.author.twitter_id } }
--#
--# = content_for :head do
--#   %link{ rel: 'canonical', href: slug_protips_url(id: @protip.public_id, slug: @protip.slug) }
--# {itemscope: true, itemtype:meta_article_schema_url}
--# {itemprop: :dateCreated, content: @protip.created_at}
 
-.continer
-  %meta
+.continer[@protip]
+  .hide= time_tag @protip.created_at, itemprop: "datePublished"
+  .hide= time_tag @protip.updated_at, itemprop: "dateModified"
+  .hide[:name]= @protip.public_id
+
   .clearfix
     .md-col.md-col-2.md-show &nbsp;
+
     .sm-col.sm-col.sm-col-12.md-col-8
       .clearfix.mt0.mb1
         .left.mt-third= react_component 'Heartable',
@@ -42,20 +37,28 @@
             =link_to @protip.user.username, profile_path(username: @protip.user.username)
           .avatar{style: "background-color: #{@protip.user.color};"}=image_tag(avatar_url(@protip.user))
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
+
         -if signed_in? && current_user.can_edit?(@protip)
           .clearfix.mb2.mt2
             .right.mr1
               =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
-              %a.ml1.btn.btn.bg-green.white{href: edit_protip_path(@protip)}
+              %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}
                 Edit Protip
 
-        %h1.px2.mt4.center=@protip.title
-        .center
+        %h1.px2.mt4.center[:headline]=@protip.title
+        .center[:keywords]
           -@protip.tags.each do |tag|
             %h6.inline=tag
-        .content.p2.mt3=raw CFM::Markdown.render(@protip.body)
+        .content.p2.mt3[:articleBody]
+          = raw CFM::Markdown.render(@protip.body)
+
+        .author.p2[:author]
+          %h5.mt0[@protip.user]
+            .diminish.inline Written by
+            %a[:name]{href: profile_path(username: @protip.user.username)}
+              =@protip.user.name
         -if signed_in?
-          #new-comment.new-comment.mt3.mb2.px2
+          #new-comment.new-comment.mt2.mb2.px2
             -if flash[:error]
               .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
             = form_for Comment.new do |form|

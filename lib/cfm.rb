@@ -13,12 +13,27 @@ module CFM
           autolink: true
         }
 
-        renderer  = Redcarpet::Render::HTML.new(  link_attributes: {rel: "nofollow"})
+        renderer  = Redcarpet::Render::HTML.new(link_attributes: {rel: "nofollow"})
         redcarpet = Redcarpet::Markdown.new(renderer, extensions)
         html      = redcarpet.render(render_cfm(text))
         html
 
+        # @html.gsub(/http:\/\/www\.youtube\.com\/watch\?v=(.*?)\s/, "....actual html $1")
+
+        # https://gist.github.com/4265815
         # GitHub::Markup::Markdown.new.render(text)
+        # %script{ src: "https://gist.github.com/4265815.js"}
+
+        # def preprocess(text)
+        #   wrap_mentions(text)
+        # end
+        #
+        # def wrap_mentions(text)
+        #   text.gsub! /(^|\s)(@\w+)/ do
+        #     "#{$1}<span class='mention'>#{$2}</span>"
+        #   end
+        #   text
+        # end
       end
 
       USERNAME_BLACKLIST = %w(include)
