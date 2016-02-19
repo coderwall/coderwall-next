@@ -156,7 +156,8 @@ namespace :db do
 
     task :users => :connect do
       User.reset_pk_sequence
-      Legacy[:users].where(port_data_since).each do |row|
+      # puts Legacy[:users].where("created_at >= ?", 2.days.ago).count
+      Legacy[:users].where("created_at >= ?", 2.days.ago).each do |row|
         begin
           user = User.find_or_initialize_by_id(row[:id])
           user.attributes.keys.each do |key|
