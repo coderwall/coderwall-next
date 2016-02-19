@@ -150,43 +150,46 @@ namespace :db do
       Badge.reset_pk_sequence
     end
 
+    def port_data_since
+      ["created_at > ? OR updated_at > ?", 2.day.ago, 2.day.ago]
+    end
+
     task :users => :connect do
       User.reset_pk_sequence
-      Legacy[:users].each do |row|
+      Legacy[:users].where(port_since).each do |row|
         begin
           user = User.find_or_initialize_by_id(row[:id])
-          if user.new_record?
-            user.attributes.keys.each do |key|
-              user[key] = row[key.to_sym]
-            end
-
-            social_links = []
-            social_links << "[LinkedIn](#{row[:linkedin_public_url]})" unless row[:linkedin_public_url].blank?
-            social_links << "[Blog](#{row[:blog]})" unless row[:blog].blank?
-            social_links << "[Bitbucket](https://bitbucket.org/#{row[:bitbucket]})" unless row[:bitbucket].blank?
-            social_links << "[Codeplex](http://www.codeplex.com/site/users/view/#{row[:codeplex]})" unless row[:codeplex].blank?
-            social_links << "[Dribbble](http://dribbble.com/#{row[:dribbble]})" unless row[:dribbble].blank?
-            social_links << "[StackOverflow](http://stackoverflow.com/users/#{row[:stackoverflow]})" unless row[:stackoverflow].blank?
-            social_links << "[Speakerdeck](http://speakerdeck.com/u/#{row[:speakerdeck]})" unless row[:speakerdeck].blank?
-            social_links << "[Slideshare](http://www.slideshare.net/#{row[:slideshare]})" unless row[:slideshare].blank?
-            if !social_links.empty?
-              user.about = '' if user.about.nil?
-              user.about << "\n\n\n#{social_links.join(' ')}\n\n"
-            end
-            user.karma    = (Legacy[:endorsements].where(endorsed_user_id: row[:id]).count + 1)
-            user.password = SecureRandom.hex
-            user.skills = Legacy[:skills].select(:name, :tokenized).where(
-              deleted: false,
-              user_id: row[:id]).collect{|row| row[:name]}
-
-            if team = Legacy[:teams].where(id: row[:team_id]).collect.first
-              user.company = team[:name]
-            end
-
-
-            Rails.logger.info "#{row[:username]} => #{row[:email]}"
-            user.save!            
+          user.attributes.keys.each do |key|
+            user[key] = row[key.to_sym]
           end
+
+          social_links = []
+          social_links << "[LinkedIn](#{row[:linkedin_public_url]})" unless row[:linkedin_public_url].blank?
+          social_links << "[Blog](#{row[:blog]})" unless row[:blog].blank?
+          social_links << "[Bitbucket](https://bitbucket.org/#{row[:bitbucket]})" unless row[:bitbucket].blank?
+          social_links << "[Codeplex](http://www.codeplex.com/site/users/view/#{row[:codeplex]})" unless row[:codeplex].blank?
+          social_links << "[Dribbble](http://dribbble.com/#{row[:dribbble]})" unless row[:dribbble].blank?
+          social_links << "[StackOverflow](http://stackoverflow.com/users/#{row[:stackoverflow]})" unless row[:stackoverflow].blank?
+          social_links << "[Speakerdeck](http://speakerdeck.com/u/#{row[:speakerdeck]})" unless row[:speakerdeck].blank?
+          social_links << "[Slideshare](http://www.slideshare.net/#{row[:slideshare]})" unless row[:slideshare].blank?
+          if !social_links.empty?
+            user.about = '' if user.about.nil?
+            user.about << "\n\n\n#{social_links.join(' ')}\n\n"
+          end
+          user.karma    = (Legacy[:endorsements].where(endorsed_user_id: row[:id]).count + 1)
+          user.password = SecureRandom.hex
+          user.skills = Legacy[:skills].select(:name, :tokenized).where(
+            deleted: false,
+            user_id: row[:id]).collect{|row| row[:name]}
+
+          if team = Legacy[:teams].where(id: row[:team_id]).collect.first
+            user.company = team[:name]
+          end
+
+
+          Rails.logger.info "#{row[:username]} => #{row[:email]}"
+          user.save!
+
         end
       end
       User.reset_pk_sequence
@@ -216,7 +219,6 @@ namespace :db do
       end
       Protip.reset_pk_sequence
     end
-
   end
 
   # rails r 'puts Badges.all.each{|b| puts "\"#{b.name}\" => [\"#{b.display_name}\", \"#{b.image_path.gsub("badges/", "")}\", \"#{b.description}\", \"#{b.for}\"],"  }'
