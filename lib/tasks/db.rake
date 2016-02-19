@@ -183,12 +183,9 @@ namespace :db do
               user.company = team[:name]
             end
 
-            if row[:banned_at].nil?
-              Rails.logger.info "#{row[:username]} => #{row[:email]}"
-              user.save!
-            else
-              Rails.logger.info "skipping banned user #{row[:username]}"
-            end
+
+            Rails.logger.info "#{row[:username]} => #{row[:email]}"
+            user.save!            
           end
         end
       end
