@@ -31,9 +31,9 @@ namespace :db do
 
     task :orphans => :environment do
       [Comment, Protip, Like].each do |klass|
-        count = Klass.where("user_id NOT IN (select id from users)").count
+        count = klass.where("user_id NOT IN (select id from users)").count
         puts "#{klass}: deleting #{count} orphans"
-        puts Klass.where("user_id NOT IN (select id from users)").delete_all
+        puts klass.where("user_id NOT IN (select id from users)").delete_all
       end
     end
 
