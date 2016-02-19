@@ -7,6 +7,7 @@ namespace :db do
     'db:port:teams',
     'db:port:likes',
     'db:fix_counters',
+    'db:clean:spam',
     'cache:score:recalculate']
 
   task :fix_counters => :environment do

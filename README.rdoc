@@ -1,15 +1,1 @@
-## Post release backlog
-* TODO: Dragging files into protip editor https://github.com/feross/drag-drop
-* TODO: Write announcement protip and link it on homepage
-* TODO: Basic Caching
-* TODO: Deleting user
-* TODO: Team view
-* TODO: New welcome email on sign up
-* TODO: Fix heart view count overlap viewing protip on mobile
-* TODO: Spam detection and robot account creation
-* TODO: Reimplement self administration of account deletion
-* TODO: Port API to award new badges w/update. Write details describing out to create new awards
-* TODO: Mass introduction email out to membership
-* TODO: On ajax 401, add a flash message and redirect back to url
-* TODO: Remove username from all protip tags
-* TODO: Advance tracking in google analytics
+Hello.
