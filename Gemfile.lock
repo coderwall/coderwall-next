@@ -53,6 +53,8 @@ GEM
       debug_inspector (>= 0.0.1)
     blankslate (3.1.3)
     browser (1.1.0)
+    bugsnag (3.0.0)
+      json (~> 1.7, >= 1.7.7)
     builder (3.2.2)
     capybara (2.6.0)
       addressable
@@ -260,6 +262,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.7)
   browser
+  bugsnag
   capybara
   carrierwave-aws
   carrierwave_backgrounder
