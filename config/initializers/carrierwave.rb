@@ -10,19 +10,20 @@ CarrierWave.configure do |config|
     config.storage = :file
   else
     config.enable_processing = true
-    config.storage           = :fog
-    config.asset_host        = "https://#{['FOG_DIRECTORY']}.s3.amazonaws.com"
-    config.fog_directory     = ENV['FOG_DIRECTORY']
-    config.fog_attributes    = { 'Cache-Control' => "max-age=#{365.day.to_i}" }
-    config.fog_credentials   = {
-      provider: 'AWS',
-      aws_access_key_id:      ENV['AWS_ACCESS_KEY_ID'],
-      aws_secret_access_key:  ENV['AWS_SECRET_ACCESS_KEY']
+    config.storage           = :aws
+    config.asset_host        = "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"
+    config.aws_acl           = 'public-read'
+    config.aws_bucket        = ENV['AWS_BUCKET']
+    config.aws_credentials   = {
+      access_key_id:     ENV['AWS_ACCESS_ID'],
+      secret_access_key: ENV['AWS_ACCESS_SECRET'],
+      region:            ENV['AWS_REGION']
     }
-    # config.asset_host = proc do |file|
-    #   identifier = ENV['FOG_DIRECTORY']
-    #   "http://#{identifier}.cdn.rackspacecloud.com"
-    # end
+    config.aws_attributes    = {
+       expires: 1.week.from_now.httpdate,
+       cache_control: 'max-age=604800'
+    }
+    config.aws_authenticated_url_expiration = 60 * 60 * 24 * 7
   end
 end
 
