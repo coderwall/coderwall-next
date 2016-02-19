@@ -49,7 +49,7 @@
           -@protip.tags.each do |tag|
             %h6.inline=tag
         .content.p2.mt3[:articleBody]
-          = raw CFM::Markdown.render(@protip.body)
+          = sanitize CFM::Markdown.render(@protip.body)
 
         .author.p2[:author]
           %h5.mt0[@protip.user]

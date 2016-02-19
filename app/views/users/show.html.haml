@@ -62,7 +62,7 @@
         .clearfix.p0.mt2
           %p
             .content[:description]
-              =raw CFM::Markdown.render(@user.about)
+              = sanitize CFM::Markdown.render(@user.about)
           .mt1
             -@user.skills.each do |tag|
               .inline[:memberOf]=tag

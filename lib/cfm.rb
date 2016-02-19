@@ -8,9 +8,11 @@ module CFM
         return nil if text.nil?
 
         extensions = {
-          fenced_code_blocks: true,
-          strikethrough: true,
-          autolink: true
+          fenced_code_blocks:   true,
+          strikethrough:        true,
+          autolink:             true,
+          no_styles:            true,
+          safe_links_only:      true
         }
 
         renderer  = Redcarpet::Render::HTML.new(link_attributes: {rel: "nofollow"})
