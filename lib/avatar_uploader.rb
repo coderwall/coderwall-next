@@ -1,8 +1,8 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  include ::CarrierWave::Backgrounder::Delay
 
   process resize_and_pad: [100, 100]
+  # storage :fog
 
   def default_url
     model_name = model.class.name.downcase

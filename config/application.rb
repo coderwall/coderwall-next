@@ -34,5 +34,6 @@ module CoderwallNext
     config.autoload_paths << Rails.root.join('lib')
     config.assets.precompile += %w(.png)
     config.exceptions_app = self.routes
+    config.encoding = 'utf-8'
   end
 end

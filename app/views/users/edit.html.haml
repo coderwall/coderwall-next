@@ -12,12 +12,18 @@
           %h2 Edit your profile
         -@user.errors.full_messages.each do |error|
           %p.red.bold=error
-        = form_for @user do |form|
+        = form_for @user, html: { multipart: true } do |form|
           -if !finishing_signup?
             = form.label :username
             = form.text_field :username, type: 'text', class: 'field block col-12 mb3', disabled: admin?
             = form.label :email
             = form.text_field :email, type: 'email', class: 'field block col-12 mb3', placeholder: "Where we'll send password reset emails"
+            = form.label :avatar
+            = form.hidden_field :avatar_cache
+            .block.col-12.mb3.mt1
+              = image_tag(avatar_url(@user))
+              = form.file_field :avatar
+
           = form.label :twitter, 'Twitter Username'
           = form.text_field :twitter, type: 'text', class: 'field block col-12 mb3', placeholder: 'Your username on Twitter'
           = form.label :github, 'GitHub Username'
@@ -47,7 +53,7 @@
               = form.check_box :receive_weekly_digest
               = form.label :receive_weekly_digest, 'Receive an occasional digest of the best new developer tips.'
 
-          %button.btn.mt1.bg-green.white{type: 'submit'} Save
+          %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Save
 
           .clearfix.mt2
             =link_to 'Cancel', profile_path(username: @user.username) unless finishing_signup?

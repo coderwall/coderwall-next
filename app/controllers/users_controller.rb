@@ -74,6 +74,7 @@ class UsersController < ApplicationController
       :twitter,
       :github,
       :email,
+      :avatar,
       :title,
       :company,
       :location,

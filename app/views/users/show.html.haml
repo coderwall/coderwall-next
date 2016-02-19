@@ -4,9 +4,8 @@
 - meta description: @user.about
 - meta twitter: { creator: @user.twitter }           if @user.twitter
 - meta twitter: { creator: { id: @user.twitter_id} } if @user.twitter_id
-
--# - meta og: { image: users_image_path(@protip.user) }
--# - itemprop image
+- meta twitter: { image: avatar_url(@user) }         if @user.avatar
+- meta og:      { image: avatar_url(@user) }         if @user.avatar
 
 .continer[@user]
   .clearfix
@@ -28,17 +27,16 @@
         -if current_user == @user || current_user.try(:admin?)
           .clearfix.mb3
             .right
-              -if current_user.try(:admin?)
-                .inline.diminish.mr1=@user.email
-                .inline.diminish.mr1="accessed #{time_ago_in_words(@user.last_request_at)}"
               -if current_user.try(:admin?) || params[:delete_account]
+                .inline.diminish.mr1="accessed #{time_ago_in_words(@user.last_request_at)}"
                 =link_to(icon('trash'), user_path(@user), method: :delete, class: 'diminish mr1', 'data-confirm': 'This makes us very sad. Are you sure?')
               =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
               %a.ml1.btn.rounded.bg-green.white{href: edit_user_path(@user)}
                 Edit Profile
 
         .clearfix
-          .left.avatar.big{style: "background-color: #{@user.color};"}
+          .left.avatar.big[:image]{style: "background-color: #{@user.color};"}
+            =image_tag avatar_url(@user)
           .overflow-hidden
             %h1.ml2.mt0.mb0[:name]= @user.display_name
             %h4.ml2.mt1
@@ -56,6 +54,10 @@
               -if @user.github.present?
                 =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
                 .hide_last_child.inline &middot;
+              -if current_user.try(:admin?)
+                =link_to icon("envelope", class: "fa-1x", style: "color: #{@user.color}"), "mailto:#{@user.email}"
+                .hide_last_child.inline &middot;
+
 
         .clearfix.p0.mt2
           %p
