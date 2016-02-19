@@ -1,6 +1,6 @@
 ## Features remaining prior release
 
-* TODO: Getting avatars/uploads/cdn to work
+* TODO: Get protip uploads to work
 * TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
 * TODO: Write announcement protip and link it on homepage
 
