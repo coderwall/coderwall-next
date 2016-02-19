@@ -11,6 +11,7 @@ CarrierWave.configure do |config|
   else
     config.enable_processing = true
     config.storage           = :fog
+    config.asset_host        = ENV['FOG_DIRECTORY']
     config.fog_directory     = ENV['FOG_DIRECTORY']
     config.fog_attributes    = { 'Cache-Control' => "max-age=#{365.day.to_i}" }
     config.fog_credentials   = {
