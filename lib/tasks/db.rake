@@ -151,13 +151,15 @@ namespace :db do
     end
 
     def port_data_since
-      ["created_at > ? OR updated_at > ?", 2.day.ago, 2.day.ago]
+      # OR updated_at > ?
+      ["created_at > ?", 2.day.ago]
     end
 
     task :users => :connect do
       User.reset_pk_sequence
       # puts Legacy[:users].where("created_at >= ?", 2.days.ago).count
-      Legacy[:users].where("created_at >= ?", 2.days.ago).each do |row|
+      Legacy[:users].where(port_data_since).each do |row|
+        puts row[:username]
         begin
           user = User.find_or_initialize_by_id(row[:id])
           user.attributes.keys.each do |key|
