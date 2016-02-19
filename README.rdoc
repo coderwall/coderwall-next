@@ -1,5 +1,4 @@
 ## Post release backlog
-
 * TODO: Dragging files into protip editor https://github.com/feross/drag-drop
 * TODO: Write announcement protip and link it on homepage
 * TODO: Basic Caching
