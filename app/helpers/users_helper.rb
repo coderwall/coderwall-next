@@ -29,7 +29,7 @@ module UsersHelper
   end
 
   def avatar_url_tag(user)
-    image_tag(avatar_url(user)) if user.avatar
+    image_tag(avatar_url(user)) if user.avatar.present?
   end
 
 end
