@@ -25,6 +25,17 @@ class Protip < ActiveRecord::Base
     self.public_id
   end
 
+  def self.spam
+    spammy = "
+      title ILIKE '% OST %' OR
+      title ILIKE '% PST %' OR
+      title ILIKE '%exchange mailbox%' OR
+      title ILIKE '% loans %' OR
+      title ILIKE '%Exchange Migration%'
+    "
+    where(spammy)
+  end
+
   def display_date
     created_at.to_formatted_s(:explicitly_bold)
   end

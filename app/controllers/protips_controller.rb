@@ -6,6 +6,11 @@ class ProtipsController < ApplicationController
     @protips = Protip.includes(:user).order({order_by => :desc}).page params[:page]
   end
 
+  def spam
+    @protips = Protip.spam.page params[:page]
+    render action: 'index'
+  end
+
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.find_by_public_id!(params[:id])

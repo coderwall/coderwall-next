@@ -20,12 +20,46 @@ namespace :db do
     end
   end
 
-  task :clean   => :environment do
-    Like.delete_all
-    Comment.delete_all
-    Protip.delete_all
-    Badge.delete_all
-    User.delete_all
+  namespace :clean do
+    task :spam => :environment do
+      spammers = Protip.spam.collect(&:user)
+      spammers.each do |spammer|
+        puts "Destroying spammer: #{spammer.username}"
+        spammer.destroy
+      end
+    end
+
+    task :orphans => :environment do
+      [Comment, Protip, Like].each do |klass|
+        count = Klass.where("user_id NOT IN (select id from users)").count
+        puts "#{klass}: deleting #{count} orphans"
+        puts Klass.where("user_id NOT IN (select id from users)").delete_all
+      end
+    end
+
+    task :duplicates => :environment do
+      puts "Badges#count prior cleaning duplicates: #{Badge.count}"
+      Badge.connection.execute('
+      DELETE FROM badges a USING (
+        SELECT MIN(ctid) as ctid, user_id, name, created_at FROM badges
+        GROUP BY user_id, name, created_at HAVING COUNT(*) > 1
+      ) b
+      WHERE
+        a.user_id = b.user_id AND
+        a.name    = b.name    AND
+        a.user_id = b.user_id AND
+        a.ctid <> b.ctid
+      ')
+      puts "Badges#count post cleaning duplicates: #{Badge.count}"
+    end
+
+    task :data => :environment do
+      Like.delete_all
+      Comment.delete_all
+      Protip.delete_all
+      Badge.delete_all
+      User.delete_all
+    end
   end
 
   namespace :port do
@@ -96,6 +130,7 @@ namespace :db do
           if LEGACY_BADGES[row[:badge_class_name]].nil?
             raise row[:badge_class_name].inspect
           end
+          puts "Importing #{row[:id]}"
 
           badge = Badge.find_or_initialize_by_id(row[:id])
           badge.user_id = row[:user_id]

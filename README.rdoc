@@ -1,8 +1,6 @@
 ## Features remaining prior release
 
 * TODO: Getting avatars/uploads/cdn to work
-* TODO: Clean up (all protips & comments without author, all spam protips like PST tips)
-* TDOD: Clean up duplicate badges
 * TODO: Fix commenting formatting issue (see: http://localhost:5000/p/lhsrcq/one-line-browser-notepad)
 * TODO: Write announcement protip and link it on homepage
 
