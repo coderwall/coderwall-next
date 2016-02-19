@@ -27,4 +27,9 @@ module UsersHelper
   def avatar_url(user)
     image_url user.avatar.url
   end
+
+  def avatar_url_tag(user)
+    image_tag(avatar_url(user)) if user.avatar
+  end
+
 end

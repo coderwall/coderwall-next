@@ -2,7 +2,7 @@
   .hide= time_tag comment.created_at, itemprop: "datePublished"
   .hide[:name]= comment.id
 
-  .left.mt1.mr2.avatar.medium{style: "background-color: #{comment.user.color};"}=image_tag(avatar_url(comment.user))
+  .left.mt1.mr2.avatar.medium{style:"background-color: #{comment.user.color};"}=avatar_url_tag(comment.user)
   .overflow-hidden.py0.mt0
     .clearfix
       .author[:author]

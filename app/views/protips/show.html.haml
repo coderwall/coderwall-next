@@ -34,7 +34,7 @@
           &middot;
           .ml1.mr1.inline
             =link_to @protip.user.username, profile_path(username: @protip.user.username)
-          .avatar[:image]{style: "background-color: #{@protip.user.color};"}=image_tag(avatar_url(@protip.user))
+          .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
 
         -if signed_in? && current_user.can_edit?(@protip)
