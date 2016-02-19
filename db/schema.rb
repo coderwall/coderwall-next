@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160214213211) do
+ActiveRecord::Schema.define(version: 20160219071138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160214213211) do
     t.datetime "updated_at",  null: false
   end
 
+  add_index "badges", ["user_id"], name: "index_badges_on_user_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.integer  "protip_id"
@@ -36,6 +38,8 @@ ActiveRecord::Schema.define(version: 20160214213211) do
     t.datetime "updated_at",              null: false
     t.integer  "likes_count", default: 0
   end
+
+  add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "likable_id"
@@ -63,6 +67,8 @@ ActiveRecord::Schema.define(version: 20160214213211) do
     t.boolean  "flagged",     default: false
   end
 
+  add_index "protips", ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
+  add_index "protips", ["score"], name: "index_protips_on_score", using: :btree
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
 
   create_table "users", force: :cascade do |t|
@@ -102,5 +108,6 @@ ActiveRecord::Schema.define(version: 20160214213211) do
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
+  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
 end
