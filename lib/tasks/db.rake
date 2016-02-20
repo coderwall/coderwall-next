@@ -216,6 +216,7 @@ namespace :db do
 
     task :protips => :connect do
       Protip.reset_pk_sequence
+      not_ported = []
       Legacy[:protips].where(port_data_since).each do |row|
         puts "#{row[:id]} : #{row[:public_id]} : #{row[:slug]}"
         protip = Protip.find_or_initialize_by_id(row[:id])
@@ -234,9 +235,12 @@ namespace :db do
 
         protip.flagged = row[:inappropriate].to_i > 0
 
-        protip.save!
+        if !protip.save
+          not_ported << protip
+        end
       end
       Protip.reset_pk_sequence
+      puts "Failed to port #{not_ported.size}"
     end
   end
 
