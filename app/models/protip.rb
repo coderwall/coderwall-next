@@ -6,7 +6,7 @@ class Protip < ActiveRecord::Base
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_cacluated_score!
-  before_create :generate_public_id
+  before_create :generate_public_id, if: :public_id_blank?
 
   belongs_to :user, autosave: true
   has_many :comments, dependent: :destroy
@@ -83,10 +83,13 @@ class Protip < ActiveRecord::Base
   end
 
   def generate_public_id
-    return self.public_id if self.public_id.present?
     self.public_id = SecureRandom.urlsafe_base64(4).downcase
     #retry if not unique
     generate_public_id unless Protip.where(public_id: self.public_id).blank?
+  end
+
+  def public_id_blank?
+    public_id.blank?
   end
 
   def cache_cacluated_score!

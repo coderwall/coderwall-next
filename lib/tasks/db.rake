@@ -11,11 +11,11 @@ namespace :db do
     'cache:score:recalculate']
 
   task :fix_counters => :environment do
-    Comment.find_each do |comment|
+    Comment.where(port_data_since).find_each do |comment|
       puts comment.id
       Comment.reset_counters(comment.id, :likes)
     end
-    Protip.find_each do |protip|
+    Protip.where(port_data_since).find_each do |protip|
       puts protip.id
       Protip.reset_counters(protip.id, :likes)
     end
@@ -165,13 +165,15 @@ namespace :db do
     end
 
     def port_data_since
-      # OR updated_at > ?
-      ["created_at > ?", 7.days.ago]
+      days  = ENV['since'].to_i
+      days  = 7 if days == 0
+      since = days.days.ago
+      puts "Porting #{days} days ago"
+      ["created_at > ?", since]
     end
 
     task :users => :connect do
       User.reset_pk_sequence
-      # puts Legacy[:users].where("created_at >= ?", 2.days.ago).count
       Legacy[:users].where(port_data_since).each do |row|
         puts row[:username]
         begin
@@ -220,7 +222,7 @@ namespace :db do
         protip.attributes.keys.each do |key|
           protip[key] = row[key.to_sym]
         end
-
+        protip.public_id   = row[:public_id]
         protip.likes_count = (Legacy[:likes].where( likable_id: row[:id], likable_type: 'Protip').count + 1)
         protip.tags = Legacy[:tags].select(:name).join(:taggings, :tag_id => :id).where(
           taggable_id: row[:id],
