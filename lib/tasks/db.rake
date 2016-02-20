@@ -67,11 +67,11 @@ namespace :db do
 
     task :check => :connect do
       puts "legacy => ported"
-      puts "Likes: #{Legacy[:likes]} => #{Like.count}"
-      puts "Comments: #{Legacy[:comments]} => #{Comment.count}"
-      puts "Protips: #{Legacy[:protips]} => #{Protip.count}"
-      puts "Badges: #{Legacy[:badges]} => #{Badge.count}"
-      puts "Users: #{Legacy[:users]} => #{User.count}"      
+      puts "Likes: #{Legacy[:likes].count} => #{Like.count}"
+      puts "Comments: #{Legacy[:comments].count} => #{Comment.count}"
+      puts "Protips: #{Legacy[:protips].count} => #{Protip.count}"
+      puts "Badges: #{Legacy[:badges].count} => #{Badge.count}"
+      puts "Users: #{Legacy[:users].count} => #{User.count}"      
     end
 
     task :connect => :environment do
