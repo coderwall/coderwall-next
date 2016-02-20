@@ -64,6 +64,16 @@ namespace :db do
   end
 
   namespace :port do
+
+    task :check => :connect do
+      puts "legacy => ported"
+      puts "Likes: #{Legacy[:likes]} => #{Like.count}"
+      puts "Comments: #{Legacy[:comments]} => #{Comment.count}"
+      puts "Protips: #{Legacy[:protips]} => #{Protip.count}"
+      puts "Badges: #{Legacy[:badges]} => #{Badge.count}"
+      puts "Users: #{Legacy[:users]} => #{User.count}"      
+    end
+
     task :connect => :environment do
       if hide_sql_out = Rails.env.development?
         ActiveRecord::Base.logger.level = Logger::INFO

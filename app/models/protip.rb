@@ -83,7 +83,7 @@ class Protip < ActiveRecord::Base
   end
 
   def generate_public_id
-    return self.public_id if self.public_id
+    return self.public_id if self.public_id.present?
     self.public_id = SecureRandom.urlsafe_base64(4).downcase
     #retry if not unique
     generate_public_id unless Protip.where(public_id: self.public_id).blank?
