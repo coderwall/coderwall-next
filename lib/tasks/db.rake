@@ -235,7 +235,7 @@ namespace :db do
 
         protip.flagged = row[:inappropriate].to_i > 0
 
-        if !protip.save
+        if protip.user.blank? || !protip.save
           not_ported << protip
         end
       end
