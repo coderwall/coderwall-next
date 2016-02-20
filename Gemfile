@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.4"
+ruby '2.3.0'
 
 gem 'rails', '~> 4.2.5'
 gem 'pg', '~> 0.15'
@@ -12,7 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "rack-timeout"
 gem 'puma'
 
-gem "haml-rails"
+gem 'haml-rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'kramdown'
 gem 'coderay'
@@ -47,5 +47,5 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem "bugsnag"
+  gem 'bugsnag'
 end
