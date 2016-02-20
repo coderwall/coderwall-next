@@ -100,6 +100,7 @@ namespace :db do
 
     task :comments => :connect do
       Comment.reset_pk_sequence
+      not_ported = []
       Legacy[:comments].where(port_data_since).each do |row|
         if row[:comment].to_s.size >= 2
           comment = Comment.find_or_initialize_by_id(row[:id])
@@ -107,10 +108,13 @@ namespace :db do
             comment[key] = row[key.to_sym]
           end
           comment.body = row[:comment]
-          comment.save!
+          if !comment.save
+            not_ported << comment
+          end
         end
       end
       Comment.reset_pk_sequence
+      puts "Failed to port #{not_ported.size}"
     end
 
     task :teams => :connect do
