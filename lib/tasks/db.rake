@@ -71,7 +71,7 @@ namespace :db do
       puts "Comments: #{Legacy[:comments].count} => #{Comment.count}"
       puts "Protips: #{Legacy[:protips].count} => #{Protip.count}"
       puts "Badges: #{Legacy[:badges].count} => #{Badge.count}"
-      puts "Users: #{Legacy[:users].count} => #{User.count}"      
+      puts "Users: #{Legacy[:users].count} => #{User.count}"
     end
 
     task :connect => :environment do
@@ -100,7 +100,7 @@ namespace :db do
 
     task :comments => :connect do
       Comment.reset_pk_sequence
-      Legacy[:comments].each do |row|
+      Legacy[:comments].where(port_data_since).each do |row|
         if row[:comment].to_s.size >= 2
           comment = Comment.find_or_initialize_by_id(row[:id])
           comment.attributes.except(:comment).keys.each do |key|
@@ -119,7 +119,7 @@ namespace :db do
 
     task :likes => :connect do
       Like.reset_pk_sequence
-      Legacy[:likes].each do |row|
+      Legacy[:likes].where(port_data_since).each do |row|
         like = Like.find_or_initialize_by_id(row[:id])
         like.attributes.keys.each do |key|
           # puts "#{key} #{row[key.to_sym]}"
@@ -136,7 +136,7 @@ namespace :db do
 
     task :badges => :connect do
       Badge.reset_pk_sequence
-      Legacy[:badges].each do |row|
+      Legacy[:badges].where(port_data_since).each do |row|
         unless row[:badge_class_name].nil?
           if LEGACY_BADGES[row[:badge_class_name]].nil?
             raise row[:badge_class_name].inspect
@@ -162,7 +162,7 @@ namespace :db do
 
     def port_data_since
       # OR updated_at > ?
-      ["created_at > ?", 2.day.ago]
+      ["created_at > ?", 7.days.ago]
     end
 
     task :users => :connect do
@@ -210,7 +210,7 @@ namespace :db do
 
     task :protips => :connect do
       Protip.reset_pk_sequence
-      Legacy[:protips].each do |row|
+      Legacy[:protips].where(port_data_since).each do |row|
         puts "#{row[:id]} : #{row[:public_id]} : #{row[:slug]}"
         protip = Protip.find_or_initialize_by_id(row[:id])
         protip.attributes.keys.each do |key|
