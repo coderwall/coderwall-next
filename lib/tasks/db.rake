@@ -27,7 +27,7 @@ namespace :db do
       spammers.each do |spammer|
         puts "Destroying spammer: #{spammer.username}"
         spammer.destroy
-      end
+      end      
     end
 
     task :orphans => :environment do

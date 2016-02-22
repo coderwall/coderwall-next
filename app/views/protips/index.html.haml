@@ -31,7 +31,8 @@
             =link_to(protip.title, protip_path(protip), class: 'black no-hover')
             .diminish
               =link_to protip.user.username, profile_path(username: protip.user.username)
-              ==wrote #{time_ago_in_words(protip.created_at)} ago
+              &middot;
+              = protip.display_tags
         .block.mt1=link_to 'More frequently viewed protips', popular_path
 
         %h4.mt4
@@ -42,5 +43,6 @@
             =link_to(protip.title, protip_path(protip), class: 'black no-hover')
             .diminish
               =link_to protip.user.username, profile_path(username: protip.user.username)
-              ==wrote #{time_ago_in_words(protip.created_at)} ago
+              &middot;
+              = protip.display_tags
         .block.mt2=link_to 'More new protips', fresh_path
