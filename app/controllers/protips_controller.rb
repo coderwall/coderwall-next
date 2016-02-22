@@ -13,7 +13,7 @@ class ProtipsController < ApplicationController
 
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
-    @protip = Protip.where(public_id: params[:id]).includes(:comments).first
+    @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
 
     respond_to do |format|
       format.json { render(json: @protip) }
