@@ -37,5 +37,3 @@ module CoderwallNext
     config.encoding = 'utf-8'
   end
 end
-
-ASSET_HOST = ENV['ASSET_HOST']
