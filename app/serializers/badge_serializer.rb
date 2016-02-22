@@ -6,7 +6,7 @@ class BadgeSerializer < ActiveModel::Serializer
 
   protected
   def badge
-    ActionController::Base.helpers.asset_url("#{ASSET_HOST}#{object.path}")
+    ActionController::Base.helpers.asset_path(object.path)
   end
 
 end
