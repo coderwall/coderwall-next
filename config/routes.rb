@@ -51,8 +51,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/:username'         => 'users#show', as: :profile
-  get '/:username/protips' => 'users#show', as: :profile_protips, protips: true
+  get '/:username'          => 'users#show', as: :profile
+  get '/:username/protips'  => 'users#show', as: :profile_protips,  protips:  true
+  get '/:username/comments' => 'users#show', as: :profile_comments, comments: true
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
   get '/p/u/:username'     => 'users#show', to: redirect("/%{username}/protips", status: 302)
 

@@ -70,8 +70,12 @@
         %nav.clearfix.mt2
           %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username, anchor: 'achievements'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
             =pluralize(@user.badges.size, 'Achivement')
-          %a.font-lg.py1.no-hover{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
+
+          %a.font-lg.py1.no-hover.mr3{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
             =pluralize(@user.protips.size, 'Protip')
+
+          %a.font-lg.py1.no-hover{href: profile_comments_path(username: @user.username, anchor: 'comments'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_comments_active}
+            =pluralize(@user.comments.size, 'Comments')
 
         -if show_badges?
           #achievements.clearfix.mt1.py2.border-top
@@ -84,7 +88,7 @@
                 .overflow-hidden
                   %h6.mt0=badge.name
                   .mt0.diminish[:award]=badge.description
-        -else
+        -elsif show_protips?
           #protips.clearfix.mt1.py2.border-top
             -if @user.protips.empty?
               .clearfix.mt3.p4.center
@@ -104,5 +108,24 @@
                     .inline
                       -protip.tags.each do |tag|
                         =tag
+        -elsif show_comments?
+          #comments.clearfix.mt1.py2.border-top
+            -if @user.comments.empty?
+              .clearfix.mt3.p4.center
+                .diminish=icon('hand-peace-o', class: 'fa-3x')
+            -@user.comments.each do |comment|
+              -if comment.protip
+                .comment.clearfix.py2
+                  .overflow-hidden
+                    .mt0
+                      Posted to
+                      %a{:href => protip_path(comment.protip)}
+                        =comment.protip.title
+                      =time_ago_in_words(comment.created_at)
+                      ago
+                    .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
+                      =sanitize CFM::Markdown.render(comment.body)
+
+
 
     .sm-col.sm-col12.md-col.md-col-2 &nbsp;

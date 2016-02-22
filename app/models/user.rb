@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   before_create :generate_unique_color
 
   has_many :likes,    dependent: :destroy
-  has_many :protips,  dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :badges,   dependent: :destroy
+  has_many :protips,  ->{ order(created_at: :desc) }, dependent: :destroy
+  has_many :comments, ->{ order(created_at: :desc) }, dependent: :destroy
+  has_many :badges,   ->{ order(created_at: :desc) }, dependent: :destroy
 
   RESERVED = %w{
     achievements

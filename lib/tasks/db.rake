@@ -23,6 +23,7 @@ namespace :db do
 
   namespace :clean do
     task :spam => :environment do
+      %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury}
       spammers = Protip.spam.collect(&:user)
       spammers.each do |spammer|
         puts "Destroying spammer: #{spammer.username}"
