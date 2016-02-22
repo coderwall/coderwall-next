@@ -27,7 +27,16 @@ namespace :db do
       spammers.each do |spammer|
         puts "Destroying spammer: #{spammer.username}"
         spammer.destroy
-      end      
+      end
+
+      if protip = Protip.find_by_public_id(clash_of_clans_spam = '3tzscq')
+        protip.comments.collect(&:user).uniq
+        spammers.each do |spammer|
+          puts "Destroying clash of clan spammer: #{spammer.username}"
+          spammer.destroy
+        end
+        protip.update_column(:flagged, true)
+      end
     end
 
     task :orphans => :environment do
