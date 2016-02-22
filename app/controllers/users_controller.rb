@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     elsif params[:delete_account]
       @user = current_user
     else
-      @user = User.includes(:badges, :protips).find_by_username(params[:username])
+      @user = User.includes(:badges, :protips).find_by_username!(params[:username])
     end
     respond_to do |format|
       format.html
