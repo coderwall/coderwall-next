@@ -15,12 +15,14 @@ class ProtipsController < ApplicationController
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.where(public_id: params[:id]).includes(:comments).first
 
-    if params[:slug] != @protip.slug
-      seo_url = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
-      return redirect_to(seo_url, status: 301)
+    respond_to do |format|
+      format.json { render(json: @protip) }
+      format.html do
+        seo_url = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
+        return redirect_to(seo_url, status: 301) unless slugs_match?
+        update_view_count(@protip)
+      end
     end
-
-    update_view_count(@protip)
   end
 
   def new
@@ -61,6 +63,10 @@ class ProtipsController < ApplicationController
   end
 
   protected
+  def slugs_match?
+    params[:slug] == @protip.slug
+  end
+
   def protip_params
     params.require(:protip).permit(:editable_tags, :body, :title)
   end

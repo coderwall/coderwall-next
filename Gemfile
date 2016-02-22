@@ -29,6 +29,7 @@ gem 'postmark-rails'
 gem 'react-rails'
 gem 'meta-tags'
 gem 'green_monkey'
+gem 'active_model_serializers'
 
 # Legacy gems needed for porting
 gem 'sequel'

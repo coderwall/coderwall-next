@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_login, only: [:edit, :update]
+  skip_before_action :verify_authenticity_token, only: :show,
+    if: ->{ request.format.json? }
 
   def show
     if params[:username] == 'random'
@@ -8,6 +10,15 @@ class UsersController < ApplicationController
       @user = current_user
     else
       @user = User.includes(:badges, :protips).find_by_username(params[:username])
+    end
+    respond_to do |format|
+      format.html
+      format.json do
+        if stale?(api_etag_keys_for_protip)
+          response = params[:callback].present? ? {data: @user} : @user
+          render(json: response, callback: params[:callback])
+        end
+      end
     end
   end
 
@@ -86,6 +97,14 @@ class UsersController < ApplicationController
     ]
     safe_attributes << :username if admin?
     params.require(:user).permit(safe_attributes)
+  end
+
+  def api_etag_keys_for_protip
+    {
+      etag:['v4', @user, params[:callback]],
+      last_modified: @user.updated_at.utc,
+      public: true
+    }
   end
 
 end
