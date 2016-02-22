@@ -29,11 +29,12 @@
         -Protip.recently_most_viewed.each do |protip|
           .clearfix.mt2
             =link_to(protip.title, protip_path(protip), class: 'black no-hover')
-            .diminish
+            .font-sm
               =link_to protip.user.username, profile_path(username: protip.user.username)
-              &middot;
-              = protip.display_tags
-        .block.mt1=link_to 'More frequently viewed protips', popular_path
+              .diminish.inline
+                &middot;
+                = protip.display_tags
+        .block.mt2.bold=link_to 'More frequently viewed protips', popular_path
 
         %h4.mt4
           =icon 'magic', class: 'mr1'
@@ -41,8 +42,10 @@
         -Protip.recently_created.each do |protip|
           .clearfix.mt2
             =link_to(protip.title, protip_path(protip), class: 'black no-hover')
-            .diminish
-              =link_to protip.user.username, profile_path(username: protip.user.username)
-              &middot;
-              = protip.display_tags
-        .block.mt2=link_to 'More new protips', fresh_path
+            .block
+              .font-sm
+                =link_to protip.user.username, profile_path(username: protip.user.username)
+                .diminish.inline
+                  &middot;
+                  = protip.display_tags
+        .block.mt2.bold=link_to 'More new protips', fresh_path
