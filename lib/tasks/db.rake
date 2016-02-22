@@ -169,7 +169,7 @@ namespace :db do
       days  = 7 if days == 0
       since = days.days.ago
       puts "Porting #{days} days ago"
-      ["created_at > ?", since]
+      ["created_at > ? OR updated_at > ?", since, since]
     end
 
     task :users => :connect do
