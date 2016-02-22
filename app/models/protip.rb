@@ -97,7 +97,7 @@ class Protip < ActiveRecord::Base
   end
 
   def display_tags
-    (tags - legacy_username_tag).first(4).join(', ')
+    (tags - legacy_username_tag).first(4).join(' ')
   end
 
   def legacy_username_tag

@@ -4,7 +4,10 @@ class UsersController < ApplicationController
     if: ->{ request.format.json? }
 
   def show
-    if params[:username] == 'random'
+    if params[:username].blank? && params[:id]
+      @user = User.find(params[:id])
+      return redirect_to(profile_path(username: @user.username))
+    elsif params[:username] == 'random'
       @user = User.order("random()").first
     elsif params[:delete_account]
       return redirect_to(sign_in_url) unless signed_in?

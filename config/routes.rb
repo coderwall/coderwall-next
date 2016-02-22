@@ -29,6 +29,7 @@ Rails.application.routes.draw do
 
   resources :users do
     member do
+      get '/endorsements' => 'users#show' #legacy url
       resources :likes, only: :index
     end
   end

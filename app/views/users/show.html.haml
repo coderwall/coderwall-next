@@ -105,9 +105,7 @@
                     .font-sm.inline=icon('eye')
                     =protip.views_count
                     .inline &middot;
-                    .inline
-                      -protip.tags.each do |tag|
-                        =tag
+                    .inline=protip.display_tags                    
         -elsif show_comments?
           #comments.clearfix.mt1.py2.border-top
             -if @user.comments.empty?
