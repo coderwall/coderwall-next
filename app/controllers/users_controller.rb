@@ -73,6 +73,7 @@ class UsersController < ApplicationController
     safe_attributes = [
       :twitter,
       :github,
+      :color,
       :email,
       :avatar,
       :title,

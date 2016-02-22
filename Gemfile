@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'bcrypt', '~> 3.1.7'
 gem "rack-timeout"
+gem 'rack-cors'
 gem 'puma'
 
 gem "haml-rails"
