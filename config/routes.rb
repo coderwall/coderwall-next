@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  # This disables serving any web requests other then /assets out of CloudFront
   match '*path', via: :all, to: 'pages#show', page: 'not_found',
     constraints: CloudfrontConstraint.new
-  
+
   root 'protips#index'
   get   '/trending(/:page)' => 'protips#index', order_by: :score,       as: :trending
   get   '/popular(/:page)'  => 'protips#index', order_by: :views_count, as: :popular

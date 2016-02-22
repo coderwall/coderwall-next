@@ -6,7 +6,7 @@
   = form_for :password, url: passwords_path do |form|
     = form.label :email
     = form.text_field :email, type: 'email', class: 'field block col-10 mb1'
-    %button.btn.btn-primary.mt1{type: 'submit'} Reset password
+    %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Reset password
   .clearfix.mt2
     You just remembered it? Nice!
     = link_to "Sign In", sign_in_path
