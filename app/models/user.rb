@@ -40,6 +40,12 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_presence_of :email
 
+  def self.authenticate(username_or_email, password)
+    param = username_or_email.to_s.downcase
+    user  = where('username = ? OR email = ?', param, param).first
+    user && user.authenticated?(password) ? user : nil
+  end
+
   def email_optional?
     true #added this hack so clereance doesn't do email validation while bulk loading
   end
