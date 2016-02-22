@@ -7,6 +7,7 @@ class UsersController < ApplicationController
     if params[:username] == 'random'
       @user = User.order("random()").first
     elsif params[:delete_account]
+      return redirect_to(sign_in_url) unless signed_in?
       @user = current_user
     else
       @user = User.includes(:badges, :protips).find_by_username!(params[:username])
