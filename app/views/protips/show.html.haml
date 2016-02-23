@@ -10,73 +10,75 @@
 
 #current-users-liked-as-json.hide=current_user_liked_list
 
-.continer[@protip]
-  .hide= time_tag @protip.created_at, itemprop: "datePublished"
-  .hide= time_tag @protip.updated_at, itemprop: "dateModified"
-  .hide[:name]= @protip.public_id
+- cache [@protip, current_user], expires_in: 1.hour do
+  .continer[@protip]
+    .hide= time_tag @protip.created_at, itemprop: "datePublished"
+    .hide= time_tag @protip.updated_at, itemprop: "dateModified"
+    .hide[:name]= @protip.public_id
 
-  .clearfix
-    .md-col.md-col-2.md-show &nbsp;
+    .clearfix
+      .md-col.md-col-2.md-show &nbsp;
 
-    .sm-col.sm-col.sm-col-12.md-col-8
-      .clearfix.mt0.mb1
-        .left.mt-third= react_component 'Heartable',
-                id: dom_id(@protip),
-                href: protip_likes_path(@protip),
-                initialCount: @protip.likes_count,
-                layout: 'inline'
-        .right
-          .diminish.inline.mr1
-            =icon("eye")
-            =number_to_human(@protip.views_count, precision: 4)
-          &middot;
-          %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
-          &middot;
-          .ml1.mr1.inline
-            =link_to @protip.user.username, profile_path(username: @protip.user.username)
-          .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
-      .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
+      .sm-col.sm-col.sm-col-12.md-col-8
+        .clearfix.mt0.mb1
+          .left.mt-third= react_component 'Heartable',
+                  id: dom_id(@protip),
+                  href: protip_likes_path(@protip),
+                  initialCount: @protip.likes_count,
+                  layout: 'inline'
+          .right
+            .diminish.inline.mr1
+              =icon("eye")
+              =number_to_human(@protip.views_count, precision: 4)
+            &middot;
+            %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
+            &middot;
+            .ml1.mr1.inline
+              =link_to @protip.user.username, profile_path(username: @protip.user.username)
+            .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
+        .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
 
-        -if signed_in? && current_user.can_edit?(@protip)
-          .clearfix.mb2.mt2
-            .right.mr1
-              =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
-              %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}
-                Edit Protip
+          -if signed_in? && current_user.can_edit?(@protip)
+            .clearfix.mb2.mt2
+              .right.mr1
+                =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
+                %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}
+                  Edit Protip
 
-        %h1.px2.mt4.center[:headline]=@protip.title
-        .center[:keywords]
-          -@protip.tags.each do |tag|
-            %h6.inline=tag
-        .content.p2.mt3[:articleBody]
-          = sanitize CFM::Markdown.render(@protip.body)
+          %h1.px2.mt4.center[:headline]=@protip.title
+          .center[:keywords]
+            -@protip.tags.each do |tag|
+              %h6.inline=tag
+          .content.p2.mt3[:articleBody]
+            - cache @protip do
+              = sanitize CFM::Markdown.render(@protip.body)
 
-        .author.p2[:author]
-          %h5.mt0[@protip.user]
-            .diminish.inline Written by
-            %a[:name]{href: profile_path(username: @protip.user.username)}
-              =@protip.user.name
-        -if signed_in?
-          #new-comment.new-comment.mt2.mb2.px2
-            -if flash[:error]
-              .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
-            = form_for Comment.new do |form|
-              .border.rounded
-                = form.hidden_field :protip_id, value: @protip.id
-                = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter your resonse here. Smile and don't forget to be nice.", style: 'border: none; outline: none', value: flash[:data]
-                .text-area-footer.px1.py1.font-sm
-                  Markdown is totally
-                  =icon('thumbs-o-up')
-              %button.btn.rounded.mt2.green.bg-white.border-green{type: 'submit'} Respond
-        -else
-          #new-comment.new-comment.mt3.mb3.px2.center.bold
-            =link_to 'Sign in', sign_in_path
-            or
-            =link_to 'sign up', sign_up_path
-            to add your response.
+          .author.p2[:author]
+            %h5.mt0[@protip.user]
+              .diminish.inline Written by
+              %a[:name]{href: profile_path(username: @protip.user.username)}
+                =@protip.user.name
+          -if signed_in?
+            #new-comment.new-comment.mt2.mb2.px2
+              -if flash[:error]
+                .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
+              = form_for Comment.new do |form|
+                .border.rounded
+                  = form.hidden_field :protip_id, value: @protip.id
+                  = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter your resonse here. Smile and don't forget to be nice.", style: 'border: none; outline: none', value: flash[:data]
+                  .text-area-footer.px1.py1.font-sm
+                    Markdown is totally
+                    =icon('thumbs-o-up')
+                %button.btn.rounded.mt2.green.bg-white.border-green{type: 'submit'} Respond
+          -else
+            #new-comment.new-comment.mt3.mb3.px2.center.bold
+              =link_to 'Sign in', sign_in_path
+              or
+              =link_to 'sign up', sign_up_path
+              to add your response.
 
-      -if @protip.comments.present?
-        .clearfix.mt1.px2
-          %h4=pluralize(@protip.comments.size, 'Response')
-          =render @protip.comments
-    .md-col.md-col-2.md-show &nbsp;
+        -if @protip.comments.present?
+          .clearfix.mt1.px2
+            %h4=pluralize(@protip.comments.size, 'Response')
+            =render @protip.comments
+      .md-col.md-col-2.md-show &nbsp;

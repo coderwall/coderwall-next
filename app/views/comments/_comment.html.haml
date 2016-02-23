@@ -6,10 +6,11 @@
     =avatar_url_tag(comment.user)
   .overflow-hidden.py0.mt0
     .clearfix
-      .author[:author]
-        %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
-          =comment.user.username
-      .content.small[:text]=sanitize CFM::Markdown.render(comment.body)
+      - cache comment do
+        .author[:author]
+          %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
+            =comment.user.username
+        .content.small[:text]=sanitize CFM::Markdown.render(comment.body)
       .diminish.mt1
         ==#{time_ago_in_words(comment.created_at)} ago
         -if signed_in? && current_user.can_edit?(comment)

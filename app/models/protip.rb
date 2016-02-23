@@ -9,7 +9,7 @@ class Protip < ActiveRecord::Base
   before_create :generate_public_id, if: :public_id_blank?
 
   belongs_to :user,   autosave: true, touch: true
-  has_many :comments, ->{ order(created_at: :desc) }, dependent: :destroy
+  has_many :comments, ->{ order(created_at: :asc) }, dependent: :destroy
   has_many :likes, as: :likable, dependent: :destroy
 
   validates :title, presence: true, length: { minimum: 5, maximum:  255 }
@@ -25,6 +25,10 @@ class Protip < ActiveRecord::Base
 
   def to_param
     self.public_id
+  end
+
+  def cache_key
+    "#{super}-#{views_count}"
   end
 
   def self.spam

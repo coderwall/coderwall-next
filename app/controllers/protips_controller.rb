@@ -3,7 +3,7 @@ class ProtipsController < ApplicationController
 
   def index
     order_by = (params[:order_by] ||= 'score')
-    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page( params[:page])    
+    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page( params[:page])
   end
 
   def spam

@@ -7,123 +7,124 @@
 - meta twitter: { image: avatar_url(@user) }         if @user.avatar
 - meta og:      { image: avatar_url(@user) }         if @user.avatar
 
-.continer[@user]
-  .clearfix
-    .md-col.md-col-2.md-show &nbsp;
-    .sm-col.sm-col.sm-col-12.md-col-8
-      .clearfix.mt0.mb1
-        .right.mt1
-          .diminish.inline.mr1
-            =@user.karma
-            Karma
-          &middot;
-          .diminish.inline.ml1.mr1
-            ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
-          &middot;
-          .ml1.mr1.inline[:alternateName]
-            =link_to @user.try(:username), profile_path(username: @user.username)
+- cache_if show_badges?, ['v1', @user, current_user] do
+  .continer[@user]
+    .clearfix
+      .md-col.md-col-2.md-show &nbsp;
+      .sm-col.sm-col.sm-col-12.md-col-8
+        .clearfix.mt0.mb1
+          .right.mt1
+            .diminish.inline.mr1
+              =@user.karma
+              Karma
+            &middot;
+            .diminish.inline.ml1.mr1
+              ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
+            &middot;
+            .ml1.mr1.inline[:alternateName]
+              =link_to @user.try(:username), profile_path(username: @user.username)
 
-      .card.p3{style: "border-top:solid 5px #{@user.color}"}
-        -if current_user == @user || current_user.try(:admin?)
-          .clearfix.mb3
-            .right
-              -if current_user.try(:admin?) || params[:delete_account]
-                .inline.diminish.mr1="accessed #{time_ago_in_words(@user.last_request_at)}"
-                =link_to(icon('trash'), user_path(@user), method: :delete, class: 'diminish mr1', 'data-confirm': 'This makes us very sad. Are you sure?')
-              =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
-              %a.ml1.btn.rounded.bg-green.white{href: edit_user_path(@user)}
-                Edit Profile
+        .card.p3{style: "border-top:solid 5px #{@user.color}"}
+          -if current_user == @user || current_user.try(:admin?)
+            .clearfix.mb3
+              .right
+                -if current_user.try(:admin?) || params[:delete_account]
+                  .inline.diminish.mr1="accessed #{time_ago_in_words(@user.last_request_at)}"
+                  =link_to(icon('trash'), user_path(@user), method: :delete, class: 'diminish mr1', 'data-confirm': 'This makes us very sad. Are you sure?')
+                =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
+                %a.ml1.btn.rounded.bg-green.white{href: edit_user_path(@user)}
+                  Edit Profile
 
-        .clearfix
-          .left.avatar.big[:image]{style: "background-color: #{@user.color};"}
-            =avatar_url_tag(@user)            
-          .overflow-hidden
-            %h1.ml2.mt0.mb0[:name]= @user.display_name
-            %h4.ml2.mt1
-              -if @user.display_title.present?
-                =@user.display_title
-                .hide[:jobTitle]= @user.title
-                .hide[:worksFor]= @user.company
-                .hide_last_child.inline &middot;
-              -if @user.location.present?
-                .inline[:homeLocation]=@user.location
-                .hide_last_child.inline &middot;
-              -if @user.twitter.present?
-                =link_to icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
-                .hide_last_child.inline &middot;
-              -if @user.github.present?
-                =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
-                .hide_last_child.inline &middot;
-              -if current_user.try(:admin?)
-                =link_to icon("envelope", class: "fa-1x", style: "color: #{@user.color}"), "mailto:#{@user.email}"
-                .hide_last_child.inline &middot;
+          .clearfix
+            .left.avatar.big[:image]{style: "background-color: #{@user.color};"}
+              =avatar_url_tag(@user)
+            .overflow-hidden
+              %h1.ml2.mt0.mb0[:name]= @user.display_name
+              %h4.ml2.mt1
+                -if @user.display_title.present?
+                  =@user.display_title
+                  .hide[:jobTitle]= @user.title
+                  .hide[:worksFor]= @user.company
+                  .hide_last_child.inline &middot;
+                -if @user.location.present?
+                  .inline[:homeLocation]=@user.location
+                  .hide_last_child.inline &middot;
+                -if @user.twitter.present?
+                  =link_to icon("twitter", class: "fa-1x", style: "color: #{@user.color}"), "https://twitter.com/#{@user.twitter}"
+                  .hide_last_child.inline &middot;
+                -if @user.github.present?
+                  =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
+                  .hide_last_child.inline &middot;
+                -if current_user.try(:admin?)
+                  =link_to icon("envelope", class: "fa-1x", style: "color: #{@user.color}"), "mailto:#{@user.email}"
+                  .hide_last_child.inline &middot;
 
 
-        .clearfix.p0.mt2
-          %p
-            .content[:description]
-              = sanitize CFM::Markdown.render(@user.about)
-          .mt1
-            -@user.skills.each do |tag|
-              .inline[:memberOf]=tag
+          .clearfix.p0.mt2
+            %p
+              .content[:description]
+                = sanitize CFM::Markdown.render(@user.about)
+            .mt1
+              -@user.skills.each do |tag|
+                .inline[:memberOf]=tag
 
-        %nav.clearfix.mt2
-          %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username, anchor: 'achievements'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
-            =pluralize(@user.badges.size, 'Achivement')
+          %nav.clearfix.mt2
+            %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username, anchor: 'achievements'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
+              =pluralize(@user.badges.size, 'Achivement')
 
-          %a.font-lg.py1.no-hover.mr3{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
-            =pluralize(@user.protips.size, 'Protip')
+            %a.font-lg.py1.no-hover.mr3{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
+              =pluralize(@user.protips.size, 'Protip')
 
-          %a.font-lg.py1.no-hover{href: profile_comments_path(username: @user.username, anchor: 'comments'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_comments_active}
-            =pluralize(@user.comments.size, 'Comments')
+            %a.font-lg.py1.no-hover{href: profile_comments_path(username: @user.username, anchor: 'comments'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_comments_active}
+              =pluralize(@user.comments.size, 'Comments')
 
-        -if show_badges?
-          #achievements.clearfix.mt1.py2.border-top
-            -if @user.badges.empty?
-              .clearfix.mt3.p4.center
-                .diminish=icon('hand-peace-o', class: 'fa-3x')
-            -@user.badges.each do |badge|
-              .badge.clearfix.py2
-                .left.mr2=image_tag badge.path, width: 50, height: 50
-                .overflow-hidden
-                  %h6.mt0=badge.name
-                  .mt0.diminish[:award]=badge.description
-        -elsif show_protips?
-          #protips.clearfix.mt1.py2.border-top
-            -if @user.protips.empty?
-              .clearfix.mt3.p4.center
-                .diminish=icon('hand-peace-o', class: 'fa-3x')
-            -@user.protips.each do |protip|
-              .protip.clearfix.py2
-                .overflow-hidden
-                  %h6.mt0
-                    %a.black{:href => protip_path(protip)}=protip.title
-                  .mt0.diminish
-                    .font-tiny.inline=icon('heart')
-                    =protip.hearts_count
-                    .inline &middot;
-                    .font-sm.inline=icon('eye')
-                    =protip.views_count
-                    .inline &middot;
-                    .inline=protip.display_tags
-        -elsif show_comments?
-          #comments.clearfix.mt1.py2.border-top
-            -if @user.comments.empty?
-              .clearfix.mt3.p4.center
-                .diminish=icon('hand-peace-o', class: 'fa-3x')
-            -@user.comments.each do |comment|
-              -if comment.protip
-                .comment.clearfix.py2
+          -if show_badges?
+            #achievements.clearfix.mt1.py2.border-top
+              -if @user.badges.empty?
+                .clearfix.mt3.p4.center
+                  .diminish=icon('hand-peace-o', class: 'fa-3x')
+              -@user.badges.each do |badge|
+                .badge.clearfix.py2
+                  .left.mr2=image_tag badge.path, width: 50, height: 50
                   .overflow-hidden
-                    .mt0
-                      Posted to
-                      %a{:href => protip_path(comment.protip)}
-                        =comment.protip.title
-                      =time_ago_in_words(comment.created_at)
-                      ago
-                    .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
-                      =sanitize CFM::Markdown.render(comment.body)
+                    %h6.mt0=badge.name
+                    .mt0.diminish[:award]=badge.description
+          -elsif show_protips?
+            #protips.clearfix.mt1.py2.border-top
+              -if @user.protips.empty?
+                .clearfix.mt3.p4.center
+                  .diminish=icon('hand-peace-o', class: 'fa-3x')
+              -@user.protips.each do |protip|
+                .protip.clearfix.py2
+                  .overflow-hidden
+                    %h6.mt0
+                      %a.black{:href => protip_path(protip)}=protip.title
+                    .mt0.diminish
+                      .font-tiny.inline=icon('heart')
+                      =protip.hearts_count
+                      .inline &middot;
+                      .font-sm.inline=icon('eye')
+                      =protip.views_count
+                      .inline &middot;
+                      .inline=protip.display_tags
+          -elsif show_comments?
+            #comments.clearfix.mt1.py2.border-top
+              -if @user.comments.empty?
+                .clearfix.mt3.p4.center
+                  .diminish=icon('hand-peace-o', class: 'fa-3x')
+              -@user.comments.each do |comment|
+                -if comment.protip
+                  .comment.clearfix.py2
+                    .overflow-hidden
+                      .mt0
+                        Posted to
+                        %a{:href => protip_path(comment.protip)}
+                          =comment.protip.title
+                        =time_ago_in_words(comment.created_at)
+                        ago
+                      .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
+                        =sanitize CFM::Markdown.render(comment.body)
 
 
 
-    .sm-col.sm-col12.md-col.md-col-2 &nbsp;
+      .sm-col.sm-col12.md-col.md-col-2 &nbsp;
