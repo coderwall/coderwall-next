@@ -21,4 +21,16 @@ module ProtipsHelper
     "A protip by #{@protip.user.username} about #{tags.to_sentence}."
   end
 
+  def sort_expiry
+    case params[:order_by]
+      when :score       then 5.minutes
+      when :views_count then 1.hour
+      else 15.seconds
+    end
+  end
+
+  def protip_list_cache_key
+    ['v1', 'protips#index', params[:order_by], params[:page], current_user]
+  end
+
 end
