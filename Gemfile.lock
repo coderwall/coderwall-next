@@ -104,6 +104,7 @@ GEM
     execjs (2.6.0)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    get_process_mem (0.2.0)
     github-markup (1.4.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -163,6 +164,9 @@ GEM
       actionmailer (>= 3.0.0)
       postmark (~> 1.7.0)
     puma (2.14.0)
+    puma_worker_killer (0.0.4)
+      get_process_mem (~> 0.2)
+      puma (~> 2.7)
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -292,6 +296,7 @@ DEPENDENCIES
   pg (~> 0.15)
   postmark-rails
   puma
+  puma_worker_killer
   rack-cors
   rack-timeout
   rails (~> 4.2.5)
