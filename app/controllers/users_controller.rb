@@ -23,6 +23,7 @@ class UsersController < ApplicationController
           render(json: response, callback: params[:callback])
         end
       end
+      format.all { head(:not_found) }
     end
   end
 
