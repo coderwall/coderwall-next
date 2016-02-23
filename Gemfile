@@ -12,6 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem "rack-timeout"
 gem 'rack-cors'
 gem 'puma'
+gem 'newrelic_rpm'
 
 gem "haml-rails"
 gem 'redcarpet', ">=3.3.4"
