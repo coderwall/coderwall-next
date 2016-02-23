@@ -10,7 +10,7 @@
     = render 'shared/analytics'
   %body
     .flex.flex-column{:style => "min-height:100vh"}
-      %header.border-bottom        
+      %header.border-bottom
         %nav.clearfix.px2
           .sm-col.py2
             %a.btn.logo{:href => root_url} Coderwall
@@ -45,3 +45,4 @@
             %a.inline-block.mr2{href: privacy_path} Privacy
             %a.inline-block.mr2{href: tos_path} Terms
             %p.inline-block.diminish.inline="Copyright #{Time.now.strftime('%Y')}"
+  = render 'shared/tracking'
