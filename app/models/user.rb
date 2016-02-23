@@ -55,8 +55,10 @@ class User < ActiveRecord::Base
   end
 
   def liked
-    likes.includes(:likable).collect do |like|
-      ActionView::RecordIdentifier.dom_id(like.likable)
+    Rails.cache.fetch ['v1', 'user-likes', self.id, likes.count] do
+      (protips + comments).collect do |object|
+        ActionView::RecordIdentifier.dom_id(object)
+      end
     end
   end
 
