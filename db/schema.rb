@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219190140) do
+ActiveRecord::Schema.define(version: 20160223063803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20160219190140) do
   end
 
   add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "likable_id"
@@ -68,9 +69,11 @@ ActiveRecord::Schema.define(version: 20160219190140) do
     t.boolean  "flagged",     default: false
   end
 
+  add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree
   add_index "protips", ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
   add_index "protips", ["score"], name: "index_protips_on_score", using: :btree
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
+  add_index "protips", ["user_id"], name: "index_protips_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
