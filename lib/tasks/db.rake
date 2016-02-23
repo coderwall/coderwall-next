@@ -73,7 +73,7 @@ namespace :db do
 
   namespace :clean do
     task :spam => :environment do
-      usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo kevintrujillo jstarun vatsalyametal JaiLiners}
+      usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo kevintrujillo jstarun vatsalyametal JaiLiners bollyshowbiz}
       usernames << "Bastille day "
 
       spammers = User.where(username: usernames).all
@@ -283,7 +283,7 @@ namespace :db do
     task :protips => :connect do
       Protip.reset_pk_sequence
       not_ported = []
-      Legacy[:protips].where(port_data_since).each do |row|      
+      Legacy[:protips].where(port_data_since).each do |row|
         puts "#{row[:id]} : #{row[:public_id]} : #{row[:slug]}"
         protip = Protip.find_or_initialize_by_id(row[:id])
         protip.attributes.keys.each do |key|

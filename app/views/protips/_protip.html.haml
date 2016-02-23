@@ -5,18 +5,18 @@
         id: dom_id(protip),
         href: protip_likes_path(protip),
         initialCount: protip.likes_count
-
-  .overflow-hidden
-    %h3.mt0.mb0
-      %a[:headline]{:href => protip_path(protip)}=protip.title
-    .font-sm
-      =link_to protip.user.try(:username), profile_path(username: protip.user.username)
-      .diminish.inline
-        &middot;
-        %a[:url]{href: protip_path(protip)}
-          =pluralize(protip.comments.size, 'responses')
-        &middot;
-        =protip.display_tags
-        &middot;
-        =time_ago_in_words(protip.created_at)
-        ago
+  -cache ['v1', protip], expires_in: 1.hour do        
+    .overflow-hidden
+      %h3.mt0.mb0
+        %a[:headline]{:href => protip_path(protip)}=protip.title
+      .font-sm
+        =link_to protip.user.try(:username), profile_path(username: protip.user.username)
+        .diminish.inline
+          &middot;
+          %a[:url]{href: protip_path(protip)}
+            =pluralize(protip.comments.size, 'responses')
+          &middot;
+          =protip.display_tags
+          &middot;
+          =time_ago_in_words(protip.created_at)
+          ago

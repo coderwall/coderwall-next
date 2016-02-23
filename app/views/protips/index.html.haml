@@ -23,29 +23,30 @@
         %p.mt2 We hope this shiny brand new version of Coderwall makes you smile. We're on a mission to make the software world smaller - watch for alot more to come.
         -# %a Read the full announcement
 
-        %h4.mt4
-          =icon 'calendar', class: 'mr1'
-          Most viewed this month
-        -Protip.recently_most_viewed.each do |protip|
-          .clearfix.mt2
-            =link_to(protip.title, protip_path(protip), class: 'black no-hover')
-            .font-sm
-              =link_to protip.user.username, profile_path(username: protip.user.username)
-              .diminish.inline
-                &middot;
-                = protip.display_tags
-        .block.mt2.bold=link_to 'More popular protips', popular_path
-
-        %h4.mt4
-          =icon 'magic', class: 'mr1'
-          Recent activity
-        -Protip.recently_created.each do |protip|
-          .clearfix.mt2
-            =link_to(protip.title, protip_path(protip), class: 'black no-hover')
-            .block
+        -cache 'protip_quick_links', expires_in: 10.minutes do
+          %h4.mt4
+            =icon 'calendar', class: 'mr1'
+            Most viewed this month
+          -Protip.recently_most_viewed.each do |protip|
+            .clearfix.mt2
+              =link_to(protip.title, protip_path(protip), class: 'black no-hover')
               .font-sm
                 =link_to protip.user.username, profile_path(username: protip.user.username)
                 .diminish.inline
                   &middot;
                   = protip.display_tags
-        .block.mt2.bold=link_to 'More new protips', fresh_path
+          .block.mt2.bold=link_to 'More popular protips', popular_path
+
+          %h4.mt4
+            =icon 'magic', class: 'mr1'
+            Recent activity
+          -Protip.recently_created.each do |protip|
+            .clearfix.mt2
+              =link_to(protip.title, protip_path(protip), class: 'black no-hover')
+              .block
+                .font-sm
+                  =link_to protip.user.username, profile_path(username: protip.user.username)
+                  .diminish.inline
+                    &middot;
+                    = protip.display_tags
+          .block.mt2.bold=link_to 'More new protips', fresh_path
