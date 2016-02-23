@@ -184,7 +184,30 @@ namespace :db do
     end
 
     task :teams => :connect do
+      Team.reset_pk_sequence
+      not_ported = []
+      # .where(port_data_since)
+      Legacy[:teams].each do |row|
+        team = Team.find_or_initialize_by_id(row[:id])
+        team.attributes.keys.each do |key|
+          team[key] = row[key.to_sym]
+        end
 
+        team.color  = row[:branding]
+
+        if row[:github_organization_name].present?
+          team.github = row[:github_organization_name]
+        end
+
+        if team.save
+          puts team.name
+        else
+          not_ported << team
+          puts "#{row[:name]} skipped #{team.errors.inspect}"
+        end
+      end
+      Team.reset_pk_sequence
+      puts "Failed to port #{not_ported.size}"
     end
 
     task :likes => :connect do

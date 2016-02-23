@@ -1,0 +1,18 @@
+- title @team.name
+
+.continer[@team]
+  .clearfix
+    .md-col.md-col-2.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .card.p3{style: "border-top:solid 5px #{@team.color}"}
+        %h1=@team.name
+        .clearfix
+          -if @team.twitter.present?
+            =link_to icon("twitter", class: "fa-1x", style: "color: #{@team.color}"), "https://twitter.com/#{@team.twitter}"
+            .hide_last_child.inline &middot;
+          -if @team.github.present?
+            =link_to icon("github", class: "fa-1x", style: "color: #{@team.color}"), "http://github.com/#{@team.github}"
+            .hide_last_child.inline &middot;          
+        .content.mt1[:description]
+          = sanitize CFM::Markdown.render(@team.about)
+    .md-col.md-col-2.md-show &nbsp;

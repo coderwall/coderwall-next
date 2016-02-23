@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get    '/p/u/:username',     to: redirect("/%{username}/protips", status:302)
   get    '/twitter/:username', to: redirect("/404", status:302)
   get    '/github/:username',  to: redirect("/404", status:302)
-
+  get    '/team/:slug'     => 'teams#show'
+  
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223064301) do
+ActiveRecord::Schema.define(version: 20160223065728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,24 @@ ActiveRecord::Schema.define(version: 20160223064301) do
   add_index "protips", ["score"], name: "index_protips_on_score", using: :btree
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
   add_index "protips", ["user_id"], name: "index_protips_on_user_id", using: :btree
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.string   "avatar"
+    t.citext   "slug"
+    t.string   "website"
+    t.string   "twitter"
+    t.string   "facebook"
+    t.string   "github"
+    t.string   "github_organization_name"
+    t.string   "youtube_url"
+    t.string   "blog_feed"
+    t.string   "location"
+    t.text     "about"
+    t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
