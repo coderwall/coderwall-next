@@ -23,20 +23,26 @@ namespace :db do
 
   namespace :clean do
     task :spam => :environment do
-      %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney}
-      spammers = Protip.spam.collect(&:user)
-      spammers.each do |spammer|
-        puts "Destroying spammer: #{spammer.username}"
-        spammer.destroy
-      end
+      usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo}
+      usernames << "Bastille day "
+
+      spammers = User.where(username: usernames).all
+
+      spammers = spammers + Protip.spam.collect(&:user)
+
+      spammers = spammers + User.where("banned_at IS NOT NULL").all
 
       if protip = Protip.find_by_public_id(clash_of_clans_spam = '3tzscq')
-        protip.comments.collect(&:user).uniq
-        spammers.each do |spammer|
-          puts "Destroying clash of clan spammer: #{spammer.username}"
-          spammer.destroy
-        end
+        spammers = spammers + protip.comments.collect(&:user)
         protip.update_column(:flagged, true)
+      end
+
+      spammers.uniq!
+
+      puts "Found #{spammers.count} spammers"
+      spammers.each do |spammer|
+        puts "Destroying: #{spammer.username}"
+        # spammer.destroy
       end
     end
 
