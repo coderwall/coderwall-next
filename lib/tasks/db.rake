@@ -23,7 +23,7 @@ namespace :db do
 
   namespace :clean do
     task :spam => :environment do
-      usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo kevintrujillo jstarun vatsalyametal}
+      usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo kevintrujillo jstarun vatsalyametal JaiLiners}
       usernames << "Bastille day "
 
       spammers = User.where(username: usernames).all
