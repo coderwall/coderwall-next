@@ -36,7 +36,7 @@
 
         .clearfix
           .left.avatar.big[:image]{style: "background-color: #{@user.color};"}
-            =image_tag avatar_url(@user)
+            =avatar_url_tag(@user)            
           .overflow-hidden
             %h1.ml2.mt0.mb0[:name]= @user.display_name
             %h4.ml2.mt1
@@ -105,7 +105,7 @@
                     .font-sm.inline=icon('eye')
                     =protip.views_count
                     .inline &middot;
-                    .inline=protip.display_tags                    
+                    .inline=protip.display_tags
         -elsif show_comments?
           #comments.clearfix.mt1.py2.border-top
             -if @user.comments.empty?

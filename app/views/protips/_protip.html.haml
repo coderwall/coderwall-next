@@ -17,3 +17,6 @@
           =pluralize(protip.comments.size, 'responses')
         &middot;
         =protip.display_tags
+        &middot;
+        =time_ago_in_words(protip.created_at)
+        ago

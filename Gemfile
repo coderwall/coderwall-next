@@ -31,6 +31,8 @@ gem 'react-rails'
 gem 'meta-tags'
 gem 'green_monkey'
 gem 'active_model_serializers'
+gem 'dalli'
+gem 'connection_pool'
 
 # Legacy gems needed for porting
 gem 'sequel'
