@@ -21,9 +21,12 @@ Rails.application.routes.draw do
   get    '/helloworld'     => "users#edit",    finish_signup: true, as: :finish_signup
   get    '/styleguide'     => "pages#show",    page: 'styleguide'
   get    '/delete_account' => 'users#show',    delete_account: true
+  get    '/p/u/:username',     to: redirect("/%{username}/protips", status:302)
+  get    '/twitter/:username', to: redirect("/404", status:302)
+  get    '/github/:username',  to: redirect("/404", status:302)
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
-  resource :session, controller: "clearance/sessions", only: [:create]
+  resource :session,    controller: "clearance/sessions",  only: [:create]
 
   resources :team
 
@@ -57,6 +60,4 @@ Rails.application.routes.draw do
   get '/:username/protips'  => 'users#show', as: :profile_protips,  protips:  true
   get '/:username/comments' => 'users#show', as: :profile_comments, comments: true
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
-  get '/p/u/:username'     => 'users#show', to: redirect("/%{username}/protips", status: 302)
-
 end
