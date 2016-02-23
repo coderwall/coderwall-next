@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   html_schema_type :Comment
 
-  belongs_to :user
-  belongs_to :protip
+  belongs_to :user,   touch: true
+  belongs_to :protip, touch: true
   has_many :likes, as: :likable, dependent: :destroy
 
   validates :protip, presence: true

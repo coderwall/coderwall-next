@@ -16,9 +16,11 @@ class UsersController < ApplicationController
       @user = User.includes(:badges, :protips).find_by_username!(params[:username])
     end
     respond_to do |format|
-      format.html
+      format.html do
+        fresh_when(web_etag_key_for_user)
+      end
       format.json do
-        if stale?(api_etag_keys_for_protip)
+        if stale?(api_etag_key_for_user)
           response = params[:callback].present? ? {data: @user} : @user
           render(json: response, callback: params[:callback])
         end
@@ -104,7 +106,15 @@ class UsersController < ApplicationController
     params.require(:user).permit(safe_attributes)
   end
 
-  def api_etag_keys_for_protip
+  def web_etag_key_for_user
+    {
+      etag:['v4', @user, current_user, params[:protips], params[:protips]],
+      last_modified: @user.updated_at.utc,
+      public: false
+    }
+  end
+
+  def api_etag_key_for_user
     {
       etag:['v4', @user, params[:callback]],
       last_modified: @user.updated_at.utc,

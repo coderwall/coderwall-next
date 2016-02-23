@@ -8,7 +8,7 @@ class Protip < ActiveRecord::Base
   before_update :cache_cacluated_score!
   before_create :generate_public_id, if: :public_id_blank?
 
-  belongs_to :user, autosave: true
+  belongs_to :user,   autosave: true, touch: true
   has_many :comments, dependent: :destroy
   has_many :likes, as: :likable, dependent: :destroy
 

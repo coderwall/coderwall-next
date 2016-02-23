@@ -3,7 +3,7 @@ class ProtipsController < ApplicationController
 
   def index
     order_by = (params[:order_by] ||= 'score')
-    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page params[:page]
+    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page( params[:page])    
   end
 
   def spam
@@ -21,6 +21,7 @@ class ProtipsController < ApplicationController
         seo_url = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
         return redirect_to(seo_url, status: 301) unless slugs_match?
         update_view_count(@protip)
+        fresh_when(etag_key_for_protip)
       end
     end
   end
@@ -83,6 +84,14 @@ class ProtipsController < ApplicationController
         expires:  10.minutes.from_now
       }
     end
+  end
+
+  def etag_key_for_protip
+    {
+      etag: [@protip, current_user],
+      last_modified: @protip.updated_at.utc,
+      public: false
+    }
   end
 
 end
