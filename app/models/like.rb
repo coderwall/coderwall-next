@@ -4,4 +4,5 @@ class Like < ActiveRecord::Base
 
   validates :user,    presence: true
   validates :likable, presence: true
+  validates_uniqueness_of :user, scope: [:likable_type, :likable_id]
 end

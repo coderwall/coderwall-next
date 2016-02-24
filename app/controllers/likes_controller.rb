@@ -8,7 +8,7 @@ class LikesController < ApplicationController
 
   def create
     @likeable = find_likeable
-    @likeable.likes.create!(user: current_user) unless current_user.likes?(@likeable)
+    @likeable.likes.create(user: current_user)
     respond_to do |format|
       format.js { render(json: @likeable.likes_count, status: :ok) }
     end
