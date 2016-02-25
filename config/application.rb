@@ -34,7 +34,6 @@ module CoderwallNext
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths << Rails.root.join('lib')
     config.assets.precompile += %w(.png)
-    config.assets.paths << "#{Rails.root}/app/assets/legacy"
     config.exceptions_app = self.routes
     config.encoding = 'utf-8'
   end

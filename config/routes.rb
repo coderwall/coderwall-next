@@ -52,8 +52,7 @@ Rails.application.routes.draw do
     resources :likes, only: :create
     collection do
       get '/spam'      => 'protips#spam'
-      get '/:id/:slug' => 'protips#show', as: :slug
-      # , :constraints => { slug: /(?!.*?edit).*/ }
+      get '/:id/:slug' => 'protips#show', as: :slug      
     end
   end
 

@@ -9,6 +9,7 @@ class Protip < ActiveRecord::Base
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_cacluated_score!
   before_create :generate_public_id, if: :public_id_blank?
+  after_create  :auto_like_by_author
 
   belongs_to :user,   autosave: true, touch: true
   has_many :comments, ->{ order(created_at: :asc) }, dependent: :destroy
@@ -118,6 +119,10 @@ class Protip < ActiveRecord::Base
 
   def editable_tags=(val)
     self.tags = val.split(',').collect(&:strip)
+  end
+
+  def auto_like_by_author
+    likes.create(user: user)
   end
 
 end

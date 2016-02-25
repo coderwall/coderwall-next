@@ -2,6 +2,7 @@ class Comment < ActiveRecord::Base
   include TimeAgoInWordsCacheBuster
 
   html_schema_type :Comment
+  after_create :auto_like_protip_for_author
 
   belongs_to :user,   touch: true
   belongs_to :protip, touch: true
@@ -15,5 +16,9 @@ class Comment < ActiveRecord::Base
 
   def dom_id
     ActionView::RecordIdentifier.dom_id(self)
+  end
+
+  def auto_like_protip_for_author
+    protip.likes.create(user: user) unless user.likes?(protip)
   end
 end
