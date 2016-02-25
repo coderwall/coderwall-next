@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, controller: "clearance/users", only: [:create] do
+    resources :pictures
     resource :password,
       controller: "clearance/passwords",
       only: [:create, :edit, :update]
@@ -52,7 +53,7 @@ Rails.application.routes.draw do
     resources :likes, only: :create
     collection do
       get '/spam'      => 'protips#spam'
-      get '/:id/:slug' => 'protips#show', as: :slug      
+      get '/:id/:slug' => 'protips#show', as: :slug
     end
   end
 

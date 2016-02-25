@@ -4,10 +4,11 @@ CarrierWave.configure do |config|
 
   if Rails.env.test?
     config.enable_processing = false
-    config.storage = :file
+    config.storage           = :file
   elsif Rails.env.development?
     config.enable_processing = true
-    config.storage = :file
+    config.storage           = :file
+    config.asset_host        = ActionController::Base.asset_host
   else
     config.enable_processing = true
     config.storage           = :aws

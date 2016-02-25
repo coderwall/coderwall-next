@@ -52,6 +52,7 @@ namespace :db do
   task port: [
     'db:port:users',
     'db:port:badges',
+    'db:port:pictures',
     'db:port:protips',
     'db:port:comments',
     'db:port:teams',
@@ -162,6 +163,21 @@ namespace :db do
           end
         end
       end
+    end
+
+    task :pictures => :connect do
+      Legacy[:pictures].each do |row|
+        if row[:user_id]
+          picture = Picture.find_or_initialize_by_id(row[:id])
+          picture.attributes.keys.each do |key|
+            picture[key] = row[key.to_sym]
+          end
+          picture.save!
+        else
+          puts "Skipped #{row[:id]} -> #{row.inspect}"
+        end
+      end
+      Picture.reset_pk_sequence
     end
 
     task :comments => :connect do
