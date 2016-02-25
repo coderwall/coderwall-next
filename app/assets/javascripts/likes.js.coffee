@@ -44,16 +44,6 @@ class @Likes
     req.open 'GET', url
     req.send()
 
-    # $.ajax
-    #   dataType: 'json',
-    #   cache: true,
-    #   ifModified: true,
-    #   url: '/users/' + @userId + '/likes.json'
-    #   success: (data, status, xhr) =>
-    #     console.log('likes -> loaded', xhr)
-    #     @data = data['likes']
-    #     @safelyRunCallbacksWithLoadedData()
-
   constructor: (userId)->
     @userId = userId
     console.log('likes -> new', this)

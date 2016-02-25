@@ -1,4 +1,4 @@
-- cache ['v2', comment] do
+- cache ['v1', comment, current_user_can_edit?(comment)] do
   .clearfix.border-top.py1[comment]{id: dom_id(comment)}
     .hide= time_tag comment.created_at, itemprop: "datePublished"
     .hide[:name]= comment.id
@@ -13,7 +13,7 @@
         .content.small[:text]=sanitize CFM::Markdown.render(comment.body)
         .diminish.mt1
           ==#{time_ago_in_words(comment.created_at)} ago
-          -if signed_in? && current_user.can_edit?(comment)
+          -if current_user_can_edit?(comment)
             &middot;
             %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
           &middot;

@@ -4,6 +4,10 @@ module UsersHelper
     params[:finish_signup] == true
   end
 
+  def current_user_can_edit?(object)
+    signed_in? && current_user.can_edit?(object)
+  end
+
   def show_badges?
     !show_protips? && !show_comments?
   end
