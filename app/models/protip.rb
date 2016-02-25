@@ -1,4 +1,20 @@
 class Protip < ActiveRecord::Base
+  Groupings = {
+    'git'          => ['git', 'gitconfig', 'github'],
+    'nodejs'       => ['node', 'npm', 'gulp', 'node.js'],
+    'vim'          => ['vim', 'vi', 'viml'],
+    'ruby'         => ['ruby', 'rvm', 'rake'],
+    'rails'        => ['rails', 'activerecord', 'ruby on rails', 'heroku'],
+    'command-line' => ['vim', 'bash', 'shell', 'ssh', 'cli', 'grep', 'zsh', 'terminal'],
+    'front-end'    => ['javascript', 'react', 'react.js', 'js',  'angular.js', 'angular.js', 'jquery', 'backbonejs'],
+    'web'          => ['html5', 'css', 'css3', 'fonts', 'html', 'web', 'browser', 'svg'],
+    'dot-net'      => ['vb.net', 'asp.net', 'c#', 'csharp', '.net', 'linq'],
+    'devops'       => ['devops', 'docker', 'ansible', 'vagrant', 'sysadmin'],
+    'ios'          => ['ios', 'objective-c', 'swift', 'xcode', 'iphone'],
+    'android'      => ['android', 'google nowsa'],
+    'os-hacks'     => ['linux', 'macosx', 'mac', 'os x', 'ubuntu', 'debian', 'windows']
+  }
+
   include ViewCountCacheBuster
   include TimeAgoInWordsCacheBuster
   extend FriendlyId
@@ -20,7 +36,10 @@ class Protip < ActiveRecord::Base
   validates :tags, presence: true
   validates :slug, presence: true
 
-  scope :tagged, ->(tags) { where("? = ANY (tags)", tags) }
+  scope :with_any_tagged, ->(tags){ where("tags && ARRAY[?]::varchar[]", tags) }
+  scope :with_all_tagged, ->(tags){ where("tags @> ARRAY[?]::varchar[]", tags) }
+  scope :without_any_tagged, ->(tags){ where.not("tags && ARRAY[?]::varchar[]", tags) }
+  scope :without_all_tagged, ->(tags){ where.not("tags @> ARRAY[?]::varchar[]", tags) }
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
   scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
   scope :recently_most_viewed, ->{ order(views_count: :desc).where(
@@ -119,7 +138,7 @@ class Protip < ActiveRecord::Base
   end
 
   def editable_tags=(val)
-    self.tags = val.split(',').collect(&:strip)
+    self.tags = val.to_s.downcase.split(',').collect(&:strip).uniq
   end
 
   def auto_like_by_author

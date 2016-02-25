@@ -8,7 +8,7 @@
           initialCount: protip.likes_count
     .overflow-hidden
       %h3.mt0.mb0
-        %a[:headline]{:href => protip_path(protip)}=protip.title
+        %a.diminish-viewed[:headline]{:href => protip_path(protip)}=protip.title
       .font-sm
         =link_to protip.user.try(:username), profile_path(username: protip.user.username)
         .diminish.inline

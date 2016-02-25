@@ -3,11 +3,11 @@ class ProtipsController < ApplicationController
 
   def index
     order_by = (params[:order_by] ||= 'score')
-    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false)
+    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page(params[:page])
     if params[:topic]
-      @protips = @protips.tagged(params[:topic])
+      tags = Protip::Groupings[params[:topic]] || params[:topic]
+      @protips = @protips.with_any_tagged(tags)
     end
-    @protips = @protips.page( params[:page])
   end
 
   def spam

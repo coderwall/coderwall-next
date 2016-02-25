@@ -113,6 +113,10 @@ $placeholder: darken($silver, 20%);
 	}
 }
 
+.diminish-viewed:visited{
+	color: darken($gray, 10%) !important;
+}
+
 .mt-third {
 	margin-top: .20rem;
 }

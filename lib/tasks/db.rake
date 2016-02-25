@@ -73,6 +73,15 @@ namespace :db do
   end
 
   namespace :clean do
+    task :tags => :environment do
+      Protip.find_each do |protip|
+        normalized_tags = protip.tags.compact.collect(&:downcase).collect{|t| t.sub(/^#/, '') }.uniq
+        clean_tags = normalized_tags - [protip.user.username.downcase]
+        puts "#{protip.public_id}: #{clean_tags.join(', ')}"
+        protip.update_column(:tags, clean_tags)
+      end
+    end
+
     task :spam => :environment do
       usernames = %w{akashseo966 salokye Agus_pamungkasS 119harsh miss_shad Jaychowdhury robinburney laomayi Applecomputing happygoodmorni4 robinburney jstarun payalmlhotra Goyllo kevintrujillo jstarun vatsalyametal JaiLiners bollyshowbiz herobayan ayatali BrajbihariG prakashhhh1994 Guum5 sanjeevnitoday sanjeevnitoday}
       usernames << "Bastille day "
