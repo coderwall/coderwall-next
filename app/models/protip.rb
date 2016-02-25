@@ -120,12 +120,7 @@ class Protip < ActiveRecord::Base
   end
 
   def display_tags
-    (tags - legacy_username_tag).first(4).join(' ')
-  end
-
-  def legacy_username_tag
-    # Need to remove this from the db
-    [user.username.downcase]
+    tags.first(4).join(' ')
   end
 
   def editable_tags
