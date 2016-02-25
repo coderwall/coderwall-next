@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get    '/twitter/:username', to: redirect("/404", status:302)
   get    '/github/:username',  to: redirect("/404", status:302)
   get    '/team/:slug'     => 'teams#show'
-  
+
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
 
@@ -61,4 +61,11 @@ Rails.application.routes.draw do
   get '/:username/protips'  => 'users#show', as: :profile_protips,  protips:  true
   get '/:username/comments' => 'users#show', as: :profile_comments, comments: true
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
+
+  get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
+    ActionController::Base.helpers.asset_url('/assets/jquery.coderwall.css', digest:true)
+  }
+  get '/javascripts/jquery.coderwall.js',  to: redirect(status: 301) {
+    ActionController::Base.helpers.asset_url('/assets/jquery.coderwall.js', digest:true)
+  }
 end
