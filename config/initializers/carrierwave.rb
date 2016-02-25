@@ -1,7 +1,4 @@
 CarrierWave.configure do |config|
-  config.root = Rails.root.join('tmp')
-  config.cache_dir = "#{Rails.root}/tmp/uploads"
-
   if Rails.env.test?
     config.enable_processing = false
     config.storage           = :file
@@ -10,6 +7,8 @@ CarrierWave.configure do |config|
     config.storage           = :file
     config.asset_host        = ActionController::Base.asset_host
   else
+    config.root              = Rails.root.join('tmp')
+    config.cache_dir         = "#{Rails.root}/tmp/uploads"
     config.enable_processing = true
     config.storage           = :aws
     config.asset_host        = "https://#{ENV['AWS_BUCKET']}.s3.amazonaws.com"

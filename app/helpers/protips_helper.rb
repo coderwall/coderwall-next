@@ -30,7 +30,7 @@ module ProtipsHelper
   end
 
   def protip_list_cache_key
-    ['v1', 'protips#index', params[:order_by], params[:page], current_user]
+    ['v1', 'protips#index', params[:order_by], params[:topic], params[:page], current_user]
   end
 
 end

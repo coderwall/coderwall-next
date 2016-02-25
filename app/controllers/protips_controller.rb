@@ -3,7 +3,11 @@ class ProtipsController < ApplicationController
 
   def index
     order_by = (params[:order_by] ||= 'score')
-    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page( params[:page])
+    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false)
+    if params[:topic]
+      @protips = @protips.tagged(params[:topic])
+    end
+    @protips = @protips.page( params[:page])
   end
 
   def spam
@@ -32,6 +36,7 @@ class ProtipsController < ApplicationController
 
   def edit
     @protip = Protip.find_by_public_id!(params[:id])
+    return head(:forbidden) unless current_user.can_edit?(@protip)
     render action: 'new'
   end
 

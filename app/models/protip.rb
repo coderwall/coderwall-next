@@ -20,6 +20,7 @@ class Protip < ActiveRecord::Base
   validates :tags, presence: true
   validates :slug, presence: true
 
+  scope :tagged, ->(tags) { where("? = ANY (tags)", tags) }
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
   scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
   scope :recently_most_viewed, ->{ order(views_count: :desc).where(

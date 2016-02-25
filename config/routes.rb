@@ -4,9 +4,11 @@ Rails.application.routes.draw do
     constraints: CloudfrontConstraint.new
 
   root 'protips#index'
-  get   '/trending(/:page)' => 'protips#index', order_by: :score,       as: :trending
-  get   '/popular(/:page)'  => 'protips#index', order_by: :views_count, as: :popular
-  get   '/fresh(/:page)'    => 'protips#index', order_by: :created_at,  as: :fresh
+  get   '/trending(/:page)' => 'protips#index', order_by: :score,        as: :trending
+  get   '/popular(/:page)'  => 'protips#index', order_by: :views_count,  as: :popular
+  get   '/fresh(/:page)'    => 'protips#index', order_by: :created_at,   as: :fresh
+  get   '/:topic/protips(/:page)' => 'protips#index', order_by: :views_count
+
   get   '/p/trending'       => redirect("/trending", status: 302)
   get   '/p/popular'        => redirect("/popular", status: 302)
   get   '/p/fresh'          => redirect("/fresh", status: 302)
@@ -53,6 +55,7 @@ Rails.application.routes.draw do
     resources :likes, only: :create
     collection do
       get '/spam'      => 'protips#spam'
+      get '/:id/edit'  => 'protips#edit'  #this prevents next route from clobbering edit
       get '/:id/:slug' => 'protips#show', as: :slug
     end
   end
