@@ -1,13 +1,5 @@
 module UsersHelper
 
-  def current_user_liked_list
-    if signed_in?
-      current_user.liked
-    else
-      empty_json_array_so_font_end_continues = '[]'
-    end
-  end
-
   def finishing_signup?
     params[:finish_signup] == true
   end

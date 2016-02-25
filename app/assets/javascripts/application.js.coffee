@@ -24,6 +24,15 @@ $ ->
 
   $('textarea').on 'input', resizeTextAreaForNewInput
 
+  unless document.current_user_id?
+    setUserId()
+
+  document.current_user_likes = new Likes(document.current_user_id)
+
+@setUserId = ->
+  userId = $("meta[property='current_user:id']").attr("content")
+  document.current_user_id = userId if userId?
+
 @promptUserSignInOn401 = (xhr) ->
   if xhr.status == 401
     window.location.replace('/signin')

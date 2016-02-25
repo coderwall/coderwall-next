@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  include TimeAgoInWordsCacheBuster
+
   html_schema_type :Comment
 
   belongs_to :user,   touch: true

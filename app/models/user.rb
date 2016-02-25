@@ -55,11 +55,7 @@ class User < ActiveRecord::Base
   end
 
   def liked
-    Rails.cache.fetch ['v1', 'user-likes', self.id, likes.count] do
-      (protips + comments).collect do |object|
-        ActionView::RecordIdentifier.dom_id(object)
-      end
-    end
+    likes.collect(&:dom_id)
   end
 
   def account_age_in_days

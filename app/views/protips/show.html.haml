@@ -8,8 +8,6 @@
 - meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar
 - meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar
 
-#current-users-liked-as-json.hide=current_user_liked_list
-
 .continer[@protip]
   .hide= time_tag @protip.created_at, itemprop: "datePublished"
   .hide= time_tag @protip.updated_at, itemprop: "dateModified"
@@ -56,7 +54,7 @@
               .diminish.inline Written by
               %a[:name]{href: profile_path(username: @protip.user.username)}
                 =@protip.user.name
-                
+
         -if signed_in?
           #new-comment.new-comment.mt2.mb2.px2
             -if flash[:error]

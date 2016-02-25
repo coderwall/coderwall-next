@@ -29,7 +29,7 @@ class Heart extends React.Component {
             {this.renderHeartState(classes.icon)}
           </center>
           <div className={classes.count}>
-            <center className={classes.inline} itemscope timetype='upvoteCount'>
+            <center className={classes.inline} itemScope timetype='upvoteCount'>
               {this.numberToHuman(this.props.count)}
             </center>
           </div>

@@ -1,24 +1,24 @@
-.clearfix.border-top.py1[comment]{id: dom_id(comment)}
-  .hide= time_tag comment.created_at, itemprop: "datePublished"
-  .hide[:name]= comment.id
+- cache ['v2', comment] do
+  .clearfix.border-top.py1[comment]{id: dom_id(comment)}
+    .hide= time_tag comment.created_at, itemprop: "datePublished"
+    .hide[:name]= comment.id
 
-  .left.mt1.mr2.avatar.medium{style:"background-color: #{comment.user.color};"}
-    =avatar_url_tag(comment.user)
-  .overflow-hidden.py0.mt0
-    .clearfix
-      - cache comment do
+    .left.mt1.mr2.avatar.medium{style:"background-color: #{comment.user.color};"}
+      =avatar_url_tag(comment.user)
+    .overflow-hidden.py0.mt0
+      .clearfix
         .author[:author]
           %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
             =comment.user.username
         .content.small[:text]=sanitize CFM::Markdown.render(comment.body)
-      .diminish.mt1
-        ==#{time_ago_in_words(comment.created_at)} ago
-        -if signed_in? && current_user.can_edit?(comment)
+        .diminish.mt1
+          ==#{time_ago_in_words(comment.created_at)} ago
+          -if signed_in? && current_user.can_edit?(comment)
+            &middot;
+            %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
           &middot;
-          %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
-        &middot;
-        = react_component 'Heartable',
-          id: dom_id(comment),
-          href: comment_likes_path(comment),
-          initialCount: comment.likes_count,
-          layout: 'simple'
+          = react_component 'Heartable',
+            id: dom_id(comment),
+            href: comment_likes_path(comment),
+            initialCount: comment.likes_count,
+            layout: 'simple'

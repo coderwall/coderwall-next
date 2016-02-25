@@ -1,4 +1,6 @@
 class Protip < ActiveRecord::Base
+  include ViewCountCacheBuster
+  include TimeAgoInWordsCacheBuster
   extend FriendlyId
   friendly_id :slug_format, :use => :slugged
   paginates_per 30
@@ -25,10 +27,6 @@ class Protip < ActiveRecord::Base
 
   def to_param
     self.public_id
-  end
-
-  def cache_key
-    "#{super}-#{views_count}"
   end
 
   def self.spam
@@ -111,6 +109,11 @@ class Protip < ActiveRecord::Base
 
   def editable_tags
     tags.join(', ')
+  end
+
+  def increment_view_count!
+    self.views_count = views_count + 1
+    dont_trigger_updated_at = update_column(:views_count, views_count)
   end
 
   def editable_tags=(val)

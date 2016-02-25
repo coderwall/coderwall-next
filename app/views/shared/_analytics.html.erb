@@ -7,7 +7,10 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', '<%= ENV['GOOGLE_ANALYTICS_UA'] %>', 'auto');
-    ga('send', 'pageview');
+    <% if signed_in? %>
+      ga('set',  'userId', <%= current_user.id %>);
+    <% end %>
+    ga('send', 'pageview', { "title": document.title });
   </script>
 <% else #LOG EVENTS DIRECTLY TO WEB CONSOLE %>
   <script>

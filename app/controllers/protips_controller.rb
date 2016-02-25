@@ -76,7 +76,7 @@ class ProtipsController < ApplicationController
     if !browser.bot? && browser.known?
       recently_viewed = cookies[:viewd_protips].to_s.split(':')
       if !recently_viewed.include?(protip.public_id)
-        protip.increment!(:views_count)
+        protip.increment_view_count!
         recently_viewed << protip.public_id
       end
       cookies[:viewd_protips] = {

@@ -8,10 +8,9 @@ class Heartable extends React.Component {
   }
 
   componentDidMount() {
-    const userLikes = getUserLikes()
-    if (userLikes.indexOf(this.props.id) > -1) {
+    document.current_user_likes.when_liked(this.props.id, (likes) => {
       this.setState({hearted: true})
-    }
+    })
   }
 
   render() {
@@ -43,10 +42,4 @@ class Heartable extends React.Component {
 Heartable.propTypes = {
   initialCount: React.PropTypes.number,
   protipId: React.PropTypes.string
-}
-
-var _userLikes
-function getUserLikes() {
-  _userLikes = _userLikes || JSON.parse($('#current-users-liked-as-json').html())
-  return _userLikes
 }

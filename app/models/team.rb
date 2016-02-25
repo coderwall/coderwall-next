@@ -2,6 +2,8 @@ class Team < ActiveRecord::Base
 
 end
 
+# total_views ?
+
 # t.string   "highlight_tags"
 # t.text     "branding"
 # t.text     "headline"

@@ -1,11 +1,11 @@
-.protip.card.clearfix.py1.mb2.likeable[protip]{id: dom_id(protip)}
-  .left.col.col-1
-    .mt-third
-      = react_component 'Heartable',
-        id: dom_id(protip),
-        href: protip_likes_path(protip),
-        initialCount: protip.likes_count
-  -cache ['v1', protip], expires_in: 1.hour do        
+-cache ['v2', protip] do
+  .protip.card.clearfix.py1.mb2.likeable[protip]{id: dom_id(protip)}
+    .left.col.col-1
+      .mt-third
+        = react_component 'Heartable',
+          id: dom_id(protip),
+          href: protip_likes_path(protip),
+          initialCount: protip.likes_count
     .overflow-hidden
       %h3.mt0.mb0
         %a[:headline]{:href => protip_path(protip)}=protip.title

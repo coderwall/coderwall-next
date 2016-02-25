@@ -3,12 +3,14 @@ class LikesController < ApplicationController
 
   def index
     @user  = User.find(params[:id])
-    render json: @user.liked
+    if stale?(etag: ['v3', @user, @user.likes.count], public: true)
+      render json: @user.liked
+    end
   end
 
   def create
     @likeable = find_likeable
-    @likeable.likes.create!(user: current_user) unless current_user.likes?(@likeable)
+    @likeable.likes.create(user: current_user) unless current_user.likes?(@likeable)
     respond_to do |format|
       format.js { render(json: @likeable.likes_count, status: :ok) }
     end

@@ -4,4 +4,9 @@ class Like < ActiveRecord::Base
 
   validates :user,    presence: true
   validates :likable, presence: true
+
+  def dom_id
+    #Mimics ActionView::RecordIdentifier.dom_id without killing the database
+    "#{likable_type}_#{likable_id}".downcase
+  end
 end
