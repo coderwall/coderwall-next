@@ -63,9 +63,9 @@ Rails.application.routes.draw do
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
 
   get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
-    ActionController::Base.helpers.asset_url('/assets/jquery.coderwall.css', digest:true)
+    '/legacy.jquery.coderwall.css'
   }
   get '/javascripts/jquery.coderwall.js',  to: redirect(status: 301) {
-    ActionController::Base.helpers.asset_url('/assets/jquery.coderwall.js', digest:true)
+    '/legacy.jquery.coderwall.js'
   }
 end
