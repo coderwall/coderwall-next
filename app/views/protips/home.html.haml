@@ -10,7 +10,7 @@
         .sm-col.sm-col.sm-col-12.md-col-10
           -Category.top.each do |category|
             %a.p2.mt1.inline-block{href: popular_topic_path(topic: category)}
-              =t category, scope: [:categories, :short]
+              .bold=t category, scope: [:categories, :short]
         .md-col.md-col-1.md-show &nbsp;
     .clearfix.mt4
       .md-col.md-col-2.md-show &nbsp;
