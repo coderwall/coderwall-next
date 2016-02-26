@@ -54,7 +54,7 @@ class Protip < ActiveRecord::Base
   end
 
   def related_topics
-    tags.collect{|tag| Category.parent(tag) || Category.is_parent?(tag) }.compact
+    tags.collect{|tag| Category.parent(tag) || Category.is_parent?(tag) }.compact.uniq
   end
 
   def slug_format
