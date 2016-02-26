@@ -1,6 +1,14 @@
 class ProtipsController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update]
 
+  def home
+    if signed_in?
+      @protips = Protip.includes(:user).order(score: :desc).where(flagged: false).limit(20)
+    else
+      @protips = Protip.all_time_popular + Protip.recently_most_viewed(15)
+    end
+  end
+
   def index
     order_by = (params[:order_by] ||= 'score')
     @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page(params[:page])
@@ -99,5 +107,4 @@ class ProtipsController < ApplicationController
       public: false
     }
   end
-
 end

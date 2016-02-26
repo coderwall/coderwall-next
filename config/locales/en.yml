@@ -1,20 +1,35 @@
 en:
   categories:
-    command-line: Hacking the command line
-    git: Master git one commit at a time
-    vim: Conquer your code in 4 keystrokes or less
-    web: Accelarte your web development skills
-    os-hacks: Hacking your dev OS
-    front-end: Calling Front End Devs
-    nodejs: Node.js development tips
-    android: Android development tips
-    ruby: Ruby development tips
-    python: Python development tips
-    rails: Ruby on Rails development tips
-    dot-net: .NET development tips
+    command-line: Hacking the Command Line
+    git: Master Git One Commit at a Time
+    vim: Conquer Code in Vim With 4 Keystrokes or Less
+    web: Accelarte Your Web Development Skills
+    os-hacks: Maximize Your Operating System
+    front-end: Javascript Tips to Beat the DOM Into Submission
+    nodejs: Node.js Development Tips
+    android: Android Development Tips
+    ruby: Ruby Development Tips
+    python: Python Development Tips
+    rails: Ruby on Rails Development Tips
+    dot-net: .NET Development Tips
     devops: Putting DevOps to Work
-    ios: iOS development tips
-    hackerdesk: Where we code in peace
+    ios: iOS Development Tips
+    hackerdesk: Where We Code in Peace
+    short:
+      command-line: Command Line
+      git: git
+      vim: Vim
+      web: HTML/CSS
+      os-hacks: OS Hacks
+      front-end: Javascript
+      nodejs: Node.js
+      android: Android
+      ruby: Ruby
+      python: Python
+      rails: Rails
+      dot-net: .NET
+      devops: Devops
+      ios: iOS
     descriptions:
       command-line: Unlock the power of the prompt with these one liners and hacks.
       git: Get your git jitsu on with these git tips that will take you from a beginner to an expert.

@@ -1,7 +1,7 @@
 module ProtipsHelper
   def protips_view_breadcrumbs
     @breadcrumbs ||= begin
-      breadcrumbs = [["Protips", trending_path]]
+      breadcrumbs = [["Protips", popular_path]]
       if params[:order_by] == :created_at
         breadcrumbs << ["Fresh", fresh_path]
          if topic_name
@@ -13,7 +13,7 @@ module ProtipsHelper
          end
       end
       if params[:order_by] == :score
-        breadcrumbs << ["Hot", popular_path]
+        breadcrumbs << ["Hot", trending_path]
         if topic_name
           breadcrumbs << [
               t(Category.parent(params[:topic]), scope: :categories),
@@ -36,12 +36,21 @@ module ProtipsHelper
     params[:order_by] == :created_at
   end
 
+  def on_trending?
+    params[:order_by] == :score
+  end
+
   def protips_heading
-    if on_fresh?
-      "Newest #{params[:topic]} protips".html_safe
-    else
-      default = params[:topic] ? "Popular protips tagged #{params[:topic]}" : "Popular protips"
-      t(params[:topic], scope: :categories, default: default).html_safe
+    default = params[:topic] ? "#{protips_list_type} protips tagged #{params[:topic]}" : "#{protips_list_type} protips"
+    t(params[:topic], scope: :categories, default: default).html_safe
+
+  end
+
+  def protips_list_type
+    case params[:order_by].to_sym
+      when :created_at  then 'Newest'
+      when :score       then 'Trending'
+      when :views_count then 'Popular'
     end
   end
 

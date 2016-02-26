@@ -25,7 +25,7 @@
       .md-col.md-show.md-col-4
         -if first_page?
           .ml3
-            -categories = params[:topic].present? ?  Category.children(params[:topic]) : Category.top
+            -categories = Category.children(params[:topic])
             -if categories.present?
               .clearfix.mb4
                 .clearfix.ml1.mb1
@@ -65,7 +65,7 @@
                         &middot;
                         = protip.display_tags
                 %a.block.mt2.bold{href: protips_popular_topic_path}
-                  ="Trending #{params[:topic]} protips".html_safe
+                  ="Popular #{params[:topic]} protips".html_safe
 
       -# .md-col.md-show.md-col-4{class: hide_on_protip_exploration}
         -# .clearfix.ml3
