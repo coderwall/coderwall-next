@@ -8,11 +8,13 @@
 - meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar
 - meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar
 
--content_for :breadcrumbs do
-  .mxn1.font-tiny.mt1.diminish
-    .px1
-      Filed under:
-      %a.bold{href: ''} Hacking the command line
+-if @protip.related_topic
+  -content_for :breadcrumbs do
+    .mxn1.font-tiny.mt1.diminish
+      .px1
+        Filed under:
+        %a.bold{href: popular_topic_path(topic: @protip.related_topic)}
+          =t(@protip.related_topic, scope: :categories)
 
 .continer[@protip]
   .hide= time_tag @protip.created_at, itemprop: "datePublished"

@@ -43,7 +43,11 @@ module ProtipsHelper
   def protips_heading
     default = params[:topic] ? "#{protips_list_type} protips tagged #{params[:topic]}" : "#{protips_list_type} protips"
     t(params[:topic], scope: :categories, default: default).html_safe
+  end
 
+  def topic_short_name
+    return nil if params[:topic].blank?
+    t(params[:topic], scope: [:categories, :short])
   end
 
   def protips_list_type
