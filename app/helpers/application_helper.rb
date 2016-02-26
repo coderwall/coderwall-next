@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def time_ago_in_words_with_ceiling(time)
+    if time < 1.year.ago
+      'over 1 year'
+    else
+      time_ago_in_words(time)
+    end
+  end
+
   def hide_on_auth
     if params[:controller] == 'clearance/sessions'  ||
        params[:controller] == 'clearance/users'     ||

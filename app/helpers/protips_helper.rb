@@ -1,7 +1,7 @@
 module ProtipsHelper
   def protips_view_breadcrumbs
     @breadcrumbs ||= begin
-      breadcrumbs = [["Protips", root_path]]
+      breadcrumbs = [["Protips", trending_path]]
 
       if topic_name
         breadcrumbs << [

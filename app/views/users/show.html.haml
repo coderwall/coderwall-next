@@ -120,7 +120,7 @@
                         Posted to
                         %a{:href => protip_path(comment.protip)}
                           =comment.protip.title
-                        =time_ago_in_words(comment.created_at)
+                        =time_ago_in_words_with_ceiling(comment.created_at)
                         ago
                       .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
                         =sanitize CFM::Markdown.render(comment.body)
