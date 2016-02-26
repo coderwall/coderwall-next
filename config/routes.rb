@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   get   '/trending(/:page)'       => 'protips#index', order_by: :score,        as: :trending
   get   '/popular(/:page)'        => 'protips#index', order_by: :views_count,  as: :popular
   get   '/fresh(/:page)'          => 'protips#index', order_by: :created_at,   as: :fresh
-  get   '/:topic/popular(/:page)' => 'protips#index', order_by: :score,        as: :popular_topic
-  get   '/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at,   as: :fresh_topic
+  get   '/:topic/popular(/:page)' => 'protips#index', order_by: :score,        as: :popular_topic, :constraints => { :topic => /.*/ } 
+  get   '/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at,   as: :fresh_topic, :constraints => { :topic => /.*/ }
 
   get   '/p/trending'       => redirect("/trending", status: 302)
   get   '/p/popular'        => redirect("/popular", status: 302)

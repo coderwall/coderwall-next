@@ -1,6 +1,6 @@
 - title protips_heading
 - description protips_description
-- keywords topic_tags
+- keywords (topic_tags + ['tips', 'programming', 'coding'])
 
 -content_for :breadcrumbs do
   -if protips_view_breadcrumbs.present?
@@ -39,7 +39,7 @@
               .clearfix.ml1.mb3
                 %h5.mt0
                   =icon 'magic', class: 'mr1'
-                  Recent activity
+                  Recent Activity
                 -recently_created_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')
@@ -55,7 +55,7 @@
               .clearfix.ml1.mb3
                 %h5.mt0
                   =icon 'calendar', class: 'mr1'
-                  Most viewed this month
+                  Most Viewed This Month
                 -recently_viewed_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')

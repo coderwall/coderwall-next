@@ -38,9 +38,10 @@ module ProtipsHelper
 
   def protips_heading
     if on_fresh?
-      "Newest #{params[:topic].to_s.titleize} protips".html_safe
+      "Newest #{params[:topic]} protips".html_safe
     else
-      t(params[:topic], scope: :categories, default: "Popular #{params[:topic]} protips").html_safe
+      default = params[:topic] ? "Popular protips tagged #{params[:topic]}" : "Popular protips"
+      t(params[:topic], scope: :categories, default: default).html_safe
     end
   end
 

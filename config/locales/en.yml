@@ -1,31 +1,33 @@
 en:
   categories:
     command-line: Hacking the command line
-    git: git
-    nodejs: Node.js
-    vim: Conquering code in 4 keystrokes or less
-    ruby:
-    rails: Ruby on Rails
-    front-end: Calling Front End Devs
-    web:
-    dot-net:
-    devops:
-    ios:
-    android:
+    git: Master git one commit at a time
+    vim: Conquer your code in 4 keystrokes or less
+    web: Accelarte your web development skills
     os-hacks: Hacking your dev OS
+    front-end: Calling Front End Devs
+    nodejs: Node.js development tips
+    android: Android development tips
+    ruby: Ruby development tips
+    python: Python development tips
+    rails: Ruby on Rails development tips
+    dot-net: .NET development tips
+    devops: Putting DevOps to Work
+    ios: iOS development tips
     descriptions:
       command-line: Unlock the power of the prompt with these one liners and hacks.
-      git: Get your git jitsu on.
+      git: Get your git jitsu on with these protips ranging from beginner to master.
       nodejs: npm install these node jitsu tricks straight into your brain.
       vim: Vim's power is its infinitely extensive customizability and terseness. Learn these tips and maybe you'll eventually solve all of mankind's problems in less then 7 keystrokes.
-      ruby:
-      rails:
-      front-end:
-      web:
-      dot-net:
-      devops:
-      ios:
-      android:
+      ruby: A few ruby tips you probably didn't know about but wish you did.
+      python: Get smart with these essential protips for python developers.
+      rails: A collection of protips to help you work better with rails and dodge those nasty bugs.
+      front-end: A daily dose of bite sized javascript protips to make your web apps better.
+      web: Everyday HTML and CSS protips learned and shared from the trenches.
+      dot-net: Coding tips for C#, ASP.NET, and VB.NET that are so good you'll have Redmond impressed.
+      devops: Loosely coupled DevOps tips from the ops side.
+      ios: Codign tips to speed up your objective-c and swift development as well as your apps.
+      android: A collection of protips every android developer should know.
       os-hacks: Endlessly tweak your operating system to your taste.
 
 
