@@ -15,14 +15,6 @@ $font-tiny: 10px;
 $font-lg: 16px;
 $font-x-lg: 18px;
 
-$highlight-color: $red;
-.highlight {
-  color: $highlight-color !important;
-  a {
-    color: $highlight-color !important;
-  }
-}
-
 // Rails error handing
 .field_with_errors {
 	input {

@@ -2,14 +2,14 @@ class Heart extends React.Component {
   render() {
     let classes = {
       root:  'heart no-hover',
-      icon:  'highlight',
+      icon:  'purple',
       count: 'diminish font-tiny',
       inline: ''
     }
     if (this.props.layout === 'inline') {
       classes = {
         root:  'heart no-hover font-x-lg',
-        icon:  'highlight',
+        icon:  'purple',
         count: 'ml1 diminish bold',
         inline: 'inline'
       }
@@ -17,7 +17,7 @@ class Heart extends React.Component {
     if (this.props.layout === 'simple') {
       classes = {
         root:  'heart pointer',
-        icon:  'highlight',
+        icon:  'purple',
         count: 'hide',
         inline: 'inline'
       }

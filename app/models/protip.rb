@@ -1,19 +1,4 @@
 class Protip < ActiveRecord::Base
-  Groupings = {
-    'git'          => ['git', 'gitconfig', 'github'],
-    'nodejs'       => ['node', 'npm', 'gulp', 'node.js'],
-    'vim'          => ['vim', 'vi', 'viml'],
-    'ruby'         => ['ruby', 'rvm', 'rake'],
-    'rails'        => ['rails', 'activerecord', 'ruby on rails', 'heroku'],
-    'command-line' => ['vim', 'bash', 'shell', 'ssh', 'cli', 'grep', 'zsh', 'terminal'],
-    'front-end'    => ['javascript', 'react', 'react.js', 'js',  'angular.js', 'angular.js', 'jquery', 'backbonejs'],
-    'web'          => ['html5', 'css', 'css3', 'fonts', 'html', 'web', 'browser', 'svg'],
-    'dot-net'      => ['vb.net', 'asp.net', 'c#', 'csharp', '.net', 'linq'],
-    'devops'       => ['devops', 'docker', 'ansible', 'vagrant', 'sysadmin'],
-    'ios'          => ['ios', 'objective-c', 'swift', 'xcode', 'iphone'],
-    'android'      => ['android', 'google nowsa'],
-    'os-hacks'     => ['linux', 'macosx', 'mac', 'os x', 'ubuntu', 'debian', 'windows']
-  }
 
   include ViewCountCacheBuster
   include TimeAgoInWordsCacheBuster
@@ -42,9 +27,8 @@ class Protip < ActiveRecord::Base
   scope :without_all_tagged, ->(tags){ where.not("tags @> ARRAY[?]::varchar[]", tags) }
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
   scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
-  scope :recently_most_viewed, ->{ order(views_count: :desc).where(
-    public_id: %w{ewk0mq kvzbpa vsdrug os6woq w7npmq _kakfa})
-  }
+  scope :recently_most_viewed, ->(count=5) { order(views_count: :desc).limit(count)}
+  scope :all_time_popular, -> {where(public_id: %w{ewk0mq kvzbpa vsdrug os6woq w7npmq _kakfa})}
 
   def to_param
     self.public_id

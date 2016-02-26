@@ -1,4 +1,34 @@
 en:
+  categories:
+    command-line: Hacking the command line
+    git: git
+    nodejs: Node.js
+    vim: Conquering code in 4 keystrokes or less
+    ruby:
+    rails: Ruby on Rails
+    front-end: Calling Front End Devs
+    web:
+    dot-net:
+    devops:
+    ios:
+    android:
+    os-hacks: Hacking your dev OS
+    descriptions:
+      command-line: Unlock the power of the prompt with these one liners and hacks.
+      git: Get your git jitsu on.
+      nodejs: npm install these node jitsu tricks straight into your brain.
+      vim: Vim's power is its infinitely extensive customizability and terseness. Learn these tips and maybe you'll eventually solve all of mankind's problems in less then 7 keystrokes.
+      ruby:
+      rails:
+      front-end:
+      web:
+      dot-net:
+      devops:
+      ios:
+      android:
+      os-hacks: Endlessly tweak your operating system to your taste.
+
+
   number:
     human:
       decimal_units:

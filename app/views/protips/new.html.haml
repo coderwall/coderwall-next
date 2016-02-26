@@ -7,7 +7,7 @@
       .card.p3
         -if @protip.new_record?
           %h2
-            .inline.highlight.mr1=icon('terminal')
+            .inline.purple.mr1=icon('terminal')
             Post a new protip
           .diminish.mb3
             Share new tricks you've learned, code samples to fix a nasty bug, or anything else that you want to remember or think other developers would benefit from. You can even share an inspring link, but please add a comment or additional context to kick start a discussion. Remember to be nice and please don't spam.
@@ -29,7 +29,7 @@
             Comma seperated (e.g. ruby, docker, machine learning)
           = form.text_field :editable_tags, type: 'text', class: 'field block col-12 mb3'
 
-          %button.btn.mt1.bg-green.white{type: 'submit'} Save
+          %button.btn.rounded.mt1.bg-green.white{type: 'submit'} Save
 
         .clearfix.mt2
           =link_to 'Cancel', :back

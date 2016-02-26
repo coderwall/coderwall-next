@@ -2,11 +2,96 @@ module ProtipsHelper
   def protips_view_breadcrumbs
     @breadcrumbs ||= begin
       breadcrumbs = [["Protips", trending_path]]
-      breadcrumbs << ["Fresh", fresh_path]          if params[:order_by] == :created_at
-      breadcrumbs << ["Most viewed", popular_path]  if params[:order_by] == :views_count
+      if params[:order_by] == :created_at
+        breadcrumbs << ["Fresh", fresh_path]
+         if topic_name
+           breadcrumbs << [
+               t(Category.parent(params[:topic]), scope: :categories),
+               fresh_topic_path(topic: Category.parent(params[:topic]))
+           ] if Category.parent(params[:topic])
+           breadcrumbs << [topic_name, fresh_topic_path(topic:params[:topic])]
+         end
+      end
+      if params[:order_by] == :score
+        breadcrumbs << ["Hot", popular_path]
+        if topic_name
+          breadcrumbs << [
+              t(Category.parent(params[:topic]), scope: :categories),
+              popular_topic_path(topic: Category.parent(params[:topic]))
+          ] if Category.parent(params[:topic])
+          breadcrumbs << [topic_name, popular_topic_path(topic:params[:topic])]
+        end
+      end
       breadcrumbs << ["Page #{params[:page]}", nil] if params[:page].to_i > 1
       breadcrumbs = [] if breadcrumbs.size <= 1
       breadcrumbs
+    end
+  end
+
+  def first_page?
+    params[:page].to_i < 2
+  end
+
+  def on_fresh?
+    params[:order_by] == :created_at
+  end
+
+  def protips_heading
+    if on_fresh?
+      "Newest #{params[:topic].to_s.titleize} protips".html_safe
+    else
+      t(params[:topic], scope: :categories, default: "Popular #{params[:topic]} protips").html_safe
+    end
+  end
+
+  def protips_description
+    t(params[:topic], scope: [:categories, :descriptions], default: '') unless on_fresh?
+  end
+
+  def protips_popular_topic_path
+    if params[:topic]
+      popular_topic_path(topic: params[:topic])
+    else
+      popular_path
+    end
+  end
+
+  def protips_fresh_topic_path
+    if params[:topic]
+      fresh_topic_path(topic: params[:topic])
+    else
+      fresh_path
+    end
+  end
+
+  def recently_viewed_protips
+    if params[:topic]
+      Protip.recently_most_viewed.with_any_tagged(topic_tags)
+    else
+      Protip.recently_most_viewed
+    end
+  end
+
+  def recently_created_protips
+    if params[:topic]
+      Protip.recently_created.with_any_tagged(topic_tags)
+    else
+      Protip.recently_created
+    end
+  end
+
+  def topic_tags
+    tags = Category.children(params[:topic])
+    tags.empty? ? [params[:topic]] : tags
+  end
+
+  def topic_name
+    if params[:topic]
+      if Category.parent(params[:topic])
+         "tagged #{params[:topic]}"
+      else
+        t(params[:topic], scope: :categories)
+      end
     end
   end
 
