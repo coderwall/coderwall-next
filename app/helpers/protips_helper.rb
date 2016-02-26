@@ -1,27 +1,22 @@
 module ProtipsHelper
   def protips_view_breadcrumbs
     @breadcrumbs ||= begin
-      breadcrumbs = [["Protips", popular_path]]
+      breadcrumbs = [["Protips", root_path]]
+
+      if topic_name
+        breadcrumbs << [
+            t(Category.parent(params[:topic]), scope: :categories),
+            url_for(topic: Category.parent(params[:topic]), order_by: :views_count)
+        ] if Category.parent(params[:topic])
+        breadcrumbs << [topic_name, url_for(topic: params[:topic], order_by: :views_count)]
+      end
+
       if params[:order_by] == :created_at
-        breadcrumbs << ["Fresh", fresh_path]
-         if topic_name
-           breadcrumbs << [
-               t(Category.parent(params[:topic]), scope: :categories),
-               fresh_topic_path(topic: Category.parent(params[:topic]))
-           ] if Category.parent(params[:topic])
-           breadcrumbs << [topic_name, fresh_topic_path(topic:params[:topic])]
-         end
+        breadcrumbs << ["Fresh", url_for(topic: params[:topic], order_by: params[:order_by])]
+      elsif params[:order_by] == :score
+        breadcrumbs << ["Hot",   url_for(topic: params[:topic], order_by: params[:order_by])]
       end
-      if params[:order_by] == :score
-        breadcrumbs << ["Hot", trending_path]
-        if topic_name
-          breadcrumbs << [
-              t(Category.parent(params[:topic]), scope: :categories),
-              popular_topic_path(topic: Category.parent(params[:topic]))
-          ] if Category.parent(params[:topic])
-          breadcrumbs << [topic_name, popular_topic_path(topic:params[:topic])]
-        end
-      end
+
       breadcrumbs << ["Page #{params[:page]}", nil] if params[:page].to_i > 1
       breadcrumbs = [] if breadcrumbs.size <= 1
       breadcrumbs
