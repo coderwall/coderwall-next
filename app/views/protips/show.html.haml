@@ -8,13 +8,15 @@
 - meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar
 - meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar
 
--if @protip.related_topic
+-if @protip.related_topics.present?
   -content_for :breadcrumbs do
     .mxn1.font-tiny.mt1.diminish
       .px1
         Filed under:
-        %a.bold{href: popular_topic_path(topic: @protip.related_topic)}
-          =t(@protip.related_topic, scope: :categories)
+        -@protip.related_topics.each do |topic|
+          %a.bold.ml1.mr1{href: popular_topic_path(topic: topic)}
+            =t(topic, scope: :categories)
+          .hide_last_child.inline &middot;
 
 .continer[@protip]
   .hide= time_tag @protip.created_at, itemprop: "datePublished"

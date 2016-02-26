@@ -53,8 +53,8 @@ class Protip < ActiveRecord::Base
     likes_count
   end
 
-  def related_topic
-    tags.collect{|tag| Category.parent(tag) }.compact.first
+  def related_topics
+    tags.collect{|tag| Category.parent(tag) || Category.is_parent?(tag) }.compact
   end
 
   def slug_format

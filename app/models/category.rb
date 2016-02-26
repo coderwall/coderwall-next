@@ -37,6 +37,10 @@ class Category
       parent if parent != tag
     end
 
+    def is_parent?(tag)
+      All[tag] && tag
+    end
+
     def children?(tag)
       !children(tag).empty?
     end
