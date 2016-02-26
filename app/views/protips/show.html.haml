@@ -64,6 +64,10 @@
               .diminish.inline Written by
               %a[:name]{href: profile_path(username: @protip.user.username)}
                 =@protip.user.name
+            .font-tiny.mt1
+              %a{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
+                .inline.blue=icon("twitter", class: "fa-1x")
+                .inline.diminish share to say thanks
 
         -if signed_in?
           #new-comment.new-comment.mt2.mb2.px2

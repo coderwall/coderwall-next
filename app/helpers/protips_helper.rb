@@ -23,6 +23,11 @@ module ProtipsHelper
     end
   end
 
+  def protip_tweet_message
+    attribution = @protip.user.twitter ? "by @#{@protip.user.twitter}" : "via @coderwall"
+    CGI.escape "#{@protip.title} #{attribution}\n\n#{protip_url(@protip)}"
+  end
+
   def first_page?
     params[:page].to_i < 2
   end
