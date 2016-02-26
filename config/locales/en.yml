@@ -14,9 +14,10 @@ en:
     dot-net: .NET development tips
     devops: Putting DevOps to Work
     ios: iOS development tips
+    hackerdesk: Where we code in peace
     descriptions:
       command-line: Unlock the power of the prompt with these one liners and hacks.
-      git: Get your git jitsu on with these protips ranging from beginner to master.
+      git: Get your git jitsu on with these git tips that will take you from a beginner to an expert.
       nodejs: npm install these node jitsu tricks straight into your brain.
       vim: Vim's power is its infinitely extensive customizability and terseness. Learn these tips and maybe you'll eventually solve all of mankind's problems in less then 7 keystrokes.
       ruby: A few ruby tips you probably didn't know about but wish you did.
@@ -29,8 +30,7 @@ en:
       ios: Codign tips to speed up your objective-c and swift development as well as your apps.
       android: A collection of protips every android developer should know.
       os-hacks: Endlessly tweak your operating system to your taste.
-
-
+      hackerdesk: A collection of pictures of hacker desk setups from around the world.
   number:
     human:
       decimal_units:
