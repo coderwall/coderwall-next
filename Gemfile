@@ -43,6 +43,13 @@ group :development, :test do
   gem 'capybara'
   gem 'letter_opener'
   gem 'dotenv-rails'
+  gem 'fabrication-rails'
+  gem 'faker'
+end
+
+group :test do
+  gem 'shoulda'
+  gem 'shoulda-matchers'
 end
 
 group :development do

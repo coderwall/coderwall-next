@@ -4,12 +4,10 @@ class Comment < ActiveRecord::Base
   html_schema_type :Comment
   after_create :auto_like_protip_for_author
 
-  belongs_to :user,   touch: true
-  belongs_to :protip, touch: true
+  belongs_to :user,   touch: true, required: true
+  belongs_to :protip, touch: true, required: true
   has_many :likes, as: :likable, dependent: :destroy
 
-  validates :protip, presence: true
-  validates :user,   presence: true
   validates :body,   length: { minimum: 2 }
 
   scope :recently_created, ->(count=10) { order(created_at: :desc).limit(count)}

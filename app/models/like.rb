@@ -1,9 +1,6 @@
 class Like < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :likable, polymorphic: true, counter_cache: true, touch: true
-
-  validates :user,    presence: true
-  validates :likable, presence: true
+  belongs_to :user, required: true
+  belongs_to :likable, polymorphic: true, counter_cache: true, touch: true, required: true
 
   def dom_id
     #Mimics ActionView::RecordIdentifier.dom_id without killing the database

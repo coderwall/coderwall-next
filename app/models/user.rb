@@ -38,8 +38,7 @@ class User < ActiveRecord::Base
             uniqueness: true,
             if: :username_changed?
 
-  validates_presence_of :username
-  validates_presence_of :email
+  validates_presence_of :username, :email
 
   def self.authenticate(username_or_email, password)
     param = username_or_email.to_s.downcase
