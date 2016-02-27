@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225171117) do
+ActiveRecord::Schema.define(version: 20160227000445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,4 +143,10 @@ ActiveRecord::Schema.define(version: 20160225171117) do
   add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "badges", "users", name: "badges_user_id_fk"
+  add_foreign_key "comments", "protips", name: "comments_protip_id_fk"
+  add_foreign_key "comments", "users", name: "comments_user_id_fk"
+  add_foreign_key "likes", "users", name: "likes_user_id_fk"
+  add_foreign_key "pictures", "users", name: "pictures_user_id_fk"
+  add_foreign_key "protips", "users", name: "protips_user_id_fk"
 end
