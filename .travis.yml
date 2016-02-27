@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 2.2.4
+cache: bundler
+sudo: false
+bundler_args: "--without development production"
+addons:
+  postgresql: "9.3"
