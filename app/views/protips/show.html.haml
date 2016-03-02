@@ -53,11 +53,11 @@
                 Edit Protip
 
         - cache @protip do
-          %h1.px2.mt4.center[:headline]=@protip.title
-          .center[:keywords]
+          %h1.mt4.mb2.center[:headline]=@protip.title
+          .center.mr1[:keywords]
             -@protip.tags.each do |tag|
-              %h6.inline=tag
-          .content.p2.mt3[:articleBody]
+              %h6.diminish.inline.px1=link_to tag, popular_topic_path(topic: tag)
+          .content.p2.mt4[:articleBody]
             = sanitize CFM::Markdown.render(@protip.body)
           .author.p2[:author]
             %h5.mt0[@protip.user]
