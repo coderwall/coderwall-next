@@ -13,10 +13,12 @@
   }
 
   img{
-    text-align: center;
     max-width: 100%;
-    margin-bottom: $space-2;
-
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: $space-1;
+    padding-bottom: $space-3;
   }
 
   strong {
