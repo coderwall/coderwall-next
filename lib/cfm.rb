@@ -1,5 +1,5 @@
 # encoding: utf-8
-require 'github/markup'
+# require 'github/markup'
 #coderwall flavored markdown
 module CFM
   class Markdown
@@ -9,34 +9,35 @@ module CFM
 
         extensions = {
           fenced_code_blocks:   true,
-          strikethrough:        true,
-          autolink:             true,
-          no_styles:            true,
-          safe_links_only:      true
+          strikethrough:        true
         }
 
-        renderer  = Redcarpet::Render::HTML.new(link_attributes: {rel: "nofollow"})
+        options = {
+          link_attributes: { rel: 'nofollow' }
+        }
+
+        renderer  = Redcarpet::Render::HTML.new(options)
         redcarpet = Redcarpet::Markdown.new(renderer, extensions)
         html      = redcarpet.render(render_cfm(text))
         html
-
-        # @html.gsub(/http:\/\/www\.youtube\.com\/watch\?v=(.*?)\s/, "....actual html $1")
-
-        # https://gist.github.com/4265815
-        # GitHub::Markup::Markdown.new.render(text)
-        # %script{ src: "https://gist.github.com/4265815.js"}
-
-        # def preprocess(text)
-        #   wrap_mentions(text)
-        # end
-        #
-        # def wrap_mentions(text)
-        #   text.gsub! /(^|\s)(@\w+)/ do
-        #     "#{$1}<span class='mention'>#{$2}</span>"
-        #   end
-        #   text
-        # end
       end
+
+      # @html.gsub(/http:\/\/www\.youtube\.com\/watch\?v=(.*?)\s/, "....actual html $1")
+
+      # https://gist.github.com/4265815
+      # GitHub::Markup::Markdown.new.render(text)
+      # %script{ src: "https://gist.github.com/4265815.js"}
+
+      # def preprocess(text)
+      #   wrap_mentions(text)
+      # end
+      #
+      # def wrap_mentions(text)
+      #   text.gsub! /(^|\s)(@\w+)/ do
+      #     "#{$1}<span class='mention'>#{$2}</span>"
+      #   end
+      #   text
+      # end
 
       USERNAME_BLACKLIST = %w(include)
 

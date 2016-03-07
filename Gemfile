@@ -17,9 +17,9 @@ gem 'newrelic_rpm'
 
 gem "haml-rails"
 gem 'redcarpet', ">=3.3.4"
-gem 'kramdown'
-gem 'coderay'
-gem 'github-markup'
+# gem 'kramdown'
+# gem 'coderay'
+# gem 'github-markup'
 gem 'clearance'
 gem 'kaminari'
 gem 'mini_magick'
