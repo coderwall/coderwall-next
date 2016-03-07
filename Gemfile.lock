@@ -213,6 +213,8 @@ GEM
       tilt
     redcarpet (3.3.4)
     redis (3.2.2)
+    reverse_markdown (1.0.1)
+      nokogiri
     ruby_parser (3.7.2)
       sexp_processor (~> 4.1)
     sass (3.4.21)
@@ -294,6 +296,7 @@ DEPENDENCIES
   react-rails
   redcarpet (>= 3.3.4)
   redis
+  reverse_markdown
   sass-rails (~> 5.0)
   sequel
   shoulda

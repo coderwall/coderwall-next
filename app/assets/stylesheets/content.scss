@@ -61,8 +61,15 @@
   }
 
   h1, h2, h3, h4 {
+    padding-top: $space-3;
     margin-top: $space-1;
     margin-bottom: $space-2;
+
+    &:first-child {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
     font-size: $font-lg;
     a {
       color: $black;

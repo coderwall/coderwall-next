@@ -6,6 +6,9 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
 
     renderer  = CoderwallFlavoredMarkdown.new({
       escape_html:     true,
+      safe_links_only: true,
+      prettify:        true,
+      hard_wrap: true,
       link_attributes: { rel: 'nofollow' }
     })
 
@@ -21,44 +24,30 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
   end
 
   def postprocess(text)
-    wrap_mentions(text)
+    wrap_usernames_with_profile_link(text)    
   end
 
-  def wrap_mentions(text)
-    text.lines.collect do |line|
-      convert_mention(line)
+  def wrap_usernames_with_profile_link(text)
+    text.lines.map do |line|
+      if dont_link_mention_if_codeblock = line.start_with?('    ')
+        line
+      else
+        line.gsub(/((?<!\s{4}).*)@([a-zA-Z_\-0-9]+)/) { $1+coderwall_link_for($2) }
+      end
     end.join('')
   end
 
-  def convert_mention(line)
-    #hotlink coderwall usernames to their profile, but don't search for @mentions in code blocks
-    if line.start_with?('    ')
-      line
-    else
-      line.gsub(/((?<!\s{4}).*)@([a-zA-Z_\-0-9]+)/) { $1+coderwall_user_link($2) }
-    end
+  def coderwall_link_for(username)
+    (User.where(username: username).exists? && !USERNAME_BLACKLIST.include?(username)) ? ActionController::Base.helpers.link_to("@#{username}", "/#{username}") : "@#{username}"
   end
 
-  def coderwall_user_link(username)
-    (User.where(username: username).exists? && !USERNAME_BLACKLIST.include?(username)) ? ActionController::Base.helpers.link_to("@#{username}", "/#{username}") : "@#{username}"
+  def auto_embed_slideshare_links(text)
+    # http://localhost:5000/p/lbtpuw/front-end-frameworks-a-quick-overview
+    text
   end
 
   # def preprocess(text)
   #   turn_gist_links_into_embeds!(text)
-  # end
-  #
-  # USERNAME_BLACKLIST = %w(include)
-  # def coderwall_user_link(username)
-  #   (User.where(username: username).exists? && !USERNAME_BLACKLIST.include?(username)) ? ActionController::Base.helpers.link_to("@#{username}", "/#{username}") : "@#{username}"
-  # end
-  #
-  # def inspect_line(line)
-  #   #hotlink coderwall usernames to their profile, but don't search for @mentions in code blocks
-  #   if line.start_with?('    ')
-  #     line
-  #   else
-  #     line.gsub(/((?<!\s{4}).*)@([a-zA-Z_\-0-9]+)/) { $1+coderwall_user_link($2) }
-  #   end
   # end
   #
   # def postprocess(text)

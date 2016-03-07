@@ -15,11 +15,8 @@ gem 'puma'
 gem 'puma_worker_killer'
 gem 'newrelic_rpm'
 
-gem "haml-rails"
+gem 'haml-rails'
 gem 'redcarpet', ">=3.3.4"
-# gem 'kramdown'
-# gem 'coderay'
-# gem 'github-markup'
 gem 'clearance'
 gem 'kaminari'
 gem 'mini_magick'
@@ -35,9 +32,10 @@ gem 'active_model_serializers'
 gem 'dalli'
 gem 'connection_pool'
 
-# Legacy gems needed for porting
+# Legacy gems needed for porting, can remove soon
 gem 'sequel'
 gem 'redis'
+gem 'reverse_markdown'
 
 group :development, :test do
   gem 'capybara'

@@ -93,7 +93,6 @@ ActiveRecord::Schema.define(version: 20160307195201) do
     t.string   "twitter"
     t.string   "facebook"
     t.string   "github"
-    t.string   "github_organization_name"
     t.string   "youtube_url"
     t.string   "blog_feed"
     t.string   "location"
