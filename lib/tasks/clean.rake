@@ -20,7 +20,8 @@ namespace :db do
       ReverseMarkdown::Converters.reset!
       ReverseMarkdown::Converters.register :pre, ReverseMarkdown::Converters::Pre.new
 
-      protip = Protip.find_by_public_id('sujd_w')
+      # _eefna
+      protip = Protip.find_by_public_id('_eefna') #sujd_w
       puts protip.public_id
 
       root           = Nokogiri::HTML(protip.body).root

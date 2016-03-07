@@ -63,7 +63,7 @@
             %h5.mt0[@protip.user]
               .diminish.inline Written by
               %a[:name]{href: profile_path(username: @protip.user.username)}
-                =@protip.user.name
+                =@protip.user.display_name
             .font-tiny.mt1
               %a{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
                 .inline.blue=icon("twitter", class: "fa-1x")

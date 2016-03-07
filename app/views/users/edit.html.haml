@@ -23,7 +23,7 @@
             .block.col-12.mb3.mt1
               = image_tag(avatar_url(@user))
               = form.file_field :avatar
-            = form.label :color, 'Customize Mark (#ffffff)'
+            = form.label :color, 'Customize Your Color Hex (#A26FF9)'
             = form.text_field :color, type: 'text', class: 'field block col-12 mb3'
 
           = form.label :twitter, 'Twitter Username'
