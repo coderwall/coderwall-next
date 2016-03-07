@@ -78,7 +78,7 @@ class UsersController < ApplicationController
     else
       flash[:notice] = "#{@user.username}'s account deleted."
     end
-    redirect_to(root_url)
+    redirect_to_back_or_default
   end
 
   protected

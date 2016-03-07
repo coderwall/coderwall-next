@@ -1,6 +1,11 @@
 class CommentsController < ApplicationController
   before_action :require_login, only: [:create, :destroy]
 
+  def index
+    return head(:forbidden) unless admin?
+    @comments = Comment.order(created_at: :desc).page(params[:page])
+  end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
@@ -25,7 +30,7 @@ class CommentsController < ApplicationController
     redirect_to "#{request.referer}##{comment.dom_id}"
   end
 
-  def redirect_to_protip_comment_form    
+  def redirect_to_protip_comment_form
     redirect_to "#{request.referer}#new-comment"
   end
 

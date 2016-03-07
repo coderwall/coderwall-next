@@ -1,8 +1,8 @@
 class Protip < ActiveRecord::Base
-
   include ViewCountCacheBuster
   include TimeAgoInWordsCacheBuster
   extend FriendlyId
+
   friendly_id :slug_format, :use => :slugged
   paginates_per 30
   html_schema_type :TechArticle
