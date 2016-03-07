@@ -50,6 +50,9 @@ Rails.application.routes.draw do
 
   resources :comments do |comment|
     resources :likes, only: :create
+    collection do
+      get '/spam'      => 'comments#spam'
+    end
   end
 
   resources :protips, path: '/p' do

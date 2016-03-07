@@ -6,6 +6,12 @@ class CommentsController < ApplicationController
     @comments = Comment.order(created_at: :desc).page(params[:page])
   end
 
+  def spam
+    return head(:forbidden) unless admin?
+    @comments = Comment.order(created_at: :desc).where("body ILike '%<a %'").page(params[:page])
+    render action: 'index'
+  end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
