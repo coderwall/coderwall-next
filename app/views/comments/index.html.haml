@@ -1,15 +1,15 @@
 .continer
   .clearfix
-    .sm-col.sm-col.sm-col-12.md-col-8
     .md-col.md-show.md-col-4
+    .sm-col.sm-col.sm-col-12.md-col-8
       -@comments.each do |comment|
         %h6.mt1
           =link_to comment.protip.title, protip_path(comment.protip)
         =render comment
-        .bold.mb2
+        .bold.mb4
           =link_to("Delete #{comment.user.username} and their #{comment.user.comments.size} comments", user_path(comment.user), method: :delete, class: 'diminish mr1')
 
       .clearfix
         .btn.left= link_to_previous_page @comments, 'Previous'
         .btn.right= link_to_next_page @comments, 'Next'
-    .sm-col.sm-col.sm-col-12.md-col-8
+    .md-col.md-show.md-col-4

@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   include TimeAgoInWordsCacheBuster
-  paginates_per 30
+  paginates_per 10
   html_schema_type :Comment
 
   after_create :auto_like_protip_for_author
