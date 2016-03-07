@@ -12,7 +12,7 @@
             .hide_last_child.inline &middot;
           -if @team.github.present?
             =link_to icon("github", class: "fa-1x", style: "color: #{@team.color}"), "http://github.com/#{@team.github}"
-            .hide_last_child.inline &middot;          
+            .hide_last_child.inline &middot;
         .content.mt1[:description]
-          = sanitize CFM::Markdown.render(@team.about)
+          = sanitize CoderwallFlavoredMarkdown.render_to_html(@team.about)
     .md-col.md-col-2.md-show &nbsp;

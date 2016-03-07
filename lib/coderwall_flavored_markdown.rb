@@ -1,17 +1,46 @@
 class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
+  USERNAME_BLACKLIST = %w(include)
 
   def self.render_to_html(text)
-    return nil if text.blank?
+    return nil if text.nil?
+
+    renderer  = CoderwallFlavoredMarkdown.new({
+      escape_html:     true,
+      link_attributes: { rel: 'nofollow' }
+    })
 
     extensions = {
-      fenced_code_blocks: true,
-      strikethrough: true,
-      autolink: true
+      fenced_code_blocks:   true,
+      autolink:             true,
+      strikethrough:        true
     }
 
-    renderer  = CoderwallFlavoredMarkdown.new(link_attributes: {rel: "nofollow"})
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-    redcarpet.render(text)
+    html      = redcarpet.render(text)
+    html
+  end
+
+  def postprocess(text)
+    wrap_mentions(text)
+  end
+
+  def wrap_mentions(text)
+    text.lines.collect do |line|
+      convert_mention(line)
+    end.join('')
+  end
+
+  def convert_mention(line)
+    #hotlink coderwall usernames to their profile, but don't search for @mentions in code blocks
+    if line.start_with?('    ')
+      line
+    else
+      line.gsub(/((?<!\s{4}).*)@([a-zA-Z_\-0-9]+)/) { $1+coderwall_user_link($2) }
+    end
+  end
+
+  def coderwall_user_link(username)
+    (User.where(username: username).exists? && !USERNAME_BLACKLIST.include?(username)) ? ActionController::Base.helpers.link_to("@#{username}", "/#{username}") : "@#{username}"
   end
 
   # def preprocess(text)

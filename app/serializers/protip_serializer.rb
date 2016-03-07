@@ -21,7 +21,7 @@ class ProtipSerializer < ActiveModel::Serializer
   end
 
   def html
-    CFM::Markdown.render(object.body)
+    CoderwallFlavoredMarkdown.render_to_html(object.body)
   end
 
   def hearts

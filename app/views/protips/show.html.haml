@@ -58,7 +58,7 @@
             -@protip.tags.each do |tag|
               %h6.diminish.inline.px1=link_to tag, popular_topic_path(topic: tag)
           .content.p2.mt4[:articleBody]
-            = sanitize CFM::Markdown.render(@protip.body)
+            = sanitize CoderwallFlavoredMarkdown.render_to_html(@protip.body)
           .author.p2[:author]
             %h5.mt0[@protip.user]
               .diminish.inline Written by

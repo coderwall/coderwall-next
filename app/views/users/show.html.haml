@@ -63,7 +63,7 @@
           .clearfix.p0.mt2
             %p
               .content[:description]
-                = sanitize CFM::Markdown.render(@user.about)
+                = sanitize CoderwallFlavoredMarkdown.render_to_html(@user.about)
             .mt1
               -@user.skills.each do |tag|
                 .inline[:memberOf]=tag
@@ -123,7 +123,7 @@
                         =time_ago_in_words_with_ceiling(comment.created_at)
                         ago
                       .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
-                        =sanitize CFM::Markdown.render(comment.body)
+                        =sanitize CoderwallFlavoredMarkdown.render_to_html(comment.body)
 
 
 
