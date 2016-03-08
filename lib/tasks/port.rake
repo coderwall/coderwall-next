@@ -55,6 +55,18 @@ namespace :db do
       puts "Users: #{Legacy[:users].count} => #{User.count}"
     end
 
+    task :karma => :environment do
+      User.find_each do |user|
+        karma = user.badges.size * 10
+        karma += Like.where(likable: user.comments).size - user.comments.size
+        karma += Like.where(likable: user.protips).size - user.protips.size
+        karma += user.protips.sum(:views_count) / 50
+        karma = 1 if karma <= 0
+        user.update_column(:karma, karma)
+        puts "#{user.username}: #{karma}"
+      end
+    end
+
     task :pictures => :connect do
       Legacy[:pictures].each do |row|
         if row[:user_id]
