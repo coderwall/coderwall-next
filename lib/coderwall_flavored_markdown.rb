@@ -24,6 +24,7 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
     html      = redcarpet.render(text)
   end
 
+  # https://github.com/vmg/redcarpet#block-level-calls
   def raw_html(text)
     elements = Nokogiri::HTML::DocumentFragment.parse(text).children
     if closing_tag = elements.empty?

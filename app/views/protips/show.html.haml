@@ -52,7 +52,7 @@
               %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}
                 Edit Protip
 
-        - cache @protip do
+        - cache ['v2', @protip] do
           %h1.mt4.mb2.center[:headline]=@protip.title
           .center.mr1[:keywords]
             -@protip.tags.each do |tag|

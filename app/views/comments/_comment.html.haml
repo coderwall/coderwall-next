@@ -1,4 +1,4 @@
-- cache ['v1', comment, current_user_can_edit?(comment)] do
+- cache ['v2', comment, current_user_can_edit?(comment)] do
   .clearfix.border-top.py1[comment]{id: dom_id(comment)}
     .hide= time_tag comment.created_at, itemprop: "datePublished"
     .hide[:name]= comment.id
