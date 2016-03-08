@@ -1,4 +1,6 @@
 class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
+  ESCAPE_ELEMENT     = nil
+  WHITELIST_HTML     = %w{hr p img pre}
   USERNAME_BLACKLIST = %w(include)
 
   def self.render_to_html(text)
@@ -6,7 +8,7 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
 
     renderer  = CoderwallFlavoredMarkdown.new({
       escape_html:     true,
-      safe_links_only: true,
+      safe_links_only: false, #required for linkedin lins
       prettify:        true,
       hard_wrap: true,
       link_attributes: { rel: 'nofollow' }
@@ -20,11 +22,22 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
 
     redcarpet = Redcarpet::Markdown.new(renderer, extensions)
     html      = redcarpet.render(text)
-    html
+  end
+
+  def raw_html(text)
+    elements = Nokogiri::HTML::DocumentFragment.parse(text).children
+    if closing_tag = elements.empty?
+      ESCAPE_ELEMENT
+    elsif WHITELIST_HTML.include?(elements.first.name)
+      #For odd protips with some html like _eefna sujd_w 7qzegg
+      text
+    else
+      ESCAPE_ELEMENT
+    end
   end
 
   def postprocess(text)
-    wrap_usernames_with_profile_link(text)    
+    wrap_usernames_with_profile_link(text)
   end
 
   def wrap_usernames_with_profile_link(text)
