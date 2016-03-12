@@ -4,8 +4,8 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{property: 'current_user:id', content: current_user.try(:id)}
     = display_meta_tags(default_meta_tags)
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'coderwall', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'coderwall', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render 'application/analytics'
   %body
