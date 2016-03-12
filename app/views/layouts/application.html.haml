@@ -7,7 +7,7 @@
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    = render 'shared/analytics'
+    = render 'application/analytics'
   %body
     .flex.flex-column{:style => "min-height:100vh"}
       = render 'application/header'
@@ -18,4 +18,4 @@
       %main.flex-auto.py3
         .px3=yield
       = render 'application/footer'
-  = render 'shared/tracking'
+  = render 'application/tracking'
