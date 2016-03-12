@@ -37,6 +37,10 @@ gem 'sequel'
 gem 'redis'
 gem 'reverse_markdown'
 
+
+# Assets related gems
+gem 'autoprefixer-rails'
+
 group :development, :test do
   gem 'capybara'
   gem 'letter_opener'
