@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.4"
+ruby '2.3.0'
 
 gem 'rails', '~> 4.2.5'
 gem 'pg', '~> 0.15'
@@ -57,5 +57,5 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem "bugsnag"
+  gem 'bugsnag'
 end
