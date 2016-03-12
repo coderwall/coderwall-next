@@ -1,4 +1,4 @@
-class Protip < ActiveRecord::Base
+class Protip < ApplicationRecord
   include ViewCountCacheBuster
   include TimeAgoInWordsCacheBuster
   extend FriendlyId

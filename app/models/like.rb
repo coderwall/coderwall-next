@@ -1,4 +1,4 @@
-class Like < ActiveRecord::Base
+class Like < ApplicationRecord
   belongs_to :user, required: true
   belongs_to :likable, polymorphic: true, counter_cache: true, touch: true, required: true
 
