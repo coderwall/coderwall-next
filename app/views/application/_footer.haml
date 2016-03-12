@@ -1,0 +1,16 @@
+%footer.border-top
+  %nav.clearfix
+    .sm-col.py1.mt1
+      %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}
+        Follow Coderwall
+        =icon("twitter", class: "fa-1x")
+    .sm-col-right.py2.mt1
+      %a.inline-block.ml2{href: 'http://github.com/assemblymade/coderwall-next', rel: 'nofollow'}
+        =icon("github-alt")
+      %a.inline-block.ml2{href: popular_topic_path(topic: 'hackerdesk')}
+        =icon("gift")
+      %a.inline-block.ml2.mr2{href: 'mailto:support@coderwall.com'}
+        Contact
+      %a.inline-block.mr2{href: privacy_path} Privacy
+      %a.inline-block.mr2{href: tos_path} Terms
+      %p.inline-block.diminish.inline.mr2="Copyright #{Time.now.strftime('%Y')}"
