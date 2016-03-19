@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160307195201) do
+ActiveRecord::Schema.define(version: 20160318212558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
-  enable_extension "pg_stat_statements"
 
   create_table "badges", force: :cascade do |t|
     t.integer  "user_id"
@@ -135,6 +134,8 @@ ActiveRecord::Schema.define(version: 20160307195201) do
     t.string   "color",                             default: "#111"
     t.integer  "karma",                             default: 1
     t.datetime "banned_at"
+    t.text     "marketing_list"
+    t.datetime "email_invalid_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

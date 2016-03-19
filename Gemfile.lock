@@ -99,6 +99,7 @@ GEM
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
+    excon (0.48.0)
     execjs (2.6.0)
     fabrication (2.14.0)
     fabrication-rails (0.0.1)
@@ -274,6 +275,7 @@ DEPENDENCIES
   connection_pool
   dalli
   dotenv-rails
+  excon
   fabrication-rails
   faker
   friendly_id
