@@ -30,16 +30,14 @@ namespace :marketing do
 
   task :sync_lists => :environment do
     list_name = ENV.fetch('MARKETING_LIST')
-
     list = upsert_list(list_name)
-    puts list
 
     %w(username full_name).each do |field|
-      response = sendgrid('POST', 'contactdb/custom_fields', { name: field, type: 'text' }, check_status: false)
-      puts response
+      sendgrid('POST', 'contactdb/custom_fields', { name: field, type: 'text' }, check_status: false)
     end
 
-    User.where(marketing_list: nil, email_invalid_at: nil).find_in_batches(batch_size: 1000) do |group|
+    # add users to marketing list
+    User.where(marketing_list: nil, email_invalid_at: nil, receive_newsletter: true).find_in_batches(batch_size: 1000) do |group|
       entries = group.map do |u|
         {
           email: u.email,
@@ -74,6 +72,16 @@ namespace :marketing do
       end
 
       sleep 1 # sendgrid rate limits
+    end
+
+    # remove users from marketing list
+    User.where.not(marketing_list: nil).where(receive_newsletter: false).find_each do |u|
+      response = sendgrid('GET', "contactdb/recipients/search?email=#{u.email}")
+      response['recipients'].each do |r|
+        sendgrid("DELETE", "contactdb/lists/#{list['id']}/recipients/#{r['id']}")
+        u.update!(marketing_list: nil)
+        puts "unsubscribed #{r['email']}"
+      end
     end
   end
 end
