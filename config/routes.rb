@@ -75,4 +75,10 @@ Rails.application.routes.draw do
   get '/javascripts/jquery.coderwall.js',  to: redirect(status: 301) {
     '/legacy.jquery.coderwall.js'
   }
+
+  resources :hooks, only: [] do
+    collection do
+      post 'sendgrid'
+    end
+  end
 end
