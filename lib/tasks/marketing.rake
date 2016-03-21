@@ -25,7 +25,7 @@ namespace :marketing do
   def upsert_list(name)
     resp = sendgrid('GET', 'contactdb/lists')
     resp['lists'].find{|l| l['name'] == name } ||
-      sendgrid('POST', 'contactdb/lists', { name: list })
+      sendgrid('POST', 'contactdb/lists', { name: name })
   end
 
   task :sync_lists => :environment do
