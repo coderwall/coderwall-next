@@ -60,15 +60,16 @@ namespace :marketing do
       end
 
       recipients = response['persisted_recipients']
+      puts "adding #{recipients.size} recipients to list #{list}"
+      sendgrid('POST', "contactdb/lists/#{list['id']}/recipients", recipients)
+
       persisted_users = group.select.with_index{ |u, idx|
         !response['error_indices'].include?(idx)
       }.map.with_index{|u, idx| [u, recipients[idx]] }
 
-      puts "adding #{persisted_users.size} recipients to list #{list}"
+
       persisted_users.each do |user, recipient_id|
-        sendgrid('POST', "contactdb/lists/#{list['id']}/recipients/#{recipient_id}", entries)
         user.update!(marketing_list: list['id'])
-        puts "  #{user.email}"
       end
 
       sleep 1 # sendgrid rate limits
