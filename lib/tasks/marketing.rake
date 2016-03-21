@@ -49,7 +49,7 @@ namespace :marketing do
       puts "creating #{entries.size} recipients"
       response = sendgrid('POST', 'contactdb/recipients', entries)
       puts response.slice('new_count', 'updated_count')
-      response['errors'].each do |error|
+      (response['errors'] || []).each do |error|
         puts error['message']
         puts (error['error_indices'] || []).map{|i| puts entries[i] }
         if error['message'] =~ /email.*is invalid/i
