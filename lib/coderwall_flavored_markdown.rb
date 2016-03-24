@@ -1,6 +1,6 @@
 class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
   ESCAPE_ELEMENT     = nil
-  WHITELIST_HTML     = %w{hr p img pre}
+  WHITELIST_HTML     = %w{hr p img pre code}
   USERNAME_BLACKLIST = %w(include)
 
   def self.render_to_html(text)
@@ -30,7 +30,7 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
     if closing_tag = elements.empty?
       ESCAPE_ELEMENT
     elsif WHITELIST_HTML.include?(elements.first.name)
-      #For odd protips with some html like _eefna sujd_w 7qzegg
+      #For odd protips with some html like _eefna sujd_w 7qzegg tptocq(comments)
       text
     else
       ESCAPE_ELEMENT
