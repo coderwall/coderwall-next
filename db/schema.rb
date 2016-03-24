@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160318212558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
+  enable_extension "pg_stat_statements"
 
   create_table "badges", force: :cascade do |t|
     t.integer  "user_id"
