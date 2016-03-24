@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include TimeAgoInWordsCacheBuster
   paginates_per 10
   html_schema_type :Comment

@@ -1,9 +1,6 @@
 CarrierWave.configure do |config|
   if Rails.env.test?
-    config.enable_processing = false
-    config.storage           = :file
-  elsif Rails.env.development?
-    config.enable_processing = true
+    config.enable_processing = Rails.env.development?
     config.storage           = :file
     config.asset_host        = ActionController::Base.asset_host
   else

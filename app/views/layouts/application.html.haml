@@ -4,47 +4,18 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{property: 'current_user:id', content: current_user.try(:id)}
     = display_meta_tags(default_meta_tags)
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'coderwall', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'coderwall', 'data-turbolinks-track' => true
     = csrf_meta_tags
-    = render 'shared/analytics'
+    = render 'application/analytics'
   %body
     .flex.flex-column{:style => "min-height:100vh"}
-      %header.border-bottom
-        %nav.clearfix.px2
-          .sm-col.py2
-            %a.btn.logo{:href => root_url} Coderwall
-
-          .sm-col-right.py2{class: hide_on_auth}
-            -if signed_in?
-              %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
-                Post Protip
-              %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
-                .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
-            -else
-              %a.btn{:href => new_protip_path} Add Protip
-              %a.btn.active-text.mr2{:href => sign_in_path} Log In
-              %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Become a better developer
+      = render 'application/header'
       .mt1.px3
         =yield :breadcrumbs
         -if flash[:notice].present?
           .clearfix.rounded.py2.mt3.white.bg-navy.bold.center.font-lg=flash[:notice]
       %main.flex-auto.py3
         .px3=yield
-      %footer.border-top
-        %nav.clearfix
-          .sm-col.py1.mt1
-            %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}
-              Follow Coderwall
-              =icon("twitter", class: "fa-1x")
-          .sm-col-right.py2.mt1
-            %a.inline-block.ml2{href: 'http://github.com/assemblymade/coderwall-next', rel: 'nofollow'}
-              =icon("github-alt")
-            %a.inline-block.ml2{href: popular_topic_path(topic: 'hackerdesk')}
-              =icon("gift")
-            %a.inline-block.ml2.mr2{href: 'mailto:support@coderwall.com'}
-              Contact
-            %a.inline-block.mr2{href: privacy_path} Privacy
-            %a.inline-block.mr2{href: tos_path} Terms
-            %p.inline-block.diminish.inline.mr2="Copyright #{Time.now.strftime('%Y')}"
-  = render 'shared/tracking'
+      = render 'application/footer'
+  = render 'application/tracking'
