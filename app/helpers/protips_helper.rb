@@ -1,4 +1,9 @@
 module ProtipsHelper
+
+  def show_ad?
+    params[:controller].to_s == 'protips' && params[:action].to_s == 'show'
+  end
+
   def protips_view_breadcrumbs
     @breadcrumbs ||= begin
       breadcrumbs = [["Protips", trending_path]]
