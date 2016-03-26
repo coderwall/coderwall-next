@@ -177,3 +177,19 @@ header {
 div[data-react-class], div[data-reactid] {
 	display: inline;
 }
+
+
+
+
+@media #{$breakpoint-sm} {
+  .sm-center{ text-align: center !important; }
+	.md-right{ float: initial;}
+}
+
+@media #{$breakpoint-md} {
+	.md-right{ float: right;}
+}
+
+@media #{$breakpoint-md} {
+	.md-right{ float: right;}
+}

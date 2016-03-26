@@ -8,6 +8,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render 'shared/analytics'
+    = yield :head
   %body
     .flex.flex-column{:style => "min-height:100vh"}
       %header.border-bottom

@@ -59,15 +59,22 @@
               %h6.diminish.inline.px1=link_to tag, popular_topic_path(topic: tag)
           .content.p2.mt4[:articleBody]
             = sanitize CoderwallFlavoredMarkdown.render_to_html(@protip.body)
-          .author.p2[:author]
-            %h5.mt0[@protip.user]
-              .diminish.inline Written by
-              %a[:name]{href: profile_path(username: @protip.user.username)}
-                =@protip.user.display_name
-            .font-tiny.mt1
-              %a{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
-                .inline.blue=icon("twitter", class: "fa-1x")
-                .inline.diminish share to say thanks
+
+
+          .clearfix.ml2.mr2
+            .sm-col.md-col-5.sm-col-12
+              .mt2.author[:author]
+                %h5.mt0[@protip.user]
+                  .diminish.inline Written by
+                  %a[:name]{href: profile_path(username: @protip.user.username)}
+                    =@protip.user.display_name
+                .font-tiny.mt1
+                  %a{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
+                    .inline.blue=icon("twitter", class: "fa-1x")
+                    .inline.diminish share to say thanks
+            .sm-col.md-col-7.sm-col-12
+              .mt2.md-right.sm-center
+                =render 'shared/ad'
 
         -if signed_in?
           #new-comment.new-comment.mt2.mb2.px2
