@@ -1,12 +1,7 @@
-<% if show_ad? %>
-  <% if Rails.env.development? %>
-    <%= image_tag "http://placehold.it/320x100" %>
-  <% else %>
-    <!-- /181068894/v1_protip -->
-    <div id='div-gpt-ad-1458948745684-0' style='height:100px; width:320px;'>
-    <script type='text/javascript'>
-    googletag.cmd.push(function() { googletag.display('div-gpt-ad-1458948745684-0'); });
-    </script>
-    </div>
-  <% end %>
-<% end %>
+<div class='adunit' data-adunit="v1_protip" data-dimensions="320x100"></div>
+
+<script>
+  // google_console = 1
+  // googfc = true
+  $.dfp('181068894');
+</script>

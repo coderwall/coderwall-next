@@ -8,7 +8,6 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render 'shared/analytics'
-    -# = render 'shared/ad_header'
   %body
     .flex.flex-column{:style => "min-height:100vh"}
       %header.border-bottom
@@ -39,7 +38,7 @@
               Follow Coderwall
               =icon("twitter", class: "fa-1x")
           .sm-col-right.py2.mt1
-            %a.inline-block.ml2{href: 'http://github.com/assemblymade/coderwall-next', rel: 'nofollow'}
+            %a.inline-block.ml2{href: 'https://github.com/coderwall/coderwall-next', rel: 'nofollow'}
               =icon("github-alt")
             %a.inline-block.ml2{href: popular_topic_path(topic: 'hackerdesk')}
               =icon("gift")
