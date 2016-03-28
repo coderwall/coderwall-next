@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def show_ads?
+    ENV['SHOW_ADS'] == true || Rails.env.development?
+  end
+
   def time_ago_in_words_with_ceiling(time)
     if time < 1.year.ago
       'over 1 year'

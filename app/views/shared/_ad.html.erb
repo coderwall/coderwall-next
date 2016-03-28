@@ -1,7 +1,8 @@
-<div class='adunit' data-adunit="v1_protip" data-dimensions="320x100"></div>
+<% if show_ads? %>
+  <div class='adunit' data-adunit="v1_protip" data-dimensions="320x100"></div>
 
-<script>
-  // google_console = 1
-  // googfc = true
-  $.dfp('181068894');
-</script>
+  <script>
+    $.dfp('181068894');
+  </script>
+  
+<% end %>
