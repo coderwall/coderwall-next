@@ -75,10 +75,13 @@
             .sm-col.md-col-7.sm-col-12
               -if show_ads?
                 .mt2.md-right.sm-center
-                  .adunit#v1_protip{'data-dimensions'=>"320x100"}
+                  -# .adunit#v1_protip{'data-dimensions'=>"320x100"}
+                  -# :javascript
+                  -#   $.dfp('181068894');
+                  %script{async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
+                  %ins{"class" => "adsbygoogle", "style" => "display:inline-block;width:320px;height:100px", "data-ad-client" => "ca-pub-6075623866293464", "data-ad-slot" => "9416184636"}
                   :javascript
-                    $.dfp('181068894');
-
+                    (adsbygoogle = window.adsbygoogle || []).push({});
 
         -if signed_in?
           #new-comment.new-comment.mt2.mb2.px2
