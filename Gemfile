@@ -36,6 +36,7 @@ gem "rack-timeout"
 gem 'sequel'
 gem 'redis'
 gem 'reverse_markdown'
+gem 'faraday'
 
 group :development, :test do
   gem 'capybara'

@@ -46,6 +46,24 @@ namespace :db do
       end
     end
 
+    task :jobs => :connect do
+      Job.delete_all
+
+      puts "Sourcing jobs: #{ENV['source']}"
+      response = Faraday.get(ENV['source'])
+      results  = JSON.parse(response.body)
+
+      results.each do |data|
+        data['created_at'] = Time.parse(data['created_at'])
+        data['role_type']  = data.delete('type')
+        data['source']     = data.delete('url')
+        data.delete('id')
+        job = Job.create!(data)
+
+        puts "Created: #{job.title}"
+      end
+    end
+
     task :check => :connect do
       puts "legacy => ported"
       puts "Likes: #{Legacy[:likes].count} => #{Like.count}"
