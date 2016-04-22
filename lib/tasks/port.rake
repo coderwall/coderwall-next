@@ -60,7 +60,7 @@ namespace :db do
         url   = data.delete('url')
         found = URI.extract(data.delete("how_to_apply"), /http(s)?/).first
         data['source'] = found || url
-
+        data['source'] = data['source'].chomp("apply")
         job = Job.create!(data)
         puts "Created: #{job.title}"
       end
