@@ -1,5 +1,5 @@
--cache ['v1', job] do
-  .job.card.clearfix.mb2[job]
+-cache ['v1', job, feature] do
+  .job.card.clearfix.mb2[job]{ class: ('border' if feature) }
     .clearfix.p2
       .col.col-1
         =image_tag(job.company_logo, width: 50)

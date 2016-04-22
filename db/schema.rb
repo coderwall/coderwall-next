@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422215652) do
+ActiveRecord::Schema.define(version: 20160422234923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
-  enable_extension "pg_stat_statements"
   enable_extension "uuid-ossp"
 
   create_table "badges", force: :cascade do |t|
@@ -56,7 +55,11 @@ ActiveRecord::Schema.define(version: 20160422215652) do
     t.string   "company_logo"
     t.string   "author_name"
     t.string   "author_email"
+    t.datetime "expires_at"
+    t.text     "stripe_token"
   end
+
+  add_index "jobs", ["expires_at"], name: "index_jobs_on_expires_at", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "likable_id"

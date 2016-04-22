@@ -61,6 +61,7 @@ namespace :db do
         found = URI.extract(data.delete("how_to_apply"), /http(s)?/).first
         data['source'] = found || url
         data['source'] = data['source'].chomp("apply")
+        data['expires_at'] = 1.month.from_now
         job = Job.create!(data)
         puts "Created: #{job.title}"
       end

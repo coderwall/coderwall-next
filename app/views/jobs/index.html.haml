@@ -12,5 +12,8 @@
 
   .clearfix
     .col.sm-col-9
-      =render @jobs
+      - if @featured
+        =render @featured, feature: true
+
+      =render @jobs, feature: false
     .col.sm-col-3
