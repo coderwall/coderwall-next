@@ -1,7 +1,11 @@
 class JobsController < ApplicationController
 
+  def index
+    @jobs = Job.active.all
+  end
+
   def show
-    @job = Job.order("RANDOM()").first
+    redirect_to Job.find(params[:id]).source
   end
 
 end

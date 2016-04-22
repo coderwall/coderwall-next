@@ -56,10 +56,12 @@ namespace :db do
       results.each do |data|
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
-        data['source']     = data.delete('url')
-        data.delete('id')
-        job = Job.create!(data)
+        desc  = data.delete("description")
+        url   = data.delete('url')
+        found = URI.extract(data.delete("how_to_apply"), /http(s)?/).first
+        data['source'] = found || url
 
+        job = Job.create!(data)
         puts "Created: #{job.title}"
       end
     end
