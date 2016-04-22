@@ -1,4 +1,16 @@
 .continer
   .clearfix
-    .sm-col.sm-col.sm-col-12.md-col-8
+    .col.sm-col-9
+      %h1.mt0.mb3.ml1.p1
+        .inline.mr2=icon('diamond')
+        Jobs For Programmers
+    .col.sm-col-3
+      .center.font-lg.mt1.ml1
+        %a.btn.rounded.green.border.px3.border-green{href: new_job_url}
+          Post a Job
+          .mt1.font-sm $299 for 30 days
+
+  .clearfix
+    .col.sm-col-9
       =render @jobs
+    .col.sm-col-3
