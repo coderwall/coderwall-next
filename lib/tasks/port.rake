@@ -117,8 +117,11 @@ namespace :db do
           team.github = row[:github_organization_name]
         end
 
+        legacy_impressions_key = "team:#{row[:id]}:impressions"
+        team.views_count = LegacyRedis.get(legacy_impressions_key).to_i
+
         if team.save
-          puts team.name
+          puts "#{team.name} (#{team.views_count})"
         else
           not_ported << team
           puts "#{row[:name]} skipped #{team.errors.inspect}"
