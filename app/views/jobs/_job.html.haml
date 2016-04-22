@@ -1,22 +1,20 @@
 -cache ['v1', job] do
   .job.card.clearfix.mb2[job]
-    .clearfix.p1
-      .md-col.md-col-1
+    .clearfix.p2
+      .col.col-1
         =image_tag(job.company_logo, width: 50)
-      .md-col.md-col-8
-        %h2.mt0.ml1
-          %a.diminish-viewed[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
-      .md-col.md-col-3
-        .mt1.right= job.location
 
-    -# .font-sm
-    -#   =link_to(job.company, job.company_url, rel: 'nofollow')
-    -#   .diminish.inline
-    -#     &middot;
-    -#     =job.role_type
-    -#     &middot;
-    -#
-    -#     &middot;
-    -#     posted
-    -#     =time_ago_in_words(job.created_at)
-    -#     ago
+      .col.col-8
+        .ml1.mr1
+          %h3.mt0
+            %a.diminish-viewed[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
+          .font-sm
+            .bold.inline=link_to(job.company, job.company_url, rel: 'nofollow')
+            &middot;
+            .diminish.inline=job.role_type
+            &middot;
+            .diminish.inline==posted #{time_ago_in_words(job.created_at)} ago
+
+      .col.col-3
+        .mt1.right-align.diminish
+          =job.location
