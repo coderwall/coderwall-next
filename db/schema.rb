@@ -11,12 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422211004) do
+ActiveRecord::Schema.define(version: 20160422213924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
   enable_extension "pg_stat_statements"
+  enable_extension "uuid-ossp"
 
   create_table "badges", force: :cascade do |t|
     t.integer  "user_id"
@@ -43,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160422211004) do
   add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "jobs", force: :cascade do |t|
+  create_table "jobs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "role_type"
