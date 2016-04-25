@@ -54,6 +54,8 @@ namespace :db do
       results  = JSON.parse(response.body)
 
       results.each do |data|
+        next if data['company_logo'].blank?
+        
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
         desc  = data.delete("description")

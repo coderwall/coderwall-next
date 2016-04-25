@@ -4,14 +4,14 @@
       .card.p3
         %h2 Publish your job listing
 
-        %p For <b>$299</b> we will run your job for <b>30 days.</b>
+        %p For <b>$#{Job::CENTS_PER_MONTH/100}</b> we will run your job for <b>30 days.</b>
 
         %p <a href="mailto:support@coderwall.com">Contact us</a> for more information.
 
         = form_tag job_publish_path(@job) do
           %script.stripe-button{src: "https://checkout.stripe.com/checkout.js",
-            "data-key": ENV['STRIPE_PUBLISHABLE'],
-            "data-amount": "29900",
+            "data-key": ENV['STRIPE_PUBLISHABLE_KEY'],
+            "data-amount": Job::CENTS_PER_MONTH,
             "data-name": "Jobs @ coderwall.com",
             "data-description": "30 day listing",
             "data-zip-code": "true",

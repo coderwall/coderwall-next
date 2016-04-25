@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(version: 20160422234923) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "jobs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "role_type"
     t.string   "title"
     t.string   "location"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160422234923) do
     t.string   "author_name"
     t.string   "author_email"
     t.datetime "expires_at"
-    t.text     "stripe_token"
+    t.text     "stripe_charge"
   end
 
   add_index "jobs", ["expires_at"], name: "index_jobs_on_expires_at", using: :btree

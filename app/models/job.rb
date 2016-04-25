@@ -1,10 +1,17 @@
 class Job < ActiveRecord::Base
-
+  CENTS_PER_MONTH = 29900
   scope :active, -> { where("expires_at > ?", Time.now) }
 
-  def publish!(stripe_token)
+  def charge!(token)
+    charge = Stripe::Charge.create(
+      amount: CENTS_PER_MONTH, # amount in cents, again
+      currency: "usd",
+      source: token,
+      description: "coderwall.com job posting"
+    )
+
     update!(
-      stripe_token: stripe_token,
+      stripe_charge: charge.id,
       expires_at: 1.month.from_now
     )
   end

@@ -19,7 +19,7 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     if @job.save
-      redirect_to review_job_url(@job)
+      redirect_to review_job_path(@job)
     else
       render action: 'new'
     end
@@ -31,10 +31,14 @@ class JobsController < ApplicationController
 
   def publish
     @job = Job.find(params[:job_id])
-    @job.publish!(params['stripeToken'])
+    @job.charge!(params['stripeToken'])
 
     flash[:notice] = "Your job is now live"
     redirect_to jobs_path(posted: @job.id)
+
+  rescue Stripe::CardError => e
+    flash[:notice] = e.message
+    redirect_to review_job_path(@job)
   end
 
   # private
