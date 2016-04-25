@@ -21,7 +21,8 @@ class UsersController < ApplicationController
       end
       format.json do
         if stale?(api_etag_key_for_user)
-          response = params[:callback].present? ? {data: @user} : @user
+          #  = params[:callback].present? ? { data: @user.to_json } : @user
+          response = @user
           render(json: response, callback: params[:callback])
         end
       end
