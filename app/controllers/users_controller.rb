@@ -117,7 +117,7 @@ class UsersController < ApplicationController
 
   def api_etag_key_for_user
     {
-      etag:['v4', @user, params[:callback]],
+      etag:['v5', @user, params[:callback]],
       last_modified: @user.updated_at.utc,
       public: true
     }
