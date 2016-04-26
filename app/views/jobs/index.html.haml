@@ -9,8 +9,8 @@
     .clearfix.mb2.md-show
       .col.sm-col-11.py2
         =form_tag jobs_path, method: :get do
-          = text_field_tag :q, params[:q], placeholder: 'Search great jobs by Location, Title, or Company', class: 'field col-5'
-          .col-1.inline.ml1
+          = text_field_tag :q, params[:q], placeholder: 'Search great jobs by Location, Title, or Company', class: 'field col-6'
+        .col-1.inline.ml1
           = hidden_field_tag :show_fulltime, false, id: nil
           = check_box_tag :show_fulltime, true, params[:show_fulltime] == 'true'
           = label_tag :show_fulltime, 'Full Time'
@@ -30,9 +30,10 @@
             %button.btn.bg-purple.white.rounded{type: 'submit'}= icon('search')
       .col.sm-col-1
 
-    .clearfix
+      -# .mb2.purple{style: "border-bottom:solid 5px;"}
+
+    .clearfix.mt3
       .col.sm-col-8
-        .mb2.purple{style: "border-bottom:solid 5px;"}
         - if @featured
           =render @featured, feature: true
         =render @jobs, feature: false
