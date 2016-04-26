@@ -13,11 +13,10 @@
       %header.border-bottom
         %nav.clearfix.px2
           .sm-col.py2
-
             %a.btn.logo.relative{:href => root_url}
               .absolute{:style => "top: 2px"}
                 = render 'shared/logo'
-              .left.font-x-lg{:style => "padding-left: 33px;"}
+              .left.font-x-lg{:style => "padding-left: 35px;"}
                 Coderwall
 
           .sm-col-right.py2{class: hide_on_auth}
@@ -29,7 +28,7 @@
             -else
               %a.btn{:href => new_protip_path} Add Protip
               %a.btn.active-text.mr2{:href => sign_in_path} Log In
-              %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Become a better developer
+              %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
       .mt1.px3
         =yield :breadcrumbs
         -if flash[:notice].present?
