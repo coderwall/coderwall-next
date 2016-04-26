@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :jobs do
-    get :review, on: :member
     post :publish
   end
 

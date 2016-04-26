@@ -175,7 +175,7 @@ header {
 }
 
 //neutralize rails-react wrappers affect on layout
-div[data-react-class], div[data-reactid] {
+div[data-react-class] {
 	display: inline;
 }
 
