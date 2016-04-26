@@ -1,0 +1,9 @@
+
+.job.clearfix.py1
+  %a[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
+  .font-sm
+    .bold.inline=link_to(job.company, job.company_url, rel: 'nofollow')
+    &middot;
+    .diminish.inline=job.location
+    &middot;
+    .diminish.inline=job.role_type

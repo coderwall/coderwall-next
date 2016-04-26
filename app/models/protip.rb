@@ -4,7 +4,7 @@ class Protip < ActiveRecord::Base
   extend FriendlyId
 
   friendly_id :slug_format, :use => :slugged
-  paginates_per 30
+  paginates_per 40
   html_schema_type :TechArticle
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
@@ -77,7 +77,7 @@ class Protip < ActiveRecord::Base
 
   def cacluate_score
     return 0 if flagged?
-    half_life      = 4.days.to_i
+    half_life      = 2.days.to_i
     # gravity        = 1.8 #used to look at upvote_velocity(1.week.ago)
     views_score    = views_count / 100.0
     votes_score    = likes_count
