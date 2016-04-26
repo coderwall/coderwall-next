@@ -13,7 +13,12 @@
       %header.border-bottom
         %nav.clearfix.px2
           .sm-col.py2
-            %a.btn.logo{:href => root_url} Coderwall
+
+            %a.btn.logo.relative{:href => root_url}
+              .absolute{:style => "top: 2px"}
+                = render 'shared/logo'
+              .left.font-x-lg{:style => "padding-left: 33px;"}
+                Coderwall
 
           .sm-col-right.py2{class: hide_on_auth}
             -if signed_in?
