@@ -18,7 +18,6 @@ class NewJob extends React.Component {
       image: 'https://s3.amazonaws.com/stripe-uploads/A6CJ1PO8BNz85yiZbRZwpGOSsJc5yDvKmerchant-icon-356788-cwlogo.png',
       locale: 'auto',
       token: token => {
-        console.log(this.refs)
         this.setState({ saving: true, stripeToken: token.id }, () => this.refs.form.getDOMNode().submit())
       }
     });
@@ -81,7 +80,7 @@ class NewJob extends React.Component {
           </div>
 
           <div>
-            <button className="btn rounded mt1 bg-green white" type="submit" disabled={this.state.saving}>Purchase</button>
+            <button className={`btn rounded mt1 white ${this.state.saving ? 'bg-gray' : 'bg-green'}`} type="submit" disabled={this.state.saving}>Purchase</button>
           </div>
         </form>
 

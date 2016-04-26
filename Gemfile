@@ -16,6 +16,7 @@ gem 'green_monkey'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'lograge'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'newrelic_rpm'
@@ -23,7 +24,10 @@ gem 'pg', '~> 0.15'
 gem 'postmark-rails'
 gem 'puma_worker_killer'
 gem 'puma'
+gem 'quiet_assets'
 gem 'rack-cors'
+gem 'rack-timeout'
+gem 'rails_stdout_logging', group: [:development, :production]
 gem 'rails', '~> 4.2.5'
 gem 'react-rails'
 gem 'redcarpet', ">=3.3.4"
@@ -31,7 +35,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
-gem "rack-timeout"
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
