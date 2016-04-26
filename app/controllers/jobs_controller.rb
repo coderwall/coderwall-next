@@ -1,11 +1,28 @@
 class JobsController < ApplicationController
 
   def index
+    params[:show_fulltime] ||= true
+    params[:show_remote]   ||= true
+    params[:show_contract] ||= true
+    # raise params.inspect
+
     @jobs = Job.active.order(created_at: :desc)
+
+    # if params[:show_fulltime]
+    #
+    #   where("role_type != ?", JOB::FULLTIME)
+    # end
+
+    if !params[:show_contract]
+
+    end
+
     if params[:posted]
       @jobs = @jobs.where.not(id: params[:posted])
       @featured = Job.find(params[:posted])
     end
+
+
   end
 
   def new

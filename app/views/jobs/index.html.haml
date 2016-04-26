@@ -1,14 +1,19 @@
 .continer
   .clearfix
     .col.sm-col-9
-      %h1.mt0.mb3.ml1.p1
-        .inline.mr2=icon('diamond')
-        Jobs For Programmers
+      .p2
+        =form_tag jobs_path, method: :get do
+          = label_tag :q, icon('search')
+          = text_field_tag :q, params[:q], placeholder: 'Search by location, title, or company'
+          = check_box_tag :show_fulltime, true, params[:show_fulltime]
+          = label_tag :show_fulltime, 'Full Time'
+          = check_box_tag :show_contract, true, params[:show_contract]
+          = label_tag :show_contract, 'Contracting'
+          = check_box_tag :show_remote, true, params[:show_remote]
+          = label_tag :show_remote, 'Remote'
+          = submit_tag 'Search'
     .col.sm-col-3
-      .center.font-lg.mt1.ml1
-        %a.btn.rounded.green.border.px3.border-green{href: new_job_url}
-          Post a Job
-          .mt1.font-sm== $#{Job::CENTS_PER_MONTH/100} for 30 days
+
 
   .clearfix
     .col.sm-col-9
@@ -17,3 +22,7 @@
 
       =render @jobs, feature: false
     .col.sm-col-3
+      .center.font-lg.mt1.ml1
+        %a.btn.rounded.green.border.px3.border-green{href: new_job_url}
+          Post a Job
+          .mt1.font-sm== $#{Job::COST} for 30 days

@@ -1,5 +1,11 @@
 class Job < ActiveRecord::Base
   CENTS_PER_MONTH = 29900
+  COST            = CENTS_PER_MONTH/100
+  FULLTIME        = 'Full Time'
+  PARTTIME        = 'Part Time'
+  CONTRACT        = 'Contract'
+  ROLES           = [FULLTIME, PARTTIME, CONTRACT]
+
   scope :active, -> { where("expires_at > ?", Time.now) }
 
   def charge!(token)
