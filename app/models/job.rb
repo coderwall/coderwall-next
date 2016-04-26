@@ -6,6 +6,17 @@ class Job < ActiveRecord::Base
   CONTRACT        = 'Contract'
   ROLES           = [FULLTIME, PARTTIME, CONTRACT]
 
+  validates :author_email, presence: true
+  validates :author_name, presence: true
+  validates :company_logo, presence: true
+  validates :company_url, presence: true
+  validates :company, presence: true
+  validates :company, presence: true
+  validates :location, presence: true
+  validates :role_type, presence: true
+  validates :source, presence: true
+  validates :title, presence: true
+
   scope :active, -> { where("expires_at > ?", Time.now) }
 
   def charge!(token)

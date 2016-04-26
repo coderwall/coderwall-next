@@ -73,9 +73,9 @@ class NewJob extends React.Component {
           <input id="job_author_email" value={this.state.authorEmail} onChange={e => this.handleChange('authorEmail', e)} type="email" className={this.fieldClasses('authorEmail')} name="job[author_email]" placeholder="wcoyote@acme.inc" />
 
           <div className="col-12">
-            <input id="role_type_full_time" name="age" type="radio" value="Full Time" defaultChecked />
+            <input id="role_type_full_time" name="job[role_type]" type="radio" value="Full Time" defaultChecked />
             <label htmlFor="role_type_full_time">Full Time</label>
-            <input id="role_type_part_time" name="age" type="radio" value="Part Time" />
+            <input id="role_type_part_time" name="job[role_type]" type="radio" value="Part Time" />
             <label htmlFor="role_type_part_time">Part Time</label>
           </div>
 
@@ -104,7 +104,7 @@ class NewJob extends React.Component {
       brokenFields = [...brokenFields, 'companyLogo']
     }
     this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })
-    // if (brokenFields.length > 0) { return }
+    if (brokenFields.length > 0) { return }
 
     this.checkout.open({
       name: "Jobs @ coderwall.com",
