@@ -1,9 +1,9 @@
 - title "Post a new protip"
 
-.continer
+.container
   .clearfix
-    .md-col.md-col-2.md-show &nbsp;
-    .sm-col.sm-col.sm-col-12.md-col-8
+    .md-col.md-col-1.md-show &nbsp;
+    .sm-col.sm-col.sm-col-12.md-col-10
       .card.p3
         -if @protip.new_record?
           %h2
@@ -34,4 +34,4 @@
         .clearfix.mt2
           =link_to 'Cancel', :back
 
-    .md-col.md-col-2.md-show &nbsp;
+    .md-col.md-col-1.md-show &nbsp;

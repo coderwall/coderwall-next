@@ -1,19 +1,20 @@
 - title "Sign in"
 
-%h2 Sign in to Coderwall
-.sm-col-6
-  =form_for :session, url: session_path do |form|
-    .mb2.font-sm.diminish
-      NOTE: If you previously signed in using your Twitter or GitHub account, you'll now need to
-      = link_to "reset your password", new_password_path
-      to get a new first time password to further access your account.
-    = form.label :email, "Email or Username"
-    = form.text_field :email, type: 'text', class: 'field block col-10 mb1'
-    = form.label :password
-    = form.password_field :password, class: 'field block col-10 mb1'
-    %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Sign In
-  .clearfix.mt3
-    = link_to "Reset a forgotten password", new_password_path
-  .clearfix.mt2
-    Don't have an account?
-    .inline.bold= link_to "Sign Up", sign_up_path
+.container
+  %h2 Sign in to Coderwall
+  .sm-col-6
+    =form_for :session, url: session_path do |form|
+      .mb2.font-sm.diminish
+        NOTE: If you previously signed in using your Twitter or GitHub account, you'll now need to
+        = link_to "reset your password", new_password_path
+        to get a new first time password to further access your account.
+      = form.label :email, "Email or Username"
+      = form.text_field :email, type: 'text', class: 'field block col-10 mb1'
+      = form.label :password
+      = form.password_field :password, class: 'field block col-10 mb1'
+      %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Sign In
+    .clearfix.mt3
+      = link_to "Reset a forgotten password", new_password_path
+    .clearfix.mt2
+      Don't have an account?
+      .inline.bold= link_to "Sign Up", sign_up_path

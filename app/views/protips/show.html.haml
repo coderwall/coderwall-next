@@ -8,24 +8,12 @@
 - meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar
 - meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar
 
--if @protip.related_topics.present?
-  -content_for :breadcrumbs do
-    .mxn1.font-tiny.mt1.diminish
-      .px1
-        Filed under:
-        -@protip.related_topics.each do |topic|
-          %a.bold.ml1.mr1{href: popular_topic_path(topic: topic)}
-            =t(topic, scope: :categories)
-          .hide_last_child.inline &middot;
-
-.continer[@protip]
+.container[@protip]
   .hide= time_tag @protip.created_at, itemprop: "datePublished"
   .hide= time_tag @protip.updated_at, itemprop: "dateModified"
   .hide[:name]= @protip.public_id
 
   .clearfix
-    .md-col.md-col-2.md-show &nbsp;
-
     .sm-col.sm-col.sm-col-12.md-col-8
       .clearfix.mt0.mb1
         .left.mt-third= react_component 'Heartable',
@@ -106,5 +94,31 @@
         .clearfix.mt1.px2
           %h4=pluralize(@protip.comments.size, 'Response')
           =render @protip.comments
-    .md-col.md-col-2.md-show &nbsp;
+
+    .md-col.md-show.md-col-4
+      -if @protip.related_topics.present?
+        .clearfix.ml3.mt3.p1
+          %h5.mt0.mb1
+            =icon('folder-o', class: 'mr1')
+            Filed Under
+
+          -@protip.related_topics.each do |topic|
+            .topic.clearfix.py1
+              %a{href: popular_topic_path(topic: topic)}
+                .bold=t(topic, scope: :categories)
+
+      - cache ['v1', @protip, 'featured-jobs', expires_in: 1.day ] do
+        .clearfix.ml3.mt3
+          .bg-white.rounded.p1
+            %h5.mt0.mb1
+              =icon('diamond', class: 'mr1')
+              Featured Programming Job
+            %hr.mt1
+            -Job.featured(1).each do |job|
+              =render 'jobs/mini', job: job
+
+            %a.block.mt2.bold{href: jobs_path}
+              Search all programming jobs
+
+
 %script{ src: "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" }

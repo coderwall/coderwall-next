@@ -10,7 +10,7 @@
         .inline.hide_last_child /
 
 - cache protip_list_cache_key, expires_in: sort_expiry do
-  .continer
+  .container
     .clearfix
       .sm-col.sm-col.sm-col-12.md-col-8
         -if first_page?
@@ -79,8 +79,7 @@
               Featured Programming Jobs
             %hr.mt1
             -Job.featured(3).each do |job|
-              =render 'jobs/mini', job: job, feature: false
+              =render 'jobs/mini', job: job
 
             %a.block.mt2.bold{href: jobs_path}
               Search all programming jobs
-            
