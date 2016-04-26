@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :jobs
+  resources :jobs do
+    get :review, on: :member
+    post :publish
+  end
+
   # This disables serving any web requests other then /assets out of CloudFront
   match '*path', via: :all, to: 'pages#show', page: 'not_found',
     constraints: CloudfrontConstraint.new

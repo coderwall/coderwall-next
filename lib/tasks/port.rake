@@ -54,6 +54,8 @@ namespace :db do
       results  = JSON.parse(response.body)
 
       results.each do |data|
+        next if data['company_logo'].blank?
+        
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
         desc  = data.delete("description")
@@ -61,6 +63,7 @@ namespace :db do
         found = URI.extract(data.delete("how_to_apply"), /http(s)?/).first
         data['source'] = found || url
         data['source'] = data['source'].chomp("apply")
+        data['expires_at'] = 1.month.from_now
         job = Job.create!(data)
         puts "Created: #{job.title}"
       end

@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422215652) do
+ActiveRecord::Schema.define(version: 20160425233554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
-  enable_extension "pg_stat_statements"
   enable_extension "uuid-ossp"
 
   create_table "badges", force: :cascade do |t|
@@ -44,9 +43,16 @@ ActiveRecord::Schema.define(version: 20160422215652) do
   add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
+  create_table "job_views", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid     "job_id",     null: false
+    t.integer  "user_id"
+    t.text     "ip"
+  end
+
   create_table "jobs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.string   "role_type"
     t.string   "title"
     t.string   "location"
@@ -56,7 +62,11 @@ ActiveRecord::Schema.define(version: 20160422215652) do
     t.string   "company_logo"
     t.string   "author_name"
     t.string   "author_email"
+    t.datetime "expires_at"
+    t.text     "stripe_charge"
   end
+
+  add_index "jobs", ["expires_at"], name: "index_jobs_on_expires_at", using: :btree
 
   create_table "likes", force: :cascade do |t|
     t.integer  "likable_id"
@@ -163,6 +173,8 @@ ActiveRecord::Schema.define(version: 20160422215652) do
   add_foreign_key "badges", "users", name: "badges_user_id_fk"
   add_foreign_key "comments", "protips", name: "comments_protip_id_fk"
   add_foreign_key "comments", "users", name: "comments_user_id_fk"
+  add_foreign_key "job_views", "jobs"
+  add_foreign_key "job_views", "users"
   add_foreign_key "likes", "users", name: "likes_user_id_fk"
   add_foreign_key "pictures", "users", name: "pictures_user_id_fk"
   add_foreign_key "protips", "users", name: "protips_user_id_fk"

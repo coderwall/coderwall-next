@@ -8,9 +8,12 @@
       .center.font-lg.mt1.ml1
         %a.btn.rounded.green.border.px3.border-green{href: new_job_url}
           Post a Job
-          .mt1.font-sm $299 for 30 days
+          .mt1.font-sm== $#{Job::CENTS_PER_MONTH/100} for 30 days
 
   .clearfix
     .col.sm-col-9
-      =render @jobs
+      - if @featured
+        =render @featured, feature: true
+
+      =render @jobs, feature: false
     .col.sm-col-3
