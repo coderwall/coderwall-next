@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160422234923) do
+ActiveRecord::Schema.define(version: 20160425233554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20160422234923) do
 
   add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "job_views", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.uuid     "job_id",     null: false
+    t.integer  "user_id"
+    t.text     "ip"
+  end
 
   create_table "jobs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.datetime "created_at",    null: false
@@ -166,6 +173,8 @@ ActiveRecord::Schema.define(version: 20160422234923) do
   add_foreign_key "badges", "users", name: "badges_user_id_fk"
   add_foreign_key "comments", "protips", name: "comments_protip_id_fk"
   add_foreign_key "comments", "users", name: "comments_user_id_fk"
+  add_foreign_key "job_views", "jobs"
+  add_foreign_key "job_views", "users"
   add_foreign_key "likes", "users", name: "likes_user_id_fk"
   add_foreign_key "pictures", "users", name: "pictures_user_id_fk"
   add_foreign_key "protips", "users", name: "protips_user_id_fk"

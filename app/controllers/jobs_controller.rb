@@ -13,7 +13,15 @@ class JobsController < ApplicationController
   end
 
   def show
-    redirect_to Job.find(params[:id]).source
+    @job = Job.find(params[:id])
+
+    JobView.create!(
+      job_id: @job.id,
+      user_id: current_user.try(:id),
+      ip: request.ip
+    )
+
+    redirect_to @job.source
   end
 
   def create
