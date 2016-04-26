@@ -1,14 +1,8 @@
-.contsiner
+%script(src="https://checkout.stripe.com/checkout.js")
+
+.container
   .clearfix
+    .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
       .card.p3
-        %h2 Let's find awesome candidates!
-
-        = form_for @job do |form|
-          = form.label :source, 'Job URL'
-          = form.text_field :source, type: 'text', class: 'field block col-12 mb3'
-
-          %button.btn.rounded.mt1.bg-green.white{type: 'submit'} Save & Review
-
-        .clearfix.mt2
-          =link_to 'Cancel', :back
+        = react_component 'NewJob', stripePublishable: ENV['STRIPE_PUBLISHABLE_KEY'], cost: Job::CENTS_PER_MONTH

@@ -9,8 +9,8 @@ class Heart extends React.Component {
     if (this.props.layout === 'inline') {
       classes = {
         root:  'heart no-hover font-x-lg',
-        icon:  'purple',
-        count: 'ml1 diminish bold',
+        icon:  'inline purple',
+        count: 'inline ml1 diminish bold',
         inline: 'inline'
       }
     }
