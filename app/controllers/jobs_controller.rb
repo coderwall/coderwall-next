@@ -8,6 +8,9 @@ class JobsController < ApplicationController
 
     @jobs = Job.active.order(created_at: :desc)
 
+    # if params_true?(:show_fulltime)
+      # @jobs = @jobs.
+    # end
     # if params[:show_fulltime]
     #
     #   where("role_type != ?", JOB::FULLTIME)
