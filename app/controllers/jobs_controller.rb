@@ -40,15 +40,11 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
-    if @job.save
-      redirect_to jobs_path(posted: @job.id)
-    else
+    if !@job.save
       render action: 'new'
+      return
     end
-  end
 
-  def publish
-    @job = Job.find(params[:job_id])
     @job.charge!(params['stripeToken'])
 
     flash[:notice] = "Your job is now live"
