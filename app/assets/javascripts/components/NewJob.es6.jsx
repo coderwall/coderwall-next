@@ -15,33 +15,7 @@ class NewJob extends React.Component {
     this.state = { brokenFields: {} }
   }
 
-  componentDidMount() {
-    this.configureCheckout()
-  }
-
-  configureCheckout() {
-    if (typeof StripeCheckout === 'undefined') {
-      setTimeout(() => configureCheckout(), 100)
-    }
-
-    $(window).on('popstate', function() {
-      this.state.checkout.close()
-    })
-
-    this.setState({ checkout: StripeCheckout.configure({
-      key: this.props.stripePublishable,
-      image: 'https://s3.amazonaws.com/stripe-uploads/A6CJ1PO8BNz85yiZbRZwpGOSsJc5yDvKmerchant-icon-356788-cwlogo.png',
-      locale: 'auto',
-      token: token => {
-        this.setState({ saving: true, stripeToken: token.id }, () => this.refs.form.getDOMNode().submit())
-      }
-    })})
-  }
-
   render() {
-    if (!this.state.checkout) {
-      return null
-    }
     const csrfToken = document.getElementsByName('csrf-token')[0].content
 
     return (
@@ -115,7 +89,16 @@ class NewJob extends React.Component {
     this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })
     if (brokenFields.length > 0) { return }
 
-    this.state.checkout.open({
+    this.checkout = this.checkout || StripeCheckout.configure({
+      key: this.props.stripePublishable,
+      image: 'https://s3.amazonaws.com/stripe-uploads/A6CJ1PO8BNz85yiZbRZwpGOSsJc5yDvKmerchant-icon-356788-cwlogo.png',
+      locale: 'auto',
+      token: token => {
+        this.setState({ saving: true, stripeToken: token.id }, () => this.refs.form.getDOMNode().submit())
+      }
+    })
+
+    this.checkout.open({
       name: "Jobs @ coderwall.com",
       description: "30 day listing",
       amount: this.props.cost,
