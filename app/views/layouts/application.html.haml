@@ -31,7 +31,7 @@
               %a.btn{:href => jobs_path} Jobs
               %a.btn.active-text.mr2{:href => sign_in_path} Log In
               %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
-      .container.mt1.px3
+      .mt1.px3
         =yield :breadcrumbs
         -if flash[:notice].present?
           .clearfix.rounded.py2.mt3.white.bg-navy.bold.center.font-lg=flash[:notice]

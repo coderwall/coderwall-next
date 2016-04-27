@@ -32,8 +32,9 @@
 
       -# .mb2.purple{style: "border-bottom:solid 5px;"}
 
-    .clearfix.mt3
+    .clearfix
       .col.sm-col-8
+        .mb2.purple{style: "border-bottom:solid 5px;"}
         - if @featured
           =render @featured, feature: true
         =render @jobs, feature: false

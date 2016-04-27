@@ -91,7 +91,7 @@ class NewJob extends React.Component {
             <label htmlFor="role_type_part_time">Contract</label>
           </div>
 
-          <div>
+          <div class='center'>
             <button className={`btn rounded mt3 white px4 py2 ${this.state.saving ? 'bg-gray' : 'bg-green'}`} type="submit" disabled={this.state.saving}>
               Complete Posting Job for $299
             </button>
