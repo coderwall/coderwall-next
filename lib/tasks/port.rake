@@ -47,6 +47,7 @@ namespace :db do
     end
 
     task :jobs => :connect do
+      JobView.delete_all
       Job.delete_all
 
       puts "Sourcing jobs: #{ENV['source']}"
@@ -55,7 +56,7 @@ namespace :db do
 
       results.each do |data|
         next if data['company_logo'].blank?
-        
+
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
         desc  = data.delete("description")
