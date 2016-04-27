@@ -46,16 +46,20 @@ namespace :db do
       end
     end
 
-    task :jobs => :connect do
-      JobView.delete_all
-      Job.delete_all
+    namespace :jobs do
+      task :clear => :environment do
+        JobView.delete_all
+        Job.delete_all
+      end
+    end
 
+    task :jobs => :connect do
       puts "Sourcing jobs: #{ENV['source']}"
       response = Faraday.get(ENV['source'])
       results  = JSON.parse(response.body)
 
       results.each do |data|
-        next if data['company_logo'].blank?
+        next if data['company_logo'].blank? || data['company'] == 'GitHub'
 
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
@@ -64,7 +68,9 @@ namespace :db do
         found = URI.extract(data.delete("how_to_apply"), /http(s)?/).first
         data['source'] = found || url
         data['source'] = data['source'].chomp("apply")
-        data['expires_at'] = 1.month.from_now
+        data['expires_at']   = 1.month.from_now
+        data['author_name']  = 'Seed Script'
+        data['author_email'] = 'support@coderwall.com'
         job = Job.create!(data)
         puts "Created: #{job.title}"
       end
