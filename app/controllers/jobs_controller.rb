@@ -1,31 +1,25 @@
 class JobsController < ApplicationController
 
   def index
-    params[:show_fulltime] ||= true
-    params[:show_remote]   ||= true
-    params[:show_contract] ||= true
-    # raise params.inspect
 
+    if [:show_fulltime, :show_parttime, :show_contract].any?{|s| params[s].blank? }
+      redirect_to jobs_path(show_fulltime: true, show_parttime: true, show_contract: true, show_remote: false)
+      return
+    end
+    roles = []
+    roles.push(Job::FULLTIME) if params[:show_fulltime] == 'true'
+    roles.push(Job::PARTTIME) if params[:show_parttime] == 'true'
+    roles.push(Job::CONTRACT) if params[:show_contract] == 'true'
     @jobs = Job.active.order(created_at: :desc)
 
-    # if params_true?(:show_fulltime)
-      # @jobs = @jobs.
-    # end
-    # if params[:show_fulltime]
-    #
-    #   where("role_type != ?", JOB::FULLTIME)
-    # end
-
-    if !params[:show_contract]
-
-    end
+    @jobs = @jobs.where('jobs.role_type in (?)', roles)
+    @jobs = @jobs.where(location: 'Remote') if params[:show_remote] == 'true'
+    @jobs = @jobs.where('jobs.location ilike :q or jobs.title ilike :q or jobs.company ilike :q', q: "%#{params[:q]}%") unless params[:q].blank?
 
     if params[:posted]
       @jobs = @jobs.where.not(id: params[:posted])
       @featured = Job.find(params[:posted])
     end
-
-
   end
 
   def new
