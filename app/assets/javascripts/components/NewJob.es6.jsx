@@ -13,51 +13,61 @@ class NewJob extends React.Component {
   constructor(props) {
     super(props)
     this.state = { brokenFields: {} }
-    this.checkout = StripeCheckout.configure({
-      key: props.stripePublishable,
+  }
+
+  componentDidMount() {
+    this.configureCheckout()
+  }
+
+  configureCheckout() {
+    if (typeof StripeCheckout === 'undefined') {
+      setTimeout(() => configureCheckout(), 100)
+    }
+
+    $(window).on('popstate', function() {
+      this.state.checkout.close()
+    })
+
+    this.setState({ checkout: StripeCheckout.configure({
+      key: this.props.stripePublishable,
       image: 'https://s3.amazonaws.com/stripe-uploads/A6CJ1PO8BNz85yiZbRZwpGOSsJc5yDvKmerchant-icon-356788-cwlogo.png',
       locale: 'auto',
       token: token => {
         this.setState({ saving: true, stripeToken: token.id }, () => this.refs.form.getDOMNode().submit())
       }
-    });
-  }
-
-  componentDidMount() {
-    $(window).on('popstate', function() {
-      this.checkout.close()
-    })
+    })})
   }
 
   render() {
+    if (!this.state.checkout) {
+      return null
+    }
     const csrfToken = document.getElementsByName('csrf-token')[0].content
 
     return (
-      <div>
-        <h2>Let's find awesome candidates!</h2>
         <form ref="form" action="/jobs" acceptCharset="UTF-8" method="post" onSubmit={e => this.handleSubmit(e)}>
           <input name="utf8" type="hidden" defaultValue="✓" />
           <input type="hidden" name="authenticity_token" defaultValue={csrfToken} />
           <input type="hidden" name="stripeToken" value={this.state.stripeToken} />
 
           <label htmlFor="job_title">Job Title</label>
-          <input id="job_title" value={this.state.title} onChange={e => this.handleChange('title', e)} type="text" className={this.fieldClasses('title')} name="job[title]" placeholder="Senior Anvil Operator" />
+          <input id="job_title" value={this.state.title} onChange={e => this.handleChange('title', e)} type="text" className={this.fieldClasses('title')} name="job[title]" placeholder="Sr. Frontend Engineer" />
 
           <label htmlFor="job_company">Company Name</label>
           <input id="job_company" value={this.state.company} onChange={e => this.handleChange('company', e)} type="text" className={this.fieldClasses('company')} name="job[company]" placeholder="Acme Inc" />
 
           <label htmlFor="job_location">Location</label>
-          <input id="job_location" value={this.state.location} onChange={e => this.handleChange('location', e)} type="text" className={this.fieldClasses('location')} name="job[location]" placeholder="Grand Canyon" />
+          <input id="job_location" value={this.state.location} onChange={e => this.handleChange('location', e)} type="text" className={this.fieldClasses('location')} name="job[location]" placeholder="Chicago, Il" />
 
-          <label htmlFor="job_source">URL to your job description</label>
+          <label htmlFor="job_source">Link to your job description</label>
           <input id="job_source" value={this.state.source} onChange={e => this.handleChange('source', e)} type="text" className={this.fieldClasses('source')} name="job[source]" placeholder="https://acme.inc/jobs/78" />
 
-          <label htmlFor="job_company_url">Company URL</label>
+          <label htmlFor="job_company_url">Company Website</label>
           <input id="job_company_url" value={this.state.companyUrl} onChange={e => this.handleChange('companyUrl', e)} type="text" className={this.fieldClasses('companyUrl')} name="job[company_url]" placeholder="https://acme.inc" />
 
           <div className="clearfix">
             <div className="col col-8">
-              <label htmlFor="job_company_logo">Company Logo</label>
+              <label htmlFor="job_company_logo">Company Logo (optional)</label>
               <input id="job_company_logo" value={this.state.companyLogo} onChange={e => this.handleChange('companyLogo', e)} type="text" className={this.fieldClasses('companyLogo')} name="job[company_logo]" placeholder="https://acme.inc/logo.png" />
             </div>
 
@@ -67,27 +77,27 @@ class NewJob extends React.Component {
           </div>
 
           <label htmlFor="job_author_name">Contact Name</label>
-          <input id="job_author_name" value={this.state.authorName} onChange={e => this.handleChange('authorName', e)} type="text" className={this.fieldClasses('authorName')} name="job[author_name]" placeholder="Wile E. Coyote" />
+          <input id="job_author_name" value={this.state.authorName} onChange={e => this.handleChange('authorName', e)} type="text" className={this.fieldClasses('authorName')} name="job[author_name]" placeholder="Your name" />
 
           <label htmlFor="job_author_email">Contact Email</label>
-          <input id="job_author_email" value={this.state.authorEmail} onChange={e => this.handleChange('authorEmail', e)} type="email" className={this.fieldClasses('authorEmail')} name="job[author_email]" placeholder="wcoyote@acme.inc" />
+          <input id="job_author_email" value={this.state.authorEmail} onChange={e => this.handleChange('authorEmail', e)} type="email" className={this.fieldClasses('authorEmail')} name="job[author_email]" placeholder="Your email for the receipt" />
 
           <div className="col-12">
             <input id="role_type_full_time" name="job[role_type]" type="radio" value="Full Time" defaultChecked />
             <label htmlFor="role_type_full_time">Full Time</label>
             <input id="role_type_part_time" name="job[role_type]" type="radio" value="Part Time" />
             <label htmlFor="role_type_part_time">Part Time</label>
+            <input id="role_type_part_time" name="job[role_type]" type="radio" value="Contract" />
+            <label htmlFor="role_type_part_time">Contract</label>
           </div>
 
           <div>
-            <button className={`btn rounded mt1 white ${this.state.saving ? 'bg-gray' : 'bg-green'}`} type="submit" disabled={this.state.saving}>Purchase</button>
+            <button className={`btn rounded mt3 white px4 py2 ${this.state.saving ? 'bg-gray' : 'bg-green'}`} type="submit" disabled={this.state.saving}>
+              Complete Posting Job for $299
+            </button>
           </div>
-        </form>
 
-        <div className="clearfix mt2">
-          <a href="/jobs">Cancel</a>
-        </div>
-      </div>
+        </form>
     )
   }
 
@@ -96,7 +106,6 @@ class NewJob extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('ON SUBMIHT')
     e.preventDefault()
 
     let brokenFields = requiredFields.filter(f => !this.state[f])
@@ -106,7 +115,7 @@ class NewJob extends React.Component {
     this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })
     if (brokenFields.length > 0) { return }
 
-    this.checkout.open({
+    this.state.checkout.open({
       name: "Jobs @ coderwall.com",
       description: "30 day listing",
       amount: this.props.cost,

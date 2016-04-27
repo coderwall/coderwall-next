@@ -1,13 +1,16 @@
+-title 'Find your next job on the Coderwall'
+-description 'Need programming help to build something challenging? Post your job to nearly 500,000 developers using Coderwall each month.'
 
-.clearfix
-  %h1.mt0.mb0
-    Find your next job
+.container
+  .clearfix
+    %h1.mb2
+      Find your next job
 
-  .clearfix.mt1.md-show
-    .col.sm-col-11.py2
-      =form_tag jobs_path, method: :get do
-        = text_field_tag :q, params[:q], placeholder: 'Search great jobs by Location, Title, or Company', class: 'field col-6'
-        .col-1.inline.ml1
+    .clearfix.mb2.md-show
+      .col.sm-col-11.py2
+        =form_tag jobs_path, method: :get do
+          = text_field_tag :q, params[:q], placeholder: 'Search great jobs by Location, Title, or Company', class: 'field col-5'
+          .col-1.inline.ml1
           = hidden_field_tag :show_fulltime, false, id: nil
           = check_box_tag :show_fulltime, true, params[:show_fulltime] == 'true'
           = label_tag :show_fulltime, 'Full Time'
@@ -22,37 +25,28 @@
 
           = hidden_field_tag :show_remote, false, id: nil
           = check_box_tag :show_remote, true, params[:show_remote] == 'true'
-          = label_tag :show_remote, 'Remote Only'
-        .col-1.inline.ml1
-          %button.btn.bg-purple.white.rounded{type: 'submit'}= icon('search')
-    .col.sm-col-1
+          = label_tag :show_remote, 'Remote jobs'
+          .col-1.inline.ml1
+            %button.btn.bg-purple.white.rounded{type: 'submit'}= icon('search')
+      .col.sm-col-1
 
-  .clearfix.mt3
-    .col.sm-col-8
-      - if @featured
-        =render @featured, feature: true
-      =render @jobs, feature: false
+    .clearfix
+      .col.sm-col-8
+        .mb2.purple{style: "border-bottom:solid 5px;"}
+        - if @featured
+          =render @featured, feature: true
+        =render @jobs, feature: false
 
-    .col.sm-col-4.px3
-      .clearfix
-        %h4.mt0
-          Great Jobs for Great Programmers
-        %p.mt2
-          Need programming help to build something challenging? Post your job to nearly 500,000 developers visiting Coderwall each month.
-        .mt2
-          Have questions?
-          %a Contact us
+      .col.sm-col-4.px3
+        .clearfix
+          %h4.mt0
+            Great Jobs for Great Programmers
+          %p.mt2
+            Need programming help to build something challenging? Post your job to nearly 500,000 developers using Coderwall each month.
+          .mt2
+            Have questions?
+            %a{href:'mailto:support@coderwall.com'} Contact us
 
-      %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
-        Post a Job for Programmers
-        .mt1.font-sm== $#{Job::COST} for 30 days
-
-
-      -# to get the most exposure for your jobs.
-      -# Hiring programmers? Create a team to get the most exposure for your jobs.
-      -# Questions?
-      -# Need help or have questions?
-      -# Contact us
-      -# Previously on Coderwall
-      -# All jobs
-      -# Remote jobs
+        %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
+          Post a Job for Programmers
+          .mt1.font-sm== $#{Job::COST} for 30 days

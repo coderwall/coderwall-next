@@ -17,7 +17,9 @@ class Job < ActiveRecord::Base
   validates :source, presence: true
   validates :title, presence: true
 
-  scope :active, -> { where("expires_at > ?", Time.now) }
+  scope :active,   -> { where("expires_at > ?", Time.now) }
+  scope :latest,   ->(count=1) { order(created_at: :desc).limit(count) }
+  scope :featured, ->(count=1) { active.order("RANDOM()").limit(count) }
 
   def charge!(token)
     charge = Stripe::Charge.create(

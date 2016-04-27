@@ -2,11 +2,9 @@ class ProtipsController < ApplicationController
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def home
-    if signed_in?
-      @protips = Protip.includes(:user).order(score: :desc).where(flagged: false).limit(20)
-    else
-      @protips = Protip.all_time_popular + Protip.recently_most_viewed(15)
-    end
+    redirect_to(trending_url) if signed_in?
+
+    @protips = Protip.all_time_popular + Protip.recently_most_viewed(20)    
   end
 
   def index

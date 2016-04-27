@@ -1,11 +1,12 @@
 class JobsController < ApplicationController
 
   def index
-    params[:show_fulltime] ||= true
-    params[:show_remote]   ||= true
-    params[:show_contract] ||= true
-    # raise params.inspect
-
+    if [:show_fulltime, :show_parttime, :show_contract].any?{|s| params[s].blank? }
+      params[:show_fulltime] = 'true'
+      params[:show_parttime] = 'true'
+      params[:show_contract] = 'true'
+      params[:show_remote] = 'false'
+    end
     roles = []
     roles.push(Job::FULLTIME) if params[:show_fulltime] == 'true'
     roles.push(Job::PARTTIME) if params[:show_parttime] == 'true'
@@ -20,8 +21,6 @@ class JobsController < ApplicationController
       @jobs = @jobs.where.not(id: params[:posted])
       @featured = Job.find(params[:posted])
     end
-
-
   end
 
   def new

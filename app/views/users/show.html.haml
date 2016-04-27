@@ -8,10 +8,10 @@
 - meta og:      { image: avatar_url(@user) }         if @user.avatar
 
 - cache_if show_badges?, ['v1', @user, current_user] do
-  .continer[@user]
+  .container[@user]
     .clearfix
-      .md-col.md-col-2.md-show &nbsp;
-      .sm-col.sm-col.sm-col-12.md-col-8
+      .md-col.md-col-1.md-show &nbsp;
+      .sm-col.sm-col.sm-col-12.md-col-10
         .clearfix.mt0.mb1
           .right.mt1
             .diminish.inline.mr1
@@ -127,4 +127,4 @@
 
 
 
-      .sm-col.sm-col12.md-col.md-col-2 &nbsp;
+      .sm-col.sm-col12.md-col.md-col-1 &nbsp;

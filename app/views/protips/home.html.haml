@@ -1,31 +1,37 @@
-- title 'Popular Coding Tips From Our Community'
+- title 'A community of great programmers and their programming tips'
 - keywords Category.top
 
-- cache ['v1', signed_in?], expires_in: 10.minutes do
-  .continer
-    .clearfix.center
-      %h1 Popular Coding Tips From Our Community
-      .clearfix
-        .md-col.md-col-1.md-show &nbsp;
-        .sm-col.sm-col.sm-col-12.md-col-10
-          -Category.top.each do |category|
-            %a.p2.mt1.inline-block{href: popular_topic_path(topic: category)}
-              .bold=t category, scope: [:categories, :short]
-        .md-col.md-col-1.md-show &nbsp;
-    .clearfix.mt4
-      .md-col.md-col-2.md-show &nbsp;
-      .sm-col.sm-col.sm-col-12.md-col-8
-        -if signed_in?
-          .mb2.purple{style: "border-bottom:solid 5px;"}
-            %h3.black Trending Today
-          =render @protips
-          .clearfix
-            .btn.left=link_to('More trending protips', trending_path)
-        -else
-          .mb2.purple{style: "border-bottom:solid 5px;"}
-            %h3.black Most Viewed This Month
-          =render @protips
-          .clearfix
-            .btn.left=link_to('More popular protips', popular_path)
 
-      .md-col.md-col-2.md-show &nbsp;
+- cache 'v2', expires_in: 10.minutes do
+  .container
+    %h1.mb3
+      Where Great Programmers
+      %br Share Their Best Coding Tips
+
+    .clearfix
+      .sm-col.sm-col.sm-col-12.md-col-8
+        .mb2.purple{style: "border-bottom:solid 5px;"}
+        =render @protips
+        .clearfix
+          .btn.right=link_to('More popular protips', popular_path(page:2))
+      .md-col.md-show.md-col-4
+        .ml3
+          .clearfix
+            %h4.mt0.mb2
+              Popular Categories
+            -Category.top.each do |tag|
+              %a.p1.card.border-box.rounded.border.mb1.mr1.left.center.no-hover{href: popular_topic_path(topic: tag)}
+                .bold=t tag, scope: [:categories, :short]
+
+          .clearfix.mt4
+            %h4.mt0.mb1
+              Latest Programming Jobs
+            -Job.latest(3).each do |job|
+              =render 'jobs/mini', job: job, feature: false
+
+            %a.block.mt2.bold{href: jobs_path}
+              Search all programming jobs
+
+            %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
+              Post a Job for Programmers
+              .mt1.font-sm== $#{Job::COST} for 30 days

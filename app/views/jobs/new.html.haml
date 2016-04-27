@@ -1,8 +1,41 @@
+-title 'Post a Job, find & hire great programmers'
+-description 'Need programming help to build something challenging? Post a job for 30 days for only $299.'
+
 %script(src="https://checkout.stripe.com/checkout.js")
 
 .container
+  %h1 Find and hire great programmers
   .clearfix
-    .md-col.md-col-2.md-show &nbsp;
     .sm-col.sm-col.sm-col-12.md-col-8
+      .mb2.purple{style: "border-bottom:solid 5px;"}
       .card.p3
+        %p
+          Fill in your details about your job and we'll feature it to the entire Coderwall community for
+          %strong 30 days for only $299.
+
         = react_component 'NewJob', stripePublishable: ENV['STRIPE_PUBLISHABLE_KEY'], cost: Job::CENTS_PER_MONTH
+
+        .mt2.diminish
+          Coderwall securely accepts all major credit cards.
+
+        .clearfix.mt2
+          = link_to "Cancel", jobs_path
+
+    .md-col.md-col-4.md-show
+      .ml3
+        .clearfix
+          .bg-white.rounded.p2
+            %p Need programming help to build something challenging? Post a job and we'll feature it to the nearly 500,000 developers using Coderwall each month.
+
+            %hr.mt1
+
+            %h5.mt3.mb2
+              =icon('smile-o', class: 'mr1')
+              Guaranteed Happiness
+
+            %p If you're not fully satisfied we'll give you a free listing or a full refund - your choice. Just let us know within 30 days after your listing expires.
+
+        .clearfix.mt1
+          %p.bold.p2
+            Have questions?
+            %a{href:'mailto:support@coderwall.com'} Contact us
