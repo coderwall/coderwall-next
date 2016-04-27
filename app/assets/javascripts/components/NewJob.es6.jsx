@@ -13,23 +13,35 @@ class NewJob extends React.Component {
   constructor(props) {
     super(props)
     this.state = { brokenFields: {} }
-    this.checkout = StripeCheckout.configure({
-      key: props.stripePublishable,
+  }
+
+  componentDidMount() {
+    this.configureCheckout()
+  }
+
+  configureCheckout() {
+    if (typeof StripeCheckout === 'undefined') {
+      setTimeout(() => configureCheckout(), 100)
+    }
+
+    $(window).on('popstate', function() {
+      this.state.checkout.close()
+    })
+
+    this.setState({ checkout: StripeCheckout.configure({
+      key: this.props.stripePublishable,
       image: 'https://s3.amazonaws.com/stripe-uploads/A6CJ1PO8BNz85yiZbRZwpGOSsJc5yDvKmerchant-icon-356788-cwlogo.png',
       locale: 'auto',
       token: token => {
         this.setState({ saving: true, stripeToken: token.id }, () => this.refs.form.getDOMNode().submit())
       }
-    });
-  }
-
-  componentDidMount() {
-    $(window).on('popstate', function() {
-      this.checkout.close()
-    })
+    })})
   }
 
   render() {
+    if (!this.state.checkout) {
+      return null
+    }
     const csrfToken = document.getElementsByName('csrf-token')[0].content
 
     return (
@@ -79,7 +91,7 @@ class NewJob extends React.Component {
             <label htmlFor="role_type_part_time">Contract</label>
           </div>
 
-          <div class='center'>
+          <div>
             <button className={`btn rounded mt3 white px4 py2 ${this.state.saving ? 'bg-gray' : 'bg-green'}`} type="submit" disabled={this.state.saving}>
               Complete Posting Job for $299
             </button>
@@ -94,7 +106,6 @@ class NewJob extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log('ON SUBMIHT')
     e.preventDefault()
 
     let brokenFields = requiredFields.filter(f => !this.state[f])
@@ -104,7 +115,7 @@ class NewJob extends React.Component {
     this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })
     if (brokenFields.length > 0) { return }
 
-    this.checkout.open({
+    this.state.checkout.open({
       name: "Jobs @ coderwall.com",
       description: "30 day listing",
       amount: this.props.cost,

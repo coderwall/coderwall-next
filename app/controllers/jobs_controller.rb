@@ -1,10 +1,11 @@
 class JobsController < ApplicationController
 
   def index
-
     if [:show_fulltime, :show_parttime, :show_contract].any?{|s| params[s].blank? }
-      redirect_to jobs_path(show_fulltime: true, show_parttime: true, show_contract: true, show_remote: false)
-      return
+      params[:show_fulltime] = 'true'
+      params[:show_parttime] = 'true'
+      params[:show_contract] = 'true'
+      params[:show_remote] = 'false'
     end
     roles = []
     roles.push(Job::FULLTIME) if params[:show_fulltime] == 'true'
