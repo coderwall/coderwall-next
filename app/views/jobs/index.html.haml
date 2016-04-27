@@ -8,12 +8,21 @@
       =form_tag jobs_path, method: :get do
         = text_field_tag :q, params[:q], placeholder: 'Search great jobs by Location, Title, or Company', class: 'field col-6'
         .col-1.inline.ml1
-          = check_box_tag :show_fulltime, true, params[:show_fulltime]
+          = hidden_field_tag :show_fulltime, false, id: nil
+          = check_box_tag :show_fulltime, true, params[:show_fulltime] == 'true'
           = label_tag :show_fulltime, 'Full Time'
-          = check_box_tag :show_contract, true, params[:show_contract]
+
+          = hidden_field_tag :show_parttime, false, id: nil
+          = check_box_tag :show_parttime, true, params[:show_parttime] == 'true'
+          = label_tag :show_parttime, 'Part Time'
+
+          = hidden_field_tag :show_contract, false, id: nil
+          = check_box_tag :show_contract, true, params[:show_contract] == 'true'
           = label_tag :show_contract, 'Contracting'
-          = check_box_tag :show_remote, true, params[:show_remote]
-          = label_tag :show_remote, 'Remote'
+
+          = hidden_field_tag :show_remote, false, id: nil
+          = check_box_tag :show_remote, true, params[:show_remote] == 'true'
+          = label_tag :show_remote, 'Remote Only'
         .col-1.inline.ml1
           %button.btn.bg-purple.white.rounded{type: 'submit'}= icon('search')
     .col.sm-col-1
