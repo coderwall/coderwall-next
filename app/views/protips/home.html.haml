@@ -11,7 +11,7 @@
     .clearfix
       .sm-col.sm-col.sm-col-12.md-col-8
         .mb2.purple{style: "border-bottom:solid 5px;"}
-        =render @protips
+        =render @protips.uniq
         .clearfix
           .btn.right=link_to('More popular protips', popular_path(page:2))
       .md-col.md-show.md-col-4

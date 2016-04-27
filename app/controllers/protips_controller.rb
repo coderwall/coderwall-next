@@ -3,8 +3,7 @@ class ProtipsController < ApplicationController
 
   def home
     redirect_to(trending_url) if signed_in?
-
-    @protips = Protip.all_time_popular + Protip.recently_most_viewed(20)    
+    @protips = Protip.all_time_popular + Protip.recently_most_viewed(20)
   end
 
   def index
