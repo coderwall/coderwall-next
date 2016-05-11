@@ -19,7 +19,6 @@ gem 'kaminari'
 gem 'lograge'
 gem 'meta-tags'
 gem 'mini_magick'
-# gem 'newrelic_rpm'
 gem 'pg', '~> 0.15'
 gem 'postmark-rails'
 gem 'puma_worker_killer'
@@ -41,6 +40,8 @@ gem 'sequel'
 gem 'redis'
 gem 'reverse_markdown'
 gem 'faraday'
+# gem 'newrelic_rpm'
+
 
 group :development, :test do
   gem 'capybara'
