@@ -18,12 +18,13 @@
             %h2.mt0.black=protips_heading
             %p.clearfix.py1.font-lg.black=protips_description
         =render @protips
-        .clearfix
-          .btn.left= link_to_previous_page @protips, 'Previous'
-          .btn.right= link_to_next_page @protips, 'Next'
+        .clearfix.mt3
+          .btn.left= link_to_previous_page @protips, 'Previous', class: 'border rounded p1 h3'
+          .btn.right= link_to_next_page @protips, 'Next', class: 'border rounded p1 h3'
 
-      .md-col.md-show.md-col-4
-        .clearfix.ml3
+      .sm-col.sm-col.sm-col-12.md-col-4
+
+        .clearfix.ml3.md-show
           -if first_page?
             -categories = Category.children(params[:topic])
             -if categories.present?
@@ -72,7 +73,7 @@
                   protips
             .mb4
 
-        .clearfix.ml3
+        .clearfix.ml3.md-show
           .bg-white.rounded.p1
             %h5.mt0.mb1
               =icon('diamond', class: 'mr1')
@@ -83,3 +84,9 @@
 
             %a.block.mt2.bold{href: jobs_path}
               Search all programming jobs
+
+        -if show_ads?
+          .clearfix.ml3.mt3
+            #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
+            -if Rails.env.development?
+              %img{src: 'http://placehold.it/350x200'}

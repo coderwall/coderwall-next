@@ -63,25 +63,6 @@
             .sm-col.md-col-7.sm-col-12
               -if show_ads?
                 .mt2.md-right.sm-center
-                  -# .adunit#v1_protip{'data-dimensions'=>"320x100"}
-                  -# :javascript
-                  -#   $.dfp('181068894');
-
-                  -# %script{async: true, src: "//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"}
-                  -# %ins{"class" => "adsbygoogle", "style" => "display:inline-block;width:320px;height:100px", "data-ad-client" => "ca-pub-6075623866293464", "data-ad-slot" => "3507958237"}
-                  -# :javascript
-                  -#   (adsbygoogle = window.adsbygoogle || []).push({});
-
-                  :javascript{id: 'mNCC'}
-                     medianet_width = "300";
-                     medianet_height = "250";
-                     medianet_crid = "777595362";
-                     medianet_versionId = "111299";
-                     (function() {
-                         var isSSL = 'https:' == document.location.protocol;
-                         var mnSrc = (isSSL ? 'https:' : 'http:') + '//contextual.media.net/nmedianet.js?cid=8CU5XGBHT' + (isSSL ? '&https=1' : '');
-                         document.write('<scr' + 'ipt type="text/javascript" id="mNSC" src="' + mnSrc + '"></scr' + 'ipt>');
-                     })();
 
         -if signed_in?
           #new-comment.new-comment.mt2.mb2.px2
@@ -90,7 +71,7 @@
             = form_for Comment.new do |form|
               .border.rounded
                 = form.hidden_field :protip_id, value: @protip.id
-                = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter your response here. Smile and don't forget to be nice.", style: 'border: none; outline: none', value: flash[:data]
+                = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter a response here. Smile and be nice.", style: 'border: none; outline: none', value: flash[:data]
                 .text-area-footer.px1.py1.font-sm
                   Markdown is totally
                   =icon('thumbs-o-up')
@@ -107,7 +88,7 @@
           %h4=pluralize(@protip.comments.size, 'Response')
           =render @protip.comments
 
-    .md-col.md-show.md-col-4
+    .sm-col.sm-col.sm-col-12.md-col-4
       -if @protip.related_topics.present?
         .clearfix.ml3.mt3.p1
           %h5.mt0.mb1
@@ -120,7 +101,7 @@
                 .bold=t(topic, scope: :categories)
 
       - cache ['v1', @protip, 'featured-jobs', expires_in: 1.day ] do
-        .clearfix.ml3.mt3
+        .clearfix.ml3.mt3.md-show
           .bg-white.rounded.p1
             %h5.mt0.mb1
               =icon('diamond', class: 'mr1')
@@ -131,6 +112,14 @@
 
             %a.block.mt2.bold{href: jobs_path}
               Search all programming jobs
+
+      -if show_ads?
+        .clearfix.ml3.mt3
+          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
+          -if Rails.env.development?
+            %img{src: 'http://placehold.it/350x200'}
+
+
 
 
 %script{ src: "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" }
