@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get    '/twitter/:username', to: redirect("/404", status:302)
   get    '/github/:username',  to: redirect("/404", status:302)
   get    '/team/:slug'     => 'teams#show'
+  get    '/live' => 'streams#index'
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
@@ -83,6 +84,7 @@ Rails.application.routes.draw do
   resources :hooks, only: [] do
     collection do
       post 'sendgrid'
+      post 'quickstream' => 'quickstream#webhook'
     end
   end
 end

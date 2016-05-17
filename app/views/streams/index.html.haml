@@ -1,0 +1,28 @@
+-title 'Coderwall Live'
+-description 'Coders at work.'
+
+.container
+  .clearfix
+    %h1.mb2
+      Live now
+
+    #stream
+
+    - @streams.each do |stream|
+      = stream.inspect
+
+- if featured = @streams.first
+  %script(src="https://content.jwplatform.com/libraries/pEaCoeG7.js")
+  %script
+    :erb
+      jwplayer.key="ABCdeFG123456SeVenABCdeFG123456SeVen==";
+      jwplayer("stream").setup({
+         sources: [{
+          file: <%== featured.sources['rtmp'].to_json %>
+        }],
+        captions: {
+          color: "FFCC00",
+          backgroundColor: "000000",
+          backgroundOpacity: 50
+        }
+      });
