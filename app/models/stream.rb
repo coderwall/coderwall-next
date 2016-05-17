@@ -1,5 +1,5 @@
 class Stream < Struct.new(:user, :sources)
-  html_schema_type :BroadcastEvent
+  # html_schema_type :BroadcastEvent
 
   def self.live
     resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
