@@ -1,4 +1,4 @@
-<div id='stream'></div>
+<div id='<%=dom_id(stream)%>'></div>
 
 <% content_for :head do %>
  <script src="https://content.jwplatform.com/libraries/pEaCoeG7.js" />
@@ -7,7 +7,7 @@
 <script>
   jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
 
-  jwplayer("stream").setup({
+  jwplayer("<%=dom_id(stream)%>").setup({
      sources: [{
       file: <%== stream.rtmp_json %>
     }],
@@ -16,5 +16,6 @@
       backgroundColor: "000000",
       backgroundOpacity: 50
     }
-  });
+  }).onPlay(constrainChatToStream);
+
 </script>

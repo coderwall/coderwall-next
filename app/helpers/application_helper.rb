@@ -12,6 +12,10 @@ module ApplicationHelper
     end
   end
 
+  def hide_on_streams
+    return 'hide' if params[:controller] == 'streams'
+  end
+
   def hide_on_auth
     if params[:controller] == 'clearance/sessions'  ||
        params[:controller] == 'clearance/users'     ||

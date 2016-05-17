@@ -15,7 +15,7 @@
 
 .container
   .clearfix
-    .sm-col.col-12.md-col-8
+    .col.col-12.md-col-8
       .clearfix.mt0.mb1
         .left
           .rounded.p1.bg-red.white.bold
@@ -34,7 +34,15 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        =render 'streams/player', stream: @stream
+        .stream=render 'streams/player', stream: @stream
 
-    .col-4.sm-col-12
-      
+    .col.col-12.md-col-4
+      .flex.flex-column.ml2
+        %h4.diminish Community Chat
+        #chat.flex-auto.overflow-scroll.border-top{style:"max-height:400px"}
+          .diminish.center.py2 Top of Chat
+          =render Comment.limit(100)
+        .flex-last.border.p1.mt2
+          Comment here
+
+  .clearfix

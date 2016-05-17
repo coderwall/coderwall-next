@@ -1,4 +1,7 @@
-class Stream < Struct.new(:user, :sources)
+class Stream
+  include ActiveModel::Model
+  attr_accessor :user, :sources
+
   # html_schema_type :BroadcastEvent
 
   def self.live
@@ -14,8 +17,12 @@ class Stream < Struct.new(:user, :sources)
     end
 
     User.where(username: streamers.keys).map do |u|
-      Stream.new(u, streamers[u.username]['sources'])
+      Stream.new(user: u, sources: streamers[u.username]['sources'])
     end
+  end
+
+  def id
+    object_id
   end
 
   def rtmp_json

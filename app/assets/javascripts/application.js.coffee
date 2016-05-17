@@ -29,6 +29,19 @@ $ ->
 
   document.current_user_likes = new Likes(document.current_user_id)
 
+  constrainChatToStream()
+  scrollToBottomOfChat()
+  $(window).resize ->
+    constrainChatToStream()
+    scrollToBottomOfChat()
+
+@constrainChatToStream = ->
+  console.log($('.stream:first').height())
+  $('#chat').css('max-height', $('.stream:first').height() - 45)
+
+@scrollToBottomOfChat = ->
+  $('#chat').scrollTop($('#chat').prop("scrollHeight"))
+
 @setUserId = ->
   userId = $("meta[property='current_user:id']").attr("content")
   document.current_user_id = userId if userId?

@@ -8,7 +8,7 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     = render 'shared/analytics'
-    = yield :head    
+    = yield :head
   %body
     :javascript
       (function(){
@@ -46,7 +46,7 @@
           .clearfix.rounded.py2.mt3.white.bg-navy.bold.center.font-lg=flash[:notice]
       %main.flex-auto.py3
         .px3=yield
-      %footer.border-top
+      %footer.border-top.overflow-hidden
         %nav.clearfix
           .sm-col.py1.mt1
             %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}
