@@ -69,11 +69,12 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/:username'          => 'users#show', as: :profile
-  get '/:username/protips'  => 'users#show', as: :profile_protips,  protips:  true
-  get '/:username/comments' => 'users#show', as: :profile_comments, comments: true
+  get '/:username'          => 'users#show',   as: :profile
+  get '/:username/protips'  => 'users#show',   as: :profile_protips,  protips:  true
+  get '/:username/comments' => 'users#show',   as: :profile_comments, comments: true
+  get '/:username/live'     => 'streams#show', as: :profile_stream
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
-
+  
   get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
     '/legacy.jquery.coderwall.css'
   }

@@ -1,8 +1,15 @@
+<div id='stream'></div>
+
+<% content_for :head do %>
+ <script src="https://content.jwplatform.com/libraries/pEaCoeG7.js" />
+<% end %>
+
 <script>
   jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
+
   jwplayer("stream").setup({
      sources: [{
-      file: <%== rtmp %>
+      file: <%== stream.rtmp_json %>
     }],
     captions: {
       color: "FFCC00",

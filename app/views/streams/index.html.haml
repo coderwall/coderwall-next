@@ -1,16 +1,13 @@
 -title 'Coderwall Live'
 -description 'Coders at work.'
-%script{src:"https://content.jwplatform.com/libraries/pEaCoeG7.js"}
 
 .container
   .clearfix
     %h1.mb2
       Live now
 
-    #stream
-
     - @streams.each do |stream|
       = stream.inspect
 
-- if @streams.any?
-  =render 'streams/player', rtmp: @streams.first.rtmp_json
+  - if @streams.any?
+    =render 'streams/player', stream: @streams.first

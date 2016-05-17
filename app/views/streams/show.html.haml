@@ -1,4 +1,40 @@
-%script{src:="https://content.jwplatform.com/libraries/pEaCoeG7.js"}
+-title 'Coderwall Live'
+-description 'Coders at work.'
 
-.container[@stream]
-  
+-# report
+-# message
+-# follow
+-# donate
+-# tags
+-# title
+-# markdown
+-# chat
+-# past broadcasts
+-# other broadcasts
+-# ad
+
+.container
+  .clearfix
+    .sm-col.col-12.md-col-8
+      .clearfix.mt0.mb1
+        .left
+          .rounded.p1.bg-red.white.bold
+            LIVE
+        %h3.left.m0.p1
+          Streaming my favorite editor
+
+        .right
+          .diminish.inline.mr1
+            =icon("eye")
+            343
+          &middot;
+          .ml1.mr1.inline
+            =link_to @user.username, profile_path(username: @user.username)
+          .avatar[:image]{style: "background-color: #{@user.color};"}
+            =avatar_url_tag(@user)
+
+      .card{style: "border-top:solid 5px #{@user.color}"}
+        =render 'streams/player', stream: @stream
+
+    .col-4.sm-col-12
+      

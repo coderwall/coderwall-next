@@ -4,7 +4,7 @@ class StreamsController < ApplicationController
     @stream = Rails.cache.fetch("quickstream/stream/show", expires_in: 5.seconds) do
       Stream.live.sample
     end
-    @user = @stream.user
+    @user   = @stream.user
   end
 
   def index

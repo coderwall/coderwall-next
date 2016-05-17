@@ -151,9 +151,18 @@ header {
     height: 24px;
   }
 
-	&.medium, &.big{
+	&.small, &.medium, &.big{
 		position: inherit;
 		top: inherit;
+	}
+
+	&.medium {
+		width: 37px;
+		height: 37px;
+		img{
+			width: 37px;
+			height: 37px;
+		}
 	}
 
 	&.big{
