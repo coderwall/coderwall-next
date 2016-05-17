@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     tos
     usernames
     users
+    live
+    stream
+    streams
+    broadcast
   }
 
   VALID_USERNAME_RIGHT_WAY = /\A[a-z0-9]+\z/

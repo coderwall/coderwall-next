@@ -1,4 +1,6 @@
 class Stream < Struct.new(:user, :sources)
+  html_schema_type :BroadcastEvent
+
   def self.live
     resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
       headers: {
@@ -15,4 +17,9 @@ class Stream < Struct.new(:user, :sources)
       Stream.new(u, streamers[u.username]['sources'])
     end
   end
+
+  def rtmp_json
+    sources['rtmp'].to_json
+  end
+
 end

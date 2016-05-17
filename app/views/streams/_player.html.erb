@@ -1,0 +1,13 @@
+<script>
+  jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
+  jwplayer("stream").setup({
+     sources: [{
+      file: <%== rtmp %>
+    }],
+    captions: {
+      color: "FFCC00",
+      backgroundColor: "000000",
+      backgroundOpacity: 50
+    }
+  });
+</script>
