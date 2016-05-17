@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425233554) do
+ActiveRecord::Schema.define(version: 20160513032303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "citext"
-  enable_extension "pg_stat_statements"
   enable_extension "uuid-ossp"
 
   create_table "badges", force: :cascade do |t|
@@ -164,11 +163,13 @@ ActiveRecord::Schema.define(version: 20160425233554) do
     t.datetime "banned_at"
     t.text     "marketing_list"
     t.datetime "email_invalid_at"
+    t.text     "stream_key"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
+  add_index "users", ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "badges", "users", name: "badges_user_id_fk"

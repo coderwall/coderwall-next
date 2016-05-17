@@ -87,4 +87,8 @@ class User < ActiveRecord::Base
     self.skills = val.split(',').collect(&:strip)
   end
 
+  def generate_stream_key
+    self.stream_key = "live_cw_#{Digest::SHA1.hexdigest("#{id}-#{Time.now.to_i}-#{rand}")}"
+  end
+
 end
