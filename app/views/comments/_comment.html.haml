@@ -1,5 +1,5 @@
 - cache ['v2', comment, current_user_can_edit?(comment)] do
-  .clearfix.border-top.py1[comment]{id: dom_id(comment)}
+  .clearfix.border-top.py1[comment]{id: dom_id(comment), class: hide_border_on_chat}
     .hide= time_tag comment.created_at, itemprop: "datePublished"
     .hide[:name]= comment.id
 
@@ -11,7 +11,7 @@
           %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
             =comment.user.username
         .content.small[:text]= sanitize(CoderwallFlavoredMarkdown.render_to_html(comment.body))
-        .diminish.mt1{class: hide_on_streams}
+        .diminish.mt1{class: hide_on_chat}
           ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
           -if current_user_can_edit?(comment)
             &middot;

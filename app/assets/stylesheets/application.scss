@@ -117,7 +117,7 @@ $placeholder: darken($silver, 20%);
 }
 
 .default-cursor{
-	cursor: default !important;
+	cursor: pointer !important;
 }
 
 .pointer {
@@ -208,4 +208,8 @@ div[data-react-class] {
 #v1_protip {
 	width: 320;
 	height: 100;
+}
+
+.no-border-ever{
+	border: none !important;
 }

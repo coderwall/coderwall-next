@@ -7,23 +7,19 @@
     .inline.mr1 /
     =@user.username
 
-.container.overflow-hidden
+.container
   .clearfix
     .col.col-12.md-col-8
       .clearfix.mt0.mb1
         -if @stream.live?
           .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
-        %h3.left.m0.py1
+        %h2.left.m0
           =@stream.title
 
         .right
-          .diminish.inline.mr1
-            =icon("eye")
-            343
-          &middot;
           -if !@stream.live?
-            .diminish.inline.mr1.ml1 Recorded Earlier
+            .diminish.inline.mr1.ml1 Recorded earlier
             &middot;
           .ml1.mr1.inline
             =link_to @user.username, profile_path(username: @user.username)
@@ -33,20 +29,25 @@
       .card{style: "border-top:solid 5px #{@user.color}"}
         .stream=render 'streams/player', stream: @stream
         .clearfix.p2
-          .col.col-8.mt2[:keywords]
+          .col.col-8
             -@stream.tags.each do |tag|
               %h6.diminish.inline.mr1=link_to tag, popular_topic_path(topic: tag)
-          .col.col-4.py2
+          .col.col-4
             -# message
             -# follow
             -# donate
-            %a.right.mr1
-              =icon('twitter', class: 'h5')
-              Share
-            %a.right.inline.px2
+
+            .right.diminish.px1
+              =icon("eye", class: 'h5')
+              343
+
+            %a.right.diminish.px1.pointer{href: "mailto:support@coderwall.com?subject=reporting%20#{@user.username}"}
               =icon('flag', class: 'h5')
               Report
 
+            %a.right.diminish.px1.pointer
+              =icon('twitter', class: 'h5')
+              Share
 
         .clearfix.p2
           %h4 About Stream
@@ -71,14 +72,11 @@
 
           -# %h4 Streams
 
-
-
-
     .col.col-12.md-col-4
-      .flex.flex-column.ml3
-        %h4.diminish Community Discussion
-        #chat.flex-auto.overflow-scroll.border-top{style:"max-height:400px"}
-          .diminish.center.py2 Start of discussion
+      %h4.ml3.diminish Community Discussion
+      .flex.flex-column.ml3.bg-white.rounded
+        #chat.flex-auto.overflow-scroll.border-top.p1{style:"max-height:400px;min-height: 400px"}
+          .diminish.py1.center Start of discussion
           =render @stream.comments
         .flex-last.mt2
           -if !signed_in?
@@ -100,7 +98,7 @@
                   %button.btn.m0.right.bg-green.white{type: 'submit', style: 'height: 100%;'} Send
           -else
             .clearfix.border.rounded.p0.m0.bg-white
-              .col.font-sm.bold.gray.p1
+              .col.font-sm.gray.p1
                 Commenting disabled
               %button.right.btn.m0.right.bg-gray.silver{disabled: true}
                 =icon('lock', class: 'mr1')

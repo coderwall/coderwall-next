@@ -36,8 +36,9 @@ $ ->
     scrollToBottomOfChat()
 
 @constrainChatToStream = ->
-  console.log($('.stream:first').height())
-  $('#chat').css('max-height', $('.stream:first').height() - 45)
+  anchorHeight = $('.stream:first').height()
+  $('#chat').css('max-height', anchorHeight - 69)
+  $('#chat').css('min-height', anchorHeight - 70)
 
 @scrollToBottomOfChat = ->
   $('#chat').scrollTop($('#chat').prop("scrollHeight"))

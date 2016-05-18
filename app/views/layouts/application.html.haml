@@ -18,7 +18,8 @@
            bsa.src = '//s3.buysellads.com/ac/bsa.js';
         (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
       })();
-    .flex.flex-column{:style => "min-height:100vh"}
+    -# .flex.flex-column{:style => "min-height:100vh"}
+    .clearfix
       %header.border-bottom
         %nav.clearfix.px2
           .sm-col.py2
@@ -44,9 +45,9 @@
         =yield :breadcrumbs
         -if flash[:notice].present?
           .clearfix.rounded.py2.mt3.white.bg-navy.bold.center.font-lg=flash[:notice]
-      %main.flex-auto.py3
-        .px3=yield
-      %footer.border-top.overflow-hidden
+      %main.p3
+        =yield
+      %footer.border-top
         %nav.clearfix
           .sm-col.py1.mt1
             %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}

@@ -12,8 +12,12 @@ module ApplicationHelper
     end
   end
 
-  def hide_on_streams
+  def hide_on_chat
     return 'hide' if params[:controller] == 'streams'
+  end
+
+  def hide_border_on_chat
+    return 'no-border-ever' if params[:controller] == 'streams'
   end
 
   def hide_on_auth

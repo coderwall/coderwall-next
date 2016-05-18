@@ -5,6 +5,13 @@ class Stream
   # html_schema_type :BroadcastEvent
 
   def self.live
+    # return User.where(username: ['whatupdave']).map do |u|
+    #   Stream.new(
+    #     user: u,
+    #     sources: {'rmtp' => "rtmp://live.coderwall.com/coderwall/whatupdave"}
+    #   )
+    # end
+
     resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
       headers: {
         "Content-Type" => "application/json" },
@@ -30,7 +37,7 @@ class Stream
   end
 
   def live?
-    @live ||= [true, false].sample
+    @live ||= ([true, false].sample)
   end
 
   def comments
