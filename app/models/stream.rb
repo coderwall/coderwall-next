@@ -30,8 +30,7 @@ class Stream
   end
 
   def live?
-    return false
-    [true, false].sample
+    @live ||= [true, false].sample
   end
 
   def comments

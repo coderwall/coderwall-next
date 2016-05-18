@@ -3,18 +3,18 @@
 
 -content_for :breadcrumbs do
   .mxn1.font-tiny.mt0.diminish
-    %a.btn.px1{href: live_streams_path} Live Streams
+    %a.btn.px1{href: live_streams_path} Streams
     .inline.mr1 /
     =@user.username
 
-.container
+.container.overflow-hidden
   .clearfix
     .col.col-12.md-col-8
       .clearfix.mt0.mb1
         -if @stream.live?
-          .left
+          .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
-        %h3.left.m0.p1
+        %h3.left.m0.py1
           =@stream.title
 
         .right
@@ -22,6 +22,9 @@
             =icon("eye")
             343
           &middot;
+          -if !@stream.live?
+            .diminish.inline.mr1.ml1 Recorded Earlier
+            &middot;
           .ml1.mr1.inline
             =link_to @user.username, profile_path(username: @user.username)
           .avatar[:image]{style: "background-color: #{@user.color};"}
@@ -66,7 +69,7 @@
                   .inline[:homeLocation]=@user.location
                   .hide_last_child.inline &middot;
 
-          %h4 Streams
+          -# %h4 Streams
 
 
 
