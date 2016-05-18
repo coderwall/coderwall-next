@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get    '/twitter/:username', to: redirect("/404", status:302)
   get    '/github/:username',  to: redirect("/404", status:302)
   get    '/team/:slug'     => 'teams#show'
-  get    '/live' => 'streams#index'
+  get    '/live' => 'streams#index', as: :live_streams
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   get '/:username/comments' => 'users#show',   as: :profile_comments, comments: true
   get '/:username/live'     => 'streams#show', as: :profile_stream
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
-  
+
   get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
     '/legacy.jquery.coderwall.css'
   }
