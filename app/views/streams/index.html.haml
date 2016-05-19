@@ -1,13 +1,94 @@
 -title 'Coderwall Live'
 -description 'Coders at work.'
 
+-# why
+-# Community Pair Programming & Design Critiques
+-# start streaming now : What are you working on?
+-# Weekly Lunch and learns
+-# Topics of previous streams
+-# Marketing for quick stream
+-# hackernoons
+-# Empty state: Every Friday Live Stream
+-# critique
+-# live stream your side project
+-# Remind me button
+-# I want to present lunch and learn
+-# what can you Live stream
+
+-content_for :hero do
+  .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: "background-image: url(#{asset_path('live-banner.jpg')})"}
+    %h1
+      Watch Live Video Streams of
+      %br.sm-show
+      Developers & Designers
+
 .container
   .clearfix
-    %h1.mb2
-      Live now
+    .col.col-12.sm-col-8
+      .mb2.purple{style: "border-bottom:solid 5px;"}
+        %h2.mt0.black
+          Share & Learn Something New
+        %p.clearfix.font-lg.black
+          Developers and designers streaming their newest tips, tools, thoughts, and projects.
 
-    - @streams.each do |stream|
-      = stream.inspect
+      .clearfix.mt3.mb4
+        -if @streams.empty?
+          %p.bold.purple
+            =icon('tv', class: 'mr1')
+            There are no live video streams at the moment.
+          %p
+            %a{href: new_stream_path} Go live now
+            or join this Friday for the community's live streamed lunch and learns.
+        -else
+          -@streams.each do |stream|
+            %a.mx-auto.col.col-12.sm-col-6.lg-col-4.p1{href: new_user_path}
+              .border.rounded
+                .fit=image_tag(stream.preview_image_url, class: 'rounded-top fit')
+                .relative.bg-red.white.right.bold.p-tiny.font-tiny{style: 'top:-29px; margin-bottom:-29px;'} LIVE
+                .mt1.p1
+                  .h4.bold=stream.title
+                  .mt1.gray
+                    %h6{style: 'min-height: 3.75em;'}=stream.tags
+                    .overflow-auto.font-sm.mt3.bold
+                      .table
+                        .table-cell.align-middle.p0
+                          =avatar_url_tag(stream.user)
+                          -# =image_tag stream.avatar_url, class: 'rounded', width: 20, height: 20
+                        .table-cell.align-middle
+                          =stream.user.username
+                        .table-cell.align-middle
+                          .right
+                            .inline=icon 'eye'
+                            =stream.viewer_count
+                    .clearfix
 
-  - if @streams.any?
-    =render 'streams/player', stream: @streams.first
+
+    .col.col-12.sm-col-1.sm-show &nbsp;
+    .col.col-12.sm-col-3
+      .clearfix.mb4
+        %h4.mt4 What to expect
+        %hr.mb2
+
+
+
+        -# %a.h4.bold.pointer.p1.border.no-hover
+        -#   =icon('calendar', class: 'mr1')
+        -#   Add this Friday's event to your calendar
+
+
+
+        %p
+          What you stream is up to you; from learning something new, hacking on an interesting project, or teaching others something you’ve already mastered.
+
+        %p
+          From n00bs to masters. Anyone can start sharing.
+          Range from jr-sr
+          help others improve their skills, get input, and connect with others.
+        -# %h2
+        %h4.mt4
+          =icon('video-camera')
+          Start live streaming
+        %hr.mb2
+        %p
+          Want to present? No problem. You can start all on your.
+          Contact us if you have questions.

@@ -4,6 +4,10 @@ class Stream
 
   # html_schema_type :BroadcastEvent
 
+  def self.any_live?
+    false
+  end
+
   def self.live
     # return User.where(username: ['whatupdave']).map do |u|
     #   Stream.new(
@@ -36,11 +40,20 @@ class Stream
     ['ruby', 'web development', 'front-end']
   end
 
+  def viewer_count
+    rand(1000)
+  end
+
+  def preview_image_url
+    "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
+  end
+
   def live?
-    @live ||= ([true, false].sample)
+    true
   end
 
   def comments
+    return []
     Comment.limit(rand(100))
   end
 

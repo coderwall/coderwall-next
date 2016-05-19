@@ -1,5 +1,4 @@
 -title "Live Stream #{@stream.title}"
--description 'Coders at work.'
 
 -content_for :breadcrumbs do
   .mxn1.font-tiny.mt0.diminish
@@ -14,6 +13,7 @@
         -if @stream.live?
           .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
+
         %h2.left.m0
           =@stream.title
 
@@ -69,7 +69,6 @@
                 -if @user.location.present?
                   .inline[:homeLocation]=@user.location
                   .hide_last_child.inline &middot;
-
           -# %h4 Streams
 
     .col.col-12.md-col-4
@@ -77,7 +76,7 @@
       .flex.flex-column.ml3.bg-white.rounded
         #chat.flex-auto.overflow-scroll.border-top.p1{style:"max-height:400px;min-height: 400px"}
           .diminish.py1.center Start of discussion
-          =render @stream.comments
+          .clearfix=render @stream.comments
         .flex-last.mt2
           -if !signed_in?
             .clearfix.border.rounded.p0.m0.bg-white

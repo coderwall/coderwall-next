@@ -18,7 +18,6 @@
            bsa.src = '//s3.buysellads.com/ac/bsa.js';
         (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(bsa);
       })();
-    -# .flex.flex-column{:style => "min-height:100vh"}
     .clearfix
       %header.border-bottom
         %nav.clearfix.px2
@@ -33,20 +32,29 @@
             -if signed_in?
               %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
                 Post Protip
+              %a.ml2.btn{:href => live_streams_path}
+                Video Streams
+                -if Stream.any_live?
+                  .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
               %a.btn{:href => jobs_path} Jobs
               %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
                 .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
             -else
               %a.btn{:href => new_protip_path} Post Protip
+              %a.btn{:href => live_streams_path}
+                Video Streams
+                -if Stream.any_live?
+                  .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
               %a.btn{:href => jobs_path} Jobs
               %a.btn.active-text.mr2{:href => sign_in_path} Log In
               %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
+      =yield :hero
       .mt1.px3
         =yield :breadcrumbs
         -if flash[:notice].present?
           .clearfix.rounded.py2.mt3.white.bg-navy.bold.center.font-lg=flash[:notice]
-      %main.p3
-        =yield
+      %main
+        .p3=yield
       %footer.border-top
         %nav.clearfix
           .sm-col.py1.mt1
