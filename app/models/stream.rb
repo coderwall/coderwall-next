@@ -1,8 +1,6 @@
 class Stream < Article
-  # include ActiveModel::Model
-  # attr_accessor :user, :sources
 
-  # html_schema_type :BroadcastEvent
+  html_schema_type :BroadcastEvent
 
   def self.next_weekly_lunch_and_learn
     friday = (Time.now.beginning_of_week + 4.days)
@@ -15,7 +13,7 @@ class Stream < Article
   end
 
   def self.any_live?
-    true
+    live.any?
   end
 
   def self.live

@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def  darkened_bg_image(filename)
-    transparency = '0.50'
+    transparency = '0.60'
     "background-image: linear-gradient(to bottom, rgba(0,0,0,#{transparency}) 0%,rgba(0,0,0,#{transparency}) 100%), url(#{asset_path(filename)});"
   end
 
