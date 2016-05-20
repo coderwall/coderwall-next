@@ -34,6 +34,14 @@ $ ->
     constrainChatToStream()
     scrollToBottomOfChat()
 
+  $('.js-scrollable').bind 'mousewheel DOMMouseScroll', (e) ->
+    d = e.originalEvent.wheelDelta || -e.originalEvent.detail
+    stop = if d > 0
+      this.scrollTop == 0
+    else
+      this.scrollTop > this.scrollHeight - this.offsetHeight
+    e.preventDefault() if stop
+
 @constrainChatToStream = ->
   anchorHeight = $('.stream:first').height()
   $('#chat').css('max-height', anchorHeight - 69)

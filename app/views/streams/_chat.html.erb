@@ -1,0 +1,11 @@
+<script src="//js.pusher.com/2.2/pusher.min.js"></script>
+<script>
+var pusher = new Pusher('<%= Pusher.key %>');
+var channel = pusher.subscribe('<%= @stream.dom_id %>');
+channel.bind('new-comment', function(data) {
+  $.getScript('/comments/'+ data.id + '.js')
+});
+$("#new_comment").bind("ajax:complete", function(event,xhr,status){
+  $('#comment_body').val('');
+})
+</script>

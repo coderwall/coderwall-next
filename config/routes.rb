@@ -69,6 +69,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :streams, path: '/s', only: [] do
+    get :comments
+  end
+
+
   get '/:username'          => 'users#show',   as: :profile
   get '/:username/protips'  => 'users#show',   as: :profile_protips,  protips:  true
   get '/:username/comments' => 'users#show',   as: :profile_comments, comments: true

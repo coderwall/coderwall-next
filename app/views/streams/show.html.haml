@@ -27,7 +27,7 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        .stream=render 'streams/player', stream: @stream
+        .stream= #render 'streams/player', stream: @stream
         .clearfix.p2
           .col.col-8
             -@stream.tags.each do |tag|
@@ -52,7 +52,7 @@
         .clearfix.p2
           %h4 About Stream
           %p.content[:description]
-            = sanitize CoderwallFlavoredMarkdown.render_to_html(@stream.about)
+            = sanitize CoderwallFlavoredMarkdown.render_to_html(@stream.body)
 
         .clearfix.p2
           %a.no-hover.black{href: profile_path(username: @user.username)}
@@ -74,9 +74,9 @@
     .col.col-12.md-col-4
       %h4.ml3.diminish Community Discussion
       .flex.flex-column.ml3.bg-white.rounded
-        #chat.flex-auto.overflow-scroll.border-top.p1{style:"max-height:400px;min-height: 400px"}
+        #chat.flex-auto.overflow-scroll.border-top.p1.js-scrollable{style:"max-height:400px;min-height: 400px"}
           .diminish.py1.center Start of discussion
-          .clearfix=render @stream.comments
+          .clearfix#comments=render @stream.comments, style: :small
         .flex-last.mt2
           -if !signed_in?
             .clearfix.border.rounded.p0.m0.bg-white
@@ -88,8 +88,8 @@
                 Send
 
           -elsif @stream.live?
-            = form_for Comment.new, class: '' do |form|
-              = form.hidden_field :stream_id, value: @stream.id
+            = form_for Comment.new, remote: true do |form|
+              = form.hidden_field :article_id, value: @stream.id
               .border.rounded.p0.m0.bg-white
                 = form.text_field :body, class: 'col-9 focus-no-border font-sm  resize-chat-on-change m0', placeholder: "Comment", style: 'border: none; outline: none;', value: flash[:data]
 
@@ -108,3 +108,5 @@
           #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
           -if Rails.env.development?
             %img{src: 'http://placehold.it/350x200'}
+
+= render 'chat'
