@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get    '/github/:username',  to: redirect("/404", status:302)
   get    '/team/:slug'     => 'teams#show'
   get    '/live' => 'streams#index', as: :live_streams
+  get    '/live/lunch-and-learn.ics' => 'streams#invite', as: :lunch_and_learn_invite
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]

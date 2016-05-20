@@ -6,10 +6,16 @@ class Stream
 
   def self.next_weekly_lunch_and_learn
     friday = (Time.now.beginning_of_week + 4.days)
+    event  = Time.new(friday.utc.year, friday.utc.month, friday.utc.day, 9, 30, 0)
+    if already_passed = (Time.now > event)
+      event + 1.week
+    else
+      event
+    end
   end
 
   def self.any_live?
-    false
+    true
   end
 
   def self.live
