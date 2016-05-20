@@ -16,7 +16,7 @@
 -# what can you Live stream
 
 -content_for :hero do
-  .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: "background-image: url(#{asset_path('live-banner.jpg')})"}
+  .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: darkened_bg_image('live-banner.jpg')}
     %h1
       Watch Live Video Streams of
       %br.sm-show
@@ -31,53 +31,40 @@
         %p.clearfix.font-lg.black
           Developers and designers streaming their newest tips, tools, and projects.
 
-      .clearfix.mt2.mb4
-        %h5.mb2 Live Streams
+      .clearfix.mb4
         -if @streams.empty?
-          %p.bold.purple
+          %p.bold.purple.mt2.mb3
             =icon('tv', class: 'mr1')
             There are no live video streams at the moment.
-            %a.btn.ml2.p1.border.blue.rounded.no-hover{href: new_stream_path}
-              -# =icon('video-camera')
-              Go Live Now
+
+          =render 'go_live'
+
         -else
+          %h5.mb2 Live Streams
           -@streams.each do |stream|
             =render 'card', stream: stream
 
     .col.col-12.md-col-1.md-show &nbsp;
     .col.col-12.md-col-3
-      .clearfix
+      .clearfix.mb4
         %h4.mt1
-          Join the live weekly lunch & learn
-        %hr.mb2
-        -# add image he
-        %p
-          sd fsadfsadfkj asdf
-        %a.inline-block.bold.pointer.p1.no-hover.mb4
-          =icon('calendar', class: 'mr1')
-          Add Friday's to your calendar
-
-
-        - if @streams.any?
-          %h4.mt1
-            Start live streaming
-          %hr.mb2
+          Weekly Community Lunch & Learns
+        .rounded.p2.white.bg-gray.bg-cover.bg-bottom{style: darkened_bg_image('conference-room.png')}
           %p
-            Want to present? No problem. You can start all on your.
-            Contact us if you have questions.
+            Join the community once a week for a lunch and learn. N00bs to masters come to swap skills, get feedback, and connect with other experts.
+          .clearfix
+            .col.col-6
+              .block.bold=next_lunch_and_learn
+              .block 12:30 - 4:00 EDT
+              .block 09:30 - 1:00 PDT
+            .col.col-6
+              %a.btn.pointer.p2.no-hover.bg-green.rounded.white.mt1
+                =icon('calendar')
+                Remind me
 
-          %a.btn.p1.border.blue.rounded.no-hover{href: new_stream_path}
-            -# =icon('video-camera')
-            Go Live Now
+      -if @streams.any?
+        =render 'go_live'
 
-
-        %h4.mt3 What to expect
-        %hr.mb2
-        %p
-          What you stream is up to you; from learning something new, hacking on an interesting project, or teaching others something you’ve already mastered.
-
-        %p
-          From n00bs to masters. Anyone can start sharing.
-          Range from jr-sr
-          help others improve their skills, get input, and connect with others.
-        -# %h2
+      %p.diminish
+        Have questions?
+        %a.underline{href: 'mailto:support@coderwall.com'} Contact us.

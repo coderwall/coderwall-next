@@ -4,6 +4,11 @@ module ApplicationHelper
     ENV['SHOW_ADS'] == 'true' || Rails.env.development?
   end
 
+  def  darkened_bg_image(filename)
+    transparency = '0.50'
+    "background-image: linear-gradient(to bottom, rgba(0,0,0,#{transparency}) 0%,rgba(0,0,0,#{transparency}) 100%), url(#{asset_path(filename)});"
+  end
+
   def time_ago_in_words_with_ceiling(time)
     if time < 1.year.ago
       'over 1 year'
@@ -74,6 +79,11 @@ module ApplicationHelper
 
   def meta_comment_schema_url
     'https://schema.org/Comment'
+  end
+
+  def next_lunch_and_learn
+    day = Stream.next_weekly_lunch_and_learn
+    day.strftime("%A %B #{day.day.ordinalize}")
   end
 
 end

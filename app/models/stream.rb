@@ -4,6 +4,10 @@ class Stream
 
   # html_schema_type :BroadcastEvent
 
+  def self.next_weekly_lunch_and_learn
+    friday = (Time.now.beginning_of_week + 4.days)
+  end
+
   def self.any_live?
     false
   end
