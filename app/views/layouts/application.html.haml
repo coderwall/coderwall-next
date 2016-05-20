@@ -48,8 +48,8 @@
                   -if Stream.any_live?
                     .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
                 %a.btn{:href => jobs_path} Jobs
-                %a.btn.active-text.mr2{:href => sign_in_path} Log In
                 %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
+                %a.btn.active-text{:href => sign_in_path} Log In
 
       =yield :hero
       .mt1.px3
