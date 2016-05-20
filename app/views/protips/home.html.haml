@@ -1,37 +1,42 @@
 - title 'A community of great programmers and their programming tips'
 - keywords Category.top
 
+-content_for :hero do
+  .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: darkened_bg_image('live-banner.jpg')}
+    %h1
+      Share & Learn Something New
+    %p.font-lg
+      The communities latest development and design tips, tools, and projects
 
-- cache 'v2', expires_in: 10.minutes do
+- cache 'v3', expires_in: 10.minutes do
   .container
-    %h1.mb3
-      Where Great Programmers
-      %br Share Their Best Coding Tips
-
     .clearfix
-      .sm-col.sm-col.sm-col-12.md-col-8
-        .mb2.purple{style: "border-bottom:solid 5px;"}
+      .col.col-12.md-col-8
+        .mb3.purple{style: "border-bottom:solid 5px;"}
+          %h2.mt0.black
+            Popular Protips
         =render @protips.uniq
         .clearfix
           .btn.right=link_to('More popular protips', popular_path(page:2))
-      .md-col.md-show.md-col-4
-        .ml3
-          .clearfix
-            %h4.mt0.mb2
-              Popular Categories
-            -Category.top.each do |tag|
-              %a.p1.card.border-box.rounded.border.mb1.mr1.left.center.no-hover{href: popular_topic_path(topic: tag)}
-                .bold=t tag, scope: [:categories, :short]
 
-          .clearfix.mt4
-            %h4.mt0.mb1
-              Latest Programming Jobs
-            -Job.latest(3).each do |job|
-              =render 'jobs/mini', job: job, feature: false
+      .col.col-12.md-col-1.md-show &nbsp;
+      .col.col-12.md-col-3
+        .clearfix
+          %h4.mt0.mb2
+            Categories
+          -Category.top.each do |tag|
+            %a.p1.card.border-box.rounded.border.mb1.mr1.left.center.no-hover{href: popular_topic_path(topic: tag)}
+              .bold=t tag, scope: [:categories, :short]
 
-            %a.block.mt2.bold{href: jobs_path}
-              Search all programming jobs
+        .clearfix.mt4
+          %h4.mt0.mb1
+            Latest Programming Jobs
+          -Job.latest(3).each do |job|
+            =render 'jobs/mini', job: job, feature: false
 
-            %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
-              Post a Job for Programmers
-              .mt1.font-sm== $#{Job::COST} for 30 days
+          %a.block.mt2.bold{href: jobs_path}
+            Search all programming jobs
+
+          %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
+            Post a Job for Programmers
+            .mt1.font-sm== $#{Job::COST} for 30 days
