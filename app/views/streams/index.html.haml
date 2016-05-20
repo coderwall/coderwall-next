@@ -24,59 +24,55 @@
 
 .container
   .clearfix
-    .col.col-12.sm-col-8
+    .col.col-12.md-col-8
       .mb2.purple{style: "border-bottom:solid 5px;"}
         %h2.mt0.black
           Share & Learn Something New
         %p.clearfix.font-lg.black
-          Developers and designers streaming their newest tips, tools, thoughts, and projects.
+          Developers and designers streaming their newest tips, tools, and projects.
 
-      .clearfix.mt3.mb4
+      .clearfix.mt2.mb4
+        %h5.mb2 Live Streams
         -if @streams.empty?
           %p.bold.purple
             =icon('tv', class: 'mr1')
             There are no live video streams at the moment.
-          %p
-            %a{href: new_stream_path} Go live now
-            or join this Friday for the community's live streamed lunch and learns.
+            %a.btn.ml2.p1.border.blue.rounded.no-hover{href: new_stream_path}
+              -# =icon('video-camera')
+              Go Live Now
         -else
           -@streams.each do |stream|
-            %a.mx-auto.col.col-12.sm-col-6.lg-col-4.p1{href: new_user_path}
-              .border.rounded
-                .fit=image_tag(stream.preview_image_url, class: 'rounded-top fit')
-                .relative.bg-red.white.right.bold.p-tiny.font-tiny{style: 'top:-29px; margin-bottom:-29px;'} LIVE
-                .mt1.p1
-                  .h4.bold=stream.title
-                  .mt1.gray
-                    %h6{style: 'min-height: 3.75em;'}=stream.tags
-                    .overflow-auto.font-sm.mt3.bold
-                      .table
-                        .table-cell.align-middle.p0
-                          =avatar_url_tag(stream.user)
-                          -# =image_tag stream.avatar_url, class: 'rounded', width: 20, height: 20
-                        .table-cell.align-middle
-                          =stream.user.username
-                        .table-cell.align-middle
-                          .right
-                            .inline=icon 'eye'
-                            =stream.viewer_count
-                    .clearfix
+            =render 'card', stream: stream
 
-
-    .col.col-12.sm-col-1.sm-show &nbsp;
-    .col.col-12.sm-col-3
-      .clearfix.mb4
-        %h4.mt4 What to expect
+    .col.col-12.md-col-1.md-show &nbsp;
+    .col.col-12.md-col-3
+      .clearfix
+        %h4.mt1
+          Join the live weekly lunch & learn
         %hr.mb2
+        -# add image he
+        %p
+          sd fsadfsadfkj asdf
+        %a.inline-block.bold.pointer.p1.no-hover.mb4
+          =icon('calendar', class: 'mr1')
+          Add Friday's to your calendar
 
 
+        - if @streams.any?
+          %h4.mt1
+            Start live streaming
+          %hr.mb2
+          %p
+            Want to present? No problem. You can start all on your.
+            Contact us if you have questions.
 
-        -# %a.h4.bold.pointer.p1.border.no-hover
-        -#   =icon('calendar', class: 'mr1')
-        -#   Add this Friday's event to your calendar
+          %a.btn.p1.border.blue.rounded.no-hover{href: new_stream_path}
+            -# =icon('video-camera')
+            Go Live Now
 
 
-
+        %h4.mt3 What to expect
+        %hr.mb2
         %p
           What you stream is up to you; from learning something new, hacking on an interesting project, or teaching others something you’ve already mastered.
 
@@ -85,10 +81,3 @@
           Range from jr-sr
           help others improve their skills, get input, and connect with others.
         -# %h2
-        %h4.mt4
-          =icon('video-camera')
-          Start live streaming
-        %hr.mb2
-        %p
-          Want to present? No problem. You can start all on your.
-          Contact us if you have questions.

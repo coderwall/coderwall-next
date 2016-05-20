@@ -9,12 +9,12 @@ class Stream
   end
 
   def self.live
-    # return User.where(username: ['whatupdave']).map do |u|
-    #   Stream.new(
-    #     user: u,
-    #     sources: {'rmtp' => "rtmp://live.coderwall.com/coderwall/whatupdave"}
-    #   )
-    # end
+    return User.limit(rand(9)).order('RANDOM()').map do |u|
+      Stream.new(
+        user: u,
+        sources: {'rmtp' => "rtmp://live.coderwall.com/coderwall/whatupdave"}
+      )
+    end
 
     resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
       headers: {
@@ -37,7 +37,7 @@ class Stream
   end
 
   def tags
-    ['ruby', 'web development', 'front-end']
+    Protip.where("id < ?", rand(Protip.count)).order("RANDOM()").first.tags
   end
 
   def viewer_count
@@ -45,11 +45,12 @@ class Stream
   end
 
   def preview_image_url
+    return 'http://placehold.it/400x800'
     "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
   end
 
   def live?
-    true
+    @live ||= [true, false].sample
   end
 
   def comments
@@ -58,7 +59,12 @@ class Stream
   end
 
   def title
-    'Streaming my favorite editor'
+    [
+      'Streaming my favorite editor',
+      'c++ commercial dev|enderkend station',
+      '1dv600 - l03 – planning and managing projects',
+      'mobile web design'
+    ].sample
   end
 
   def about
