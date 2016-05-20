@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :protips,  ->{ order(created_at: :desc) }, dependent: :destroy
   has_many :comments, ->{ order(created_at: :desc) }, dependent: :destroy
   has_many :badges,   ->{ order(created_at: :desc) }, dependent: :destroy
+  has_many :streams,  ->{ order(created_at: :desc) }, dependent: :destroy
 
   RESERVED = %w{
     achievements
@@ -55,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def likes?(obj)
-    likes.exists?(likable_id: obj.id, likable_type: obj.class.name)
+    likes.where(likable: obj).any?
   end
 
   def liked

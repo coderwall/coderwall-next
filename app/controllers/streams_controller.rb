@@ -1,10 +1,11 @@
 class StreamsController < ApplicationController
+  include ActionController::Live
 
   def show
-    @stream = Rails.cache.fetch("quickstream/stream/show", expires_in: 5.seconds) do
-      Stream.live.sample
+    @user = User.find_by!(username: params[:username])
+    @stream = Rails.cache.fetch("quickstream/#{@user.id}/show", expires_in: 5.seconds) do
+      @user.streams.first
     end
-    @user   = @stream.user
   end
 
   def index

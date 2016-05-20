@@ -12,6 +12,10 @@ class CommentsController < ApplicationController
     render action: 'index'
   end
 
+  def show
+    @comment = Comment.find(params[:id])
+  end
+
   def create
     @comment = Comment.new(comment_params)
     @comment.user = current_user
@@ -20,6 +24,7 @@ class CommentsController < ApplicationController
       flash[:data] = @comment.body
       redirect_to_protip_comment_form
     else
+      @comment.push
       redirect_to_protip_comment(@comment)
     end
   end
@@ -41,6 +46,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :protip_id)
+    params.require(:comment).permit(:body, :article_id)
   end
 end
