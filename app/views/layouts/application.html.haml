@@ -21,34 +21,36 @@
       })();
     .clearfix
       %header.border-bottom
-        %nav.clearfix.px2
-          .sm-col.py2
+        %nav.clearfix
+          .col.col-2.sm-col-2.py2
             %a.btn.logo.relative{:href => root_url}
               .absolute{:style => "top: 2px"}
                 = render 'shared/logo'
               .left.font-x-lg{:style => "padding-left: 35px;"}
                 Coderwall
+          .col.col-10.sm-col-10.py2{class: hide_on_auth}
+            .right
+              -if signed_in?
+                %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
+                  .sm-hide Post
+                  .inline.sm-show Post Protip
+                %a.ml1.btn{:href => live_streams_path}
+                  Video Streams
+                  -if Stream.any_live?
+                    .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
+                %a.btn{:href => jobs_path} Jobs
+                %a.ml2.no-hover.black.mr2{href: profile_path(username: current_user.username)}
+                  .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
+              -else
+                %a.btn{:href => new_protip_path} Post Protip
+                %a.btn{:href => live_streams_path}
+                  Video Streams
+                  -if Stream.any_live?
+                    .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
+                %a.btn{:href => jobs_path} Jobs
+                %a.btn.active-text.mr2{:href => sign_in_path} Log In
+                %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
 
-          .sm-col-right.py2{class: hide_on_auth}
-            -if signed_in?
-              %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
-                Post Protip
-              %a.ml2.btn{:href => live_streams_path}
-                Video Streams
-                -if Stream.any_live?
-                  .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
-              %a.btn{:href => jobs_path} Jobs
-              %a.ml2.no-hover.black.mr1{href: profile_path(username: current_user.username)}
-                .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
-            -else
-              %a.btn{:href => new_protip_path} Post Protip
-              %a.btn{:href => live_streams_path}
-                Video Streams
-                -if Stream.any_live?
-                  .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
-              %a.btn{:href => jobs_path} Jobs
-              %a.btn.active-text.mr2{:href => sign_in_path} Log In
-              %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
       =yield :hero
       .mt1.px3
         =yield :breadcrumbs
@@ -58,18 +60,19 @@
         .p3=yield
       %footer.border-top
         %nav.clearfix
-          .sm-col.py1.mt1
+          .col.col-4.py1.mt1
             %a.btn{href:"https://twitter.com/coderwall", target:'_blank'}
-              Follow Coderwall
-              =icon("twitter", class: "fa-1x")
-          .sm-col-right.py2.mt1
-            %a.inline-block.ml2{href: 'https://github.com/coderwall/coderwall-next', rel: 'nofollow'}
-              =icon("github-alt")
-            %a.inline-block.ml2{href: popular_topic_path(topic: 'hackerdesk')}
-              =icon("gift")
-            %a.inline-block.ml2.mr2{href: 'mailto:support@coderwall.com'}
-              Contact
-            %a.inline-block.mr2{href: privacy_path} Privacy
-            %a.inline-block.mr2{href: tos_path} Terms
-            %p.inline-block.diminish.inline.mr2="Copyright #{Time.now.strftime('%Y')}"
+              @coderwall
+              =icon("twitter", class: "fa-1x ml1")
+          .col.col-8.py2.mt1
+            .right
+              %a.inline-block.ml1{href: 'https://github.com/coderwall/coderwall-next', rel: 'nofollow'}
+                =icon("github-alt")
+              %a.inline-block.ml1{href: popular_topic_path(topic: 'hackerdesk')}
+                .sm-show=icon("gift")
+              %a.inline-block.ml1.mr1{href: 'mailto:support@coderwall.com'}
+                Contact
+              %a.inline-block.mr1{href: privacy_path} Privacy
+              %a.inline-block.mr1{href: tos_path} Terms
+              %p.inline-block.diminish.inline.mr1="Copyright #{Time.now.strftime('%Y')}"
   = render 'shared/tracking'
