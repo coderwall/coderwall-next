@@ -10,7 +10,7 @@
   .clearfix
     .col.col-12.md-col-8
       .clearfix.mt0.mb1
-        -if @stream.live?
+        -if @stream.live
           .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
 
@@ -18,7 +18,7 @@
           =@stream.title
 
         .right
-          -if !@stream.live?
+          -if !@stream.live
             .diminish.inline.mr1.ml1 Recorded earlier
             &middot;
           .ml1.mr1.inline
@@ -27,7 +27,7 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        .stream= #render 'streams/player', stream: @stream
+        .stream= render 'streams/player', stream: @stream
         .clearfix.p2
           .col.col-8
             -@stream.tags.each do |tag|
@@ -87,7 +87,7 @@
                 =icon('lock', class: 'mr1')
                 Send
 
-          -elsif @stream.live?
+          -elsif @stream.live
             = form_for Comment.new, remote: true do |form|
               = form.hidden_field :article_id, value: @stream.id
               .border.rounded.p0.m0.bg-white
