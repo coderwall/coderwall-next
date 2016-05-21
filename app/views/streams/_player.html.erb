@@ -5,7 +5,7 @@
 
   jwplayer("<%=dom_id(stream)%>").setup({
      sources: [{
-      file: <%== stream.rtmp_json %>
+      file: <%== stream.rtmp.to_json %>
     }],
     captions: {
       color: "FFCC00",
