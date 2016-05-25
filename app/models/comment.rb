@@ -20,8 +20,4 @@ class Comment < ActiveRecord::Base
   def auto_like_article_for_author
     article.likes.create(user: user) unless user.likes?(article)
   end
-
-  def push
-    Pusher[article.dom_id.to_s].trigger('new-comment', id: id)
-  end
 end

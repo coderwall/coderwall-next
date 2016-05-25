@@ -73,35 +73,7 @@
 
     .col.col-12.md-col-4
       %h4.ml3.diminish Community Discussion
-      .flex.flex-column.ml3.bg-white.rounded
-        #chat.flex-auto.overflow-scroll.border-top.p1.js-scrollable{style:"max-height:400px;min-height: 400px"}
-          .diminish.py1.center Start of discussion
-          .clearfix#comments=render @stream.comments, style: :small
-        .flex-last.mt2
-          -if !signed_in?
-            .clearfix.border.rounded.p0.m0.bg-white
-              %a.col.font-sm.p1.bold{href: sign_up_path}
-                Sign up
-                to comment
-              %button.right.btn.m0.right.bg-gray.silver{disabled: true}
-                =icon('lock', class: 'mr1')
-                Send
-
-          -elsif @stream.live
-            = form_for Comment.new, remote: true do |form|
-              = form.hidden_field :article_id, value: @stream.id
-              .border.rounded.p0.m0.bg-white
-                = form.text_field :body, class: 'col-9 focus-no-border font-sm  resize-chat-on-change m0', placeholder: "Comment", style: 'border: none; outline: none;', value: flash[:data]
-
-                .right.col-3.m0
-                  %button.btn.m0.right.bg-green.white{type: 'submit', style: 'height: 100%;'} Send
-          -else
-            .clearfix.border.rounded.p0.m0.bg-white
-              .col.font-sm.gray.p1
-                Commenting disabled
-              %button.right.btn.m0.right.bg-gray.silver{disabled: true}
-                =icon('lock', class: 'mr1')
-                Send
+      = react_component('Chat', render(template: 'streams/show.json.jbuilder'))
 
       -if show_ads?
         .clearfix.ml3.mt4

@@ -24,8 +24,14 @@ class CommentsController < ApplicationController
       flash[:data] = @comment.body
       redirect_to_protip_comment_form
     else
-      @comment.push
-      redirect_to_protip_comment(@comment)
+      json = render_to_string(template: 'comments/_comment.json.jbuilder', locals: {comment: @comment})
+      Pusher.trigger(@comment.article.dom_id.to_s, 'new-comment', json, {
+        socket_id: params[:socket_id]
+      })
+      respond_to do |format|
+        format.html { redirect_to_protip_comment(@comment) }
+        format.json { render json: json }
+      end
     end
   end
 
