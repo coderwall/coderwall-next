@@ -12,13 +12,13 @@ class Chat extends React.Component {
   render() {
     return (
       <div className="flex flex-column ml3 bg-white rounded">
-        <div ref="scrollable" className="flex-auto overflow-scroll border-top p1" id="chat" style={{maxHeight: 380, minHeight: 379}}>
+        <div ref="scrollable" className="flex-auto overflow-y-scroll border-top p1" id="chat" style={{maxHeight: 380, minHeight: 379}}>
           {this.state.moreComments || <div className="diminish py1 center">Start of discussion</div>}
           <div className="clearfix" id="comments">
             {this.renderComments()}
           </div>
         </div>
-        <div className="flex-last mt2">
+        <div className="flex-last clearfix border rounded p0 m0 bg-white">
           {this.renderChatInput()}
         </div>
       </div>
@@ -50,7 +50,7 @@ class Chat extends React.Component {
       )
     } else {
       return (
-        <div className="clearfix border rounded p0 m0 bg-white">
+        <div>
           <div className="col font-sm gray p1">
             Commenting disabled
           </div>
