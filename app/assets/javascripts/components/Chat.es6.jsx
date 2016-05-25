@@ -4,6 +4,7 @@ class Chat extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      moreComments: true,
       comments: props.comments
     }
   }
@@ -12,7 +13,7 @@ class Chat extends React.Component {
     return (
       <div className="flex flex-column ml3 bg-white rounded">
         <div ref="scrollable" className="flex-auto overflow-scroll border-top p1" id="chat" style={{maxHeight: 380, minHeight: 379}}>
-          <div className="diminish py1 center">Start of discussion</div>
+          {this.state.moreComments || <div className="diminish py1 center">Start of discussion</div>}
           <div className="clearfix" id="comments">
             {this.renderComments()}
           </div>
@@ -28,6 +29,7 @@ class Chat extends React.Component {
     return this.state.comments.map(c =>
       <ChatComment
         key={c.id}
+        id={c.id}
         authorUrl={c.authorUrl}
         authorUsername={c.authorUsername}
         markup={c.markup} />
@@ -92,12 +94,44 @@ class Chat extends React.Component {
     this.refs.body.value = ''
   }
 
+  fetchOlderChatMessages() {
+    if (this.state.fetching || !this.state.moreComments) {
+      return
+    }
+    const before = this.state.comments.length > 0 ? this.state.comments[0].created_at : null
+    this.setState({fetching: true})
+    $.ajax({
+      url: '/comments',
+      method: 'GET',
+      dataType: 'json',
+      data: {
+        article_id: this.props.stream.id,
+        before,
+      },
+      success: (data) => {
+        const existing = this.state.comments.map(c => c.id)
+        this.setState({
+          fetching: false,
+          moreComments: data.comments.length == 10,
+          comments: [
+            ...data.comments.reverse().filter(a => existing.indexOf(a.id) === -1),
+            ...this.state.comments
+          ]
+        })
+      }
+    })
+  }
+
   componentDidMount() {
     window.channel.bind('new-comment', comment => {
       this.setState({comments: [...this.state.comments, comment]})
     })
 
+    const self = this
     $(this.refs.scrollable).bind('mousewheel DOMMouseScroll', function(e) {
+      if (this.scrollTop < 100) {
+        self.fetchOlderChatMessages()
+      }
       const d = e.originalEvent.wheelDelta || -e.originalEvent.detail
       const stop = d > 0 ? this.scrollTop === 0 : this.scrollTop > this.scrollHeight - this.offsetHeight
       if (stop) {
@@ -105,15 +139,28 @@ class Chat extends React.Component {
       }
     })
     this.scrollToBottom()
+    this.fetchOlderChatMessages()
   }
 
   componentWillUnmount() {
     $(this.refs.scrollable).unbind('mousewheel DOMMouseScroll')
   }
 
+  componentWillUpdate() {
+    const node = this.refs.scrollable
+    this.shouldScrollBottom = node.scrollTop + node.offsetHeight >= node.scrollHeight
+    this.scrollHeight = node.scrollHeight
+    this.scrollTop = node.scrollTop
+  }
+
   componentDidUpdate(prevState) {
     if (prevState.comments.length < this.state.comments.length) {
-      this.scrollToBottom()
+      if (this.shouldScrollBottom) {
+        this.scrollToBottom()
+      } else {
+        const node = this.refs.scrollable
+        node.scrollTop = this.scrollTop + (node.scrollHeight - this.scrollHeight)
+      }
     }
   }
 

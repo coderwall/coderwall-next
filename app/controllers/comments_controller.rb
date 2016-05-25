@@ -3,7 +3,17 @@ class CommentsController < ApplicationController
 
   def index
     return head(:forbidden) unless admin?
-    @comments = Comment.order(created_at: :desc).page(params[:page])
+    respond_to do |format|
+      format.html { @comments = Comment.order(created_at: :desc).page(params[:page]) }
+      format.json {
+        @comments = Comment.
+          where(article_id: params[:article_id]).
+          order(created_at: :desc).
+          limit(10)
+
+        @comments = @comments.where('created_at < ?', params[:before]) unless params[:before].blank?
+      }
+    end
   end
 
   def spam

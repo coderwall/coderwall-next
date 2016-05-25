@@ -6,7 +6,6 @@ class StreamsController < ApplicationController
     @stream = Rails.cache.fetch("quickstream/#{@user.id}/show", expires_in: 5.seconds) do
       @user.streams.first
     end
-    @comments = @stream.comments
   end
 
   def index
