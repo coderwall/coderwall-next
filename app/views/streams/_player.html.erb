@@ -16,7 +16,7 @@
 
 function updateLiveStats() {
   $.getJSON(<%== live_stream_stats_path(@user.username).to_json %>, function(data) {
-    $('#js-live-viewers').text(data.connections - 1)
+    $('#js-live-viewers').text(data.connections)
   })
 }
 setInterval(updateLiveStats, 5000)
