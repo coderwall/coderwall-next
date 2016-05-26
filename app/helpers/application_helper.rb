@@ -86,4 +86,8 @@ module ApplicationHelper
     day.strftime("%A %B #{day.day.ordinalize}")
   end
 
+  def livestream_tweet_message
+    attribution = @stream.user.twitter ? @stream.user.twitter : "coderwall"
+    CGI.escape "[LIVE] #{@stream.title} via @#{attribution}\n\n#{profile_stream_url(username: @stream.user.username)}"
+  end
 end
