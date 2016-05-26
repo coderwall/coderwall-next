@@ -14,4 +14,12 @@
     }
   }).onPlay(constrainChatToStream);
 
+function updateLiveStats() {
+  $.getJSON(<%== live_stream_stats_path(@user.username).to_json %>, function(data) {
+    $('#js-live-viewers').text(data.connections - 1)
+  })
+}
+setInterval(updateLiveStats, 5000)
+updateLiveStats()
+
 </script>
