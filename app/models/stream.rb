@@ -4,6 +4,9 @@ class Stream < Article
 
   # html_schema_type :BroadcastEvent
   attr_accessor :live
+  attr_accessor :live_viewers
+
+  scope :current, -> { order(created_at: :desc).first }
 
   def self.next_weekly_lunch_and_learn
     friday = (Time.now.beginning_of_week + 4.days)
@@ -13,26 +16,12 @@ class Stream < Article
     false
   end
 
+  def self.live_stats(username)
+    live_streamers[username]
+  end
+
   def self.live
-    # return User.limit(rand(9)).order('RANDOM()').map do |u|
-    #   Stream.new(
-    #     user: u,
-    #     sources: {'rmtp' => "rtmp://live.coderwall.com/coderwall/whatupdave"}
-    #   )
-    # end
-
-    resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
-      headers: {
-        "Content-Type" => "application/json" },
-      idempotent: true,
-      tcp_nodelay: true,
-    )
-
-    streamers = JSON.parse(resp.body).each_with_object({}) do |s, memo|
-      memo[s['streamer']] = s
-    end
-
-    Stream.where(user: User.where(username: streamers.keys)).each do |s|
+    Stream.where(user: User.where(username: live_streamers.keys)).each do |s|
       s.live = true
     end
   end
@@ -43,5 +32,20 @@ class Stream < Article
 
   def rtmp
     "http://quickstream.io:1935/coderwall/ngrp:#{user.username}_all/jwplayer.smil"
+  end
+
+  # private
+
+  def self.live_streamers
+    resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
+      headers: {
+        "Content-Type" => "application/json" },
+      idempotent: true,
+      tcp_nodelay: true,
+    )
+
+    JSON.parse(resp.body).each_with_object({}) do |s, memo|
+      memo[s['streamer']] = s
+    end
   end
 end

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   get '/:username/protips'  => 'users#show',   as: :profile_protips,  protips:  true
   get '/:username/comments' => 'users#show',   as: :profile_comments, comments: true
   get '/:username/live'     => 'streams#show', as: :profile_stream
+  get '/:username/live/stats' => 'streams#stats', as: :live_stream_stats
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
 
   get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {

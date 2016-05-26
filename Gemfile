@@ -60,8 +60,10 @@ group :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'pry'
+  gem 'pry-rails'
   gem 'spring'
+  gem 'web-console', '~> 2.0'
 end
 
 group :production do

@@ -3,14 +3,24 @@ class StreamsController < ApplicationController
 
   def show
     @user = User.find_by!(username: params[:username])
-    @stream = Rails.cache.fetch("quickstream/#{@user.id}/show", expires_in: 5.seconds) do
-      @user.streams.first
+    if @stream = @user.streams.order(created_at: :desc).first!
+      @stream.live = !!cached_stats
     end
   end
 
   def index
     @streams = Rails.cache.fetch("quickstream/streams", expires_in: 5.seconds) do
       Stream.live
+    end
+  end
+
+  def stats
+    render json: cached_stats
+  end
+
+  def cached_stats
+    Rails.cache.fetch("quickstream/#{params[:username]}/stats", expires_in: 5.seconds) do
+      Stream.live_stats(params[:username])
     end
   end
 
