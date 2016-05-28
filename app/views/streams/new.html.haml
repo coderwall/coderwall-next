@@ -1,5 +1,130 @@
--# What are you goign to be live streaming
--# is it teaching (for experts) / hacking (playing around) / you learning
+-title "Start broadcasting your live stream"
 
--# is this (Hacking / Lesson / Something you'll sell)
--# skill level? language?
+-content_for :breadcrumbs do
+  .mxn1.font-tiny.mt0.diminish
+    %a.btn.px1{href: live_streams_path} Streams
+    .inline.mr1 /
+    Your Broadcast
+
+
+= form_for @stream do |form|
+  .container
+    .clearfix
+      .col.col-12.md-col-8
+        .clearfix.mt0.mb1
+          -if @stream.live?
+            .left.mr1
+              .rounded.p1.bg-red.white.bold LIVE
+          -else
+            .left.mr1
+              .gray.bold OFFLINE
+
+        .card{style: "border-top:solid 5px #{@user.color}"}
+          .border-box.p2.border-right.border-left
+            .clearfix
+              .col.col-8.py1
+                %h3.mt0.mb0.inline.mr2
+                  =icon('video-camera', class: 'mr1')
+                  No stream detected,
+                  preview unavailable
+              .col.col-4
+
+          .stream.bg-black.bg-cover.bg-center{style: "min-height: 400px; background-image: url(#{asset_path('offline-holder.png')})"}
+            =render 'streams/player', source: @user.stream_source
+            -# :erb
+            -#   <% stream_css_id = Digest::SHA1.hexdigest(@user.stream_source) # dom_id(stream) %>
+            -#   <div id='<%=stream_css_id%>'></div>
+            -#
+            -#   <script>
+            -#     jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
+            -#
+            -#     jwplayer("<%=stream_css_id%>").setup({
+            -#       autostart: false,
+            -#       controls : true,
+            -#       sources: [{
+            -#         file: 'rtmp://live.coderwall.com/coderwall/mdeiters:live_cw_824d24049a13661d62d50944923d580e7abec31b'
+            -#       }],
+            -#       aspectratio: "4:3",
+            -#       primary: "flash",
+            -#       type: "camera",
+            -#       stretching : "fill"
+            -#     })
+            -#   </script>
+
+          .clearfix.p2
+            %h2 Describe Broadcast
+            = form.label :title
+            = form.text_field :title, type: 'text', class: 'field block col-10 mb2'
+            = form.label :body, 'About'
+            .diminish.mb1
+              Share details about your stream. For example if you are working a project or open source then what the name, purpose, and how far along you are? Do you want feedback, help, or looking for team members? Let others know how they can get involved or follow along.
+            = form.text_area :body, rows: 4, class: 'field block col-10'
+            .diminish.mb1.py1
+              Markdown here is
+              =icon('thumbs-o-up')
+            = form.label :editable_tags
+            .diminish.mb1
+              Comma seperated (e.g. ruby, docker, machine learning) about
+              your live stream. Suggestions:
+              %br
+              %ul
+                %li
+                  Just use the
+                  %strong hacking
+                  tag when you are just playing around with no agenda
+
+                %li
+                  If you are teaching a topic try tagging it
+                  %strong lesson
+                %li
+                  Suggsting a viewer skill level with
+                  %strong beginner, intermediate,
+                  or
+                  %strong advance
+                  is great too
+            = form.text_field :editable_tags, type: 'text', class: 'field block col-10'
+            .py3
+              = check_box_tag :record, true, checked: true
+              = label_tag 'Save recording of stream'
+            %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Save
+            .mt2.font-sm.diminish
+              You are currently offline. Stream information is private until you go online.
+
+      .col.col-12.md-col-4
+        .md-ml3
+          %h4.ml1.diminish How to Stream
+          .flex.flex-column.bg-white.rounded.p1
+            %h5 1. Download Free Software
+            %p
+              %a{href: 'https://obsproject.com'} Open Broadcast
+              is free open source software that runs on Windows, Unix, and Macs. It makes live streaming your webcam, desktop, and other media through Coderwall easy.
+            %h5 2. Configure Your Stream
+            %p
+              Go to
+              %em Settings
+              in
+              %a{href: 'https://obsproject.com'} Open Broadcast
+              and choose
+              %em Stream.
+              Then select
+              %em Custom Stream Server
+              and enter the following private settings:
+            .border-box.bg-silver.p1.font-sm.rounded.mb2
+              .mb1
+                .bold.inline URL:
+                rtmp://live.coderwall.com
+              .mb1
+                .bold.inline Stream Key:
+                dfakdfadkljfdasfjasdfasdl
+              .block
+                .bold.inline Use authentication:
+                No
+            %h5 3. Preview Stream
+            %p
+              After configuring the stream you can see a preview here by clicking
+              %em Start Streaming
+              in Open Broadcast. Once you see the preview you are ready to Go Online anytime you want.
+            -if @stream.live?
+              %button.btn.mt1.rounded.bg-green.white{type: 'submit', value: 'GoOffline'} Go Offline
+            -else
+              %button.btn.mt1.rounded.bg-green.white{type: 'submit', value: 'GoOnline'} Go Online

@@ -27,7 +27,7 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        .stream= render 'streams/player', stream: @stream
+        .stream= render 'streams/player', source: @stream.rtmp
         .clearfix.p2
           .col.col-8
             -@stream.tags.each do |tag|

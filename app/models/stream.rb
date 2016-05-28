@@ -17,18 +17,16 @@ class Stream < Article
     end
   end
 
+  def live?
+    live == true
+  end
+
   def self.any_live?
     live.any?
   end
 
   def self.live_stats(username)
     live_streamers[username]
-  end
-
-  def self.live
-    Stream.where(user: User.where(username: live_streamers.keys)).each do |s|
-      s.live = true
-    end
   end
 
   def preview_image_url
@@ -39,7 +37,11 @@ class Stream < Article
     "http://quickstream.io:1935/coderwall/ngrp:#{user.username}_all/jwplayer.smil"
   end
 
-  # private
+  def self.live
+    Stream.where(user: User.where(username: live_streamers.keys)).each do |s|
+      s.live = true
+    end
+  end
 
   def self.live_streamers
     resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",

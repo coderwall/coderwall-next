@@ -1,6 +1,21 @@
 class StreamsController < ApplicationController
   include ActionController::Live
 
+  before_action :require_login, only: [:new]
+
+  def new
+    @user   = current_user
+    @stream = Stream.new(user: @user)
+  end
+
+  def create
+    #TODO: save, then redirect to new again unless going live, then stream show
+  end
+
+  def update
+    #TODO: save, then redirect to new again unless going live, then stream show
+  end
+
   def show
     @user = User.find_by!(username: params[:username])
     if @stream = @user.streams.order(created_at: :desc).first!

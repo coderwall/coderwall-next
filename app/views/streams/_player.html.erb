@@ -1,12 +1,15 @@
-<div id='<%=dom_id(stream)%>'></div>
+<% stream_css_id = Digest::SHA1.hexdigest(source) # dom_id(stream) %>
+<div id='<%=stream_css_id%>'></div>
 
 <script>
   jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
 
-  jwplayer("<%=dom_id(stream)%>").setup({
+  jwplayer("<%=stream_css_id%>").setup({
      sources: [{
-      file: <%== stream.rtmp.to_json %>
+      file: <%== source.to_json %>
     }],
+    image: <%== asset_url('offline-holder').to_json %>,
+    stretching: "fill",
     captions: {
       color: "FFCC00",
       backgroundColor: "000000",
