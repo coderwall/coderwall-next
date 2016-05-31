@@ -28,15 +28,6 @@ $ ->
 
   document.current_user_likes = new Likes(document.current_user_id)
 
-  constrainChatToStream()
-  $(window).resize ->
-    constrainChatToStream()
-
-@constrainChatToStream = ->
-  anchorHeight = $('.stream:first').height()
-  $('#chat').css('max-height', anchorHeight - 69)
-  $('#chat').css('min-height', anchorHeight - 70)
-
 @setUserId = ->
   userId = $("meta[property='current_user:id']").attr("content")
   document.current_user_id = userId if userId?

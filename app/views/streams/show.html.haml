@@ -27,7 +27,8 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        .stream= render 'streams/player', source: @stream.rtmp
+        =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @user.stream_source, offlineImage: asset_url('offline-holder')
+        
         .clearfix.p2
           .col.col-8
             -@stream.tags.each do |tag|

@@ -22,7 +22,9 @@ class Stream < Article
   end
 
   def self.any_live?
-    live.any?
+    Rails.cache.fetch('any-streams-live', expires_in: 5.seconds) do
+      live.any?
+    end
   end
 
   def self.live_stats(username)
@@ -44,12 +46,19 @@ class Stream < Article
   end
 
   def self.live_streamers
-    resp = Excon.get("#{ENV['QUICKSTREAM_URL']}/streams",
+    url = "#{ENV['QUICKSTREAM_URL']}/streams"
+    resp = Excon.get(url,
       headers: {
         "Content-Type" => "application/json" },
       idempotent: true,
       tcp_nodelay: true,
     )
+
+    if resp.status != 200
+      # TODO: bugsnag
+      logger.error "error=quickstream-api-call url=/streams status=#{resp.status}"
+      return {}
+    end
 
     JSON.parse(resp.body).each_with_object({}) do |s, memo|
       memo[s['streamer']] = s

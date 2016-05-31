@@ -6,10 +6,19 @@ class StreamsController < ApplicationController
   def new
     @user   = current_user
     @stream = Stream.new(user: @user)
+    if current_user.stream_key.blank?
+      current_user.generate_stream_key
+      current_user.save!
+    end
   end
 
   def create
-    #TODO: save, then redirect to new again unless going live, then stream show
+    @stream = current_user.streams.new(stream_params)
+    if @stream.save && params[:record]
+      redirect_to profile_stream_path(current_user)
+    else
+      redirect_to new_stream_path
+    end
   end
 
   def update
@@ -64,6 +73,12 @@ class StreamsController < ApplicationController
     @calendar.publish
     headers['Content-Type'] = "text/calendar; charset=UTF-8"
     render :text => @calendar.to_ical, layout: nil
+  end
+
+  # private
+
+  def stream_params
+    params.require(:stream).permit(:title, :body, :editable_tags)
   end
 
 end

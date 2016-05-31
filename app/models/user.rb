@@ -93,13 +93,16 @@ class User < ActiveRecord::Base
   end
 
   def generate_stream_key
-    self.stream_key = "live_cw_#{Digest::SHA1.hexdigest("#{id}-#{Time.now.to_i}-#{rand}")}"
+    self.stream_key = "cw_#{Digest::SHA1.hexdigest([Time.now.to_i, rand].join)[0..12]}"
+  end
+
+  def stream_name
+    "#{username}?#{stream_key}"
   end
 
   def stream_source
-    # "https://api.quickstream.io/coderwall/streams/#{username}.smil"
-    # "http://quickstream.io:1935/coderwall/ngrp:whatupdave_all/jwplayer.smil"
-    "http://quickstream.io:1935/coderwall/ngrp:mdeiters_all/jwplayer.smil"
+    "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"
+    # "rtmp://quickstream.io:1935/coderwall/_definst_/whatupdave_source"
   end
 
 end

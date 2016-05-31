@@ -20,36 +20,7 @@
               .gray.bold OFFLINE
 
         .card{style: "border-top:solid 5px #{@user.color}"}
-          .border-box.p2.border-right.border-left
-            .clearfix
-              .col.col-8.py1
-                %h3.mt0.mb0.inline.mr2
-                  =icon('video-camera', class: 'mr1')
-                  No stream detected,
-                  preview unavailable
-              .col.col-4
-
-          .stream.bg-black.bg-cover.bg-center{style: "min-height: 400px; background-image: url(#{asset_path('offline-holder.png')})"}
-            =render 'streams/player', source: @user.stream_source
-            -# :erb
-            -#   <% stream_css_id = Digest::SHA1.hexdigest(@user.stream_source) # dom_id(stream) %>
-            -#   <div id='<%=stream_css_id%>'></div>
-            -#
-            -#   <script>
-            -#     jwplayer.key="<%=ENV['JWPLAYER_KEY']%>";
-            -#
-            -#     jwplayer("<%=stream_css_id%>").setup({
-            -#       autostart: false,
-            -#       controls : true,
-            -#       sources: [{
-            -#         file: 'rtmp://live.coderwall.com/coderwall/mdeiters:live_cw_824d24049a13661d62d50944923d580e7abec31b'
-            -#       }],
-            -#       aspectratio: "4:3",
-            -#       primary: "flash",
-            -#       type: "camera",
-            -#       stretching : "fill"
-            -#     })
-            -#   </script>
+          =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @user.stream_source, offlineImage: asset_url('offline-holder'), showStatus: true
 
           .clearfix.p2
             %h2 Describe Broadcast
@@ -62,7 +33,7 @@
             .diminish.mb1.py1
               Markdown here is
               =icon('thumbs-o-up')
-            = form.label :editable_tags
+            = form.label :editable_tags, 'Tags'
             .diminish.mb1
               Comma seperated (e.g. ruby, docker, machine learning) about
               your live stream. Suggestions:
@@ -112,10 +83,10 @@
             .border-box.bg-silver.p1.font-sm.rounded.mb2
               .mb1
                 .bold.inline URL:
-                rtmp://live.coderwall.com
+                rtmp://live.coderwall.com/coderwall
               .mb1
                 .bold.inline Stream Key:
-                dfakdfadkljfdasfjasdfasdl
+                = current_user.stream_name
               .block
                 .bold.inline Use authentication:
                 No
