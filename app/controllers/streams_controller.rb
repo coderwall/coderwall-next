@@ -14,10 +14,10 @@ class StreamsController < ApplicationController
 
   def create
     @stream = current_user.streams.new(stream_params)
-    if @stream.save && params[:record]
-      redirect_to profile_stream_path(current_user)
+    if @stream.save
+      redirect_to profile_stream_path(current_user.username)
     else
-      redirect_to new_stream_path
+      render 'new'
     end
   end
 

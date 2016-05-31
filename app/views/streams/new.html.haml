@@ -19,8 +19,8 @@
             .left.mr1
               .gray.bold OFFLINE
 
-        .card{style: "border-top:solid 5px #{@user.color}"}
-          =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @user.stream_source, offlineImage: asset_url('offline-holder'), showStatus: true
+        .card{style: "border-top:solid 5px #{current_user.color}"}
+          =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: current_user.stream_source, offlineImage: asset_url('offline-holder'), showStatus: true
 
           .clearfix.p2
             %h2 Describe Broadcast
@@ -53,7 +53,8 @@
                   or
                   %strong advance
                   is great too
-            = form.text_field :editable_tags, type: 'text', class: 'field block col-10'
+            %div{class: ('field_with_errors' if @stream.errors[:tags].any?)}
+              = form.text_field :editable_tags, type: 'text', class: 'field block col-10'
             .py3
               = check_box_tag :record, true, checked: true
               = label_tag 'Save recording of stream'

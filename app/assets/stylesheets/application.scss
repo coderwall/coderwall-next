@@ -20,7 +20,7 @@ $font-x-lg: 18px;
 
 // Rails error handing
 .field_with_errors {
-	input {
+	input, textarea {
 		border: solid 1px $red;
 	}
 }
