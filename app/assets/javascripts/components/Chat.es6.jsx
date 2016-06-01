@@ -5,7 +5,7 @@ class Chat extends React.Component {
     super(props)
     this.state = {
       moreComments: true,
-      comments: props.comments
+      comments: props.comments,
     }
   }
 
@@ -37,7 +37,7 @@ class Chat extends React.Component {
   }
 
   renderChatInput() {
-    if (this.props.signedIn) {
+    if (this.props.signedIn && this.pusher) {
       return (
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="body" defaultValue="" placeholder="Ask question" className="col-9 focus-no-border font-sm resize-chat-on-change m0" style={{"border": "none", "outline": "none"}} />
@@ -71,7 +71,7 @@ class Chat extends React.Component {
       method: 'POST',
       dataType: 'json',
       data: {
-        socket_id: pusher.connection.socket_id,
+        socket_id: this.pusher.connection.socket_id,
         comment: {
           article_id: this.props.stream.id,
           body: this.refs.body.value,
@@ -122,8 +122,13 @@ class Chat extends React.Component {
     })
   }
 
+  componentWillMount() {
+    this.pusher = new Pusher(this.props.pusherKey)
+    this.channel = this.pusher.subscribe(this.props.chatChannel)
+  }
+
   componentDidMount() {
-    window.channel.bind('new-comment', comment => {
+    this.channel.bind('new-comment', comment => {
       this.setState({comments: [...this.state.comments, comment]})
     })
 
@@ -177,8 +182,10 @@ class Chat extends React.Component {
 }
 
 Chat.propTypes = {
-  stream: React.PropTypes.object.isRequired,
+  chatChannel: React.PropTypes.string.isRequired,
   comments: React.PropTypes.array.isRequired,
-  signedIn: React.PropTypes.bool,
   isLive: React.PropTypes.bool,
+  pusherKey: React.PropTypes.string.isRequired,
+  signedIn: React.PropTypes.bool,
+  stream: React.PropTypes.object.isRequired,
 }

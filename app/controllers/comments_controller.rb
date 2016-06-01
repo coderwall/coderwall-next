@@ -2,9 +2,12 @@ class CommentsController < ApplicationController
   before_action :require_login, only: [:create, :destroy]
 
   def index
-    return head(:forbidden) unless admin?
     respond_to do |format|
-      format.html { @comments = Comment.order(created_at: :desc).page(params[:page]) }
+      format.html {
+        # TODO: do we need this check?
+        return head(:forbidden) unless admin?
+        @comments = Comment.order(created_at: :desc).page(params[:page])
+      }
       format.json {
         @comments = Comment.
           where(article_id: params[:article_id]).
