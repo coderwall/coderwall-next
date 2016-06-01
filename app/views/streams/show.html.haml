@@ -10,7 +10,7 @@
   .clearfix
     .col.col-12.md-col-8
       .clearfix.mt0.mb1
-        -if @stream.live
+        -if @stream.broadcasting?
           .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
 
@@ -18,7 +18,7 @@
           =@stream.title
 
         .right
-          -if !@stream.live
+          -if !@stream.broadcasting?
             .diminish.inline.mr1.ml1 Recorded earlier
             &middot;
           .ml1.mr1.inline

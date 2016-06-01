@@ -36,7 +36,7 @@
                   .inline.sm-show Post Protip
                 %a.ml1.btn{:href => live_streams_path}
                   Video Streams
-                  -if Stream.any_live?
+                  -if Stream.any_broadcasting?
                     .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} LIVE
                 %a.btn{:href => jobs_path} Jobs
                 %a.ml2.no-hover.black.mr2{href: profile_path(username: current_user.username)}
@@ -45,7 +45,7 @@
                 %a.btn{:href => new_protip_path} Post Protip
                 %a.btn{:href => live_streams_path}
                   Video Streams
-                  -if Stream.any_live?
+                  -if Stream.any_broadcasting?
                     .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
                 %a.btn{:href => jobs_path} Jobs
                 %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up

@@ -102,7 +102,10 @@ class User < ActiveRecord::Base
 
   def stream_source
     "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"
-    # "rtmp://quickstream.io:1935/coderwall/_definst_/whatupdave_source"
+  end
+
+  def active_stream
+    streams.not_archived.order(created_at: :desc).first
   end
 
 end

@@ -4,8 +4,7 @@ class StreamsController < ApplicationController
   before_action :require_login, only: [:new]
 
   def new
-    @user   = current_user
-    @stream = Stream.new(user: @user)
+    @stream = current_user.active_stream || Stream.new(user: current_user)
     if current_user.stream_key.blank?
       current_user.generate_stream_key
       current_user.save!
@@ -14,32 +13,25 @@ class StreamsController < ApplicationController
 
   def create
     @stream = current_user.streams.new(stream_params)
-    if @stream.save
-      redirect_to profile_stream_path(current_user.username)
-    else
-      render 'new'
-    end
+    save_and_redirect
   end
 
   def update
-    @stream = current_user.current_stream.update(stream_params)
-    if @stream.save
-      redirect_to profile_stream_path(current_user.username)
-    else
-      render 'new'
-    end
+    @stream = current_user.active_stream
+    @stream.assign_attributes(stream_params)
+    save_and_redirect
   end
 
   def show
     @user = User.find_by!(username: params[:username])
     if @stream = @user.streams.order(created_at: :desc).first!
-      @stream.live = !!cached_stats
+      @stream.broadcasting = !!cached_stats
     end
   end
 
   def index
     @streams = Rails.cache.fetch("quickstream/streams", expires_in: 5.seconds) do
-      Stream.live
+      Stream.broadcasting
     end
   end
 
@@ -83,7 +75,24 @@ class StreamsController < ApplicationController
   # private
 
   def stream_params
-    params.require(:stream).permit(:title, :body, :editable_tags)
+    params.require(:stream).permit(:title, :body, :editable_tags, :save_recording)
   end
 
+  def save_and_redirect
+    @stream.published_at ||= Time.now if params[:publish_stream]
+    @stream.archived_at ||= Time.now if params[:end_stream]
+    if @stream.save
+      case
+      when @stream.archived?
+        flash[:notice] = "Your stream has been archived"
+        redirect_to live_streams_path
+      when @stream.published?
+        redirect_to profile_stream_path(current_user.username)
+      else
+        redirect_to new_stream_path
+      end
+    else
+      render 'new'
+    end
+  end
 end

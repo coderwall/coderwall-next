@@ -12,7 +12,7 @@
     .clearfix
       .col.col-12.md-col-8
         .clearfix.mt0.mb1
-          -if @stream.live?
+          -if @stream.broadcasting?
             .left.mr1
               .rounded.p1.bg-red.white.bold LIVE
           -else
@@ -56,8 +56,8 @@
             %div{class: ('field_with_errors' if @stream.errors[:tags].any?)}
               = form.text_field :editable_tags, type: 'text', class: 'field block col-10'
             .py3
-              = check_box_tag :record, true, checked: true
-              = label_tag 'Save recording of stream'
+              = form.check_box :save_recording, checked: true
+              = form.label :save_recording, 'Save recording of stream'
             %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Save
             .mt2.font-sm.diminish
               You are currently offline. Stream information is private until you go online.
@@ -95,8 +95,8 @@
             %p
               After configuring the stream you can see a preview here by clicking
               %em Start Streaming
-              in Open Broadcast. Once you see the preview you are ready to Go Online anytime you want.
-            -if @stream.live?
-              %button.btn.mt1.rounded.bg-green.white{type: 'submit', value: 'GoOffline'} Go Offline
+              in Open Broadcast. Once you see the preview you are ready to publish anytime you want.
+            -if @stream.published?
+              %button.btn.mt1.rounded.bg-red.white{type: 'submit', name: 'end_stream'} End Stream
             -else
-              %button.btn.mt1.rounded.bg-green.white{type: 'submit', value: 'GoOnline'} Go Online
+              %button.btn.mt1.rounded.bg-green.white{type: 'submit', name: 'publish_stream'} Publish Live Stream

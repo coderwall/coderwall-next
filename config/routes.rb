@@ -38,7 +38,10 @@ Rails.application.routes.draw do
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
 
-  resources :team, :streams
+  resources :team
+  resources :streams, only: [:new, :show, :create, :update] do
+    get :edit, on: :collection
+  end
 
   resources :users do
     member do

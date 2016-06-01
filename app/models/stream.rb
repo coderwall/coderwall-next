@@ -2,10 +2,11 @@ class Stream < Article
 
   html_schema_type :BroadcastEvent
 
-  attr_accessor :live
+  attr_accessor :broadcasting
   attr_accessor :live_viewers
 
-  scope :current, -> { order(created_at: :desc).first }
+  scope :not_archived, -> { where(archived_at: nil) }
+  scope :published, -> { where.not(published_at: nil) }
 
   def self.next_weekly_lunch_and_learn
     friday = (Time.now.beginning_of_week + 4.days)
@@ -17,18 +18,26 @@ class Stream < Article
     end
   end
 
-  def live?
-    live == true
+  def broadcasting?
+    broadcasting == true
   end
 
-  def self.any_live?
-    Rails.cache.fetch('any-streams-live', expires_in: 5.seconds) do
-      live.any?
+  def self.any_broadcasting?
+    Rails.cache.fetch('any-streams-broadcasting', expires_in: 5.seconds) do
+      broadcasting.any?
     end
   end
 
   def self.live_stats(username)
     live_streamers[username]
+  end
+
+  def published?
+    !!published_at
+  end
+
+  def archived?
+    !!archived_at
   end
 
   def preview_image_url
@@ -39,9 +48,9 @@ class Stream < Article
     "http://quickstream.io:1935/coderwall/ngrp:#{user.username}_all/jwplayer.smil"
   end
 
-  def self.live
-    Stream.where(user: User.where(username: live_streamers.keys)).each do |s|
-      s.live = true
+  def self.broadcasting
+    Stream.published.not_archived.where(user: User.where(username: live_streamers.keys)).each do |s|
+      s.broadcasting = true
     end
   end
 

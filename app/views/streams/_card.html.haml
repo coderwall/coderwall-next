@@ -2,7 +2,7 @@
   .border.rounded.sm-mr3
     .screen.bg-gray.bg-cover.bg-center.px4.py3{style: "background-image: url(#{stream.preview_image_url})"}
       .p2 &nbsp;
-    -if stream.live
+    -if stream.broadcasting?
       .relative.bg-red.white.right.bold.p-tiny.font-tiny{style: 'top:-23px; margin-bottom:-23px;'} LIVE
     -else
       .relative.bg-silver.white.right.bold.p-tiny.font-tiny{style: 'top:-23px; margin-bottom:-23px;'} RE-WATCH

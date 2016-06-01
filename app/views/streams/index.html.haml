@@ -22,7 +22,7 @@
           Developers and Designers live streaming their latest tips, tools, and projects.
 
       .clearfix.mb4
-        -if !Stream.any_live?
+        -if !Stream.any_broadcasting?
           %p.bold.purple.mt2.mb3
             =icon('tv', class: 'mr1')
             There are no live video streams at the moment.
@@ -52,7 +52,7 @@
                 =icon('calendar')
                 Remind me
 
-      -if Stream.any_live?
+      -if Stream.any_broadcasting?
         =render 'go_live'
 
       %p.diminish
