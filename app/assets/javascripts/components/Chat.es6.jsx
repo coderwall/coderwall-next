@@ -140,7 +140,7 @@ class Chat extends React.Component {
     })
     this.scrollToBottom()
     this.fetchOlderChatMessages()
-    $(window).resize(this.constrainChatToStream)
+    $(window).on('video-resize', this.constrainChatToStream)
   }
 
   componentWillUnmount() {
@@ -169,10 +169,10 @@ class Chat extends React.Component {
     $(this.refs.scrollable).scrollTop($(this.refs.scrollable).prop("scrollHeight"))
   }
 
-  constrainChatToStream() {
-    anchorHeight = $('.stream:first').height()
-    $('#chat').css('max-height', anchorHeight - 56)
-    $('#chat').css('min-height', anchorHeight - 70)
+  constrainChatToStream(e, data) {
+    const anchorHeight = data.height
+    $('#chat').css('min-height', anchorHeight - 47)
+    $('#chat').css('max-height', anchorHeight - 47)
   }
 }
 

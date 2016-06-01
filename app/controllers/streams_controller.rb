@@ -22,7 +22,12 @@ class StreamsController < ApplicationController
   end
 
   def update
-    #TODO: save, then redirect to new again unless going live, then stream show
+    @stream = current_user.current_stream.update(stream_params)
+    if @stream.save
+      redirect_to profile_stream_path(current_user.username)
+    else
+      render 'new'
+    end
   end
 
   def show

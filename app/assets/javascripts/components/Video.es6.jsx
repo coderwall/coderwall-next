@@ -26,6 +26,7 @@ class Video extends React.Component {
       }
     }).on('play', () => this.setState({online: true}))
       .on('bufferFull', () => this.setState({online: true}))
+      .on('resize', data => $(window).trigger('video-resize', data))
       .onError(this.onError.bind(this))
 
     // debug

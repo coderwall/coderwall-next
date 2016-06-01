@@ -28,7 +28,7 @@
 
       .card{style: "border-top:solid 5px #{@user.color}"}
         =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @user.stream_source, offlineImage: asset_url('offline-holder')
-        
+
         .clearfix.p2
           .col.col-8
             -@stream.tags.each do |tag|
@@ -72,7 +72,7 @@
                   .hide_last_child.inline &middot;
           -# %h4 Streams
 
-    .col.col-12.md-col-4
+    .col.col-4.md-show
       %h4.ml3.diminish Community Discussion
       = react_component('Chat', render(template: 'streams/show.json.jbuilder'))
 
