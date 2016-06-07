@@ -5,6 +5,13 @@ class StreamsController < ApplicationController
 
   def new
     @stream = current_user.active_stream || Stream.new(user: current_user)
+    if @stream.new_record?
+      if old_stream = current_user.streams.order(created_at: :desc).first
+        @stream.title = old_stream.title
+        @stream.body = old_stream.body
+        @stream.tags = old_stream.tags
+      end
+    end
     if current_user.stream_key.blank?
       current_user.generate_stream_key
       current_user.save!
@@ -81,12 +88,16 @@ class StreamsController < ApplicationController
   def save_and_redirect
     @stream.published_at ||= Time.now if params[:publish_stream]
     @stream.archived_at ||= Time.now if params[:end_stream]
+    current_user.streams.where(archived_at: nil).update_all(archived_at: Time.now)
     if @stream.save
       case
       when @stream.archived?
+        end_youtube_stream
         flash[:notice] = "Your stream has been archived"
         redirect_to live_streams_path
       when @stream.published?
+        Rails.logger.info("pushing to youtube")
+        stream_to_youtube if @stream.save_recording
         redirect_to profile_stream_path(current_user.username)
       else
         redirect_to new_stream_path
@@ -94,5 +105,28 @@ class StreamsController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def stream_to_youtube
+    url = "#{ENV['QUICKSTREAM_URL']}/streams/#{@stream.user.username}/youtube"
+    Excon.put(url,
+      headers: {
+        "Accept" => "application/json",
+        "Content-Type" => "application/json" },
+      body: {title: @stream.title, description: @stream.body}.to_json,
+      idempotent: true,
+      tcp_nodelay: true,
+    )
+  end
+
+  def end_youtube_stream
+    url = "#{ENV['QUICKSTREAM_URL']}/streams/#{@stream.user.username}/youtube"
+    Excon.delete(url,
+      headers: {
+        "Accept" => "application/json",
+        "Content-Type" => "application/json" },
+      idempotent: true,
+      tcp_nodelay: true,
+    )
   end
 end
