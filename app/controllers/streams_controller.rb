@@ -11,6 +11,8 @@ class StreamsController < ApplicationController
         @stream.body = old_stream.body
         @stream.tags = old_stream.tags
       end
+    elsif @stream.published? && !@stream.archived?
+      return redirect_to profile_stream_path(current_user.username)
     end
     if current_user.stream_key.blank?
       current_user.generate_stream_key

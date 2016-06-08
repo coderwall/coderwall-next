@@ -47,7 +47,11 @@ class Stream < Article
   end
 
   def preview_image_url
-    "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
+    if archived?
+      "https://i.ytimg.com/vi/#{recording_id}/sddefault_live.jpg"
+    else
+      "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
+    end
   end
 
   def source
