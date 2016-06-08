@@ -30,16 +30,22 @@ class StreamsController < ApplicationController
   end
 
   def show
-    @user = User.find_by!(username: params[:username])
-    if @stream = @user.streams.order(created_at: :desc).first!
-      @stream.broadcasting = !!cached_stats
+    if params[:username]
+      @user = User.find_by!(username: params[:username])
+      if @stream = @user.streams.order(created_at: :desc).first!
+        @stream.broadcasting = !!cached_stats
+      end
+    else
+      @stream = Stream.find_by!(public_id: params[:id])
+      @user = @stream.user
     end
   end
 
   def index
-    @streams = Rails.cache.fetch("quickstream/streams", expires_in: 5.seconds) do
+    @live_streams = Rails.cache.fetch("quickstream/streams", expires_in: 5.seconds) do
       Stream.broadcasting
     end
+    @recorded_streams = Stream.archived.recorded
   end
 
   def stats
@@ -109,7 +115,7 @@ class StreamsController < ApplicationController
 
   def stream_to_youtube
     url = "#{ENV['QUICKSTREAM_URL']}/streams/#{@stream.user.username}/youtube"
-    Excon.put(url,
+    resp = Excon.put(url,
       headers: {
         "Accept" => "application/json",
         "Content-Type" => "application/json" },
@@ -117,6 +123,8 @@ class StreamsController < ApplicationController
       idempotent: true,
       tcp_nodelay: true,
     )
+    body = JSON.parse(resp.body)
+    @stream.update!(recording_id: body['youtube_broadcast_id'])
   end
 
   def end_youtube_stream
