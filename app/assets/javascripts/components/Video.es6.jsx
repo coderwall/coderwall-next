@@ -34,6 +34,10 @@ class Video extends React.Component {
     // this.jwplayer.on('all', this.onAll.bind(this))
   }
 
+  componentWillUnmount() {
+    this.jwplayer.remove()
+  }
+
   render() {
     return (
       <div>

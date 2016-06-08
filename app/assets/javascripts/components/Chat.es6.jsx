@@ -176,6 +176,8 @@ class Chat extends React.Component {
 
   componentWillUnmount() {
     $(this.refs.scrollable).unbind('mousewheel DOMMouseScroll')
+    $(window).off('video-resize')
+    $(window).off('video-time')
   }
 
   componentWillUpdate() {
