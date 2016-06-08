@@ -24,6 +24,13 @@ class Stream < Article
     broadcasting == true
   end
 
+  def notify_team!
+    user_link   = "<https://coderwall.com/#{user.username}|#{user.username}>"
+    stream_link = "<https://coderwall.com/#{user.username}/live|View Stream>"
+    message     = "#{user_link} just started live streaming. #{stream_link}"
+    Slack.notify!(':movie_camera:', message)
+  end
+
   def self.any_broadcasting?
     Rails.cache.fetch('any-streams-broadcasting', expires_in: 5.seconds) do
       broadcasting.any?

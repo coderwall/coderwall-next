@@ -106,6 +106,7 @@ class StreamsController < ApplicationController
         redirect_to new_stream_path
       when @stream.published?
         Rails.logger.info("pushing to youtube")
+        @stream.notify_team!
         stream_to_youtube
         redirect_to profile_stream_path(current_user.username)
       else
