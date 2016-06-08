@@ -51,7 +51,7 @@ class Stream < Article
   end
 
   def source
-    if recording_id
+    if archived?
       "//www.youtube.com/watch?v=#{recording_id}"
     else
       user.stream_source

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607202132) do
+ActiveRecord::Schema.define(version: 20160608034824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,17 +97,18 @@ ActiveRecord::Schema.define(version: 20160607202132) do
     t.integer  "user_id"
     t.float    "score"
     t.datetime "featured_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "tags",           default: [],                 array: true
-    t.integer  "likes_count",    default: 0
-    t.integer  "views_count",    default: 0
-    t.boolean  "flagged",        default: false
-    t.text     "type",                           null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "tags",                 default: [],                 array: true
+    t.integer  "likes_count",          default: 0
+    t.integer  "views_count",          default: 0
+    t.boolean  "flagged",              default: false
+    t.text     "type",                                 null: false
     t.datetime "published_at"
     t.datetime "archived_at"
     t.boolean  "save_recording"
     t.text     "recording_id"
+    t.datetime "recording_started_at"
   end
 
   add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree

@@ -1,5 +1,14 @@
 let messageId = 1
 
+function pollUntil(condition, action, interval=100) {
+  if (!condition()) {
+    return setTimeout(() => pollUntil(condition, action, interval), interval)
+  }
+
+  action()
+}
+
+
 class Chat extends React.Component {
   constructor(props) {
     super(props)
@@ -26,7 +35,13 @@ class Chat extends React.Component {
   }
 
   renderComments() {
-    return this.state.comments.map(c =>
+    let visibleComments = this.state.comments
+    const start = this.props.stream.recording_started_at
+    if (start) {
+      const current = start + this.state.timeOffset
+      visibleComments = this.state.comments.filter(c => c.created_at < current)
+    }
+    return visibleComments.map(c =>
       <ChatComment
         key={c.id}
         id={c.id}
@@ -37,7 +52,11 @@ class Chat extends React.Component {
   }
 
   renderChatInput() {
-    if (this.props.active && this.pusher) {
+    const allowChat = this.props.signedIn &&
+      this.state.channel &&
+      this.props.stream.archived_at === null
+
+    if (allowChat) {
       return (
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="body" defaultValue="" placeholder="Ask question" className="col-9 focus-no-border font-sm resize-chat-on-change m0" style={{"border": "none", "outline": "none"}} />
@@ -71,7 +90,7 @@ class Chat extends React.Component {
       method: 'POST',
       dataType: 'json',
       data: {
-        socket_id: this.pusher.connection.socket_id,
+        socket_id: this.state.pusher.connection.socket_id,
         comment: {
           article_id: this.props.stream.id,
           body: this.refs.body.value,
@@ -123,15 +142,21 @@ class Chat extends React.Component {
   }
 
   componentWillMount() {
-    this.pusher = new Pusher(this.props.pusherKey)
-    this.channel = this.pusher.subscribe(this.props.chatChannel)
+    pollUntil(
+      () => typeof Pusher !== 'undefined',
+      () => {
+        const pusher = new Pusher(this.props.pusherKey)
+        const channel = pusher.subscribe(this.props.chatChannel)
+        channel.bind('new-comment', comment => {
+          this.setState({comments: [...this.state.comments, comment]})
+        })
+
+        this.setState({pusher, channel})
+      }
+    )
   }
 
   componentDidMount() {
-    this.channel.bind('new-comment', comment => {
-      this.setState({comments: [...this.state.comments, comment]})
-    })
-
     const self = this
     $(this.refs.scrollable).bind('mousewheel DOMMouseScroll', function(e) {
       if (this.scrollTop < 100) {
@@ -146,6 +171,7 @@ class Chat extends React.Component {
     this.scrollToBottom()
     this.fetchOlderChatMessages()
     $(window).on('video-resize', this.constrainChatToStream)
+    $(window).on('video-time', (e, data) => this.setState({ timeOffset: data.position }))
   }
 
   componentWillUnmount() {
@@ -184,8 +210,7 @@ class Chat extends React.Component {
 Chat.propTypes = {
   chatChannel: React.PropTypes.string.isRequired,
   comments: React.PropTypes.array.isRequired,
-  isLive: React.PropTypes.bool,
   pusherKey: React.PropTypes.string.isRequired,
-  active: React.PropTypes.bool,
+  signedIn: React.PropTypes.bool,
   stream: React.PropTypes.object.isRequired,
 }

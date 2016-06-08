@@ -27,6 +27,7 @@ class Video extends React.Component {
     }).on('play', () => this.setState({online: true}))
       .on('bufferFull', () => this.setState({online: true}))
       .on('resize', data => $(window).trigger('video-resize', data))
+      .on('time', data => $(window).trigger('video-time', data))
       .onError(this.onError.bind(this))
 
     // debug
@@ -80,9 +81,9 @@ class Video extends React.Component {
   }
 
   onAll(e, data) {
-    if (e !== 'time' && e !== 'meta') {
+    // if (e !== 'time' && e !== 'meta') {
       console.log(e, data)
-    }
+    // }
   }
 }
 

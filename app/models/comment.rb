@@ -3,6 +3,8 @@ class Comment < ActiveRecord::Base
   paginates_per 10
   html_schema_type :Comment
 
+  VIDEO_LAG = 25.seconds # TODO: measure the real lag value
+
   after_create :auto_like_article_for_author
 
   belongs_to :user,   touch: true, required: true
@@ -19,5 +21,9 @@ class Comment < ActiveRecord::Base
 
   def auto_like_article_for_author
     article.likes.create(user: user) unless user.likes?(article)
+  end
+
+  def video_timestamp
+    (created_at - VIDEO_LAG).to_i
   end
 end

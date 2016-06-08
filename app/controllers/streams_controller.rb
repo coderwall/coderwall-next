@@ -98,12 +98,13 @@ class StreamsController < ApplicationController
     if @stream.save
       case
       when @stream.archived?
+        @stream.touch(:archived_at)
         end_youtube_stream
         flash[:notice] = "You are offline and your broadcast was archived"
         redirect_to new_stream_path
       when @stream.published?
         Rails.logger.info("pushing to youtube")
-        stream_to_youtube if @stream.save_recording
+        stream_to_youtube
         redirect_to profile_stream_path(current_user.username)
       else
         redirect_to new_stream_path
