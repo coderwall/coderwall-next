@@ -37,7 +37,7 @@ class Chat extends React.Component {
   }
 
   renderChatInput() {
-    if (this.props.signedIn && this.pusher) {
+    if (this.props.active && this.pusher) {
       return (
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input type="text" ref="body" defaultValue="" placeholder="Ask question" className="col-9 focus-no-border font-sm resize-chat-on-change m0" style={{"border": "none", "outline": "none"}} />
@@ -186,6 +186,6 @@ Chat.propTypes = {
   comments: React.PropTypes.array.isRequired,
   isLive: React.PropTypes.bool,
   pusherKey: React.PropTypes.string.isRequired,
-  signedIn: React.PropTypes.bool,
+  active: React.PropTypes.bool,
   stream: React.PropTypes.object.isRequired,
 }

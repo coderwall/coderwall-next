@@ -32,7 +32,7 @@ class StreamsController < ApplicationController
   def show
     if params[:username]
       @user = User.find_by!(username: params[:username])
-      if @stream = @user.streams.order(created_at: :desc).first!
+      if @stream = @user.active_stream
         @stream.broadcasting = !!cached_stats
       end
     else

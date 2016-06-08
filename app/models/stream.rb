@@ -42,6 +42,10 @@ class Stream < Article
     !!archived_at
   end
 
+  def active
+    published? && !archived?
+  end
+
   def preview_image_url
     "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
   end
