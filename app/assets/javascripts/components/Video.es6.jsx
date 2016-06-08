@@ -55,7 +55,7 @@ class Video extends React.Component {
   }
 
   renderOnlineStatus() {
-    const message = this.state.online ? 'Connected, streaming' : 'No stream detected, preview unavailable'
+    const message = this.state.online ? 'Connected, previewing stream' : 'No stream detected, preview unavailable'
 
     return (
       <div className="border-box p2 border-right border-left">

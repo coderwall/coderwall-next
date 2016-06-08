@@ -17,13 +17,15 @@
               .rounded.p1.bg-red.white.bold LIVE
           -else
             .left.mr1
-              .gray.bold OFFLINE
+              .rounded.p1.gray.border.border--gray.bg-white.bold OFFLINE
+            .left
+              .p1= link_to 'Cancel', live_streams_path
 
         .card{style: "border-top:solid 5px #{current_user.color}"}
           =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: current_user.stream_source, offlineImage: asset_url('offline-holder'), showStatus: true
 
           .clearfix.p2
-            %h2 Describe Broadcast
+            %h2 New Broadcast
             = form.label :title
             = form.text_field :title, type: 'text', class: 'field block col-10 mb2'
             = form.label :body, 'About'
@@ -53,20 +55,18 @@
                   or
                   %strong advance
                   is great too
-            %div{class: ('field_with_errors' if @stream.errors[:tags].any?)}
+            %div.mb2{class: ('field_with_errors' if @stream.errors[:tags].any?)}
               = form.text_field :editable_tags, type: 'text', class: 'field block col-10'
-            .py3
-              = form.check_box :save_recording, checked: true
-              = form.label :save_recording, 'Save recording of stream'
-            %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Save
-            .mt2.font-sm.diminish
-              You are currently offline. Stream information is private until you go online.
+            -# .py3
+            -#   = form.check_box :save_recording, checked: true
+            -#   = form.label :save_recording, 'Save recording of stream'
+            %button.btn.mt1.rounded.bg-green.white{type: 'submit', name: 'publish_stream'} Go Live Now
 
       .col.col-12.md-col-4
-        .md-ml3
-          %h4.ml1.diminish How to Stream
+        .md-ml3.mt3
+          %h4.ml1.diminish Configuring your stream
           .flex.flex-column.bg-white.rounded.p1
-            %h5 1. Download Free Software
+            %h5 1. Download Streaming Client
             %p
               %a{href: 'https://obsproject.com'} Open Broadcast
               is free open source software that runs on Windows, Unix, and Macs. It makes live streaming your webcam, desktop, and other media through Coderwall easy.
@@ -93,10 +93,4 @@
                 No
             %h5 3. Preview Stream
             %p
-              After configuring the stream you can see a preview here by clicking
-              %em Start Streaming
-              in Open Broadcast. Once you see the preview you are ready to publish anytime you want.
-            -if @stream.published?
-              %button.btn.mt1.rounded.bg-red.white{type: 'submit', name: 'end_stream'} End Stream
-            -else
-              %button.btn.mt1.rounded.bg-green.white{type: 'submit', name: 'publish_stream'} Publish Live Stream
+              Once you see the preview of your stream you are ready to go live at anytime.
