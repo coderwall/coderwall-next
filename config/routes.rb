@@ -73,7 +73,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :streams, path: '/s', only: [] do
+  resources :streams, path: '/s', only: [:show] do
     get :comments
   end
 

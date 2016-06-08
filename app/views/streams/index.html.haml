@@ -31,8 +31,11 @@
 
         -else
           %h5.mb2 Live Streams
-          -@streams.each do |stream|
+          -@live_streams.each do |stream|
             =render 'card', stream: stream
+
+      -@recorded_streams.each do |stream|
+        =render 'card', stream: stream
 
     .col.col-12.md-col-1.md-show &nbsp;
     .col.col-12.md-col-3

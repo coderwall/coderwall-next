@@ -1,4 +1,5 @@
-%a.mx-auto.col.col-12.sm-col-6.lg-col-4.mb4.no-hover{href: profile_stream_path(username: stream.user.username)}
+- url = stream.broadcasting? ? profile_stream_path(username: stream.user.username) : stream_path(stream)
+%a.mx-auto.col.col-12.sm-col-6.lg-col-4.mb4.no-hover{href: url}
   .border.rounded.sm-mr3
     .screen.bg-gray.bg-cover.bg-center.px4.py3{style: "background-image: url(#{stream.preview_image_url})"}
       .p2 &nbsp;

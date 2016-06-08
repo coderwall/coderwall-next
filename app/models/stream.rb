@@ -5,8 +5,10 @@ class Stream < Article
   attr_accessor :broadcasting
   attr_accessor :live_viewers
 
+  scope :archived, -> { where.not(archived_at: nil) }
   scope :not_archived, -> { where(archived_at: nil) }
   scope :published, -> { where.not(published_at: nil) }
+  scope :recorded, -> { where.not(recording_id: nil) }
 
   def self.next_weekly_lunch_and_learn
     friday = (Time.now.beginning_of_week + 4.days)
@@ -44,8 +46,12 @@ class Stream < Article
     "https://api.quickstream.io/coderwall/streams/#{user.username}.png?size=400x"
   end
 
-  def rtmp
-    "http://quickstream.io:1935/coderwall/ngrp:#{user.username}_all/jwplayer.smil"
+  def source
+    if recording_id
+      "//www.youtube.com/watch?v=#{recording_id}"
+    else
+      user.stream_source
+    end
   end
 
   def self.broadcasting
