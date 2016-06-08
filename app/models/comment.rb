@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
   validates :body,   length: { minimum: 2 }
 
   scope :recently_created, ->(count=10) { order(created_at: :desc).limit(count)}
+  scope :on_protips, -> { joins(:article).where(protips: {type: 'Protip'}) }
 
   def dom_id
     ActionView::RecordIdentifier.dom_id(self)

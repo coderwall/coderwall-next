@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
       format.html {
         # TODO: do we need this check?
         return head(:forbidden) unless admin?
-        @comments = Comment.order(created_at: :desc).page(params[:page])
+        @comments = Comment.on_protips.order(created_at: :desc).page(params[:page])
       }
       format.json {
         @comments = Comment.
