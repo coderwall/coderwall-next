@@ -2,14 +2,31 @@ class CommentsController < ApplicationController
   before_action :require_login, only: [:create, :destroy]
 
   def index
-    return head(:forbidden) unless admin?
-    @comments = Comment.order(created_at: :desc).page(params[:page])
+    respond_to do |format|
+      format.html {
+        # TODO: do we need this check?
+        return head(:forbidden) unless admin?
+        @comments = Comment.order(created_at: :desc).page(params[:page])
+      }
+      format.json {
+        @comments = Comment.
+          where(article_id: params[:article_id]).
+          order(created_at: :desc).
+          limit(10)
+
+        @comments = @comments.where('created_at < ?', params[:before]) unless params[:before].blank?
+      }
+    end
   end
 
   def spam
     return head(:forbidden) unless admin?
     @comments = Comment.order(created_at: :desc).where("body ILike '%<a %'").page(params[:page])
     render action: 'index'
+  end
+
+  def show
+    @comment = Comment.find(params[:id])
   end
 
   def create
@@ -20,7 +37,14 @@ class CommentsController < ApplicationController
       flash[:data] = @comment.body
       redirect_to_protip_comment_form
     else
-      redirect_to_protip_comment(@comment)
+      json = render_to_string(template: 'comments/_comment.json.jbuilder', locals: {comment: @comment})
+      Pusher.trigger(@comment.article.dom_id.to_s, 'new-comment', json, {
+        socket_id: params[:socket_id]
+      })
+      respond_to do |format|
+        format.html { redirect_to_protip_comment(@comment) }
+        format.json { render json: json }
+      end
     end
   end
 
@@ -41,6 +65,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :protip_id)
+    params.require(:comment).permit(:body, :article_id)
   end
 end

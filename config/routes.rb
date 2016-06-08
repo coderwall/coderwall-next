@@ -32,11 +32,16 @@ Rails.application.routes.draw do
   get    '/twitter/:username', to: redirect("/404", status:302)
   get    '/github/:username',  to: redirect("/404", status:302)
   get    '/team/:slug'     => 'teams#show'
+  get    '/live' => 'streams#index', as: :live_streams
+  get    '/live/lunch-and-learn.ics' => 'streams#invite', as: :lunch_and_learn_invite
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
 
   resources :team
+  resources :streams, only: [:new, :show, :create, :update] do
+    get :edit, on: :collection
+  end
 
   resources :users do
     member do
@@ -68,9 +73,16 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/:username'          => 'users#show', as: :profile
-  get '/:username/protips'  => 'users#show', as: :profile_protips,  protips:  true
-  get '/:username/comments' => 'users#show', as: :profile_comments, comments: true
+  resources :streams, path: '/s', only: [:show] do
+    get :comments
+  end
+
+
+  get '/:username'          => 'users#show',   as: :profile
+  get '/:username/protips'  => 'users#show',   as: :profile_protips,  protips:  true
+  get '/:username/comments' => 'users#show',   as: :profile_comments, comments: true
+  get '/:username/live'     => 'streams#show', as: :profile_stream
+  get '/:username/live/stats' => 'streams#stats', as: :live_stream_stats
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
 
   get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
@@ -83,6 +95,7 @@ Rails.application.routes.draw do
   resources :hooks, only: [] do
     collection do
       post 'sendgrid'
+      post 'quickstream' => 'quickstream#webhook'
     end
   end
 end

@@ -1,0 +1,18 @@
+- url = stream.broadcasting? ? profile_stream_path(username: stream.user.username) : stream_path(stream)
+%a.mx-auto.col.col-12.sm-col-6.lg-col-4.mb4.no-hover{href: url}
+  .border.rounded.sm-mr3
+    .screen.bg-gray.bg-cover.bg-center.px4.py3{style: "background-image: url(#{stream.preview_image_url})"}
+      .p2 &nbsp;
+    -if stream.broadcasting?
+      .relative.bg-red.white.right.bold.p-tiny.font-tiny{style: 'top:-23px; margin-bottom:-23px;'} LIVE
+    -else
+      .relative.bg-silver.white.right.bold.p-tiny.font-tiny{style: 'top:-23px; margin-bottom:-23px;'} RE-WATCH
+    .mt1.p1
+      .h4.bold.overflow-hidden{style: 'height: 3em;'}=stream.title
+      .gray
+        %h6{style: 'min-height: 3.75em;'}
+          -stream.tags.each do |tag|
+            .inline=tag
+            .inline.hide_last_child &middot;
+        .overflow-auto.font-sm.mt2
+          =stream.user.username

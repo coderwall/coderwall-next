@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425233554) do
+ActiveRecord::Schema.define(version: 20160608034824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 20160425233554) do
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
-    t.integer  "protip_id"
+    t.integer  "article_id"
     t.integer  "user_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "likes_count", default: 0
   end
 
-  add_index "comments", ["protip_id"], name: "index_comments_on_protip_id", using: :btree
+  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "job_views", force: :cascade do |t|
@@ -97,18 +97,25 @@ ActiveRecord::Schema.define(version: 20160425233554) do
     t.integer  "user_id"
     t.float    "score"
     t.datetime "featured_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "tags",        default: [],                 array: true
-    t.integer  "likes_count", default: 0
-    t.integer  "views_count", default: 0
-    t.boolean  "flagged",     default: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "tags",                 default: [],                 array: true
+    t.integer  "likes_count",          default: 0
+    t.integer  "views_count",          default: 0
+    t.boolean  "flagged",              default: false
+    t.text     "type",                                 null: false
+    t.datetime "published_at"
+    t.datetime "archived_at"
+    t.boolean  "save_recording"
+    t.text     "recording_id"
+    t.datetime "recording_started_at"
   end
 
   add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree
   add_index "protips", ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
   add_index "protips", ["score"], name: "index_protips_on_score", using: :btree
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
+  add_index "protips", ["type"], name: "index_protips_on_type", using: :btree
   add_index "protips", ["user_id"], name: "index_protips_on_user_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
@@ -164,15 +171,17 @@ ActiveRecord::Schema.define(version: 20160425233554) do
     t.datetime "banned_at"
     t.text     "marketing_list"
     t.datetime "email_invalid_at"
+    t.text     "stream_key"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
+  add_index "users", ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "badges", "users", name: "badges_user_id_fk"
-  add_foreign_key "comments", "protips", name: "comments_protip_id_fk"
+  add_foreign_key "comments", "protips", column: "article_id", name: "comments_protip_id_fk"
   add_foreign_key "comments", "users", name: "comments_user_id_fk"
   add_foreign_key "job_views", "jobs"
   add_foreign_key "job_views", "users"

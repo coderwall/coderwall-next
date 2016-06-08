@@ -4,12 +4,25 @@ module ApplicationHelper
     ENV['SHOW_ADS'] == 'true' || Rails.env.development?
   end
 
+  def  darkened_bg_image(filename)
+    transparency = '0.60'
+    "background-image: linear-gradient(to bottom, rgba(0,0,0,#{transparency}) 0%,rgba(0,0,0,#{transparency}) 100%), url(#{asset_path(filename)});"
+  end
+
   def time_ago_in_words_with_ceiling(time)
     if time < 1.year.ago
       'over 1 year'
     else
       time_ago_in_words(time)
     end
+  end
+
+  def hide_on_chat
+    return 'hide' if params[:controller] == 'streams'
+  end
+
+  def hide_border_on_chat
+    return 'no-border-ever' if params[:controller] == 'streams'
   end
 
   def hide_on_auth
@@ -68,4 +81,13 @@ module ApplicationHelper
     'https://schema.org/Comment'
   end
 
+  def next_lunch_and_learn
+    day = Stream.next_weekly_lunch_and_learn
+    day.strftime("%A %B #{day.day.ordinalize}")
+  end
+
+  def livestream_tweet_message
+    attribution = @stream.user.twitter ? @stream.user.twitter : "coderwall"
+    CGI.escape "[LIVE] #{@stream.title} via @#{attribution}\n\n#{profile_stream_url(username: @stream.user.username)}"
+  end
 end

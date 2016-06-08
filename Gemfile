@@ -14,6 +14,8 @@ gem 'excon'
 gem 'friendly_id'
 gem 'green_monkey'
 gem 'haml-rails'
+gem 'icalendar'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'lograge'
@@ -23,6 +25,7 @@ gem 'pg', '~> 0.15'
 gem 'postmark-rails'
 gem 'puma_worker_killer'
 gem 'puma'
+gem 'pusher'
 gem 'quiet_assets'
 gem 'rack-cors'
 gem 'rack-timeout'
@@ -57,8 +60,8 @@ group :test do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'web-console', '~> 2.0'
 end
 
 group :production do

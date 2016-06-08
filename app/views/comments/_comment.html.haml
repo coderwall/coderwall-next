@@ -1,9 +1,10 @@
 - cache ['v2', comment, current_user_can_edit?(comment)] do
-  .clearfix.border-top.py1[comment]{id: dom_id(comment)}
+  - style ||= :large
+  .inline-block.py1[comment]{id: dom_id(comment), class: ('border-top' if style != :small), style: 'width: 100%'}
     .hide= time_tag comment.created_at, itemprop: "datePublished"
     .hide[:name]= comment.id
 
-    .left.mt1.mr2.avatar.medium{style:"background-color: #{comment.user.color};"}
+    .left.mt1.mr2.avatar.small{style:"background-color: #{comment.user.color};"}
       =avatar_url_tag(comment.user)
     .overflow-hidden.py0.mt0
       .clearfix
@@ -11,14 +12,15 @@
           %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
             =comment.user.username
         .content.small[:text]= sanitize(CoderwallFlavoredMarkdown.render_to_html(comment.body))
-        .diminish.mt1
-          ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
-          -if current_user_can_edit?(comment)
+        - if style != :small
+          .diminish.mt1{class: hide_on_chat}
+            ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
+            -if current_user_can_edit?(comment)
+              &middot;
+              %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
             &middot;
-            %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
-          &middot;
-          = react_component 'Heartable',
-            id: dom_id(comment),
-            href: comment_likes_path(comment),
-            initialCount: comment.likes_count,
-            layout: 'simple'
+            = react_component 'Heartable',
+              id: dom_id(comment),
+              href: comment_likes_path(comment),
+              initialCount: comment.likes_count,
+              layout: 'simple'

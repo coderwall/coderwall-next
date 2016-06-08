@@ -20,7 +20,7 @@ $font-x-lg: 18px;
 
 // Rails error handing
 .field_with_errors {
-	input {
+	input, textarea {
 		border: solid 1px $red;
 	}
 }
@@ -117,7 +117,7 @@ $placeholder: darken($silver, 20%);
 }
 
 .default-cursor{
-	cursor: default !important;
+	cursor: pointer !important;
 }
 
 .pointer {
@@ -151,9 +151,18 @@ header {
     height: 24px;
   }
 
-	&.medium, &.big{
+	&.small, &.medium, &.big{
 		position: inherit;
 		top: inherit;
+	}
+
+	&.medium {
+		width: 37px;
+		height: 37px;
+		img{
+			width: 37px;
+			height: 37px;
+		}
 	}
 
 	&.big{
@@ -199,4 +208,19 @@ div[data-react-class] {
 #v1_protip {
 	width: 320;
 	height: 100;
+}
+
+.no-border-ever{
+	border: none !important;
+}
+
+.p-tiny {
+  padding-left: .75rem;
+  padding-right: .75rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
+
+.underline{
+	text-decoration: underline;
 }

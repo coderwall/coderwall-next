@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :protips,  ->{ order(created_at: :desc) }, dependent: :destroy
   has_many :comments, ->{ order(created_at: :desc) }, dependent: :destroy
   has_many :badges,   ->{ order(created_at: :desc) }, dependent: :destroy
+  has_many :streams,  ->{ order(created_at: :desc) }, dependent: :destroy
 
   RESERVED = %w{
     achievements
@@ -27,6 +28,10 @@ class User < ActiveRecord::Base
     tos
     usernames
     users
+    live
+    stream
+    streams
+    broadcast
   }
 
   VALID_USERNAME_RIGHT_WAY = /\A[a-z0-9]+\z/
@@ -51,7 +56,7 @@ class User < ActiveRecord::Base
   end
 
   def likes?(obj)
-    likes.exists?(likable_id: obj.id, likable_type: obj.class.name)
+    likes.where(likable: obj).any?
   end
 
   def liked
@@ -85,6 +90,22 @@ class User < ActiveRecord::Base
 
   def editable_skills=(val)
     self.skills = val.split(',').collect(&:strip)
+  end
+
+  def generate_stream_key
+    self.stream_key = "cw_#{Digest::SHA1.hexdigest([Time.now.to_i, rand].join)[0..12]}"
+  end
+
+  def stream_name
+    "#{username}?#{stream_key}"
+  end
+
+  def stream_source
+    "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"
+  end
+
+  def active_stream
+    streams.not_archived.order(created_at: :desc).first
   end
 
 end

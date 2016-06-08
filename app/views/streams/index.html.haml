@@ -1,0 +1,63 @@
+-title 'Coderwall Live'
+-description 'Developers and Designers live streaming their latest tips, tools, and projects.'
+
+-# Topics of previous streams
+-# Marketing for quick stream
+-# I want to present lunch and learn
+
+-content_for :hero do
+  .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: darkened_bg_image('live-banner.jpg')}
+    %h1
+      Watch Live Video Streams of
+      %br.sm-show
+      Developers & Designers
+
+.container
+  .clearfix
+    .col.col-12.md-col-8
+      .mb2.purple{style: "border-bottom:solid 5px;"}
+        %h2.mt0.black
+          Share & Learn Something New
+        %p.clearfix.font-lg.black
+          Developers and Designers live streaming their latest tips, tools, and projects.
+
+      .clearfix.mb4
+        -if !Stream.any_broadcasting?
+          %p.bold.purple.mt2.mb3
+            =icon('tv', class: 'mr1')
+            There are no live video streams at the moment.
+
+          =render 'go_live'
+
+        -else
+          %h5.mb2 Live Streams
+          -@live_streams.each do |stream|
+            =render 'card', stream: stream
+
+      -@recorded_streams.each do |stream|
+        =render 'card', stream: stream
+
+    .col.col-12.md-col-1.md-show &nbsp;
+    .col.col-12.md-col-3
+      .clearfix.mb4
+        %h4.mt1
+          Weekly Community Lunch & Learns
+        .rounded.p2.white.bg-gray.bg-cover.bg-bottom{style: darkened_bg_image('conference-room.png')}
+          %p
+            Join us weekly for the Coderwall lunch and learn. We all come together at the same time to share and watch developers and designers swap skills, get feedback, and connect with experts. It's fun for n00bs to masters.
+          .clearfix.h6
+            .col.col-6
+              .block.bold=next_lunch_and_learn
+              .block 12:30 - 4:00 EDT
+              .block 09:30 - 1:00 PDT
+            .col.col-6
+              %a.btn.pointer.p2.no-hover.bg-green.rounded.white.mt1{href: lunch_and_learn_invite_path}
+                =icon('calendar')
+                Remind me
+
+      -if Stream.any_broadcasting?
+        =render 'go_live'
+
+      %p.diminish
+        Have questions?
+        %a.underline{href: 'mailto:support@coderwall.com'} Contact us.
