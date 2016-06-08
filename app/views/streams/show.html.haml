@@ -85,9 +85,6 @@
 
       -if show_ads?
         .clearfix.ml3.mt4
-          -if Rails.env.production?
-            #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
-          -elsif Rails.env.development?
-            %img{src: 'http://placehold.it/350x200'}
+          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1          
 
 = render 'chat'

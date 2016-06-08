@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   delete "/signout"    => "clearance/sessions#destroy",            as: :sign_out
   get    "/signup"     => "clearance/users#new",                   as: :sign_up
-  get    'faq'         => 'pages#show',          page: 'faq',      as: :faq
+  get    '/faq'        => 'pages#show',          page: 'faq',      as: :faq
   get    '/tos'        => 'pages#show',          page: 'tos',      as: :tos
   get    '/privacy_policy' => 'pages#show',    page: 'privacy',  as: :privacy
   get    '/404'            => "pages#show",    page: 'not_found'
