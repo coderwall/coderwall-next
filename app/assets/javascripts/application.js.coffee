@@ -28,6 +28,11 @@ $ ->
 
   document.current_user_likes = new Likes(document.current_user_id)
 
+@playPop = ->
+  audio_file = $("meta[property='audio']").attr("content")
+  sound      = new Howl(urls: [audio_file])
+  sound.play()
+
 @setUserId = ->
   userId = $("meta[property='current_user:id']").attr("content")
   document.current_user_id = userId if userId?

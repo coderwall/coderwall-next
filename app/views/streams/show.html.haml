@@ -1,5 +1,8 @@
 -title "Live Stream #{@stream.title}"
 
+-content_for :head do
+  %meta{property: 'audio', content: asset_url('pop.mp3')}
+
 -content_for :breadcrumbs do
   .mxn1.font-tiny.mt0.diminish
     %a.btn.px1{href: live_streams_path} Streams
@@ -18,7 +21,7 @@
               .ml1=@stream.title
               =form_for @stream, class: 'inline' do |form|
                 = form.hidden_field :id
-                =form.button 'End Live Broadcast', name: 'end_stream', class: 'bold'
+                = form.button 'End Live Broadcast', name: 'end_stream', class: 'bold'
 
         - if @stream.user != current_user
           %h2.left.m0
@@ -85,6 +88,6 @@
 
       -if show_ads?
         .clearfix.ml3.mt4
-          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1          
+          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
 
 = render 'chat'
