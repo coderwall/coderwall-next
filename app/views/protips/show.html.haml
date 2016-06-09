@@ -100,22 +100,28 @@
               %a{href: popular_topic_path(topic: topic)}
                 .bold=t(topic, scope: :categories)
 
-      - cache ['v1', @protip, 'featured-jobs', expires_in: 1.day ] do
-        .clearfix.ml3.mt3.md-show
-          .bg-white.rounded.p1
-            %h5.mt0.mb1
-              =icon('diamond', class: 'mr1')
-              Featured Programming Job
-            %hr.mt1
-            -Job.featured(1).each do |job|
-              =render 'jobs/mini', job: job
+      - if Stream.any_broadcasting?
+        - cache ['v1', 'protips', 'featured-stream', expires_in: 1.minute ] do
+          .clearfix.ml3.mt3.md-show
+            =render 'streams/preview', stream: Stream.broadcasting.sample
 
-            %a.block.mt2.bold{href: jobs_path}
-              Search all programming jobs
+      - else
+        - cache ['v1', @protip, 'featured-jobs', expires_in: 1.day ] do
+          .clearfix.ml3.mt3.md-show
+            .bg-white.rounded.p1
+              %h5.mt0.mb1
+                =icon('diamond', class: 'mr1')
+                Featured Programming Job
+              %hr.mt1
+              -Job.featured(1).each do |job|
+                =render 'jobs/mini', job: job
+
+              %a.block.mt2.bold{href: jobs_path}
+                Search all programming jobs
 
       -if show_ads?
         .clearfix.ml3.mt3
-          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1          
+          #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
 
 
 %script{ src: "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" }
