@@ -148,7 +148,6 @@ class Chat extends React.Component {
         const pusher = new Pusher(this.props.pusherKey)
         const channel = pusher.subscribe(this.props.chatChannel)
         channel.bind('new-comment', comment => {
-
           this.setState({comments: [...this.state.comments, comment]})
         })
 

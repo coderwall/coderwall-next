@@ -23,7 +23,8 @@ class Video extends React.Component {
         color: "FFCC00",
         backgroundColor: "000000",
         backgroundOpacity: 50
-      }
+      },
+      mute: !!this.props.mute,
     }).on('play', () => this.setState({online: true}))
       .on('bufferFull', () => this.setState({online: true}))
       .on('resize', data => $(window).trigger('video-resize', data))
@@ -93,6 +94,7 @@ class Video extends React.Component {
 
 Video.propTypes = {
   jwplayerKey: React.PropTypes.string.isRequired,
+  mute: React.PropTypes.bool,
   offlineImage: React.PropTypes.string.isRequired,
   showStatus: React.PropTypes.bool,
   source: React.PropTypes.string.isRequired,

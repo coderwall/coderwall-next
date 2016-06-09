@@ -13,7 +13,7 @@
   .clearfix
     .col.col-12.md-col-8
       .clearfix.mt0.mb1
-        -if @stream.broadcasting?
+        -if @stream.active
           .left.mr1
             .rounded.p1.bg-red.white.bold LIVE
           - if @stream.user == current_user
@@ -37,7 +37,7 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @stream.source, offlineImage: asset_url('offline-holder')
+        =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @stream.source, offlineImage: asset_url('offline-holder'), mute: (@stream.active && current_user == @user)
 
         .clearfix.p2
           .col.col-8

@@ -34,5 +34,11 @@ class ApplicationController < ActionController::Base
       redirect_to default
     end
   end
-  
+
+  def background(&block)
+    Thread.new do
+      yield
+      ActiveRecord::Base.connection.close
+    end
+  end
 end

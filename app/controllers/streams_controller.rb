@@ -11,7 +11,7 @@ class StreamsController < ApplicationController
         @stream.body = old_stream.body
         @stream.tags = old_stream.tags
       end
-    elsif @stream.published? && !@stream.archived?
+    elsif @stream.active
       return redirect_to profile_stream_path(current_user.username)
     end
     if current_user.stream_key.blank?
@@ -101,14 +101,18 @@ class StreamsController < ApplicationController
       case
       when @stream.archived?
         @stream.touch(:archived_at)
-        end_youtube_stream
         flash[:notice] = "You are offline and your broadcast was archived"
         redirect_to new_stream_path
+        background do
+          end_youtube_stream
+        end
       when @stream.published?
         Rails.logger.info("pushing to youtube")
         @stream.notify_team!
-        stream_to_youtube
         redirect_to profile_stream_path(current_user.username)
+        background do
+          stream_to_youtube
+        end
       else
         redirect_to new_stream_path
       end
@@ -122,7 +126,8 @@ class StreamsController < ApplicationController
     resp = Excon.put(url,
       headers: {
         "Accept" => "application/json",
-        "Content-Type" => "application/json" },
+        "Content-Type" => "application/json",
+        "X-YouTube-Token" => ENV['YOUTUBE_OAUTH_TOKEN']},
       body: {title: @stream.title, description: @stream.body}.to_json,
       idempotent: true,
       tcp_nodelay: true,
@@ -136,7 +141,8 @@ class StreamsController < ApplicationController
     Excon.delete(url,
       headers: {
         "Accept" => "application/json",
-        "Content-Type" => "application/json" },
+        "Content-Type" => "application/json",
+        "X-YouTube-Token" => ENV['YOUTUBE_OAUTH_TOKEN']},
       idempotent: true,
       tcp_nodelay: true,
     )
