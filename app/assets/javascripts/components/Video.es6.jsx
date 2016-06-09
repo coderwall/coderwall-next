@@ -14,9 +14,7 @@ class Video extends React.Component {
     window.jwplayer.key = this.props.jwplayerKey
     this.jwplayer = window.jwplayer(this.componentId)
     this.jwplayer.setup({
-      sources: [{
-        file: this.props.source
-      }],
+      sources: this.props.sources,
       image: this.props.offlineImage,
       stretching: "fill",
       captions: {
@@ -79,7 +77,7 @@ class Video extends React.Component {
   }
 
   onError(e) {
-    setTimeout(() => this.jwplayer.load(this.props.source).play(true), 2000)
+    setTimeout(() => this.jwplayer.load(this.props.sources).play(true), 2000)
     if (this.state.online === false) { return }
     // console.log('jwplayer error', e)
     this.setState({online: false, playerHeight: document.getElementById(this.componentId).clientHeight})
@@ -97,5 +95,5 @@ Video.propTypes = {
   mute: React.PropTypes.bool,
   offlineImage: React.PropTypes.string.isRequired,
   showStatus: React.PropTypes.bool,
-  source: React.PropTypes.string.isRequired,
+  sources: React.PropTypes.array.isRequired,
 }

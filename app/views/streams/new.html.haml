@@ -22,7 +22,7 @@
               .p1= link_to 'Cancel', live_streams_path
 
         .card{style: "border-top:solid 5px #{current_user.color}"}
-          =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: current_user.stream_source, offlineImage: asset_url('offline-holder'), showStatus: true, mute: true
+          =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], sources: current_user.stream_sources, offlineImage: asset_url('offline-holder'), showStatus: true, mute: true
 
           .clearfix.p2
             %h2 New Broadcast

@@ -7,7 +7,7 @@ json.pusherKey ENV['PUSHER_KEY']
 json.signedIn !!current_user
 
 json.stream do
-  json.extract! @stream, :id, :archived_at
+  json.extract! @stream, :id, :archived_at, :active
   json.recording_started_at @stream.recording_started_at.try(:to_i)
 end
 

@@ -36,8 +36,8 @@ class Chat extends React.Component {
 
   renderComments() {
     let visibleComments = this.state.comments
-    const start = this.props.stream.recording_started_at
-    if (start) {
+    if (!this.props.stream.active) {
+      const start = this.props.stream.recording_started_at
       const current = start + this.state.timeOffset
       visibleComments = this.state.comments.filter(c => c.created_at < current)
     }
