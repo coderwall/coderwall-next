@@ -101,8 +101,11 @@ class User < ActiveRecord::Base
     "#{username}?#{stream_key}"
   end
 
-  def stream_source
-    "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"
+  def stream_sources
+    [
+      { file: "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"},
+      { file: "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/playlist.m3u8"},
+    ]
   end
 
   def active_stream

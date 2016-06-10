@@ -37,7 +37,7 @@
             =avatar_url_tag(@user)
 
       .card{style: "border-top:solid 5px #{@user.color}"}
-        =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], source: @stream.source, offlineImage: asset_url('offline-holder'), mute: (@stream.active && current_user == @user)
+        =react_component 'Video', jwplayerKey: ENV['JWPLAYER_KEY'], sources: @stream.sources, offlineImage: asset_url('offline-holder'), mute: (@stream.active && current_user == @user)
 
         .clearfix.p2
           .col.col-8
@@ -48,9 +48,10 @@
             -# follow
             -# donate
 
-            .right.diminish.px1
-              =icon("eye", class: 'h5')
-              %span#js-live-viewers
+            - if @stream.active
+              .right.diminish.px1
+                =icon("eye", class: 'h5')
+                %span#js-live-viewers
 
             %a.right.diminish.px1.pointer{href: "mailto:support@coderwall.com?subject=reporting%20#{@user.username}"}
               =icon('flag', class: 'h5')
@@ -91,3 +92,4 @@
           #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
 
 = render 'chat'
+= render 'live_stats'
