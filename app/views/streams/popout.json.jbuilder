@@ -5,6 +5,7 @@ end
 json.chatChannel @stream.dom_id
 json.pusherKey ENV['PUSHER_KEY']
 json.signedIn !!current_user
+json.layout 'popout'
 
 json.stream do
   json.extract! @stream, :id, :archived_at, :active, :title

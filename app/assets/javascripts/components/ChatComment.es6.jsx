@@ -1,7 +1,7 @@
 class ChatComment extends React.Component {
   render() {
     return (
-      <div className="comment inline-block py1" style={{width: '100%'}}>
+      <div className="comment py1">
         <div className="left mt1 mr2 avatar small" style={{backgroundColor: '#913894'}}>
         </div>
         <div className="overflow-hidden py0 mt0">

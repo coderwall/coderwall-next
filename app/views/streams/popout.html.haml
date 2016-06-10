@@ -1,0 +1,10 @@
+-title "#{@stream.title} – Chat"
+
+-content_for :head do
+  %meta{property: 'audio', content: asset_url('pop.mp3')}
+
+.full-height
+  = react_component('Chat', render(template: 'streams/popout.json.jbuilder'))
+
+= render 'chat'
+= render 'live_stats'

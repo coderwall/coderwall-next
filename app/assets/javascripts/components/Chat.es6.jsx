@@ -19,17 +19,35 @@ class Chat extends React.Component {
   }
 
   render() {
+    let c = "flex flex-column bg-white rounded"
+    if (this.props.layout == 'popout') {
+      c += " full-height"
+    }
     return (
-      <div className="flex flex-column ml3 bg-white rounded">
-        <div ref="scrollable" className="flex-auto overflow-y-scroll border-top p1" id="chat" style={{maxHeight: 380, minHeight: 379}}>
+      <div className={c}>
+        {this.renderHeader()}
+        <div ref="scrollable" className="flex flex-auto flex-column overflow-y-scroll border-top p1 js-video-height" id="comments">
           {this.state.moreComments || <div className="diminish py1 center">Start of discussion</div>}
-          <div className="clearfix" id="comments">
-            {this.renderComments()}
-          </div>
+          {this.renderComments()}
         </div>
         <div className="flex-last clearfix border rounded p0 m0 bg-white">
           {this.renderChatInput()}
         </div>
+      </div>
+    )
+  }
+
+  renderHeader() {
+    if (this.props.layout !== 'popout') { return }
+
+    return (
+      <div className="flex flex-row diminish px1 py2">
+        <div className="h4 flex-auto">{this.props.stream.title}</div>
+        <div className="h4">
+          <i className="fa fa-eye px1" />
+          <span id="js-live-viewers" />
+        </div>
+
       </div>
     )
   }
@@ -204,14 +222,15 @@ class Chat extends React.Component {
 
   constrainChatToStream(e, data) {
     const anchorHeight = data.height
-    $('#chat').css('min-height', anchorHeight - 47)
-    $('#chat').css('max-height', anchorHeight - 47)
+    $('.js-video-height').css('min-height', anchorHeight - 47)
+    $('.js-video-height').css('max-height', anchorHeight - 47)
   }
 }
 
 Chat.propTypes = {
   chatChannel: React.PropTypes.string.isRequired,
   comments: React.PropTypes.array.isRequired,
+  layout: React.PropTypes.string.isRequired,
   pusherKey: React.PropTypes.string.isRequired,
   signedIn: React.PropTypes.bool,
   stream: React.PropTypes.object.isRequired,

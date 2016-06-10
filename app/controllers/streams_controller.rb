@@ -32,15 +32,7 @@ class StreamsController < ApplicationController
   end
 
   def show
-    if params[:username]
-      @user = User.find_by!(username: params[:username])
-      if @stream = @user.active_stream
-        @stream.broadcasting = !!cached_stats
-      end
-    else
-      @stream = Stream.find_by!(public_id: params[:id])
-      @user = @stream.user
-    end
+    load_stream
   end
 
   def index
@@ -48,6 +40,11 @@ class StreamsController < ApplicationController
       Stream.broadcasting
     end
     @recorded_streams = Stream.archived.recorded
+  end
+
+  def popout
+    load_stream
+    render layout: 'minimal'
   end
 
   def stats
@@ -91,6 +88,18 @@ class StreamsController < ApplicationController
 
   def stream_params
     params.require(:stream).permit(:title, :body, :editable_tags, :save_recording)
+  end
+
+  def load_stream
+    if params[:username]
+      @user = User.find_by!(username: params[:username])
+      if @stream = @user.active_stream
+        @stream.broadcasting = !!cached_stats
+      end
+    else
+      @stream = Stream.find_by!(public_id: (params[:stream_id] || params[:id]))
+      @user = @stream.user
+    end
   end
 
   def save_and_redirect

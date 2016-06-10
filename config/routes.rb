@@ -75,6 +75,7 @@ Rails.application.routes.draw do
 
   resources :streams, path: '/s', only: [:show] do
     get :comments
+    get :popout
   end
 
 

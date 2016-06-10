@@ -84,8 +84,14 @@
           -# %h4 Streams
 
     .col.col-4.md-show
+      %h4.right.diminish
+        %a{href: stream_popout_path(@stream), target: '_blank', class: 'js-popout'}
+          Popout
+          %i.fa.fa-sign-out
+
       %h4.ml3.diminish Community Discussion
-      = react_component('Chat', render(template: 'streams/show.json.jbuilder'))
+      .ml3#chat
+        =react_component('Chat', render(template: 'streams/show.json.jbuilder'))
 
       -if show_ads?
         .clearfix.ml3.mt4

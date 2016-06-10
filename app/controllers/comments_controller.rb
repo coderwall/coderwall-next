@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
           order(created_at: :desc).
           limit(10)
 
-        @comments = @comments.where('created_at < ?', params[:before]) unless params[:before].blank?
+        @comments = @comments.where('created_at < ?', Time.at(params[:before].to_i)) unless params[:before].blank?
       }
     end
   end
