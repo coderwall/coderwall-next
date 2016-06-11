@@ -35,8 +35,10 @@
       .col.sm-col-8
         .mb2.purple{style: "border-bottom:solid 5px;"}
         - if @featured
-          =render @featured, feature: true
-        =render @jobs, feature: false
+          = render @featured, feature: true
+        = render @jobs, feature: false
+        - if @jobs.empty? && !@featured
+          Sorry, no jobs matched your search parameters
 
       .col.sm-col-4.px3
         .clearfix
