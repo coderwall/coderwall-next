@@ -111,13 +111,13 @@
               .clearfix.mt3.p4.center
                 .diminish=icon('hand-peace-o', class: 'fa-3x')
             -@user.comments.each do |comment|
-              -if comment.protip
+              -if comment.article
                 .comment.clearfix.py2
                   .overflow-hidden
                     .mt0
                       Posted to
-                      %a{:href => protip_path(comment.protip)}
-                        =comment.protip.title
+                      %a{:href => protip_path(comment.article)}
+                        =comment.article.title
                       =time_ago_in_words_with_ceiling(comment.created_at)
                       ago
                     .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}

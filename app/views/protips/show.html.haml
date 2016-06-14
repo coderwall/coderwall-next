@@ -70,7 +70,7 @@
               .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
             = form_for Comment.new do |form|
               .border.rounded
-                = form.hidden_field :protip_id, value: @protip.id
+                = form.hidden_field :article_id, value: @protip.id
                 = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter a response here. Smile and be nice.", style: 'border: none; outline: none', value: flash[:data]
                 .text-area-footer.px1.py1.font-sm
                   Markdown is totally
