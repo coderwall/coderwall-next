@@ -224,3 +224,8 @@ div[data-react-class] {
 .underline{
 	text-decoration: underline;
 }
+
+
+@media (max-width: 40em) {
+  .xs-hide { display: none !important }
+}
