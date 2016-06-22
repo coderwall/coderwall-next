@@ -85,13 +85,17 @@ class Stream < Article
     )
 
     if resp.status != 200
-      # TODO: bugsnag
-      logger.error "error=quickstream-api-call url=/streams status=#{resp.status}"
+      Bugsnag.notify "error=quickstream-api-call url=/streams status=#{resp.status}"
+      logger.error   "error=quickstream-api-call url=/streams status=#{resp.status}"
       return {}
     end
 
     JSON.parse(resp.body).each_with_object({}) do |s, memo|
       memo[s['streamer']] = s
     end
+  rescue Excon::Errors::SocketError => exception
+    Bugsnag.notify(exception)
+    logger.error("Unable to reach #{ENV['QUICKSTREAM_URL']}")
+    {}
   end
 end

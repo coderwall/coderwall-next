@@ -37,6 +37,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem "bugsnag"
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
@@ -66,5 +67,4 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem "bugsnag"
 end
