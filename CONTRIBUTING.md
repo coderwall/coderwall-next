@@ -4,7 +4,7 @@ We welcome ideas and contributions on Coderwall. If you want to contribute somet
 
 1. Check the product [readme][readme] for the latest product direction and how to run the code locally.
 
-[pr]: https://github.com/coderwall/coderwall-next/compare/
+[readme]: https://github.com/coderwall/coderwall-next/compare/
 
 2. For new feature ideas, we recommend creating an issue first that briefly describes the feature you want to add. This gives others involved with Coderwall an opportunity to discuss and provide feedback.
 

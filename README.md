@@ -1,6 +1,6 @@
 # Coderwall
 
-The codebase for (coderwall.com)[https://coderwall.com]. Coderwall is a developer community used by nearly half a million developers each month to learn and share programming tips.
+The codebase for [coderwall.com](https://coderwall.com). Coderwall is a developer community used by nearly half a million developers each month to learn and share programming tips.
 
 ## Prerequisites
 
