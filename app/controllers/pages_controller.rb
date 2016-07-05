@@ -6,4 +6,8 @@ class PagesController < ApplicationController
       format.all  { head(:not_found) }
     end
   end
+
+  def verify
+    render text: ENV['LETSENCRYPT_CODE']
+  end
 end
