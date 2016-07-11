@@ -38,11 +38,10 @@ module ApplicationHelper
 
   def default_meta_tags
     {
-      site: 'Coderwall',
       charset: 'UTF-8',
       viewport: 'width=device-width,initial-scale=1',
-      description: "Coderwall makes the software world smaller so you can meet, learn from, and work with other inspiring developers",
-      keywords: 'coderwall, learn to program, code, coding, open source programming, OSS, developers, programmers',
+      description: "Programming tips, tools, and projects from our developer community.",
+      keywords: 'prgramming tips, coderwall, learn to program, code, coding, open source programming, OSS, developers, programmers',
       og: {
         title: :title,
         url: :canonical,
