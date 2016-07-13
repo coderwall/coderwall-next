@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+
+  constraints subdomain: "www" do
+    get "/" => redirect { |params| "https://coderwall.com" }
+  end
+
   resources :jobs do
     post :publish
   end
