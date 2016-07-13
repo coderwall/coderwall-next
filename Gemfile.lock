@@ -196,6 +196,7 @@ GEM
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
     rack-cors (0.4.0)
+    rack-ssl-enforcer (0.2.9)
     rack-test (0.6.3)
       rack (>= 1.0)
     rack-timeout (0.3.2)
@@ -330,6 +331,7 @@ DEPENDENCIES
   pusher
   quiet_assets
   rack-cors
+  rack-ssl-enforcer
   rack-timeout
   rails (~> 4.2.5)
   rails_12factor

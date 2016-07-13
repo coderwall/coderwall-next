@@ -44,9 +44,6 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Sendfile' # for Apache
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
-
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug
@@ -80,7 +77,6 @@ Rails.application.configure do
   config.action_mailer.delivery_method     = :postmark
   config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
   config.action_mailer.default_url_options = { host: ENV['EMAIL_HOST'] }
-  config.force_ssl = true
   config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
 
   # Disable serving static files from the `/public` folder by default since
@@ -88,4 +84,6 @@ Rails.application.configure do
   config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
   # config.serve_static_assets = true
   config.static_cache_control = 'public, max-age=31536000'
+
+  config.middleware.use Rack::SslEnforcer, :except_hosts => /www.coderwall.com$/
 end
