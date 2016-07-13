@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
   html_schema_type :TechArticle
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
-  before_update :cache_cacluated_score!
+  before_update :cache_calculated_score!
   before_create :generate_public_id, if: :public_id_blank?
   after_create  :auto_like_by_author
 
@@ -109,7 +109,7 @@ class Article < ActiveRecord::Base
     public_id.blank?
   end
 
-  def cache_cacluated_score!
+  def cache_calculated_score!
     self.score = cacluate_score
   end
 
