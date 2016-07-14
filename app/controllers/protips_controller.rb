@@ -99,7 +99,7 @@ class ProtipsController < ApplicationController
 
   def etag_key_for_protip
     {
-      etag: [@protip, current_user],
+      etag: [@protip, current_user, 'v2'],
       last_modified: @protip.updated_at.utc,
       public: false
     }
