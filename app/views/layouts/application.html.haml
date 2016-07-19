@@ -26,19 +26,21 @@
                 %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
                   .sm-hide Post
                   .inline.sm-show Post Protip
-                %a.ml1.btn.xs-hide{:href => live_streams_path}
-                  Video Streams
-                  -if Stream.any_broadcasting?
-                    .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} LIVE
+                -if show_streams?
+                  %a.ml1.btn.xs-hide{:href => live_streams_path}
+                    Video Streams
+                    -if Stream.any_broadcasting?
+                      .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} LIVE
                 %a.btn{:href => jobs_path} Jobs
                 %a.ml2.no-hover.black.mr2{href: profile_path(username: current_user.username)}
                   .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
               -else
                 %a.btn.xs-hide{:href => new_protip_path} Post Protip
-                %a.btn.xs-hide{:href => live_streams_path}
-                  Video Streams
-                  -if Stream.any_broadcasting?
-                    .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
+                -if show_streams?
+                  %a.btn.xs-hide{:href => live_streams_path}
+                    Video Streams
+                    -if Stream.any_broadcasting?
+                      .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
                 %a.btn{:href => jobs_path} Jobs
                 %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
                 %a.btn.active-text{:href => sign_in_path} Log In

@@ -9,6 +9,7 @@ json.layout 'popout'
 
 json.stream do
   json.extract! @stream, :id, :archived_at, :active, :title
+  json.url stream_path(@stream)
   json.recording_started_at @stream.recording_started_at.try(:to_i)
 end
 

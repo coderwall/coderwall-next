@@ -4,6 +4,10 @@ module ApplicationHelper
     ENV['SHOW_ADS'] == 'true' || Rails.env.development?
   end
 
+  def show_streams?
+    Stream.any_broadcasting? || params[:controller] == 'streams'
+  end
+
   def  darkened_bg_image(filename)
     transparency = '0.60'
     "background-image: linear-gradient(to bottom, rgba(0,0,0,#{transparency}) 0%,rgba(0,0,0,#{transparency}) 100%), url(#{asset_path(filename)});"

@@ -41,9 +41,13 @@ class Chat extends React.Component {
     if (this.props.layout !== 'popout') { return }
 
     return (
-      <div className="flex flex-row diminish px1 py2">
-        <div className="h4 flex-auto">{this.props.stream.title}</div>
-        <div className="h4">
+      <div className="flex flex-row px1 py2">
+        <div className="h4 flex-auto bold">
+          <a href={this.props.stream.url} target='_new'>
+            {this.props.stream.title}
+          </a>
+        </div>
+        <div className="h4 diminish">
           <i className="fa fa-eye px1" />
           <span id="js-live-viewers" />
         </div>

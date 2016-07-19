@@ -44,10 +44,6 @@
             -@stream.tags.each do |tag|
               %h6.diminish.inline.mr1=link_to tag, popular_topic_path(topic: tag)
           .col.col-4
-            -# message
-            -# follow
-            -# donate
-
             - if @stream.active
               .right.diminish.px1
                 =icon("eye", class: 'h5')
@@ -81,15 +77,16 @@
                 -if @user.location.present?
                   .inline[:homeLocation]=@user.location
                   .hide_last_child.inline &middot;
-          -# %h4 Streams
 
     .col.col-4.md-show
-      %h4.right.diminish
-        %a{href: stream_popout_path(@stream), target: '_blank', class: 'js-popout'}
-          Popout
-          %i.fa.fa-sign-out
+      .ml3.table
+        .table-cell.align-bottom
+          %h4.diminish Chat
+        .table-cell.align-bottom.font-sm
+          %a.right.mt1.mr3{href: stream_popout_path(@stream), target: '_blank', class: 'js-popout'}
+            popout
+            %i.fa.fa-sign-out
 
-      %h4.ml3.diminish Community Discussion
       .ml3#chat
         =react_component('Chat', render(template: 'streams/show.json.jbuilder'))
 

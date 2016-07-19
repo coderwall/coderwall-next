@@ -32,7 +32,7 @@ class Stream < Article
   end
 
   def self.any_broadcasting?
-    Rails.cache.fetch('any-streams-broadcasting', expires_in: 5.seconds) do
+    Rails.cache.fetch('any-streams-broadcasting', expires_in: 10.seconds) do
       broadcasting.any?
     end
   end
