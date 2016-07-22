@@ -68,15 +68,13 @@
           .flex.flex-column.bg-white.rounded.p1
             %h5 1. Download Streaming Client
             %p
-              %a{href: 'https://obsproject.com'} Open Broadcast
+              %a{href: 'https://obsproject.com'} OBS
               is free open source software that runs on Windows, Unix, and Macs. It makes live streaming your webcam, desktop, and other media through Coderwall easy.
             %h5 2. Configure Your Stream
             %p
               Go to
               %em Settings
-              in
-              %a{href: 'https://obsproject.com'} Open Broadcast
-              and choose
+              in OBS and choose
               %em Stream.
               Then select
               %em Custom Stream Server
@@ -88,9 +86,12 @@
               .mb1
                 .bold.inline Stream Key:
                 = current_user.stream_name
-              .block
+              .mb1.block
                 .bold.inline Use authentication:
                 No
+              .block
+                %a{href: '/faq#recommend-settings', target: 'new'} See recommended stream settings
+
             %h5 3. Preview Stream
             %p
               Once you see the preview of your stream you are ready to go live at anytime.

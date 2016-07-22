@@ -3,13 +3,57 @@
 .container.clearfix
   %h1 FAQ
 
-  .clearfix.sm-col.sm-col-6
-    %h3= link_to 'How do I delete my account?', '#', 'name' => 'deleteaccount'
+  .clearfix.sm-col.sm-col-10
+    %h3= link_to 'What are recommended settings to livestream on Coderwall?', '#recommend-settings'
+    %p#recommend-settings
+      If you are using
+      %a{href: 'https://obsproject.com'} OBS
+      then we recommend the follow settings.
+      %br
+      %br
+      %strong Output
+      %br
+      Output Mode: Advanced
+      %br
+      Streaming Bitrate: 1500
+      %br
+      Keyframe Interval: 5
+      %br
+      Profile: High
+      %br
+      Audio Bitrate: 64
+      %br
+      %br
+      %strong Video
+      %br
+      Base (Canvas) Resolution:
+      %span#base-resolution.strong
+      %em.ml2 using your screen resolution
+      %br
+      Output (Scaled) Resolution:
+      %span#calc-resolution.strong
+      %em.ml2 calculated using your screen resolution
+      %br
+      Integer FPS (15-30 to adjust contrast, recommended): 30
+
+    %h3.mt3= link_to 'How do I delete my account?', '#', 'name' => 'deleteaccount'
     %p
       You must be logged in to delete your account.
       Once you are logged in visit
       %a{href: 'https://coderwall.com/delete_account', rel: 'nofollow'} https://coderwall.com/delete_account
       and locate the trash icon next to the edit button. Please note this action is irreversible.
 
-    %h3= link_to 'I just qualified for a new achievement, why isn\'t it on my profile?', '#', 'name' => 'profileupdates'
+    %h3.mt3= link_to 'I just qualified for a new achievement, why isn\'t it on my profile?', '#', 'name' => 'profileupdates'
     %p Achievemnts are temporarily disabled as we work to introduce a new upgraded system.
+
+
+:javascript
+  var h = window.screen.height;
+  var w = window.screen.width;
+  var r = w / h;
+
+  var base = document.getElementById('base-resolution');
+  var calc = document.getElementById('calc-resolution');
+
+  base.textContent = w + 'x' + h;
+  calc.textContent = r == 1.6 ? ('1280x800') : base.textContent;
