@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :require_login, only: [:create, :destroy]
+  invisible_captcha only: [:create], on_spam: :on_spam_detected
 
   def index
     respond_to do |format|
@@ -30,6 +31,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @article = Article.find(comment_params[:article_id])
     @comment = Comment.new(comment_params)
     @comment.user = current_user
     if !@comment.save
@@ -66,5 +68,10 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body, :article_id)
+  end
+
+  def on_spam_detected
+    @article = Article.find(comment_params[:article_id])
+    redirect_to protip_path(@article)
   end
 end

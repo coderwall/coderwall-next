@@ -138,6 +138,8 @@ GEM
     httpclient (2.8.0)
     i18n (0.7.0)
     icalendar (2.3.0)
+    invisible_captcha (0.9.1)
+      rails
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -317,6 +319,7 @@ DEPENDENCIES
   green_monkey
   haml-rails
   icalendar
+  invisible_captcha
   jbuilder
   jquery-rails
   kaminari

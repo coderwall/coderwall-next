@@ -1,0 +1,4 @@
+en:
+  invisible_captcha:
+    sentence_for_humans: "Leave this field blank"
+    timestamp_error_message: "Sorry, that was too quick! Please resubmit."
