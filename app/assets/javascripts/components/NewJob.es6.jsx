@@ -2,7 +2,6 @@ const requiredFields = [
   'authorEmail',
   'authorName',
   'company',
-  'companyLogo',
   'companyUrl',
   'location',
   'source',
@@ -83,7 +82,7 @@ class NewJob extends React.Component {
     e.preventDefault()
 
     let brokenFields = requiredFields.filter(f => !this.state[f])
-    if (!this.state.validLogoUrl) {
+    if (this.state.companyLogo && !this.state.validLogoUrl) {
       brokenFields = [...brokenFields, 'companyLogo']
     }
     this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })

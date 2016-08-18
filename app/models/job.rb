@@ -8,7 +8,6 @@ class Job < ActiveRecord::Base
 
   validates :author_email, presence: true
   validates :author_name, presence: true
-  validates :company_logo, presence: true
   validates :company, presence: true
   validates :company, presence: true
   validates :location, presence: true
