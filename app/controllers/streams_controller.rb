@@ -140,6 +140,7 @@ class StreamsController < ApplicationController
       body: {title: @stream.title, description: @stream.body}.to_json,
       idempotent: true,
       tcp_nodelay: true,
+      read_timeout: 3,
     )
     body = JSON.parse(resp.body)
     @stream.update!(recording_id: body['youtube_broadcast_id'])
@@ -154,6 +155,7 @@ class StreamsController < ApplicationController
         "X-YouTube-Token" => ENV['YOUTUBE_OAUTH_TOKEN']},
       idempotent: true,
       tcp_nodelay: true,
+      read_timeout: 3,
     )
   end
 end

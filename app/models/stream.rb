@@ -81,6 +81,7 @@ class Stream < Article
       headers: {
         "Content-Type" => "application/json" },
       idempotent: true,
+      read_timeout: 3,
       tcp_nodelay: true,
     )
 
@@ -93,7 +94,7 @@ class Stream < Article
     JSON.parse(resp.body).each_with_object({}) do |s, memo|
       memo[s['streamer']] = s
     end
-  rescue Excon::Errors::SocketError => exception
+  rescue Excon::Errors::Timeout, Excon::Errors::SocketError => exception
     Bugsnag.notify(exception)
     logger.error("Unable to reach #{ENV['QUICKSTREAM_URL']}")
     {}
