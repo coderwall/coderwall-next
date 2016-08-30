@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     post :publish
   end
 
+
+  resources :subscriptions, controller: 'job_subscriptions', path: 'jobs/subscriptions', only: [:new, :create]
+
   # This disables serving any web requests other then /assets out of CloudFront
   match '*path', via: :all, to: 'pages#show', page: 'not_found',
     constraints: CloudfrontConstraint.new
