@@ -2,14 +2,17 @@
   .job.card.clearfix.mb2[job]{ class: ('border' if feature) }
     .clearfix.p2
       .col.col-1.md-show
-        =image_tag(job.company_logo, width: 50)
+        - if job.company_logo.present?
+          =image_tag(job.company_logo, width: 50)
+        - else
+          &nbsp;
 
       .col.col-8
         .ml1.mr1
           %h3.mt0
             %a.diminish-viewed[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
           .font-sm
-            .bold.inline=link_to(truncate(job.company, length:20), job.company_url, rel: 'nofollow')
+            .bold.inline=link_to(truncate(job.company, length:20), job.company_url, rel: 'nofollow', target: '_blank')
             &middot;
             .diminish.inline=job.role_type
             &middot;

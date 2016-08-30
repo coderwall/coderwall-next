@@ -13,6 +13,9 @@
           Fill in your details about your job and we'll feature it to the entire Coderwall community for
           %strong 30 days for only $299.
 
+        -@job.errors.full_messages.each do |error|
+          %p.red.bold=error
+
         = react_component 'NewJob', stripePublishable: ENV['STRIPE_PUBLISHABLE_KEY'], cost: Job::CENTS_PER_MONTH
 
         .mt2.diminish

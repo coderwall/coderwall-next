@@ -88,6 +88,10 @@ $breakpoint-lg: '(min-width: 64em)' !default;
   background-color: transparent;
 }
 
+.btn:disabled, .btn.disabled {
+  cursor: auto;
+}
+
 .btn:hover {
   text-decoration: none;
 }
