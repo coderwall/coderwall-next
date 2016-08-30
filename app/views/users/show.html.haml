@@ -68,7 +68,7 @@
 
         %nav.clearfix.mt2
           %a.font-lg.py1.no-hover.mr3{href: profile_path(username: @user.username, anchor: 'achievements'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_badges_active}
-            =pluralize(@user.badges.size, 'Achivement')
+            =pluralize(@user.badges.size, 'Achievement')
 
           %a.font-lg.py1.no-hover.mr3{href: profile_protips_path(username: @user.username, anchor: 'protips'), style: "border-color: #{@user.color}; color: #{@user.color}", class: show_protips_active}
             =pluralize(@user.protips.size, 'Protip')

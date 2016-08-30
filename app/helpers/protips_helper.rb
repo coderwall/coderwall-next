@@ -13,7 +13,7 @@ module ProtipsHelper
       end
 
       if params[:order_by] == :created_at
-        breadcrumbs << ["Fresh", url_for(topic: params[:topic], order_by: params[:order_by])]
+        breadcrumbs << ["New", url_for(topic: params[:topic], order_by: params[:order_by])]
       elsif params[:order_by] == :score
         breadcrumbs << ["Hot",   url_for(topic: params[:topic], order_by: params[:order_by])]
       end
@@ -39,6 +39,11 @@ module ProtipsHelper
 
   def on_trending?
     params[:order_by] == :score
+  end
+
+  def protips_title
+    page_name = params[:page].to_i > 1 ? "Page #{params[:page]}" : nil
+    "#{protips_heading} - #{protips_list_type} Tips #{page_name}"
   end
 
   def protips_heading

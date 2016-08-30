@@ -13,15 +13,17 @@ Rails.application.routes.draw do
     constraints: CloudfrontConstraint.new
 
   root  'protips#home'
+  get   '/p/trending'       => redirect("/trending", status: 302)
+  get   '/p/popular'        => redirect("/popular",  status: 302)
+  get   '/p/fresh'          => redirect("/fresh",    status: 302)
+  get   '/gh'               => redirect("/trending", status: 302)
+
   get   '/trending(/:page)'       => 'protips#index', order_by: :score,        as: :trending
   get   '/popular(/:page)'        => 'protips#index', order_by: :views_count,  as: :popular
   get   '/fresh(/:page)'          => 'protips#index', order_by: :created_at,   as: :fresh
   get   '/:topic/popular(/:page)' => 'protips#index', order_by: :views_count,  as: :popular_topic, :constraints => { :topic => /.*/ }
   get   '/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at,   as: :fresh_topic, :constraints => { :topic => /.*/ }
 
-  get   '/p/trending'       => redirect("/trending", status: 302)
-  get   '/p/popular'        => redirect("/popular", status: 302)
-  get   '/p/fresh'          => redirect("/fresh", status: 302)
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   delete "/signout"    => "clearance/sessions#destroy",            as: :sign_out
   get    "/signup"     => "clearance/users#new",                   as: :sign_up
