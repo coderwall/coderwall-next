@@ -7,6 +7,16 @@
     .sm-col.sm-col.sm-col-12.md-col-8
       .mb2.purple{style: "border-bottom:solid 5px;"}
       .card.p3
+        %h2.green Unlimited Job Postings for $499
+
+        %h3
+          Sign up to automatically connect and match the best developers in our community to all of your open programming jobs.
+
+
+        %p
+          There is no commitment, cancel anytime, and we’ll happily refund the costs if you are not seeing results after a month.
+
+
         -@subscription.errors.full_messages.each do |error|
           %p.red.bold=error
 
@@ -22,15 +32,26 @@
       .ml3
         .clearfix
           .bg-white.rounded.p2
-            %p Need programming help to build something challenging? Post a job and we'll feature it to the best developers using Coderwall each month.
 
-            %hr.mt1
+            %h4.mb2
+              How it works
 
-            %h5.mt3.mb2
-              =icon('smile-o', class: 'mr1')
-              Guaranteed Happiness
+            %p
+              Each day we monitor your company career page and open job postings for new programming jobs and automatically post them to the Coderwall job board for you. We also remove job postings that you have filled.
 
-            %p If you're not fully satisfied we'll give you a free listing or a full refund - your choice.
+            %ul
+              %li.mb1
+                %strong No limits.
+                Subscribe and we'll post all your programming job positions for only $499 a month.
+
+              %li.mb1
+                %strong Effortless.
+                It is 100% on auto-pilot once you sign up your company and requires no adminstration or technical integration.
+
+              %li.mb1
+                %strong Better Talent.
+                Your jobs are featured on programming tips relevant to the developer by their skill. Each job posts is a direct link back to your website or career page so developers can start exploring.
+
 
         .clearfix.mt1
           %p.bold.p2

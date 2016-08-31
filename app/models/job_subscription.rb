@@ -1,5 +1,5 @@
 class JobSubscription < ActiveRecord::Base
-  CENTS_PER_MONTH = (ENV['JOB_SUBSCRIPTION_CENTS'].try(:to_i) || 29900)
+  CENTS_PER_MONTH = (ENV['JOB_SUBSCRIPTION_CENTS'].try(:to_i))
 
   validates :jobs_url, presence: true
   validates :company_name, presence: true

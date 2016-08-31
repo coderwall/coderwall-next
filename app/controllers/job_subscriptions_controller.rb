@@ -12,7 +12,9 @@ class JobSubscriptionsController < ApplicationController
 
     @subscription.charge!(params['stripeToken'])
 
-    flash[:notice] = "Your subscription has started"
+    Slack.notify!(':moneybag:', "#{@subscription.company_name} (#{@subscription.contact_email}) just subscribed to post all jobs at #{@subscription.jobs_url}")
+
+    flash[:notice] = "You're all set! You will receive a receipt and email shortly once we post your first jobs to Coderwall."
     redirect_to jobs_path
 
   rescue Stripe::CardError => e

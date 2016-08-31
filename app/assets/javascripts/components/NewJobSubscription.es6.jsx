@@ -26,14 +26,16 @@ class NewJobSubscription extends React.Component {
 
           {this.textField('company_name', 'Company Name', 'Acme Inc.')}
           {this.textField('contact_email', 'Contact Email', 'coyote@acme.inc')}
-          {this.textField('jobs_url', 'Job listing url', 'eg. http://stackoverflow.com/jobs?searchTerm=acme+inc')}
+          {this.textField('jobs_url', 'Career Website or Job Listing Page URL', 'eg. http://acme.com/jobs')}
+
+          <span className='bold gray'>That is all you have to do :D</span>
 
           <div class='center'>
             <button
               className={`btn rounded mt3 white px4 py2 ${submittable ? 'bg-green' : 'bg-gray'}`}
               type="submit"
               disabled={!submittable}>
-              Subscribe
+              Subscribe ($499 Monthly)
             </button>
           </div>
 
