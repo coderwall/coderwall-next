@@ -18,3 +18,5 @@ info
 .DS_Store
 coderwall-production.dump
 contributions.csv
+google.docs.config.json
+lib/tasks/recruiters.rake

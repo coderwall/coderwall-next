@@ -55,6 +55,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
+  gem 'google_drive'
 end
 
 group :test do
