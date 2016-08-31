@@ -6,7 +6,7 @@ module ProtipsHelper
 
       if topic_name
         breadcrumbs << [
-            t(Category.parent(params[:topic]), scope: :categories),
+            t(Category.parent(params[:topic]), scope: [:categories, :long]),
             url_for(topic: Category.parent(params[:topic]), order_by: :views_count)
         ] if Category.parent(params[:topic])
         breadcrumbs << [topic_name, url_for(topic: params[:topic], order_by: :views_count)]
@@ -48,7 +48,7 @@ module ProtipsHelper
 
   def protips_heading
     default = params[:topic] ? "#{protips_list_type} Programming Tips Tagged #{params[:topic].titleize}" : "#{protips_list_type} Programming Tips"
-    t(params[:topic], scope: :categories, default: default).html_safe
+    t(params[:topic], scope: [:categories, :long], default: default).html_safe
   end
 
   def topic_short_name
@@ -110,7 +110,7 @@ module ProtipsHelper
       if Category.parent(params[:topic])
          "tagged #{params[:topic]}"
       else
-        t(params[:topic], scope: :categories)
+        t(params[:topic], scope: [:categories, :long])
       end
     end
   end

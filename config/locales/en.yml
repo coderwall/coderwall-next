@@ -1,20 +1,22 @@
 en:
   categories:
-    command-line: Hacking the Command Line
-    git: Master Git One Commit at a Time
-    vim: Conquer Code in Vim With 4 Keystrokes or Less
-    web: Accelarte Your Web Development Skills
-    os-hacks: Maximize Your Operating System
-    front-end: Javascript Tips to Beat the DOM Into Submission
-    nodejs: Node.js Development Tips
-    android: Android Development Tips
-    ruby: Ruby Development Tips
-    python: Python Development Tips
-    rails: Ruby on Rails Development Tips
-    dot-net: .NET Development Tips
-    devops: Putting DevOps to Work
-    ios: iOS Development Tips
-    hackerdesk: Where We Code in Peace
+    long:
+      command-line: Hacking the Command Line
+      git: Master Git One Commit at a Time
+      vim: Conquer Code in Vim With 4 Keystrokes or Less
+      web: Accelarte Your Web Development Skills
+      os-hacks: Maximize Your Operating System
+      front-end: Javascript Tips to Beat the DOM Into Submission
+      nodejs: Node.js Development Tips
+      android: Android Development Tips
+      ruby: Ruby Development Tips
+      python: Python Development Tips
+      rails: Ruby on Rails Development Tips
+      dot-net: .NET Development Tips
+      devops: Putting DevOps to Work
+      ios: iOS Development Tips
+      hackerdesk: Where We Code in Peace
+
     short:
       command-line: Command Line
       git: git
@@ -30,6 +32,7 @@ en:
       dot-net: .NET
       devops: Devops
       ios: iOS
+
     descriptions:
       command-line: Unlock the power of the prompt with these one liners and hacks.
       git: Get your git jitsu on with these git tips that will take you from a beginner to an expert.
@@ -46,6 +49,7 @@ en:
       android: A collection of protips every android developer should know.
       os-hacks: Endlessly tweak your operating system to your taste.
       hackerdesk: A collection of pictures of hacker desk setups from around the world.
+
   number:
     human:
       decimal_units:

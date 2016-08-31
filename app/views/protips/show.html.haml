@@ -99,7 +99,7 @@
           -@protip.related_topics.each do |topic|
             .topic.clearfix.py1
               %a{href: popular_topic_path(topic: topic)}
-                .bold=t(topic, scope: :categories)
+                .bold=t(topic, scope: [:categories, :long])
 
       - if Stream.any_broadcasting?
         - cache ['v1', 'protips', 'featured-stream', expires_in: 1.minute ] do
