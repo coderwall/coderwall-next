@@ -71,8 +71,12 @@ namespace :db do
         data['expires_at']   = 1.month.from_now
         data['author_name']  = 'Seed Script'
         data['author_email'] = 'support@coderwall.com'
-        job = Job.create!(data)
-        puts "Created: #{job.title}"
+        begin
+          job = Job.create!(data)
+          puts "Created: #{job.title}"
+        rescue Exception => ex
+          puts "Failed: #{data['title']} - #{ex.message}"
+        end
       end
     end
 
