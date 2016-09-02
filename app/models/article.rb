@@ -48,7 +48,7 @@ class Article < ActiveRecord::Base
   end
 
   def display_date
-    created_at.to_formatted_s(:explicitly_bold)
+    "Last Updated: #{updated_at.to_formatted_s(:seo)}"
   end
 
   def hearts_count

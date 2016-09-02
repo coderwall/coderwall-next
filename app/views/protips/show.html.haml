@@ -33,7 +33,7 @@
           .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
 
-        -if signed_in? && current_user.can_edit?(@protip)
+        - if signed_in? && current_user.can_edit?(@protip)
           .clearfix.mb2.mt2
             .right.mr1
               =link_to(icon('trash'), protip_path(@protip), method: :delete, class: 'diminish', 'data-confirm': 'This makes us very sad. Are you sure?')
@@ -77,6 +77,7 @@
                   Markdown is totally
                   =icon('thumbs-o-up')
               %button.btn.rounded.mt2.green.bg-white.border-green{type: 'submit'} Respond
+
         -else
           #new-comment.new-comment.mt3.mb3.px2.center.bold
             =link_to 'Sign in', sign_in_path
@@ -123,6 +124,5 @@
       -if show_ads?
         .clearfix.ml3.mt3
           #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
-
 
 %script{ src: "https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" }

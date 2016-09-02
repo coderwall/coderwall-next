@@ -18,10 +18,10 @@
             %a.btn.logo.relative{:href => root_url}
               .absolute{:style => "top: 2px"}
                 = render 'shared/logo'
-              .left.font-x-lg{:style => "padding-left: 35px;"}
+              .left.font-x-lg.pl2
                 Coderwall
           .col.col-10.sm-col-10.py2{class: hide_on_auth}
-            .right
+            .right.pr2
               -if signed_in?
                 %a.btn.rounded.purple.border.font-sm{:href => new_protip_path}
                   .sm-hide Post
@@ -42,8 +42,8 @@
                     -if Stream.any_broadcasting?
                       .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} Live
                 %a.btn{:href => jobs_path} Jobs
-                %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
                 %a.btn.active-text{:href => sign_in_path} Log In
+                %a.btn.btn-primary.bg-purple.white{:href => sign_up_path} Sign Up
 
       =yield :hero
       .mt1.px3
