@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-
   def index
     if [:show_fulltime, :show_parttime, :show_contract].any?{|s| params[s].blank? }
       params[:show_fulltime] = 'true'
@@ -20,6 +19,8 @@ class JobsController < ApplicationController
       @jobs = @jobs.where.not(id: params[:posted])
       @featured = Job.find(params[:posted])
     end
+
+    respond_to :html
   end
 
   def new
