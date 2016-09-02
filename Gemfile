@@ -4,6 +4,7 @@ ruby "2.2.4"
 gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
 gem 'browser'
+gem 'bugsnag'
 gem 'carrierwave_backgrounder'
 gem 'carrierwave-aws'
 gem 'clearance'
@@ -29,6 +30,7 @@ gem 'puma'
 gem 'pusher'
 gem 'quiet_assets'
 gem 'rack-cors'
+gem 'rack-ssl-enforcer'
 gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
 gem 'rails', '~> 4.2.5'
@@ -38,8 +40,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
-gem "bugsnag"
-gem 'rack-ssl-enforcer'
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'

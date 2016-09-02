@@ -25,6 +25,16 @@ module CoderwallNext
     config.autoload_paths << Rails.root.join('lib')
     config.assets.precompile += %w(.png .svg)
     config.exceptions_app = self.routes
-    config.encoding = 'utf-8'    
+    config.encoding = 'utf-8'
+
+    config.lograge.enabled = true
+    config.lograge.custom_options = lambda do |event|
+      {
+        params: event.payload[:params].reject { |k| %w(controller action).include?(k) }
+      }
+    end
+
+    config.log_tags = [:uuid]
+    config.log_level = ENV['LOG_LEVEL'] || :debug
   end
 end
