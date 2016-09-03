@@ -29,6 +29,10 @@
 .left  { float: left }
 .right { float: right }
 
+@media #{$breakpoint-sm} {
+  .sm-right {float: right; }
+}
+
 .fit { max-width: 100% }
 
 .border-box { box-sizing: border-box }

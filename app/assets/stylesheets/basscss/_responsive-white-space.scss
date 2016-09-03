@@ -11,8 +11,62 @@ $space-4: 4rem !default;
 $breakpoint-sm: '(min-width: 40em)' !default;
 $breakpoint-md: '(min-width: 52em)' !default;
 $breakpoint-lg: '(min-width: 64em)' !default;
+$breakpoint-xs: '(max-width: 40em)' !default;
+$breakpoint-sm-md: '(min-width: 40em)' and '(max-width: 52em)' !default;
+$breakpoint-md-lg: '(min-width: 52em)' and '(max-width: 64em)' !default;
 
-/* Basscss Responsive White Space */
+@media #{$breakpoint-xs} {
+
+  .xs-m0  { margin:        0 }
+  .xs-mt0 { margin-top:    0 }
+  .xs-mr0 { margin-right:  0 }
+  .xs-mb0 { margin-bottom: 0 }
+  .xs-ml0 { margin-left:   0 }
+  .xs-mx0 { margin-left:   0; margin-right:  0 }
+  .xs-my0 { margin-top:    0; margin-bottom: 0 }
+
+  .xs-m1  { margin:        $space-1 }
+  .xs-mt1 { margin-top:    $space-1 }
+  .xs-mr1 { margin-right:  $space-1 }
+  .xs-mb1 { margin-bottom: $space-1 }
+  .xs-ml1 { margin-left:   $space-1 }
+  .xs-mx1 { margin-left:   $space-1; margin-right:  $space-1 }
+  .xs-my1 { margin-top:    $space-1; margin-bottom: $space-1 }
+
+  .xs-m2  { margin:        $space-2 }
+  .xs-mt2 { margin-top:    $space-2 }
+  .xs-mr2 { margin-right:  $space-2 }
+  .xs-mb2 { margin-bottom: $space-2 }
+  .xs-ml2 { margin-left:   $space-2 }
+  .xs-mx2 { margin-left:   $space-2; margin-right:  $space-2 }
+  .xs-my2 { margin-top:    $space-2; margin-bottom: $space-2 }
+
+  .xs-m3  { margin:        $space-3 }
+  .xs-mt3 { margin-top:    $space-3 }
+  .xs-mr3 { margin-right:  $space-3 }
+  .xs-mb3 { margin-bottom: $space-3 }
+  .xs-ml3 { margin-left:   $space-3 }
+  .xs-mx3 { margin-left:   $space-3; margin-right:  $space-3 }
+  .xs-my3 { margin-top:    $space-3; margin-bottom: $space-3 }
+
+  .xs-m4  { margin:        $space-4 }
+  .xs-mt4 { margin-top:    $space-4 }
+  .xs-mr4 { margin-right:  $space-4 }
+  .xs-mb4 { margin-bottom: $space-4 }
+  .xs-ml4 { margin-left:   $space-4 }
+  .xs-mx4 { margin-left:   $space-4; margin-right:  $space-4 }
+  .xs-my4 { margin-top:    $space-4; margin-bottom: $space-4 }
+
+  .xs-mxn1 { margin-left: -$space-1; margin-right: -$space-1 }
+  .xs-mxn2 { margin-left: -$space-2; margin-right: -$space-2 }
+  .xs-mxn3 { margin-left: -$space-3; margin-right: -$space-3 }
+  .xs-mxn4 { margin-left: -$space-4; margin-right: -$space-4 }
+
+  .xs-ml-auto { margin-left:  auto }
+  .xs-mr-auto { margin-right: auto }
+  .xs-mx-auto { margin-left:  auto; margin-right: auto }
+
+}
 
 @media #{$breakpoint-sm} {
 

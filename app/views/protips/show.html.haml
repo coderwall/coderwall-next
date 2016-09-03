@@ -16,21 +16,28 @@
   .clearfix
     .sm-col.sm-col.sm-col-12.md-col-8
       .clearfix.mt0.mb1
-        .left.mt-third= react_component 'Heartable',
-                id: dom_id(@protip),
-                href: protip_likes_path(@protip),
-                initialCount: @protip.likes_count,
-                layout: 'inline'
-        .right
-          .diminish.inline.mr1
-            =icon("eye")
-            =number_to_human(@protip.views_count, precision: 4)
-          &middot;
-          %a.no-hover.diminish.inline.ml1.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
-          &middot;
-          .ml1.mr1.inline
-            =link_to @protip.user.username, profile_path(username: @protip.user.username)
-          .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
+        .col.sm-col-3.col-12.mt-third
+          = react_component 'Heartable',
+            id: dom_id(@protip),
+            href: protip_likes_path(@protip),
+            initialCount: @protip.likes_count,
+            layout: 'inline'
+          .right.sm-hide
+            %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
+            .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
+        .col.sm-col-9.col-12.xs-mt2
+          .sm-right
+            %a.no-hover.diminish.inline.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
+            %span.xs-hide
+              &middot;
+              .diminish.inline.mx1
+                =icon("eye")
+                =number_to_human(@protip.views_count, precision: 4)
+              &middot;
+              %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
+              .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
+
+
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
 
         - if signed_in? && current_user.can_edit?(@protip)
