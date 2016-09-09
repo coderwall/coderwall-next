@@ -4,10 +4,7 @@ Rails.application.routes.draw do
     get "/" => redirect { |params| "https://coderwall.com" }
   end
 
-  resources :jobs do
-    post :publish
-  end
-
+  resources :jobs, only: [:index, :show, :new, :create]
 
   resources :subscriptions, controller: 'job_subscriptions', path: 'jobs/subscriptions', only: [:new, :create]
 
@@ -49,7 +46,6 @@ Rails.application.routes.draw do
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
 
-  resources :team
   resources :streams, only: [:new, :show, :create, :update] do
     get :edit, on: :collection
   end

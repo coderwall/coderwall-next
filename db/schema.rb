@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830184552) do
+ActiveRecord::Schema.define(version: 20160909044024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20160830184552) do
   add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
   add_index "protips", ["type"], name: "index_protips_on_type", using: :btree
   add_index "protips", ["user_id"], name: "index_protips_on_user_id", using: :btree
+  add_index "protips", ["views_count"], name: "index_protips_on_views_count", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -185,6 +186,9 @@ ActiveRecord::Schema.define(version: 20160830184552) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["email_invalid_at"], name: "index_users_on_email_invalid_at", using: :btree
+  add_index "users", ["marketing_list"], name: "index_users_on_marketing_list", using: :btree
+  add_index "users", ["receive_newsletter"], name: "index_users_on_receive_newsletter", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
   add_index "users", ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree

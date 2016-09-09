@@ -30,6 +30,7 @@ gem 'puma'
 gem 'pusher'
 gem 'quiet_assets'
 gem 'rack-cors'
+gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
 gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
@@ -51,11 +52,12 @@ gem 'faraday'
 
 group :development, :test do
   gem 'capybara'
-  gem 'letter_opener'
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
   gem 'google_drive'
+  gem 'letter_opener'
+  gem 'traceroute'
 end
 
 group :test do
