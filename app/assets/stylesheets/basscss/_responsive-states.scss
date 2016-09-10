@@ -80,6 +80,10 @@ $breakpoint-lg: '(min-width: 64em)' !default;
   .lg-show { display: block !important }
 }
 
+$breakpoint-sm-md: '(min-width: 40em)' and '(max-width: 58em)' !default;
+@media #{$breakpoint-sm-md} {
+  .sm-only-hide { display: none !important }
+}
 
 @media #{$breakpoint-sm} {
   .sm-hide { display: none !important }

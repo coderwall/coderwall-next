@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   get   '/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at,   as: :fresh_topic, :constraints => { :topic => /.*/ }
 
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
-  delete "/signout"    => "clearance/sessions#destroy",            as: :sign_out
+  get    "/goodbye"    => "clearance/sessions#destroy",            as: :sign_out
   get    "/signup"     => "clearance/users#new",                   as: :sign_up
   get    '/faq'        => 'pages#show',          page: 'faq',      as: :faq
   get    '/tos'        => 'pages#show',          page: 'tos',      as: :tos

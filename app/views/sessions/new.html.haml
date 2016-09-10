@@ -1,7 +1,9 @@
 - title "Sign in"
 
 .container
-  %h2 Sign in to Coderwall
+  %h2
+    Sign In or
+    = link_to "Join Coderwall", sign_up_path
   .sm-col-6
     =form_for :session, url: session_path do |form|
       .mb2.font-sm.diminish

@@ -3,10 +3,12 @@
 
 -content_for :hero do
   .header.center.px3.py4.white.bg-gray.bg-cover.bg-center{style: darkened_bg_image('live-banner.jpg')}
-    %h1
-      Learn & Share Something New
-    %p.font-lg
-      The latest development and design tips, tools, and projects from our developer community.
+    .py3
+      %h1
+        Learn & Share
+        Something New
+      %p.font-lg
+        The latest development and design tips, tools, and projects from our developer community.
 
 - cache 'v3', expires_in: 10.minutes do
   .container
@@ -14,7 +16,7 @@
       .col.col-12.md-col-8
         .mb3.purple{style: "border-bottom:solid 5px;"}
           %h2.mt0.black
-            Popular Protips
+            Popular Programming Tips
         =render @protips.uniq
         .clearfix
           .btn.right=link_to('More popular protips', popular_path(page:2))

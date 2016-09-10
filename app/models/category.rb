@@ -2,6 +2,7 @@ class Category
   All = {
     'git'          => ['git', 'gitconfig', 'github'],
     'nodejs'       => ['node', 'npm', 'gulp', 'node.js'],
+    'javascript'   => ['js', 'javascript',  'react', 'node', 'react.js', 'redux', 'jquery', 'npm', 'gulp', 'node.js'],
     'vim'          => ['vim', 'vi', 'viml'],
     'ruby'         => ['ruby', 'rvm', 'rake'],
     'rails'        => ['rails', 'activerecord', 'ruby on rails', 'heroku'],
@@ -14,6 +15,7 @@ class Category
     'android'      => ['android', 'google now'],
     'os-hacks'     => ['linux', 'macosx', 'mac', 'os x', 'ubuntu', 'debian', 'windows']
   }
+  All['tools']     = (All['git'] + All['os-hacks'] + All['devops'] + All['command-line'])
 
   class << self
 

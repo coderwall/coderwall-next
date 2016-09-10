@@ -71,6 +71,7 @@ h6 {
 @import 'font-awesome';
 @import 'basscss';
 @import 'content';
+@import 'dropdown';
 
 $placeholder: darken($silver, 20%);
 
@@ -223,6 +224,11 @@ div[data-react-class] {
 }
 
 
+
 @media (max-width: 40em) {
   .xs-hide { display: none !important }
 }
+
+
+
+.muted-until-hover:not(:hover) { opacity: .5 }

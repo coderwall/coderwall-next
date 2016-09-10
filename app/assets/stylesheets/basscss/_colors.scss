@@ -86,6 +86,7 @@ $breakpoint-lg: '(min-width: 64em)' !default;
 
 .color-inherit { color: inherit }
 .muted { opacity: .5 }
+.muted-until-hover:not(:hover) { opacity: .5 }
 
 /* Basscss Defaults */
 

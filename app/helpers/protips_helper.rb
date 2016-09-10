@@ -47,7 +47,7 @@ module ProtipsHelper
   end
 
   def protips_heading
-    default = params[:topic] ? "#{protips_list_type} Programming Tips Tagged #{params[:topic].titleize}" : "#{protips_list_type} Programming Tips"
+    default = params[:topic] ? "#{protips_list_type} #{params[:topic].titleize} Programming Tips" : "#{protips_list_type} Programming Tips"
     t(params[:topic], scope: [:categories, :long], default: default).html_safe
   end
 
