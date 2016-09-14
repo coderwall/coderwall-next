@@ -1,19 +1,28 @@
 class CommentMailer < BaseMailer
-  def new_comment(user_id, comment_id)
-    @to = User.unscoped.find(user_id)
-    return prevent_delivery if !should_email?(@to)
+  def new_comment(to, comment)
+    @to = to
+    @comment = comment
 
-    @comment = Comment.find(comment_id)
+    return prevent_delivery if prevent_email?(@to)
+
+    if rewrite = ENV['REWRITE_EMAILS']
+      @to.email = rewrite
+    end
+
     @author = @comment.user
     @article = @comment.article
-
-    @target = target_name(@article)
+    @reply = SecureReplyTo.new(Article, @article_id, @to.username)
 
     thread_parts = [@article.id]
     message_parts = [@comment.id]
-    options = list_headers(NewsFeedItem.to_s, @article.id, @to.username, thread_parts, message_parts, url_for(@comment.url_params)).merge(
+    options = list_headers(
+      @reply,
+      thread_parts,
+      message_parts,
+      url_for(@comment.url_params)
+    ).merge(
       from: "#{@author.display_name} <notifications@coderwall.com>",
-      to:   @to.email,
+      to:   "#{@to.display_name} <#{@to.email}>",
       subject: "Re: #{@article.title}"
     )
 
@@ -24,7 +33,7 @@ class CommentMailer < BaseMailer
 
   protected
 
-  def should_email?(user)
+  def prevent_email?(user)
     user.banned_at? ||
       user.email_invalid_at? ||
       user.unsubscribed_comment_emails_at?

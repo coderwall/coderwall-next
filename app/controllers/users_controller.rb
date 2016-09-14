@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:edit, :update]
+  before_action :require_login, only: [:edit, :update, :unsubscribe_comment_emails]
   skip_before_action :verify_authenticity_token, only: :show,
     if: ->{ request.format.json? }
 
@@ -79,6 +79,16 @@ class UsersController < ApplicationController
       flash[:notice] = "#{@user.username}'s account deleted."
     end
     redirect_to_back_or_default
+  end
+
+  def unsubscribe_comment_emails
+    if params[:signature] != current_user.unsubscribe_signature
+      flash[:notice] = "Unsubscribe link is no longer valid"
+    else
+      current_user.touch(:unsubscribed_comment_emails_at)
+      flash[:notice] = "You will no longer receive new comment emails"
+    end
+    redirect_to root_path
   end
 
   protected

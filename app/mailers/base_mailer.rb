@@ -3,9 +3,7 @@ class BaseMailer < ActionMailer::Base
     mail.perform_deliveries = false
   end
 
-  def list_headers(object_type, object_id, username, thread_parts, message_parts, archive_url)
-    reply_address = SecureReplyTo.new(object_type, object_id, username).to_s
-
+  def list_headers(reply_address, thread_parts, message_parts, archive_url)
     thread_id = thread_parts.join('/')
     thread_address = "<#{thread_id}@assembly.com>"
     message_id = "<#{message_parts.join('/')}@assembly.com>"

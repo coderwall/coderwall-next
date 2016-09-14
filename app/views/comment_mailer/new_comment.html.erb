@@ -1,0 +1,32 @@
+<style type="text/css">
+  body {
+    font-family: Helvetica, Arial, Verdana, "Trebuchet MS";
+  }
+  img {
+    max-height: 400px !important;
+    max-width:100% !important;
+  }
+</style>
+
+<%= sanitize(CoderwallFlavoredMarkdown.render_to_html(@comment.body)) %>
+
+<p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">
+  &mdash;
+  <br>
+  <a href="<%= url_for(@comment.url_params) %>">view on Coderwall</a>,
+  or
+  <a href="<%= unsubscribe_comment_emails_url(@to.unsubscribe_signature) %>">unsubscribe from comment emails.</a>
+</p>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "EmailMessage",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": "<%= url_for(@comment.url_params) %>",
+    "name": "View Protip"
+  },
+  "description": "View Protip"
+}
+</script>
