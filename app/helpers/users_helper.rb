@@ -17,11 +17,11 @@ module UsersHelper
   end
 
   def show_protips_active
-    return 'active bold' if show_protips?
+    return 'active ' if show_protips?
   end
 
   def show_comments_active
-    return 'active bold' if show_comments?
+    return 'active ' if show_comments?
   end
 
   def avatar_url(user)

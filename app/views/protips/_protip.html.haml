@@ -1,4 +1,4 @@
--cache ['v3', protip] do
+-cache ['v3', protip, hide_on_profile] do
   .protip.card.clearfix.py1.mb2.likeable[protip]{id: dom_id(protip)}
     .left.col.col-1{class: hide_on_profile}
       .mt-third
@@ -14,7 +14,7 @@
           =link_to protip.user.try(:username), profile_path(username: protip.user.username)
           .diminish.inline &middot;
 
-        .diminish.inline          
+        .diminish.inline
           %a[:url]{href: protip_path(protip)}
             =pluralize(protip.comments.size, 'responses')
           &middot;
