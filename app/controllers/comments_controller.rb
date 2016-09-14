@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   before_action :require_login, only: [:create, :destroy]
-  invisible_captcha only: [:create], on_spam: :on_spam_detected
+  if !Rails.env.test?
+    invisible_captcha only: [:create], on_spam: :on_spam_detected
+  end
 
   def index
     respond_to do |format|
@@ -39,12 +41,9 @@ class CommentsController < ApplicationController
       flash[:data] = @comment.body
       redirect_to_protip_comment_form
     else
-      json = render_to_string(template: 'comments/_comment.json.jbuilder', locals: {comment: @comment})
-      Pusher.trigger(@comment.article.dom_id.to_s, 'new-comment', json, {
-        socket_id: params[:socket_id]
-      })
+      notify_comment_added!
       respond_to do |format|
-        format.html { redirect_to_protip_comment(@comment) }
+        format.html { redirect_to url_for(@comment.url_params) }
         format.json { render json: json }
       end
     end
@@ -68,6 +67,17 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body, :article_id)
+  end
+
+  def notify_comment_added!
+    # TODO: this won't work for large comments, we should just push the comment id
+    json = render_to_string(template: 'comments/_comment.json.jbuilder', locals: {comment: @comment})
+    Notification.comment_added!(@article, json, socket_id = params[:socket_id])
+
+    # TODO: move to job
+    @comment.notification_recipients.each do |to|
+      CommentMailer.new_comment(to, @comment).deliver_now!
+    end
   end
 
   def on_spam_detected
