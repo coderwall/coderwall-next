@@ -10,8 +10,8 @@ class ProtipsController < ApplicationController
     order_by = (params[:order_by] ||= 'score')
     @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page(params[:page])
     if params[:topic]
-      tags = Category::children(params[:topic])
-      tags = params[:topic] if tags.empty?
+      tags = Category::children(params[:topic].downcase)
+      tags = params[:topic].downcase if tags.empty?
       @protips = @protips.with_any_tagged(tags)
     end
   end
