@@ -8,28 +8,20 @@ module UsersHelper
     signed_in? && current_user.can_edit?(object)
   end
 
-  def show_badges?
-    !show_protips? && !show_comments?
-  end
-
   def show_protips?
-    params[:protips].present?
+    !show_comments?
   end
 
   def show_comments?
     params[:comments].present?
   end
 
-  def show_badges_active
-    return 'active' if show_badges?
-  end
-
   def show_protips_active
-    return 'active' if show_protips?
+    return 'active bold' if show_protips?
   end
 
   def show_comments_active
-    return 'active' if show_comments?
+    return 'active bold' if show_comments?
   end
 
   def avatar_url(user)

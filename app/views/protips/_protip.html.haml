@@ -1,6 +1,6 @@
--cache ['v2', protip] do
+-cache ['v3', protip] do
   .protip.card.clearfix.py1.mb2.likeable[protip]{id: dom_id(protip)}
-    .left.col.col-1
+    .left.col.col-1{class: hide_on_profile}
       .mt-third
         = react_component 'Heartable',
           id: dom_id(protip),
@@ -10,13 +10,12 @@
       %h3.mt0.mb0
         %a.diminish-viewed[:headline]{:href => protip_path(protip)}=protip.title
       .font-sm
-        =link_to protip.user.try(:username), profile_path(username: protip.user.username)
-        .diminish.inline
-          &middot;
+        %span{class: hide_on_profile}
+          =link_to protip.user.try(:username), profile_path(username: protip.user.username)
+          .diminish.inline &middot;
+
+        .diminish.inline          
           %a[:url]{href: protip_path(protip)}
             =pluralize(protip.comments.size, 'responses')
           &middot;
           =protip.display_tags
-          -# &middot;
-          -# =time_ago_in_words_with_ceiling(protip.created_at)
-          -# ago

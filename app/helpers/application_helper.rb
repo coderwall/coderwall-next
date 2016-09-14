@@ -21,6 +21,10 @@ module ApplicationHelper
     end
   end
 
+  def hide_on_profile
+    return 'hide' if params[:controller] == 'users'
+  end
+
   def hide_on_chat
     return 'hide' if params[:controller] == 'streams'
   end
