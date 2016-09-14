@@ -16,26 +16,16 @@
   .clearfix
     .sm-col.sm-col.sm-col-12.md-col-8
       .clearfix.mt0.mb1
-        .col.sm-col-3.col-12.mt-third
-          = react_component 'Heartable',
-            id: dom_id(@protip),
-            href: protip_likes_path(@protip),
-            initialCount: @protip.likes_count,
-            layout: 'inline'
-          .right.sm-hide
-            %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
-            .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
-        .col.sm-col-9.col-12.xs-mt2
-          .sm-right
-            %a.no-hover.diminish.inline.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
-            %span.xs-hide
-              &middot;
-              .diminish.inline.mx1
-                =icon("eye")
-                =number_to_human(@protip.views_count, precision: 4)
-              &middot;
-              %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
-              .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
+        .sm-right
+          %a.no-hover.diminish.inline.mr1{href: slug_protips_url(id: @protip.public_id, slug: @protip.slug)}=@protip.display_date
+          %span.xs-hide
+            &middot;
+            .diminish.inline.mx1
+              =icon("eye")
+              =number_to_human(@protip.views_count, precision: 4)
+          &middot;
+          %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
+          .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
 
 
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
@@ -56,50 +46,73 @@
             = sanitize CoderwallFlavoredMarkdown.render_to_html(@protip.body)
 
 
-          .clearfix.ml2.mr2
-            .sm-col.md-col-5.sm-col-12
-              .mt2.author[:author]
-                %h5.mt0[@protip.user]
-                  .diminish.inline Written by
-                  %a[:name]{href: profile_path(username: @protip.user.username)}
-                    =@protip.user.display_name
-                .font-tiny.mt1
-                  %a{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
-                    .inline.blue=icon("twitter", class: "fa-1x")
-                    .inline.diminish share to say thanks
-            .sm-col.md-col-7.sm-col-12
-              -if show_ads?
-                .mt2.md-right.sm-center
+          .clearfix.mt1.mb3.mx2.py2
+            .clearfix.border-bottom[:author]
+              %h4
+                Written by
+                %a.bold[@protip.user]{href: profile_path(username: @protip.user.username)}
+                  %span.blue[:name]=@protip.user.display_name
 
-        -if signed_in?
-          #new-comment.new-comment.mt2.mb2.px2
-            -if flash[:error]
-              .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
-            = form_for Comment.new do |form|
-              = invisible_captcha
-              .border.rounded
-                = form.hidden_field :article_id, value: @protip.id
-                = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Enter a response here. Smile and be nice.", style: 'border: none; outline: none', value: flash[:data]
-                .text-area-footer.px1.py1.font-sm
-                  Markdown is totally
-                  =icon('thumbs-o-up')
-              %button.btn.rounded.mt2.green.bg-white.border-green{type: 'submit'} Respond
+            .clearfix.mt1
+              .btn.btn-small.pl0.mr1.mb1.xs-block
+                - react_component 'Heartable',
+                  id: dom_id(@protip),
+                  href: protip_likes_path(@protip),
+                  initialCount: @protip.likes_count,
+                  layout: 'inline'
 
-        -else
-          #new-comment.new-comment.mt3.mb3.px2.center.bold
-            =link_to 'Sign in', sign_in_path
-            or
-            =link_to 'sign up', sign_up_path
-            to add your response.
+                - if [true,false].sample
+                  %span.fixed-space-4=icon('heart-o', class: 'purple h4')
+                  Recommend
+                - else
+                  %span.fixed-space-4=icon('heart', class: 'purple h4')
+                  Liked
 
-      -if @protip.comments.present?
-        .clearfix.mt1.px2
-          %h4=pluralize(@protip.comments.size, 'Response')
-          =render @protip.comments
+              %a.btn.btn-small.pl0.mb1.mr1.xs-block{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
+                %span.fixed-space-4=icon('twitter', class: 'aqua h4')
+                %span Say Thanks
+
+              .btn.btn-small.pl0.mb1.mr1.xs-block
+                - if [true,false].sample
+                  %span.fixed-space-4= icon('volume-up', class: 'black h4')
+                  Get Update Notifications
+                - else
+                  %span.fixed-space-4= icon('volume-off', class: 'black h4')
+                  Mute Notifications
+
+              - if !signed_in?
+                %a.btn.btn-small.pl0.mb1.mr1.xs-block{href: sign_up_path}
+                  %span.fixed-space-4= icon('comment-o', class: 'black h4')
+                  Respond
+
+
+        .clearfix
+          -if signed_in?
+            #new-comment.new-comment.mt2.mb2.px2
+              -if flash[:error]
+                .clearfix.mb2.mt1.bg-red.white.py2.center.bold.rounded=flash[:error]
+              = form_for Comment.new do |form|
+                = invisible_captcha
+                .border.rounded
+                  = form.hidden_field :article_id, value: @protip.id
+                  = form.text_area :body, rows: 1, class: 'field block col-12 focus-no-border focus-pb3', placeholder: "Share a response", style: 'border: none; outline: none', value: flash[:data]
+                  .text-area-footer.px1.py1.font-sm
+                    Markdown is totally
+                    =icon('thumbs-o-up')
+                .clearfix.mt2
+                  %a.rounded.border.border--silver.px2.py1.green.bg-white.bold{type: 'submit'} Respond
+
+          -if @protip.comments.present?
+            .clearfix.mt3.px2
+              %h4
+                =pluralize(@protip.comments.size, 'Response')
+                .right.hide
+                  .btn.btn-small.green Add your response
+              =render @protip.comments
 
     .sm-col.sm-col.sm-col-12.md-col-4
       -if @protip.related_topics.present?
-        .clearfix.ml3.mt3.p1
+        .clearfix.sm-ml3.mt3.p1
           %h5.mt0.mb1
             =icon('folder-o', class: 'mr1')
             Filed Under

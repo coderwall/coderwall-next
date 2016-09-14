@@ -119,7 +119,7 @@ $breakpoint-lg: '(min-width: 64em)' !default;
 .pt0 { padding-top: 0 }
 .pr0 { padding-right: 0 }
 .pb0 { padding-bottom: 0 }
-.pl0 { padding-left: 0 }
+.pl0 { padding-left: 0 !important;}
 .px0 { padding-left: 0; padding-right:  0 }
 .py0 { padding-top: 0;  padding-bottom: 0 }
 

@@ -1,6 +1,6 @@
 - cache ['v3', comment, current_user_can_edit?(comment)] do
   - style ||= :large
-  .inline-block.py1[comment]{class: ('border-top' if style != :small), style: 'width: 100%'}
+  .inline-block.py1.mb1[comment]{class: ('border-top' if style != :small), style: 'width: 100%'}
     .hide= time_tag comment.created_at, itemprop: "datePublished"
     .hide[:name]= comment.id
 

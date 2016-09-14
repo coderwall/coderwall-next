@@ -219,13 +219,20 @@ div[data-react-class] {
   padding-bottom: .25rem;
 }
 
-.underline{
-	text-decoration: underline;
+.underline {
+  text-decoration: underline;
 }
-
 
 @media (max-width: 40em) {
   .xs-hide { display: none !important }
+	.xs-center{ text-align: center !important; }
+	.xs-block {display: block !important }
 }
 
 .muted-until-hover:not(:hover) { opacity: .5 }
+
+.fixed-space-4 {
+	max-width: 1.25rem;
+	min-width: 1.25rem;
+	display: inline-block;
+}
