@@ -1,4 +1,4 @@
-const requiredFields = [
+const njsRequiredFields = [
   'company_name',
   'contact_email',
   'jobs_url',
@@ -115,7 +115,7 @@ class NewJobSubscription extends React.Component {
     if (!match) { return }
 
     const field = match[1]
-    if (field && requiredFields.indexOf(field) !== -1) {
+    if (field && njsRequiredFields.indexOf(field) !== -1) {
       if (!this.state[field]) {
         this.setState({ brokenFields: {...this.state.brokenFields, [field]: true } })
       } else {
@@ -127,7 +127,7 @@ class NewJobSubscription extends React.Component {
   }
 
   validateFields() {
-    let brokenFields = requiredFields.filter(f => !this.state[f])
+    let brokenFields = njsRequiredFields.filter(f => !this.state[f])
     if (this.state.companyLogo && !this.state.validLogoUrl) {
       brokenFields = [...brokenFields, 'companyLogo']
     }
