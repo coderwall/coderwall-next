@@ -12,9 +12,6 @@ class CommentMailerTest < ActionMailer::TestCase
       email.deliver_now
     end
 
-    # assert_equal ["#{article.user.display_name} <notifications@coderwall.com>"], email.from
-    # assert_equal ["#{user.display_name} <#{user.email}>"], email.to
-    # assert_equal "Re: #{article.title}", email.subject
     assert_equal ["notifications@coderwall.com"], email.from
     assert_equal [user.email], email.to
     assert_equal "Re: #{article.title}", email.subject

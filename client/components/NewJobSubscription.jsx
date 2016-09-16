@@ -1,3 +1,4 @@
+/* global document, Image, StripeCheckout */
 import React, { PropTypes as T } from 'react'
 
 const requiredFields = [
@@ -8,10 +9,10 @@ const requiredFields = [
 
 export default class NewJobSubscription extends React.Component {
   static propTypes = {
-    cost: React.PropTypes.number.isRequired,
-    stripePublishable: React.PropTypes.string.isRequired,
+    cost: T.number.isRequired,
+    stripePublishable: T.string.isRequired,
   }
-  
+
   constructor(props) {
     super(props)
     this.state = { brokenFields: {} }
@@ -24,29 +25,31 @@ export default class NewJobSubscription extends React.Component {
     const submittable = valid && !saving
 
     return (
-        <form ref="form" action="/jobs/subscriptions" acceptCharset="UTF-8" method="post"
-          onSubmit={e => this.handleSubmit(e)}
-          onBlur={e => this.handleBlur(e)}>
-          <input name="utf8" type="hidden" defaultValue="✓" />
-          <input type="hidden" name="authenticity_token" defaultValue={csrfToken} />
-          <input type="hidden" name="stripeToken" value={this.state.stripeToken} />
+      <form
+        ref={c => { this.form = c }}
+        action="/jobs/subscriptions" acceptCharset="UTF-8" method="post"
+        onSubmit={e => this.handleSubmit(e)}
+        onBlur={e => this.handleBlur(e)}>
+        <input name="utf8" type="hidden" defaultValue="✓" />
+        <input type="hidden" name="authenticity_token" defaultValue={csrfToken} />
+        <input type="hidden" name="stripeToken" value={this.state.stripeToken} />
 
-          {this.textField('company_name', 'Company Name', 'Acme Inc.')}
-          {this.textField('contact_email', 'Contact Email', 'coyote@acme.inc')}
-          {this.textField('jobs_url', 'Career Website or Job Listing Page URL', 'eg. http://acme.com/jobs')}
+        {this.textField('company_name', 'Company Name', 'Acme Inc.')}
+        {this.textField('contact_email', 'Contact Email', 'coyote@acme.inc')}
+        {this.textField('jobs_url', 'Career Website or Job Listing Page URL', 'eg. http://acme.com/jobs')}
 
-          <span className="bold gray">That is all you have to do :D</span>
+        <span className="bold gray">That is all you have to do :D</span>
 
-          <div className="center">
-            <button
-              className={`btn rounded mt3 white px4 py2 ${submittable ? 'bg-green' : 'bg-gray'}`}
-              type="submit"
-              disabled={!submittable}>
-              Subscribe ($499 Monthly)
-            </button>
-          </div>
+        <div className="center">
+          <button
+            className={`btn rounded mt3 white px4 py2 ${submittable ? 'bg-green' : 'bg-gray'}`}
+            type="submit"
+            disabled={!submittable}>
+            Subscribe ($499 Monthly)
+          </button>
+        </div>
 
-        </form>
+      </form>
     )
   }
 
@@ -77,7 +80,7 @@ export default class NewJobSubscription extends React.Component {
     this.setState({ saving: true })
     const onStripeTokenSet = token => {
       this.setState({ saving: true, stripeToken: token.id },
-      () => this.refs.form.submit())
+      () => this.form.submit())
     }
 
     const onClosed = () => {
@@ -142,17 +145,17 @@ export default class NewJobSubscription extends React.Component {
     return brokenFields.length === 0
   }
 
-  testImage(url, callback, timeout) {
-    timeout = timeout || 5000
-    let timedOut = false, timer
+  testImage(url, callback, timeout = 5000) {
+    let timedOut = false
+    let timer
     const img = new Image()
-    img.onerror = img.onabort = function () {
+    img.onerror = img.onabort = () => {
       if (!timedOut) {
         clearTimeout(timer)
         callback(url, "error")
       }
     }
-    img.onload = function () {
+    img.onload = () => {
       if (!timedOut) {
         clearTimeout(timer)
         callback(url, "success")

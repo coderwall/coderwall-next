@@ -1,3 +1,4 @@
+/* global $, document, window */
 import React, { PropTypes as T } from 'react'
 
 let id = 1
@@ -20,33 +21,6 @@ export default class Video extends React.Component {
     }
   }
 
-  componentDidMount() {
-    window.jwplayer.key = this.props.jwplayerKey
-    this.jwplayer = window.jwplayer(this.componentId)
-    this.jwplayer.setup({
-      sources: this.props.sources,
-      image: this.props.offlineImage,
-      stretching: "fill",
-      captions: {
-        color: "FFCC00",
-        backgroundColor: "000000",
-        backgroundOpacity: 50,
-      },
-      mute: !!this.props.mute,
-    }).on('play', () => this.setState({ online: true }))
-      .on('bufferFull', () => this.setState({ online: true }))
-      .on('resize', data => $(window).trigger('video-resize', data))
-      .on('time', data => $(window).trigger('video-time', data))
-      .onError(this.onError.bind(this))
-
-    // debug
-    // this.jwplayer.on('all', this.onAll.bind(this))
-  }
-
-  componentWillUnmount() {
-    this.jwplayer.remove()
-  }
-
   render() {
     return (
       <div>
@@ -60,16 +34,45 @@ export default class Video extends React.Component {
     )
   }
 
+  componentDidMount() {
+    window.jwplayer.key = this.props.jwplayerKey
+    this.jwplayer = window.jwplayer(this.componentId)
+    this.jwplayer.setup({
+      sources: this.props.sources,
+      image: this.props.offlineImage,
+      stretching: "fill",
+      captions: {
+        color: "FFCC00",
+        backgroundColor: "000000",
+        backgroundOpacity: 50,
+      },
+      mute: !!this.props.mute,
+    }).on('play', () => this.setState({ online: true })).
+      on('bufferFull', () => this.setState({ online: true })).
+      on('resize', data => $(window).trigger('video-resize', data)).
+      on('time', data => $(window).trigger('video-time', data)).
+      onError(this.onError.bind(this))
+
+    // debug
+    // this.jwplayer.on('all', this.onAll.bind(this))
+  }
+
+  componentWillUnmount() {
+    this.jwplayer.remove()
+  }
+
   renderOffline() {
     return (
       <div style={{ height: this.state.playerHeight, backgroundColor: 'black' }}>
-        <img src={this.props.offlineImage} />
+        <img alt="offline" src={this.props.offlineImage} />
       </div>
     )
   }
 
   renderOnlineStatus() {
-    const message = this.state.online ? 'Connected, previewing stream' : 'No stream detected, preview unavailable'
+    const message = this.state.online ?
+      'Connected, previewing stream' :
+      'No stream detected, preview unavailable'
 
     return (
       <div className="border-box p2 border-right border-left">
@@ -86,16 +89,19 @@ export default class Video extends React.Component {
     )
   }
 
-  onError(e) {
+  onError() {
     setTimeout(() => this.jwplayer.load(this.props.sources).play(true), 2000)
     if (this.state.online === false) { return }
     // console.log('jwplayer error', e)
-    this.setState({ online: false, playerHeight: document.getElementById(this.componentId).clientHeight })
+    this.setState({
+      online: false,
+      playerHeight: document.getElementById(this.componentId).clientHeight,
+    })
   }
 
   onAll(e, data) {
     // if (e !== 'time' && e !== 'meta') {
-    console.log(e, data)
+    console.log(e, data) // eslint-disable-line no-console
     // }
   }
 }
