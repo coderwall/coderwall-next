@@ -20,3 +20,9 @@ coderwall-production.dump
 contributions.csv
 google.docs.config.json
 lib/tasks/recruiters.rake
+
+node_modules
+client/node_modules
+client/npm-debug.log
+/app/assets/javascripts/application.js
+/app/assets/webpack/*

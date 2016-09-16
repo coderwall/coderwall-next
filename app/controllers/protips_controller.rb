@@ -1,4 +1,5 @@
 class ProtipsController < ApplicationController
+  include ReactOnRails::Controller
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def home
@@ -14,6 +15,8 @@ class ProtipsController < ApplicationController
       tags = params[:topic].downcase if tags.empty?
       @protips = @protips.with_any_tagged(tags)
     end
+
+    store_data
   end
 
   def spam
@@ -24,6 +27,8 @@ class ProtipsController < ApplicationController
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
+
+    store_data
 
     respond_to do |format|
       format.json { render(json: @protip) }

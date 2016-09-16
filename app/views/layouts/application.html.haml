@@ -4,8 +4,10 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
     %meta{property: 'current_user:id', content: current_user.try(:id)}
     = display_meta_tags(default_meta_tags)
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = env_stylesheet_link_tag(static: 'application_static', hot: 'application_non_webpack', media: 'all', 'data-turbolinks-track' => true)
+    = env_javascript_include_tag(hot: ['http://localhost:3500/vendor-bundle.js', 'http://localhost:3500/app-bundle.js'])
+    = env_javascript_include_tag(static: 'application_static', hot: 'application_non_webpack', 'data-turbolinks-track' => true)
+    = javascript_include_tag 'https://content.jwplatform.com/libraries/pEaCoeG7.js'
     = csrf_meta_tags
     = render 'shared/analytics'
     = yield :head
@@ -36,4 +38,6 @@
               %a.inline-block.mr1{href: privacy_path} Privacy
               %a.inline-block.mr1{href: tos_path} Terms
               %p.inline-block.diminish.inline.mr1="Copyright #{Time.now.strftime('%Y')}"
-  = render 'shared/tracking'
+
+    = redux_store_hydration_data
+    = render 'shared/tracking'

@@ -19,8 +19,7 @@
               &middot;
               %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
             &middot;
-            = react_component 'Heartable',
-              id: dom_id(comment),
+            = react_component 'Heartable', props: { id: dom_id(comment),
               href: comment_likes_path(comment),
               initialCount: comment.likes_count,
-              layout: 'simple'
+              layout: 'simple' }

@@ -1,6 +1,16 @@
+import React, { PropTypes as T } from 'react'
+
 let id = 1
 
-class Video extends React.Component {
+export default class Video extends React.Component {
+  static propTypes = {
+    jwplayerKey: T.string.isRequired,
+    mute: T.bool,
+    offlineImage: T.string.isRequired,
+    showStatus: T.bool,
+    sources: T.array.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.componentId = `video-${id++}`
@@ -20,11 +30,11 @@ class Video extends React.Component {
       captions: {
         color: "FFCC00",
         backgroundColor: "000000",
-        backgroundOpacity: 50
+        backgroundOpacity: 50,
       },
       mute: !!this.props.mute,
-    }).on('play', () => this.setState({online: true}))
-      .on('bufferFull', () => this.setState({online: true}))
+    }).on('play', () => this.setState({ online: true }))
+      .on('bufferFull', () => this.setState({ online: true }))
       .on('resize', data => $(window).trigger('video-resize', data))
       .on('time', data => $(window).trigger('video-time', data))
       .onError(this.onError.bind(this))
@@ -43,7 +53,7 @@ class Video extends React.Component {
         {this.props.showStatus && this.renderOnlineStatus()}
 
         <div className={this.state.online === false && 'hide'}>
-          <div id={this.componentId}></div>
+          <div id={this.componentId} />
         </div>
         {this.state.online === false && this.renderOffline()}
       </div>
@@ -52,8 +62,8 @@ class Video extends React.Component {
 
   renderOffline() {
     return (
-      <div style={{height: this.state.playerHeight, backgroundColor: 'black'}}>
-        <img src={this.props.offlineImage}  />
+      <div style={{ height: this.state.playerHeight, backgroundColor: 'black' }}>
+        <img src={this.props.offlineImage} />
       </div>
     )
   }
@@ -80,20 +90,12 @@ class Video extends React.Component {
     setTimeout(() => this.jwplayer.load(this.props.sources).play(true), 2000)
     if (this.state.online === false) { return }
     // console.log('jwplayer error', e)
-    this.setState({online: false, playerHeight: document.getElementById(this.componentId).clientHeight})
+    this.setState({ online: false, playerHeight: document.getElementById(this.componentId).clientHeight })
   }
 
   onAll(e, data) {
     // if (e !== 'time' && e !== 'meta') {
-      console.log(e, data)
+    console.log(e, data)
     // }
   }
-}
-
-Video.propTypes = {
-  jwplayerKey: React.PropTypes.string.isRequired,
-  mute: React.PropTypes.bool,
-  offlineImage: React.PropTypes.string.isRequired,
-  showStatus: React.PropTypes.bool,
-  sources: React.PropTypes.array.isRequired,
 }

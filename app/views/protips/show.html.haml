@@ -27,7 +27,6 @@
           %span.mx1=link_to @protip.user.username, profile_path(username: @protip.user.username)
           .avatar[:image]{style: "background-color: #{@protip.user.color};"}=avatar_url_tag(@protip.user)
 
-
       .card.p1{style: "border-top:solid 5px #{@protip.user.color}"}
 
         - if signed_in? && current_user.can_edit?(@protip)
@@ -55,11 +54,10 @@
 
             .clearfix.mt1
               .btn.btn-small.pl0.mr1.mb1.xs-block
-                - react_component 'Heartable',
-                  id: dom_id(@protip),
+                = react_component 'Heartable', props: { id: dom_id(@protip),
                   href: protip_likes_path(@protip),
                   initialCount: @protip.likes_count,
-                  layout: 'inline'
+                  layout: 'inline' }
 
                 - if [true,false].sample
                   %span.fixed-space-4=icon('heart-o', class: 'purple h4')

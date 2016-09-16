@@ -1,0 +1,22 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+
+  "rules": {
+    "quotes": 0,
+    "dot-location": ["error", "object"],
+    "no-global-assign": ["error", { exceptions: [] }],
+    "react/jsx-closing-bracket-location": 0,
+    "react/no-multi-comp": 0,
+    "react/sort-comp": [2, {
+      order: [
+        'static-methods',
+        'constructor',
+        'render',
+        'lifecycle',
+        'everything-else'
+      ]
+    }],
+    "semi": [2, "never"]
+  }
+}

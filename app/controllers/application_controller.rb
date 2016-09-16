@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def store_data(props = {})
+    redux_store("store", props: props)
+  end
+
   def strip_and_redirect_on_www
     if Rails.env.production?
       if request.env['HTTP_HOST'] != 'coderwall.com'

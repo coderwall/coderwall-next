@@ -1,10 +1,17 @@
+import React, { PropTypes as T } from 'react'
+
 const requiredFields = [
   'company_name',
   'contact_email',
   'jobs_url',
 ]
 
-class NewJobSubscription extends React.Component {
+export default class NewJobSubscription extends React.Component {
+  static propTypes = {
+    cost: React.PropTypes.number.isRequired,
+    stripePublishable: React.PropTypes.string.isRequired,
+  }
+  
   constructor(props) {
     super(props)
     this.state = { brokenFields: {} }
@@ -28,9 +35,9 @@ class NewJobSubscription extends React.Component {
           {this.textField('contact_email', 'Contact Email', 'coyote@acme.inc')}
           {this.textField('jobs_url', 'Career Website or Job Listing Page URL', 'eg. http://acme.com/jobs')}
 
-          <span className='bold gray'>That is all you have to do :D</span>
+          <span className="bold gray">That is all you have to do :D</span>
 
-          <div class='center'>
+          <div className="center">
             <button
               className={`btn rounded mt3 white px4 py2 ${submittable ? 'bg-green' : 'bg-gray'}`}
               type="submit"
@@ -97,12 +104,12 @@ class NewJobSubscription extends React.Component {
 
   handleChange(input, e) {
     const val = e.target.value
-    this.setState({[input]: val})
+    this.setState({ [input]: val })
 
     if (input === 'companyLogo') {
       this.testImage(val, (url, result) => {
         if (result === 'success') {
-          this.setState({ validLogoUrl: url})
+          this.setState({ validLogoUrl: url })
         } else {
           this.setState({ validLogoUrl: null })
         }
@@ -117,7 +124,7 @@ class NewJobSubscription extends React.Component {
     const field = match[1]
     if (field && requiredFields.indexOf(field) !== -1) {
       if (!this.state[field]) {
-        this.setState({ brokenFields: {...this.state.brokenFields, [field]: true } })
+        this.setState({ brokenFields: { ...this.state.brokenFields, [field]: true } })
       } else {
         const withoutField = Object.assign({}, this.state.brokenFields)
         delete withoutField[field]
@@ -131,36 +138,30 @@ class NewJobSubscription extends React.Component {
     if (this.state.companyLogo && !this.state.validLogoUrl) {
       brokenFields = [...brokenFields, 'companyLogo']
     }
-    this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({...memo, [i]: true}), {}) })
+    this.setState({ brokenFields: brokenFields.reduce((memo, i) => ({ ...memo, [i]: true }), {}) })
     return brokenFields.length === 0
   }
 
   testImage(url, callback, timeout) {
     timeout = timeout || 5000
-    var timedOut = false, timer
-    var img = new Image()
-    img.onerror = img.onabort = function() {
+    let timedOut = false, timer
+    const img = new Image()
+    img.onerror = img.onabort = function () {
       if (!timedOut) {
         clearTimeout(timer)
-        callback(url, "error");
+        callback(url, "error")
       }
     }
-    img.onload = function() {
+    img.onload = function () {
       if (!timedOut) {
         clearTimeout(timer)
         callback(url, "success")
       }
     }
     img.src = url
-    timer = setTimeout(function() {
+    timer = setTimeout(() => {
       timedOut = true
       callback(url, "timeout")
     }, timeout)
   }
-}
-
-
-NewJobSubscription.propTypes = {
-  cost: React.PropTypes.number.isRequired,
-  stripePublishable: React.PropTypes.string.isRequired
 }
