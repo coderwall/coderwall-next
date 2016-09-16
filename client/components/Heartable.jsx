@@ -6,7 +6,8 @@ export default class Heartable extends React.Component {
   static propTypes = {
     id: T.string,
     initialCount: T.number,
-    layout: T.string,
+    showCount: T.bool,
+    showLabel: T.bool,
     protipId: T.string,
     href: T.string,
   }
@@ -25,7 +26,8 @@ export default class Heartable extends React.Component {
         count={this.state.count}
         hearted={this.state.hearted}
         onClick={() => this.handleClick()}
-        layout={this.props.layout} />
+        showCount={this.props.showCount}
+        showLabel={this.props.showLabel} />
     )
   }
 
