@@ -1,12 +1,12 @@
 jQuery ->
-  console.log('Loading BSA')
-  e = document.createElement('script')
-  e.type = 'text/javascript'
-  e.async = !0
-  e.src = document.location.protocol + '//s3.buysellads.com/ac/bsa.js'
-  (document.getElementsByTagName('head')[0] or document.getElementsByTagName('body')[0]).appendChild(e)
+  console.log('BSA -> Loading')
+  bsa = document.createElement('script')
+  bsa.type = 'text/javascript'
+  bsa.async = true
+  bsa.src = document.location.protocol + '//s3.buysellads.com/ac/bsa.js'
+  (document.getElementsByTagName('head')[0] or document.getElementsByTagName('body')[0]).appendChild(bsa)
 
   $(document).on 'turbolinks:load', ->
     if window._bsap?
-      console.log("Reloading BSA")
+      console.log("BSA -> Reloading")
       _bsap.reload()

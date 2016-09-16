@@ -14,10 +14,10 @@
   .container
     .clearfix
       .col.col-12.md-col-8
-        .mb3.purple{style: "border-bottom:solid 5px;"}
-          %h2.mt0.black
+        .purple{style: "border-bottom:solid 5px;"}
+          %h2.mt0.mb2.black
             Popular Programming Tips
-        =render @protips.uniq
+        .py2.bg-white.pr1=render @protips.uniq
         .clearfix
           .btn.right=link_to('More popular protips', popular_path(page:2))
 

@@ -14,13 +14,19 @@
     .clearfix
       .sm-col.sm-col.sm-col-12.md-col-8
         -if first_page?
-          .mb2.purple{style: "border-bottom:solid 5px;"}
+          .purple{style: "border-bottom:solid 5px;"}
             %h2.mt0.black=protips_heading
             %p.clearfix.py1.font-lg.black=protips_description
-        =render @protips
-        .clearfix.mt3
-          .btn.left= link_to_previous_page @protips, 'Previous', class: 'border rounded p1 h3'
-          .btn.right= link_to_next_page @protips, 'Next', class: 'border rounded p1 h3'
+        .py2.bg-white
+          .pr1=render @protips
+
+        .clearfix.mt1.py2
+          .col.col-6.sm-col-3
+            .btn.pl0.left.h4= link_to_previous_page @protips, "Previous Page"
+          .col.col-6.muted.xs-hide
+            .py1.center=page_entries_info @protips, entry_name: 'tips'
+          .col.col-6.sm-col-3
+            .btn.pr0.right.h4= link_to_next_page @protips, 'Next Page'
 
       .sm-col.sm-col.sm-col-12.md-col-4
 

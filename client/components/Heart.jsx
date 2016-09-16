@@ -11,15 +11,29 @@ const numberToHuman = (number) => {
   return 0
 }
 
+const renderCount = (cnt) => (
+  <div className="font-tiny">
+    {numberToHuman(cnt)}
+  </div>
+)
+
+const renderLabel = (hearted) => (
+  <span className="black ml1">
+    {hearted ? 'Recommended' : 'Recommend'}
+  </span>
+)
 
 const Heart = ({ hearted, showLabel, showCount, count, onClick }) => {
   const icon = hearted ? 'heart' : 'heart-o'
-  const label = hearted ? 'Recommended' : 'Recommend'
   return (
-    <div className="inline pointer" onClick={onClick}>
-      <span className="fixed-space-4"><Icon icon={icon} extraClasses="purple h5" /></span>
-      {showLabel && label}
-      {showCount && numberToHuman(count)}
+    <div className="inline pointer center purple" onClick={onClick}>
+
+      <span className="fixed-space-4">
+        <Icon icon={icon} extraClasses="purple h5" />
+      </span>
+
+      {showLabel && renderLabel(hearted)}
+      {showCount && renderCount(count)}
     </div>
   )
 }

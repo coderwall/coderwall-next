@@ -1,7 +1,7 @@
 -cache ['v3', protip, hide_on_profile] do
-  .protip.card.clearfix.py1.mb2.likeable[protip]{id: dom_id(protip)}
-    .left.col.col-1{class: hide_on_profile}
-      .mt-third
+  .protip.card.clearfix.py2.likeable[protip]{id: dom_id(protip)}
+    .col{class: hide_on_profile}
+      .px2.mt-third
         = react_component 'Heartable', props: { id: dom_id(protip),
           href: protip_likes_path(protip),
           initialCount: protip.likes_count,

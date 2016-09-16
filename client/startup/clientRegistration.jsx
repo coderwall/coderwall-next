@@ -27,6 +27,7 @@ function withStore(c) {
     React.createElement(c, props)
   )
 }
+
 function registerContainers(containers) {
   const containersWithStore = Object.keys(containers).
     reduce((h, k) => ({ ...h, [k]: withStore(containers[k]) }), {})
