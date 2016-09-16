@@ -13,7 +13,7 @@
 #= require jquery_ujs
 #= require_tree .
 
-$ ->
+$ ->  
   $.ajaxSetup error: (xhr, status, err) ->
     promptUserSignInOn401(xhr)
     return

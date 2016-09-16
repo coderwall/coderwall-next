@@ -7,16 +7,12 @@
     })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
     ga('create', '<%= ENV['GOOGLE_ANALYTICS_UA'] %>', 'auto');
-    <% if signed_in? %>
-      ga('set',  'userId', <%= current_user.id %>);
-    <% end %>
-    ga('send', 'pageview', { "title": document.title });
   </script>
 <% else #LOG EVENTS DIRECTLY TO WEB CONSOLE %>
   <script>
     (function (window, document, undefined) {
       window.ga = function(a, e, data) {
-        console.log("gsa -> " + a + ":" + e, data);
+        console.log("GSA -> " + a + ":" + e, data);
       }
     })(window, document);
   </script>
