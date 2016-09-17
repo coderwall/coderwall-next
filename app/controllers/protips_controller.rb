@@ -1,5 +1,4 @@
 class ProtipsController < ApplicationController
-  include ReactOnRails::Controller
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def home

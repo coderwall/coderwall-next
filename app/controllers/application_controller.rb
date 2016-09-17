@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
+  include ReactOnRails::Controller
   include Clearance::Controller
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   before_action :strip_and_redirect_on_www
+  before_action :store_data
   after_action :record_user_access
 
   protected
