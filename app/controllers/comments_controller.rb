@@ -41,6 +41,7 @@ class CommentsController < ApplicationController
       flash[:data] = @comment.body
       redirect_to_protip_comment_form
     else
+      @article.subscribe!(current_user)
       notify_comment_added!
       respond_to do |format|
         format.html { redirect_to url_for(@comment.url_params) }
