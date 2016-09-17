@@ -91,6 +91,10 @@
             %a.block.mt2.bold{href: jobs_path}
               Search all programming jobs
 
+          %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
+            Post a Job for Programmers
+            .mt1.font-sm== $#{Job::COST} for 30 days
+
         -if show_ads?
           .clearfix.ml3.mt3
             #bsap_1305410.bsarocks.bsap_74f50e679004d8f4d62fec4b0f74ccf1
