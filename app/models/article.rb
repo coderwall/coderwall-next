@@ -133,4 +133,18 @@ class Article < ActiveRecord::Base
   def auto_like_by_author
     likes.create(user: user)
   end
+
+  def subscribe!(user)
+    Protip.where(id: id).update_all(
+      "subscribers = array(select unnest(subscribers) union select #{ActiveRecord::Base.connection.quote(user.id)})"
+    )
+    reload
+  end
+
+  def unsubscribe!(user)
+    Protip.where(id: id).update_all(
+      "subscribers = array(select i from unnest(subscribers) t(i) where i <> #{ActiveRecord::Base.connection.quote(user.id)})"
+    )
+    reload
+  end
 end

@@ -64,12 +64,7 @@
                 %span Say Thanks
 
               .btn.btn-small.pl0.mb1.mr1.xs-block
-                - if [true,false].sample
-                  %span.fixed-space-4= icon('volume-up', class: 'black h4')
-                  Get Update Notifications
-                - else
-                  %span.fixed-space-4= icon('volume-off', class: 'black h4')
-                  Mute Notifications
+                = react_component 'ProtipSubscribeButton'
 
               - if !signed_in?
                 %a.btn.btn-small.pl0.mb1.mr1.xs-block{href: sign_up_path}

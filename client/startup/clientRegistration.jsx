@@ -13,6 +13,7 @@ import Heart from '../components/Heart'
 import Heartable from '../components/Heartable'
 import NewJob from '../components/NewJob'
 import NewJobSubscription from '../components/NewJobSubscription'
+import ProtipSubscribeButton from '../components/ProtipSubscribeButton'
 import Video from '../components/Video'
 
 ReactOnRails.setOptions({
@@ -43,5 +44,6 @@ registerContainers({
   Heartable,
   NewJob,
   NewJobSubscription,
+  ProtipSubscribeButton,
   Video,
 })

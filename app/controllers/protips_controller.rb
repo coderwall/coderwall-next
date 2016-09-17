@@ -29,7 +29,11 @@ class ProtipsController < ApplicationController
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
 
-    store_data
+    store_data(
+      currentProtip: {
+        item: serialize(@protip)
+      }
+    )
 
     respond_to do |format|
       format.json { render(json: @protip) }

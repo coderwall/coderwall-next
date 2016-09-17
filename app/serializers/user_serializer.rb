@@ -1,6 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
   has_many   :badges
-  attributes :username,
+  attributes :id,
+             :username,
              :name,
              :location,
              :karma,

@@ -20,7 +20,11 @@ class ApplicationController < ActionController::Base
   end
 
   def store_data(props = {})
-    redux_store("store", props: props)
+    redux_store("store", props: {
+      currentUser: {
+        item: serialize(current_user)
+      }
+    }.merge(props))
   end
 
   def strip_and_redirect_on_www
@@ -44,5 +48,10 @@ class ApplicationController < ActionController::Base
       yield
       ActiveRecord::Base.connection.close
     end
+  end
+
+  def serialize(obj, serializer = nil)
+    serializer ||= ActiveModel::Serializer.serializer_for(obj)
+    serializer.new(obj, root: false).as_json if obj
   end
 end

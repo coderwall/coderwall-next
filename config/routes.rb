@@ -73,6 +73,9 @@ Rails.application.routes.draw do
 
   resources :protips, path: '/p' do
     resources :likes, only: :create
+    resources :subscribers, only: [:create] do
+      delete :destroy, on: :collection
+    end
     collection do
       get '/spam'      => 'protips#spam'
       get '/:id/edit'  => 'protips#edit'  #this prevents next route from clobbering edit
