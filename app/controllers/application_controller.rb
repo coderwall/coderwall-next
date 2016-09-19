@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
   def strip_and_redirect_on_www
     if Rails.env.production?
-      if request.env['HTTP_HOST'] != 'coderwall.com'
+      if request.env['HTTP_HOST'] != ENV['DOMAIN']
         redirect_to request.url.sub("//www.", "//"), status: 301
       end
     end
