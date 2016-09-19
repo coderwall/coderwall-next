@@ -15,4 +15,15 @@ class SubscribersController < ApplicationController
     @protip.unsubscribe!(current_user)
     render json: @protip, root: false
   end
+
+  def mute
+    @protip = Protip.find_by_public_id!(params[:protip_id])
+    if params[:signature] != current_user.unsubscribe_signature
+      flash[:notice] = "Unsubscribe link is no longer valid"
+    else
+      @protip.unsubscribe!(current_user)
+      flash[:notice] = "You will no longer receive new comment emails"
+    end
+    redirect_to protip_path(@protip)
+  end
 end

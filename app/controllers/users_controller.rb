@@ -81,16 +81,6 @@ class UsersController < ApplicationController
     redirect_to_back_or_default
   end
 
-  def unsubscribe_comment_emails
-    if params[:signature] != current_user.unsubscribe_signature
-      flash[:notice] = "Unsubscribe link is no longer valid"
-    else
-      current_user.touch(:unsubscribed_comment_emails_at)
-      flash[:notice] = "You will no longer receive new comment emails"
-    end
-    redirect_to root_path
-  end
-
   protected
 
   def new_user_params

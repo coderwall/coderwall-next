@@ -24,12 +24,6 @@ class Comment < ActiveRecord::Base
     ActionView::RecordIdentifier.dom_id(self)
   end
 
-  def notification_recipients
-    commentors = article.comments.pluck(:user_id)
-    potentials = (commentors | [article.user_id]) - [user_id]
-    User.where(id: potentials).where(unsubscribed_comment_emails_at: nil)
-  end
-
   def url_params
     [article, anchor: dom_id]
   end

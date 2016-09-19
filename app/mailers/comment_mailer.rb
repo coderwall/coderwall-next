@@ -34,8 +34,6 @@ class CommentMailer < BaseMailer
   protected
 
   def prevent_email?(user)
-    user.banned_at? ||
-      user.email_invalid_at? ||
-      user.unsubscribed_comment_emails_at?
+    user.banned_at? || user.email_invalid_at?
   end
 end

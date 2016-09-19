@@ -76,9 +76,14 @@ class CommentsController < ApplicationController
     Notification.comment_added!(@article, json, socket_id = params[:socket_id])
 
     # TODO: move to job
-    @comment.notification_recipients.each do |to|
+    email_recipients.each do |to|
+      logger.info(event: 'email-notify', email: to, comment: @comment.id)
       CommentMailer.new_comment(to, @comment).deliver_now!
     end
+  end
+
+  def email_recipients
+    User.where(id: (@article.subscribers - [@comment.user_id]))
   end
 
   def on_spam_detected
