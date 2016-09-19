@@ -1,0 +1,230 @@
+exports[`test renders correctly 1`] = `
+<form
+  onSubmit={[Function bound submit]}>
+  <div>
+    <label
+      htmlFor="title">
+      Job Title
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="title"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="Sr. Frontend Engineer"
+      type="text"
+      value="" />
+  </div>
+  <div>
+    <label
+      htmlFor="company">
+      Company Name
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="company"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="Acme Inc"
+      type="text"
+      value="" />
+  </div>
+  <div>
+    <label
+      htmlFor="location">
+      Location
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="location"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="Chicago, Il"
+      type="text"
+      value="" />
+  </div>
+  <div>
+    <label
+      htmlFor="source">
+      Link to your job description
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="source"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="https://acme.inc/jobs/78"
+      type="text"
+      value="" />
+  </div>
+  <div>
+    <label
+      htmlFor="company_url">
+      Company Website
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="company_url"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="https://acme.inc"
+      type="text"
+      value="" />
+  </div>
+  <div
+    className="clearfix mxn2">
+    <div
+      className="col col-8 px2">
+      <div>
+        <label
+          htmlFor="company_logo">
+          Company Logo (optional)
+        </label>
+        <input
+          className="field block col-12 mb3 false"
+          name="company_logo"
+          onBlur={[Function anonymous]}
+          onChange={[Function anonymous]}
+          onDragStart={[Function anonymous]}
+          onDrop={[Function anonymous]}
+          onFocus={[Function anonymous]}
+          placeholder="https://acme.inc/logo.png"
+          type="text"
+          value="" />
+      </div>
+    </div>
+    <div
+      className="col col-4 px2">
+      <img
+        alt="Company Logo"
+        src=""
+        style={
+          Object {
+            "float": "right",
+            "height": 200,
+            "objectFit": "cover",
+            "width": 200
+          }
+        } />
+    </div>
+  </div>
+  <div>
+    <label
+      htmlFor="author_name">
+      Contact Name
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="author_name"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="Your name"
+      type="text"
+      value="" />
+  </div>
+  <div>
+    <label
+      htmlFor="author_email">
+      Contact Email
+    </label>
+    <input
+      className="field block col-12 mb3 false"
+      name="author_email"
+      onBlur={[Function anonymous]}
+      onChange={[Function anonymous]}
+      onDragStart={[Function anonymous]}
+      onDrop={[Function anonymous]}
+      onFocus={[Function anonymous]}
+      placeholder="Your email for the receipt"
+      type="email"
+      value="" />
+  </div>
+  <div
+    className="col-12">
+    <div
+      className="inline-block">
+      <input
+        checked={false}
+        id="role_type_full_time"
+        label="Full Time"
+        name="role_type"
+        onBlur={[Function anonymous]}
+        onChange={[Function anonymous]}
+        onDragStart={[Function anonymous]}
+        onDrop={[Function anonymous]}
+        onFocus={[Function anonymous]}
+        type="radio"
+        value="Full Time" />
+      <label
+        htmlFor="role_type_full_time">
+        Full Time
+      </label>
+    </div>
+    <div
+      className="inline-block">
+      <input
+        checked={false}
+        id="role_type_part_time"
+        label="Part Time"
+        name="role_type"
+        onBlur={[Function anonymous]}
+        onChange={[Function anonymous]}
+        onDragStart={[Function anonymous]}
+        onDrop={[Function anonymous]}
+        onFocus={[Function anonymous]}
+        type="radio"
+        value="Part Time" />
+      <label
+        htmlFor="role_type_part_time">
+        Part Time
+      </label>
+    </div>
+    <div
+      className="inline-block">
+      <input
+        checked={false}
+        id="role_type_contract"
+        label="Contract"
+        name="role_type"
+        onBlur={[Function anonymous]}
+        onChange={[Function anonymous]}
+        onDragStart={[Function anonymous]}
+        onDrop={[Function anonymous]}
+        onFocus={[Function anonymous]}
+        type="radio"
+        value="Contract" />
+      <label
+        htmlFor="role_type_contract">
+        Contract
+      </label>
+    </div>
+  </div>
+  <div
+    className="center">
+    <button
+      className="btn rounded mt3 white px4 py2 bg-green"
+      disabled={false}
+      type="submit">
+      Complete Posting Job for $299
+    </button>
+  </div>
+</form>
+`;

@@ -5,6 +5,7 @@
   "rules": {
     "dot-location": ["error", "object"],
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/__tests__/**"]}],
+    "import/no-named-as-default": 0,
     "no-global-assign": ["error", { exceptions: [] }],
     "quotes": 0,
     "react/jsx-closing-bracket-location": 0,

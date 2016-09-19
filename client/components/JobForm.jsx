@@ -1,5 +1,5 @@
 import React, { PropTypes as T } from 'react'
-import { change, reduxForm, Field as FormField } from 'redux-form'
+import { reduxForm, Field as FormField } from 'redux-form'
 
 import loadImage from '../lib/loadImage'
 
@@ -42,7 +42,7 @@ const RadioField = (props) => (
 RadioField.propTypes = { id: T.string, label: T.string }
 
 
-const JobForm = ({ handleSubmit, submitting, valid }) => {
+export const JobForm = ({ handleSubmit, submitting, valid }) => {
   const submitDisabled = submitting || !valid
 
   return (
@@ -94,7 +94,6 @@ const JobForm = ({ handleSubmit, submitting, valid }) => {
 
 JobForm.propTypes = {
   handleSubmit: T.func.isRequired,
-  pristine: T.bool.isRequired,
   submitting: T.bool.isRequired,
   valid: T.bool.isRequired,
 }
