@@ -3,9 +3,10 @@
   "parser": "babel-eslint",
 
   "rules": {
-    "quotes": 0,
     "dot-location": ["error", "object"],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/__tests__/**"]}],
     "no-global-assign": ["error", { exceptions: [] }],
+    "quotes": 0,
     "react/jsx-closing-bracket-location": 0,
     "react/no-multi-comp": 0,
     "react/sort-comp": [2, {

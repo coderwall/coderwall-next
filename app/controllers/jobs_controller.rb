@@ -47,13 +47,10 @@ class JobsController < ApplicationController
     end
 
     @job.charge!(params['stripeToken'])
-
-    flash[:notice] = "Your job is now live"
-    redirect_to jobs_path(posted: @job.id)
+    render json: @job
 
   rescue Stripe::CardError => e
-    flash[:notice] = e.message
-    redirect_to new_job_path(@job)
+    render json: { error: e.message }, status: 400
   end
 
   # private

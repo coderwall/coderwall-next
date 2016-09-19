@@ -9,6 +9,8 @@ export default () => next => action => {
     // Inject the CSRF token
     callApi.headers = {
       'X-CSRF-Token': document.getElementsByName('csrf-token')[0].content,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       ...callApi.headers,
     }
     callApi.credentials = callApi.credentials || 'same-origin'
