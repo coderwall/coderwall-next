@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import { apiMiddleware } from 'redux-api-middleware'
 import { reducer as form } from 'redux-form'
 import apiAuthInjector from '../lib/apiAuthInjector'
-
+import unauthorizedHandler from '../lib/unauthorizedHandler'
 import reducers from '../reducers'
 
 export const STATE_HYDRATED = 'STATE_HYDRATED'
@@ -22,7 +22,8 @@ export default function configureStore(props) {
         thunk,
         promise,
         apiAuthInjector,
-        apiMiddleware
+        apiMiddleware,
+        unauthorizedHandler
       ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )

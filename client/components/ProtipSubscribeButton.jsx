@@ -15,10 +15,10 @@ class ProtipSubscribeButton extends Component {
   render() {
     return (
       <ToggleWithLabel
-        iconOff="volume-up"
-        iconOn="volume-off"
-        labelOff="Get Update Notifications"
-        labelOn="Mute Notifications"
+        iconOff="bell-slash-o"
+        iconOn="bell-o"
+        labelOff="Update Notifications Off"
+        labelOn="Update Notifications On"
         on={this.props.subscribed}
         onClick={this.handleClick} />
     )
@@ -28,7 +28,7 @@ class ProtipSubscribeButton extends Component {
     const action = this.props.subscribed ? subscribe : mute
     this.props.dispatch(
       action(this.props.protipId)
-    )
+    )    
   }
 }
 
