@@ -2,7 +2,9 @@
 # about supported directives.
 #= require jquery
 #= require jquery_ujs
-#= require_tree .
+#= require bsa
+#= require likes
+#= require textarea_with_file_drop_support
 
 $ ->
   $.ajaxSetup error: (xhr, status, err) ->
