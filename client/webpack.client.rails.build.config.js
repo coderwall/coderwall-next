@@ -14,7 +14,7 @@ config.output = {
 config.entry.vendor.unshift(
   'es5-shim/es5-shim',
   'es5-shim/es5-sham',
-  'jquery-ujs',
+  'jquery-ujs'
 )
 
 // See webpack.common.config for adding modules common to both the webpack dev server and rails

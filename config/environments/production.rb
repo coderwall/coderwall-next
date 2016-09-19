@@ -72,7 +72,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method     = :postmark
   config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
-  config.action_mailer.default_url_options = { host: ENV['EMAIL_HOST'] }
+  config.action_mailer.default_url_options = { host: ENV['DOMAIN'] }
   config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
 
   # Disable serving static files from the `/public` folder by default since
