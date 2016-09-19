@@ -1,7 +1,6 @@
 {
   "name": "coderwall",
   "description": "Programming tips, tools, and projects from our developer community.",
-  "main": "server-express.js",
   "engines": {
     "node": "6.4.0",
     "npm": "3.10.3"
@@ -9,7 +8,6 @@
   "scripts": {
     "test": "jest",
     "test:debug": "npm run test -- --debug-brk",
-    "start": "babel-node server-express.js",
     "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js",
     "build:production:server": "NODE_ENV=production webpack --config webpack.server.rails.build.config.js",
     "build:client": "webpack --config webpack.client.rails.build.config.js",

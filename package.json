@@ -1,7 +1,6 @@
 {
   "name": "coderwall",
   "description": "Programming tips, tools, and projects from our developer community.",
-  "main": "server-express.js",
   "engines": {
     "node": "6.4.0",
     "npm": "3.10.3"
