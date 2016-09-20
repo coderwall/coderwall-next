@@ -11,7 +11,7 @@ class CommentMailer < BaseMailer
 
     @author = @comment.user
     @article = @comment.article
-    @reply = SecureReplyTo.new(Article, @article_id, @to.username)
+    @reply = SecureReplyTo.new(Article, @article.id, @to.username)
 
     thread_parts = [@article.id]
     message_parts = [@comment.id]
