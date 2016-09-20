@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :strip_and_redirect_on_www
-  before_action :store_data
   after_action :record_user_access
 
   protected
@@ -15,19 +14,34 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
+  def deny_access(flash = nil)
+    respond_to do |format|
+      format.json { render json: { type: :unauthorized }, status: 401 }
+      format.any(:js) { head :unauthorized }
+      format.any { redirect_request(flash_message) }
+    end
+  end
+
   def record_user_access
     if signed_in?
       current_user.update_columns(last_request_at: Time.now, last_ip:request.remote_ip)
     end
   end
 
-  def store_data(props = {})
-    redux_store("store", props: {
-      currentUser: {
-        item: serialize(current_user)
-      }
-    }.merge(props))
+  def default_store_data
+    {
+      currentUser: { item: serialize(current_user) }
+    }
   end
+
+  def store_data(props=nil)
+    @store_data ||= default_store_data
+    return @store_data if props.nil?
+
+    @store_data.merge!(props)
+  end
+  helper_method :store_data
+
 
   def strip_and_redirect_on_www
     if Rails.env.production?

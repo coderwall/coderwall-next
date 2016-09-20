@@ -25,10 +25,10 @@ class ProtipSubscribeButton extends Component {
   }
 
   handleClick = () => {
-    const action = this.props.subscribed ? subscribe : mute
+    const action = this.props.subscribed ? mute : subscribe
     this.props.dispatch(
-      action(this.props.protipId)
-    )    
+      action(this.props.protipId, this.props.currentUser && this.props.currentUser.id)
+    )
   }
 }
 

@@ -1,10 +1,10 @@
 class ProtipsController < ApplicationController
+  before_action :store_location
   before_action :require_login, only: [:new, :create, :edit, :update]
 
   def home
     redirect_to(trending_url) if signed_in?
     @protips = Protip.all_time_popular + Protip.recently_most_viewed(20)
-    store_data
   end
 
   def index
@@ -15,8 +15,6 @@ class ProtipsController < ApplicationController
       tags = params[:topic].downcase if tags.empty?
       @protips = @protips.with_any_tagged(tags)
     end
-
-    store_data
   end
 
   def spam
