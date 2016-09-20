@@ -36,7 +36,7 @@
             -if categories.present?
               .clearfix.mb4
                 .clearfix.ml1.mb1
-                  %h5.mt0
+                  %h5.mt0.mb1
                     =icon 'tags', class: 'mr1'
                     Related Tags
                 -categories.each do |tag|
@@ -44,9 +44,10 @@
                     .font-sm=tag
             -unless on_fresh?
               .clearfix.ml1.mb3
-                %h5.mt0
+                %h5.mt0.mb1
                   =icon 'magic', class: 'mr1'
                   Recent Activity
+                %hr
                 -recently_created_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')
@@ -65,6 +66,7 @@
                 %h5.mt0
                   =icon 'calendar', class: 'mr1'
                   Most Viewed This Month
+                %hr
                 -recently_viewed_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')

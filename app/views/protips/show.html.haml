@@ -108,33 +108,14 @@
               %a{href: popular_topic_path(topic: topic)}
                 .bold=t(topic, scope: [:categories, :long])
 
-      .clearfix.sm-ml3.mt3.p1
-        %h5.mt0.mb1
-          =icon('hand-o-right', class: 'mr1')
-          Sponsors
-        %hr.mt1
-        .clearfix.py1
-          %a.link.no-hover{href: '/', rel: 'nofollow', target: '_blank'}
-            .col.col-3.md-col-2
-              %img{class: '', src: 'http://github-jobs.s3.amazonaws.com/4f5ab750-75f5-11e6-9eb9-b2e40bf8047e.png'}
-            .overflow-hidden.pl2
-              .blue.bold
-                Turn Errors into Awesome
-              .font-sm.black.mt-third
-                Quickly pinpoint what's broken and and why. Get the content
-                and insights to defeat all application errors. Learn more.
-
-        .clearfix.py1
-          %a.link.no-hover.mt2{href: '/', rel: 'nofollow', target: '_blank'}
-            .col.col-3.md-col-2
-              %img{class: '', src: 'http://github-jobs.s3.amazonaws.com/3399d7f6-7ac0-11e6-9a05-24bfca6dd7bc.png'}
-            .overflow-hidden.pl2
-              .blue.bold
-                restdb.io
-              .font-sm.black
-                restdb.io is a simple and secure REST-enabled NoSQL database cloud service.
-
-
+      - if @sponsors.any?
+        .clearfix.sm-ml3.mt3.p1
+          %h5.mt0.mb1
+            =icon('hand-o-right', class: 'mr1')
+            Sponsors
+          %hr.mt1
+          - @sponsors.each do |sponsor|
+            = render 'shared/sponsor', sponsor: sponsor
 
       - if Stream.any_broadcasting?
         - cache ['v1', 'protips', 'featured-stream', expires_in: 1.minute ] do
