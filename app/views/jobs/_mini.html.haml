@@ -1,9 +1,13 @@
-
-.job.clearfix.py1
-  %a[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
-  .font-sm
-    .bold.inline=link_to(truncate(job.company, length:18), job.company_url, rel: 'nofollow')
-    &middot;
-    .diminish.inline=job.location
-    &middot;
-    .diminish.inline=job.role_type
+.clearfix.py1
+  %a.link.no-hover.mt2{:href => job_path(job), rel: 'nofollow', target: '_blank'}
+    .col.col-3.md-col-2{class: (job.company_logo.present? ? '' : 'hide')}
+      =image_tag(job.company_logo, class: '')
+    .overflow-hidden.pl2
+      .blue.bold
+        =job.title
+      .font-sm.black
+        .inline=link_to(truncate(job.company, length:18), job.company_url, rel: 'nofollow')
+        &middot;
+        .inline=job.location
+        &middot;
+        .inline=job.role_type
