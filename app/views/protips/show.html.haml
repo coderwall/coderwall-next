@@ -124,7 +124,7 @@
 
       - else
         - cache ['v3', @protip, 'featured-jobs', expires_in: 1.day ] do
-          .clearfix.sm-ml3.mt4.p1
+          .clearfix.sm-ml3.mt3.p1
             .clearfix
               .col.col-7
                 %h5.mt0
@@ -137,7 +137,7 @@
                     =icon('arrow-right')
             %hr
             -Job.featured(1).each do |job|
-              =render 'jobs/mini', job: job
+              =render 'jobs/mini', job: job, location: 'Protip Sidebar'
 
             .mt2.font-sm
               -# %span Need Programmers?

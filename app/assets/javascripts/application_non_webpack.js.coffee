@@ -3,6 +3,7 @@
 #= require jquery
 #= require jquery_ujs
 #= require bsa
+#= require analytics
 #= require likes
 #= require textarea_with_file_drop_support
 

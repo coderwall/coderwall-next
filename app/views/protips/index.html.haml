@@ -94,7 +94,7 @@
                   =icon('arrow-right')
           %hr
           -Job.featured(3).each do |job|
-            =render 'jobs/mini', job: job
+            =render 'jobs/mini', job: job, location: 'Protip List'
 
           %a.mt3.btn.rounded.bg-green.white.border.px2.py1.hide{href: new_job_url}
             Post a Job for Programmers

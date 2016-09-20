@@ -42,7 +42,7 @@
                   =icon('arrow-right')
           %hr.mt1
           -Job.featured(3).each do |job|
-            =render 'jobs/mini', job: job
+            =render 'jobs/mini', job: job, location: 'Homepage'
 
           .mt2.font-sm
             %a.green.bold{href: new_job_url}
