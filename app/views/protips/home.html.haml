@@ -11,7 +11,7 @@
         The latest development and design tips, tools, and projects from our developer community.
 
 - cache 'v3', expires_in: 10.minutes do
-  .container
+  .container.mt3
     .clearfix
       .col.sm-col.sm-col-12.md-col-8
         .purple{style: "border-bottom:solid 5px;"}
@@ -25,7 +25,7 @@
       .col.sm-col.sm-col-12.md-col-4
         .clearfix.sm-ml3
           %h5.mt0.mb2
-            Categories
+            Popular Topics
           -Category.top.each do |tag|
             %a.p1.card.border-box.rounded.border.mb1.mr1.left.center.no-hover{href: popular_topic_path(topic: tag)}
               .bold=t tag, scope: [:categories, :short]
@@ -45,6 +45,6 @@
             =render 'jobs/mini', job: job
 
           .mt2.font-sm
-            %a.p1.border--green.green.bold{href: new_job_url}
+            %a.green.bold{href: new_job_url}
               Post a job for only
               == $#{Job::COST}
