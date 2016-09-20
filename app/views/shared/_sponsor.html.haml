@@ -1,0 +1,10 @@
+.clearfix.py1
+  %a.link.no-hover{href: sponsor.click_url, rel: 'nofollow', target: '_blank', 'ga-event-category' => 'Ads', 'ga-event-action' => 'Protip Sidebar - Sponsor', 'ga-event-label' => "#{sponsor.id} - #{sponsor.title}" }
+    .col.col-3.md-col-2
+      %img{src: sponsor.image_url, class: 'mt-third'}
+    .overflow-hidden.pl2
+      .blue.bold= sponsor.title
+      .font-sm.black.mt-third
+        = sponsor.text
+        - if sponsor.pixel_url.present?
+          %img{src: sponsor.pixel_url, width: 1, height: 1}

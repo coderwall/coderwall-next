@@ -20,7 +20,7 @@
         .py2.bg-white
           .pr1=render @protips
 
-        .clearfix.mt1.py2
+        .clearfix.mt1.py2.xs-mb4
           .col.col-6.sm-col-3
             .btn.pl0.left.h4= link_to_previous_page @protips, "Previous Page"
           .col.col-6.muted.xs-hide
@@ -36,7 +36,7 @@
             -if categories.present?
               .clearfix.mb4
                 .clearfix.ml1.mb1
-                  %h5.mt0
+                  %h5.mt0.mb1
                     =icon 'tags', class: 'mr1'
                     Related Tags
                 -categories.each do |tag|
@@ -44,9 +44,10 @@
                     .font-sm=tag
             -unless on_fresh?
               .clearfix.ml1.mb3
-                %h5.mt0
+                %h5.mt0.mb1
                   =icon 'magic', class: 'mr1'
                   Recent Activity
+                %hr
                 -recently_created_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')
@@ -65,6 +66,7 @@
                 %h5.mt0
                   =icon 'calendar', class: 'mr1'
                   Most Viewed This Month
+                %hr
                 -recently_viewed_protips.each do |protip|
                   .clearfix.mt2
                     =link_to(protip.title, protip_path(protip), class: 'black no-hover')
@@ -79,21 +81,29 @@
                   protips
             .mb4
 
-        .clearfix.ml3.md-show
-          .bg-white.rounded.p1
-            %h5.mt0.mb1
-              =icon('diamond', class: 'mr1')
-              Featured Programming Jobs
-            %hr.mt1
-            -Job.featured(3).each do |job|
-              =render 'jobs/mini', job: job
+        .clearfix.sm-ml3.mb3.p1
+          .clearfix
+            .col.col-7
+              %h5.mt0
+                =icon('diamond', class: 'mr1')
+                Awesome Jobs
+            .col.col-5
+              .right.font-sm.bold
+                %a.block{href: jobs_path}
+                  See All Jobs
+                  =icon('arrow-right')
+          %hr
+          -Job.featured(3).each do |job|
+            =render 'jobs/mini', job: job, location: 'Protip List'
 
-            %a.block.mt2.bold{href: jobs_path}
-              Search all programming jobs
-
-          %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
+          %a.mt3.btn.rounded.bg-green.white.border.px2.py1.hide{href: new_job_url}
             Post a Job for Programmers
             .mt1.font-sm== $#{Job::COST} for 30 days
+
+          .mt2.font-sm
+            %a.border--green.green.bold{href: new_job_url}
+              Post a job for only
+              == $#{Job::COST}
 
         -if show_ads?
           .clearfix.ml3.mt3
