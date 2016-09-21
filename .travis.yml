@@ -5,6 +5,17 @@ cache: bundler
 sudo: false
 addons:
   postgresql: "9.3"
+   apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.9 # required to build some npm packages on travis
+
+env:
+  global:
+    - RAILS_ENV=test
+    - CXX=g++-4.9
+
 install:
   - bundle install --without production
   - nvm install 6.4
