@@ -107,6 +107,7 @@ Rails.application.routes.draw do
     collection do
       post 'sendgrid'
       post 'quickstream' => 'quickstream#webhook'
+      post 'postmark' => 'postmark#webhook'
     end
   end
 end

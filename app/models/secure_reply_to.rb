@@ -28,6 +28,6 @@ class SecureReplyTo
   end
 
   def to_s
-    "reply+#{@object_type}+#{@object_id}+#{signature}+#{@user_id}@coderwall.com"
+    "reply+#{@object_type}+#{@object_id}+#{signature}+#{@user_id}@m.coderwall.com"
   end
 end
