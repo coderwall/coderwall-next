@@ -7,4 +7,10 @@ addons:
   postgresql: "9.3"
 install:
   - bundle install --without production
+  - nvm install 6.4
+  - nvm use 6.4
+  - npm install
   - bin/rake db:setup
+script:
+  - npm run lint
+  - rake
