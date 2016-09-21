@@ -10,4 +10,8 @@ class PagesController < ApplicationController
   def verify
     render text: ENV['LETSENCRYPT_CODE']
   end
+
+  def apple
+    render file: "pages/apple-developer-merchantid-domain-association", layout: false, content_type: 'text/plain'    
+  end
 end
