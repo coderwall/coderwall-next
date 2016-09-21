@@ -24,8 +24,7 @@ install:
   - bin/rake db:setup
 
 script:
-  - npm run lint
-  - rake
+  - npm test
 
 notifications:
   slack:

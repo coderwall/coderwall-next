@@ -115,12 +115,13 @@ const validate = values =>
     filter(k => !values[k]).
     reduce((errs, k) => ({ ...errs, [k]: 'required' }), {})
 
-const asyncValidate = (values) =>
-  loadImage(values.company_logo).
+const asyncValidate = (values) => {
+  if (!values.company_logo) { return new Promise(() => true) }
+  return loadImage(values.company_logo).
     catch(() => {
       throw { company_logo: 'invalid' } // eslint-disable-line no-throw-literal
     })
-
+}
 export default reduxForm({
   form: formName,
   initialValues: {
