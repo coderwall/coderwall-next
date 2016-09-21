@@ -12,8 +12,9 @@
 
 <p style="font-size:small;-webkit-text-size-adjust:none;color:#666;">
   &mdash;
+  You are receiving this because you either wrote or commented on this protip.
   <br>
-  <a href="<%= url_for(@comment.url_params) %>">view on Coderwall</a>,
+  <a href="<%= url_for(@comment.url_params) %>">View on Coderwall</a>,
   or
   <a href="<%= protip_mute_url(@article, signature: @to.unsubscribe_signature) %>">mute this thread.</a>
 </p>

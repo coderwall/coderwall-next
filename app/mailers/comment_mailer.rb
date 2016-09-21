@@ -23,7 +23,7 @@ class CommentMailer < BaseMailer
     ).merge(
       from: "#{@author.display_name} <notifications@coderwall.com>",
       to:   "#{@to.display_name} <#{@to.email}>",
-      subject: "Re: #{@article.title}"
+      subject: "New Comment [Re: #{@article.title}]"
     )
 
     mail(options) do |format|
