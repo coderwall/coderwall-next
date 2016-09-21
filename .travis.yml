@@ -5,7 +5,7 @@ cache: bundler
 sudo: false
 addons:
   postgresql: "9.3"
-   apt:
+  apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
