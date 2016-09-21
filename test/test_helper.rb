@@ -5,4 +5,8 @@ require "clearance/test_unit"
 
 class ActiveSupport::TestCase
   include FactoryGirl::Syntax::Methods
+
+  setup do
+    ReactOnRails::TestHelper.ensure_assets_compiled
+  end
 end
