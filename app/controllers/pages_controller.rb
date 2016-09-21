@@ -12,6 +12,6 @@ class PagesController < ApplicationController
   end
 
   def apple
-    render file: "pages/apple-developer-merchantid-domain-association", layout: false, content_type: 'text/plain'    
+    render file: "pages/apple-developer-merchantid-domain-association", layout: false
   end
 end

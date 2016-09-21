@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get    '/live' => 'streams#index', as: :live_streams
   get    '/live/lunch-and-learn.ics' => 'streams#invite', as: :lunch_and_learn_invite
   get    '/.well-known/acme-challenge/:id' => 'pages#verify'
-  get    '/coderwall.com/.well-known/apple-developer-merchantid-domain-association' => 'pages#apple'
+  get    '/.well-known/apple-developer-merchantid-domain-association' => 'pages#apple'
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]
