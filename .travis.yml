@@ -4,17 +4,17 @@ rvm:
 cache: bundler
 sudo: false
 addons:
-  postgresql: "9.3"
+  postgresql: '9.3'
   apt:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - g++-4.9 # required to build some npm packages on travis
+      - g++-4.9
 
 env:
   global:
-    - RAILS_ENV=test
-    - CXX=g++-4.9
+  - RAILS_ENV=test
+  - CXX=g++-4.9
 
 install:
   - bundle install --without production
@@ -22,6 +22,11 @@ install:
   - nvm use 6.4
   - npm install
   - bin/rake db:setup
+
 script:
   - npm run lint
   - rake
+
+notifications:
+  slack:
+    secure: mpNLTpZPaQ9NmHTAm8uSsPfwL07Esh750yPYWJfCSJzGrNMoz8IDleY8ddPNwTVOLIhhV4rVK7QyF5aAin8+riIlTzJkeLViEL257vl/VY+Th9ryYLdJ1hpa+HaZ8AeDinS5BTdtyjZYClUk+ALKqiFCxe2mm3oODgcSFIPjdhZ40CJKmHAMlj+S2+ypFMYg1Qy9F1xlwb952ZV7PnjwT8kjnzkMmAWtgpEFlTIBJVjBlO4FGh9nCqHda6KT3TjUxMa49Kt8cRBmZCPgkteLciUnOo1rjPeyJX4pjL0pThoCHkHFtFVffw/BxJ0b4WdIc/LKz7iFqJTSF3HChO55lAKhC8bbTaus5kr1AT+McNeC7+hcstjncSIzUEUabcPN2oF/po1SV/A3wR203JsddHRPN3nIGi71izNoT4rFAY+qNeUZS0VeAa2YWNDq46FMLvoCE/+i//HFx/nWYF8D6dLqRWaIeqeJAUeSZHmqey88Ff4SuuybuB3k6ryqWkYS/K+YvrjtuFNZUouscB5vktOjuLiwDTLAVVLQ6ybPBJ2YEj6CpOi2GmazJty9YQcfcYmWlqEf4nBAbcTCRPA/n2306k/26fH4tZygW1g4Zm/BUfGZjrWaHQqA6f4uo10qKVTOktd4vjIJl74SED1vgvoGUbmvOpFKtkQ9RuhBaig=
