@@ -1,0 +1,238 @@
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
+$red: #fa2f26;
+$blue: #5AA3E8;
+$purple: #A26FF9;
+
+$diminish-color: rgba(0,0,0,0.5) !important;
+$font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$button-background-color: $red;
+// $body-background-color: rgb(250, 250, 250);
+$body-background-color: #fafafa;
+
+$body-font-size: 14px;
+$font-sm: 12px;
+$font-tiny: 10px;
+$font-lg: 16px;
+$font-x-lg: 18px;
+
+// Rails error handing
+.field_with_errors {
+	input, textarea {
+		border: solid 1px $red;
+	}
+}
+
+.hide_last_child:last-child {
+	display: none;
+}
+
+.font-sm {
+  font-size: $font-sm;
+}
+
+.font-tiny{
+  font-size: $font-tiny;
+}
+
+.font-lg {
+	font-size: $font-lg;
+}
+
+.font-x-lg {
+	font-size: $font-x-lg;
+}
+
+.active {
+	border-bottom: solid 3px $blue;
+}
+
+$h3: $font-x-lg;
+
+h1, h3 {
+	a{
+		color: black;
+		&:hover{
+				text-decoration: none !important;
+			}
+	}
+}
+
+h3 {
+  font-weight: 500 !important;
+}
+
+h6 {
+  text-transform: uppercase;
+}
+
+@import 'font-awesome';
+@import 'basscss';
+@import 'content';
+@import 'dropdown';
+
+$placeholder: darken($silver, 20%);
+
+.text-area-footer{
+	color: $placeholder;
+	border-top-color: $placeholder;
+	border-top-style: dashed;
+	border-top-width: 1px;
+}
+
+::-webkit-input-placeholder {
+		/* WebKit browsers */
+    color: $placeholder;
+}
+:-moz-placeholder {
+		/* Mozilla Firefox 4 to 18 */
+    color: $placeholder;
+}
+::-moz-placeholder {
+	 	/* Mozilla Firefox 19+ */
+    color: $placeholder;
+}
+:-ms-input-placeholder {
+		/* Internet Explorer 10+ */
+    color: $placeholder;
+}
+
+.diminish{
+  color: $diminish-color;
+	a{
+		color: $diminish-color;
+		&:hover {
+			color: $diminish-color;
+		}
+	}
+}
+
+.diminish-viewed:visited{
+	color: darken($gray, 10%) !important;
+}
+
+.mt-third {
+	margin-top: .15rem;
+}
+
+.default-cursor {
+	cursor: pointer !important;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+a.no-hover {
+	&:hover{
+		text-decoration: none;
+	}
+}
+
+header {
+  background-color: #fff;
+}
+
+.card {
+  background-color: #fff;
+}
+
+.avatar {
+	display: inline-block;
+
+	position: relative;
+	top: 8px;
+	width: 24px;
+	height: 24px;
+
+	img{
+    width: 24px;
+    height: 24px;
+  }
+
+	&.small, &.medium, &.big{
+		position: inherit;
+		top: inherit;
+	}
+
+	&.medium {
+		width: 37px;
+		height: 37px;
+		img{
+			width: 37px;
+			height: 37px;
+		}
+	}
+
+	&.big{
+		width: 72px;
+		height: 72px;
+		img{
+	    width: 72px;
+	    height: 72px;
+	  }
+	}
+}
+
+.focus-no-border:focus {
+	border: none;
+}
+
+.focus-pb3:focus {
+	padding-bottom: $space-3;
+}
+
+//neutralize rails-react wrappers affect on layout
+div[data-react-class] {
+	display: inline;
+}
+
+@media #{$breakpoint-sm} {
+  .sm-center{ text-align: center !important; }
+	.md-right{ float: initial;}
+}
+
+@media #{$breakpoint-md} {
+	.md-right{ float: right;}
+}
+
+@media #{$breakpoint-md} {
+	.md-right{ float: right;}
+}
+
+
+#v1_protip {
+	width: 320;
+	height: 100;
+}
+
+.no-border-ever{
+	border: none !important;
+}
+
+.p-tiny {
+  padding-left: .75rem;
+  padding-right: .75rem;
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+@media (max-width: 40em) {
+  .xs-hide { display: none !important }
+	.xs-center{ text-align: center !important; }
+	.xs-block {display: block !important }
+}
+
+.muted-until-hover:not(:hover) { opacity: .5 }
+
+.fixed-space-4 {
+	max-width: 1.25rem;
+	min-width: 1.25rem;
+	display: inline-block;
+}

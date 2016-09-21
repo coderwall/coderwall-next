@@ -9,6 +9,7 @@ class ProtipSerializer < ActiveModel::Serializer
              :hearts,
              :upvotes,
              :created_at,
+             :subscribers,
              :user
 
   protected

@@ -1,0 +1,24 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+
+  "rules": {
+    "dot-location": ["error", "object"],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/__tests__/**"]}],
+    "import/no-named-as-default": 0,
+    "no-global-assign": ["error", { exceptions: [] }],
+    "quotes": 0,
+    "react/jsx-closing-bracket-location": 0,
+    "react/no-multi-comp": 0,
+    "react/sort-comp": [2, {
+      order: [
+        'static-methods',
+        'constructor',
+        'render',
+        'lifecycle',
+        'everything-else'
+      ]
+    }],
+    "semi": [2, "never"]
+  }
+}

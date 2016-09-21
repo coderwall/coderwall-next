@@ -11,34 +11,40 @@
         The latest development and design tips, tools, and projects from our developer community.
 
 - cache 'v3', expires_in: 10.minutes do
-  .container
+  .container.mt3
     .clearfix
-      .col.col-12.md-col-8
-        .mb3.purple{style: "border-bottom:solid 5px;"}
-          %h2.mt0.black
+      .col.sm-col.sm-col-12.md-col-8
+        .purple{style: "border-bottom:solid 5px;"}
+          %h2.mt0.mb2.black
             Popular Programming Tips
-        =render @protips.uniq
-        .clearfix
-          .btn.right=link_to('More popular protips', popular_path(page:2))
+        .py2.bg-white.pr1=render @protips.uniq
+        .clearfix.py3
+          %a.btn.link.h4.blue{href: popular_path(page:2)}
+            More popular protips
 
-      .col.col-12.md-col-1.md-show &nbsp;
-      .col.col-12.md-col-3
-        .clearfix
-          %h4.mt0.mb2
-            Categories
+      .col.sm-col.sm-col-12.md-col-4
+        .clearfix.sm-ml3
+          %h5.mt0.mb2
+            Popular Topics
           -Category.top.each do |tag|
             %a.p1.card.border-box.rounded.border.mb1.mr1.left.center.no-hover{href: popular_topic_path(topic: tag)}
               .bold=t tag, scope: [:categories, :short]
 
-        .clearfix.mt4
-          %h4.mt0.mb1
-            Latest Programming Jobs
-          -Job.latest(3).each do |job|
-            =render 'jobs/mini', job: job, feature: false
+        .clearfix.sm-ml3.mt4.mb3
+          .clearfix
+            .col.col-7
+              %h5.mt0
+                Awesome Jobs
+            .col.col-5
+              .right.font-sm.bold
+                %a.block{href: jobs_path}
+                  See All Jobs
+                  =icon('arrow-right')
+          %hr.mt1
+          -Job.featured(3).each do |job|
+            =render 'jobs/mini', job: job, location: 'Homepage'
 
-          %a.block.mt2.bold{href: jobs_path}
-            Search all programming jobs
-
-          %a.mt3.btn.rounded.bg-green.white.border.px2.py1{href: new_job_url}
-            Post a Job for Programmers
-            .mt1.font-sm== $#{Job::COST} for 30 days
+          .mt2.font-sm
+            %a.green.bold{href: new_job_url}
+              Post a job for only
+              == $#{Job::COST}

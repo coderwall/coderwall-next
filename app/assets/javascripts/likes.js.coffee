@@ -38,7 +38,6 @@ class @Likes
     req.onreadystatechange = =>
       if req.readyState == XMLHttpRequest.DONE
         if req.status == 200 || req.status == 304
-          console.log('likes -> loaded', req, req.getAllResponseHeaders())
           @data = JSON.parse(req.responseText)['likes']
           @safelyRunCallbacksWithLoadedData()
     req.open 'GET', url
@@ -46,4 +45,3 @@ class @Likes
 
   constructor: (userId)->
     @userId = userId
-    console.log('likes -> new', this)

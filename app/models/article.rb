@@ -12,7 +12,8 @@ class Article < ActiveRecord::Base
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_calculated_score!
   before_create :generate_public_id, if: :public_id_blank?
-  after_create  :auto_like_by_author
+  after_commit  :auto_like_by_author, on: :create
+  after_commit  :auto_subscribe_by_author, on: :create
 
   belongs_to :user,   autosave: true, touch: true
   has_many :comments, ->{ order(created_at: :asc) }, dependent: :destroy
@@ -132,5 +133,23 @@ class Article < ActiveRecord::Base
 
   def auto_like_by_author
     likes.create(user: user)
+  end
+
+  def auto_subscribe_by_author
+    subscribe!(user)
+  end
+
+  def subscribe!(user)
+    Protip.where(id: id).update_all(
+      "subscribers = array(select unnest(subscribers) union select #{ActiveRecord::Base.connection.quote(user.id)})"
+    )
+    reload
+  end
+
+  def unsubscribe!(user)
+    Protip.where(id: id).update_all(
+      "subscribers = array(select i from unnest(subscribers) t(i) where i <> #{ActiveRecord::Base.connection.quote(user.id)})"
+    )
+    reload
   end
 end

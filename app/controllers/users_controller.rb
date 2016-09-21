@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_login, only: [:edit, :update]
+  before_action :require_login, only: [:edit, :update, :unsubscribe_comment_emails]
   skip_before_action :verify_authenticity_token, only: :show,
     if: ->{ request.format.json? }
 

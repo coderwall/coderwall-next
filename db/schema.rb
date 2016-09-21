@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909044024) do
+ActiveRecord::Schema.define(version: 20160919171618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20160909044024) do
     t.boolean  "save_recording"
     t.text     "recording_id"
     t.datetime "recording_started_at"
+    t.integer  "subscribers",          default: [],    null: false, array: true
   end
 
   add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree

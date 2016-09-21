@@ -10,9 +10,9 @@
       .col.col-8
         .ml1.mr1
           %h3.mt0
-            %a.diminish-viewed[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank'}=job.title
+            %a.diminish-viewed[:title]{:href => job_path(job), rel: 'nofollow', target: '_blank', 'ga-event-category' => 'Jobs', 'ga-event-action' => 'Job Board', 'ga-event-label' => "#{job.id} - #{job.company}"}=job.title
           .font-sm
-            .bold.inline=link_to(truncate(job.company, length:20), job.company_url, rel: 'nofollow', target: '_blank')
+            .bold.inline=link_to(truncate(job.company, length:20), job.company_url, rel: 'nofollow', target: '_blank', 'ga-event-category' => 'Jobs', 'ga-event-action' => 'Job Board', 'ga-event-label' => "#{job.company} - #{job.id}")
             &middot;
             .diminish.inline=job.role_type
             &middot;

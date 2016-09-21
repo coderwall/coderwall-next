@@ -16,12 +16,16 @@ class Comment < ActiveRecord::Base
   scope :recently_created, ->(count=10) { order(created_at: :desc).limit(count)}
   scope :on_protips, -> { joins(:article).where(protips: {type: 'Protip'}) }
 
+  def auto_like_article_for_author
+    article.likes.create(user: user) unless user.likes?(article)
+  end
+
   def dom_id
     ActionView::RecordIdentifier.dom_id(self)
   end
 
-  def auto_like_article_for_author
-    article.likes.create(user: user) unless user.likes?(article)
+  def url_params
+    [article, anchor: dom_id]
   end
 
   def video_timestamp

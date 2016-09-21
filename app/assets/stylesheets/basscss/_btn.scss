@@ -96,25 +96,7 @@ $breakpoint-lg: '(min-width: 64em)' !default;
   text-decoration: none;
 }
 
-.btn:focus {
-  outline: none;
-  border-color: $darken-2;
-  box-shadow: 0 0 0 3px $darken-3;
-}
-
 ::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
-
-/* Basscss Defaults */
-
-/*
-
-   COLOR VARIABLES
-
-   - Cool
-   - Warm
-   - Gray Scale
-
-*/

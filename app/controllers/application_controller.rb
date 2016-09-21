@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ReactOnRails::Controller
   include Clearance::Controller
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -13,15 +14,38 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
+  def deny_access(flash = nil)
+    respond_to do |format|
+      format.json { render json: { type: :unauthorized }, status: 401 }
+      format.any(:js) { head :unauthorized }
+      format.any { redirect_request(flash_message) }
+    end
+  end
+
   def record_user_access
     if signed_in?
       current_user.update_columns(last_request_at: Time.now, last_ip:request.remote_ip)
     end
   end
 
+  def default_store_data
+    {
+      currentUser: { item: serialize(current_user) }
+    }
+  end
+
+  def store_data(props=nil)
+    @store_data ||= default_store_data
+    return @store_data if props.nil?
+
+    @store_data.merge!(props)
+  end
+  helper_method :store_data
+
+
   def strip_and_redirect_on_www
     if Rails.env.production?
-      if request.env['HTTP_HOST'] != 'coderwall.com'
+      if request.env['HTTP_HOST'] != ENV['DOMAIN']
         redirect_to request.url.sub("//www.", "//"), status: 301
       end
     end
@@ -40,5 +64,10 @@ class ApplicationController < ActionController::Base
       yield
       ActiveRecord::Base.connection.close
     end
+  end
+
+  def serialize(obj, serializer = nil)
+    serializer ||= ActiveModel::Serializer.serializer_for(obj)
+    serializer.new(obj, root: false).as_json if obj
   end
 end

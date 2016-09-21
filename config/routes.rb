@@ -72,11 +72,15 @@ Rails.application.routes.draw do
 
   resources :protips, path: '/p' do
     resources :likes, only: :create
+    resources :subscribers, only: [:create] do
+      delete :destroy, on: :collection
+    end
     collection do
       get '/spam'      => 'protips#spam'
       get '/:id/edit'  => 'protips#edit'  #this prevents next route from clobbering edit
       get '/:id/:slug' => 'protips#show', as: :slug
     end
+    get 'mute/:signature' => 'subscribers#mute', as: :mute
   end
 
   resources :streams, path: '/s', only: [:show] do
@@ -103,6 +107,7 @@ Rails.application.routes.draw do
     collection do
       post 'sendgrid'
       post 'quickstream' => 'quickstream#webhook'
+      post 'postmark' => 'postmark#webhook'
     end
   end
 end

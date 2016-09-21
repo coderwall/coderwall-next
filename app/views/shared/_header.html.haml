@@ -1,13 +1,13 @@
 %header.border-bottom
   %nav.clearfix.py2
-    .col.col-5.sm-col-3.md-col-2
-      .ml1
+    .col.col-4.sm-col-3.md-col-2
+      .sm-ml1
         %a.btn.logo.relative{:href => root_url}
           .absolute{:style => "top: 2px"}
             = render 'shared/logo'
           .left.font-x-lg{:style => "padding-left: 35px;"}
             Coderwall
-    .col.col-2.sm-col-6.md-col-8.h6
+    .col.col-3.sm-col-6.md-col-8.h6
       %a.btn.muted-until-hover.xs-hide.sm-mr1{href: '/ruby/popular'} Ruby
       %a.btn.muted-until-hover.xs-hide{href: '/python/popular'} Python
       %a.btn.muted-until-hover.xs-hide{href: '/javascript/popular'} Javascript
@@ -17,8 +17,9 @@
       .btn.dropdown{style: 'margin-top: -3px;'}
         %span.h3.muted-until-hover
           =icon('sort-down', class: 'relative xs-hide', style: 'top: -2px; margin-right: 2px;')
-        %span.muted-until-hover
-          %span More Tips          
+        %span.muted-until-hover.xs-ml3
+          %span.xs-hide More
+          Tips
         .dropdown-content.bg-white.mt1.py1.border.z4{style: 'left:0'}
           %a.btn.py1.muted-until-hover.sm-hide{href: '/ruby/popular'} Ruby
           %a.btn.py1.muted-until-hover.sm-hide{href: '/python/popular'} Python

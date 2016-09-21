@@ -35,7 +35,7 @@ gem 'rack-ssl-enforcer'
 gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
 gem 'rails', '~> 4.2.5'
-gem 'react-rails'
+gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'sass-rails', '~> 5.0'
 gem 'stripe'
@@ -61,8 +61,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'shoulda'
+  gem 'factory_girl_rails'
   gem 'shoulda-matchers'
+  gem 'shoulda'
 end
 
 group :development do

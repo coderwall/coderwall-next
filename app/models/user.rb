@@ -112,4 +112,9 @@ class User < ActiveRecord::Base
     streams.not_archived.order(created_at: :desc).first
   end
 
+  def unsubscribe_signature
+    digest = OpenSSL::Digest.new('sha1')
+    OpenSSL::HMAC.hexdigest(digest, ENV.fetch('UNSUBSCRIBE_SECRET', 'cw-unsub'), id.to_s)
+  end
+
 end
