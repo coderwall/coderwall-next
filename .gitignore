@@ -26,3 +26,5 @@ client/node_modules
 client/npm-debug.log
 /app/assets/javascripts/application.js
 /app/assets/webpack/*
+server.crt
+server.key
