@@ -80,7 +80,7 @@ class CommentsController < ApplicationController
   def notify_comment_added!
     # TODO: this won't work for large comments, we should just push the comment id
     json = render_to_string(template: 'comments/_comment.json.jbuilder', locals: {comment: @comment})
-    Notification.comment_added!(@article, json, socket_id = params[:socket_id])
+    Notification.comment_added!(@article, json, params[:socket_id])
 
     # TODO: move to job
     email_recipients.each do |to|

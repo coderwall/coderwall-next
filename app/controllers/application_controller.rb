@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def background(&block)
+  def background
     Thread.new do
       yield
       ActiveRecord::Base.connection.close

@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   mount LetsencryptPlugin::Engine, at: '/'
 
   constraints subdomain: "www" do
-    get "/" => redirect { |params| "https://coderwall.com" }
+    get "/" => redirect { "https://coderwall.com" }
   end
 
   # This disables serving any web requests other then /assets out of CloudFront
@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       only: [:create, :edit, :update]
   end
 
-  resources :comments do |comment|
+  resources :comments do
     resources :likes, only: :create
     collection do
       get '/spam'      => 'comments#spam'
