@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
   helper_method :admin?
 
-  def deny_access(flash = nil)
+  def deny_access(flash_message = nil)
     respond_to do |format|
       format.json { render json: { type: :unauthorized }, status: 401 }
       format.any(:js) { head :unauthorized }
