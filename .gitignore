@@ -28,3 +28,5 @@ client/npm-debug.log
 /app/assets/webpack/*
 server.crt
 server.key
+capybara-*.html
+debug.png

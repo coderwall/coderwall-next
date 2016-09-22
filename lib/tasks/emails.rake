@@ -1,4 +1,19 @@
 namespace :emails do
+  task :cleanup => :environment do
+    popular = Protip.where("created_at < ? AND array_length(subscribers, 1) > ?", 1.year.ago, 5).all
+    popular.each do |protip|
+      subscribers = []
+      subscribers << protip.user.id
+      protip.comments.where("created_at > ?", 1.year.ago).each do |author|
+        subscribers << author.id
+      end
+
+      Protip.where(id: protip.id).update_all(subscribers: subscribers)
+      protip.reload
+      puts "#{protip.public_id} => #{protip.subscribers.size}"
+    end
+  end
+
   task :send_comment_catchups => :environment do
     outbox = {}
     Comment.includes(:article).where('created_at > ?', 6.months.ago).find_each do |comment|

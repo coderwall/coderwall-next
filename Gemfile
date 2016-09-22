@@ -50,7 +50,6 @@ gem 'redis'
 gem 'reverse_markdown'
 # gem 'newrelic_rpm'
 
-
 group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
