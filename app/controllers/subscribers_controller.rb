@@ -2,7 +2,7 @@ class SubscribersController < ApplicationController
   # TODO: shouldn't need this, not sure why X-CSRF-Token header isn't working
   skip_before_action :verify_authenticity_token
 
-  before_action :require_login, only: [:create, :destroy]
+  before_action :require_login, only: [:create, :destroy, :mute]
 
   def create
     @protip = Protip.find_by_public_id!(params[:protip_id])
