@@ -33,9 +33,16 @@ class CommentsController < ApplicationController
   end
 
   def create
+    if Comment.where(user: current_user).find_by('created_at > ?', ENV.fetch('COMMENTS_THROTTLE', 3).to_i.minutes.ago)
+      flash[:error] = "You're posting comments too often, please wait a minute and try again"
+      redirect_to_protip_comment_form
+      return
+    end
+
     @article = Article.find(comment_params[:article_id])
     @comment = Comment.new(comment_params)
     @comment.user = current_user
+
     if !@comment.save
       flash[:error] = "Your comment did not save. #{@comment.errors.full_messages.join(' ')}"
       flash[:data] = @comment.body

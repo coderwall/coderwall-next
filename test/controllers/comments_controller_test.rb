@@ -31,4 +31,26 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_nil email
   end
+
+  test "comments can't be posted too fast" do
+    protip = create(:protip)
+    commentor = create(:user)
+    sign_in_as commentor
+
+    assert_difference 'Comment.count', 1 do
+      post :create, comment: { body: 'first!', article_id: protip.id }
+    end
+
+    Timecop.freeze(1.second.from_now) do
+      assert_difference 'Comment.count', 0 do
+        post :create, comment: { body: 'second!', article_id: protip.id }
+      end
+    end
+
+    Timecop.freeze(1.hour.from_now) do
+      assert_difference 'Comment.count', 1 do
+        post :create, comment: { body: 'second!', article_id: protip.id }
+      end
+    end
+  end
 end
