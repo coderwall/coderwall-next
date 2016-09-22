@@ -1,0 +1,4 @@
+production:
+  endpoint: 'https://acme-v01.api.letsencrypt.org/'
+  email: 'matt@assemblymade.com'
+  domain: coderwall.com www.coderwall.com mail.coderwall.com

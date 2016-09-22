@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919171618) do
+ActiveRecord::Schema.define(version: 20160922010313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,18 @@ ActiveRecord::Schema.define(version: 20160919171618) do
   end
 
   add_index "jobs", ["expires_at"], name: "index_jobs_on_expires_at", using: :btree
+
+  create_table "letsencrypt_plugin_challenges", force: :cascade do |t|
+    t.text     "response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "letsencrypt_plugin_settings", force: :cascade do |t|
+    t.text     "private_key"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "likes", force: :cascade do |t|
     t.integer  "likable_id"
