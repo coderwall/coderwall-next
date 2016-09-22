@@ -59,10 +59,10 @@ config.plugins.push(
 )
 
 if (devBuild) {
-  console.log('Webpack dev build for Rails') // eslint-disable-line no-console
+  console.error('Webpack dev build for Rails') // eslint-disable-line no-console
   config.devtool = 'eval-source-map'
 } else {
-  console.log('Webpack production build for Rails') // eslint-disable-line no-console
+  console.error('Webpack production build for Rails') // eslint-disable-line no-console
 }
 
 module.exports = config
