@@ -41,18 +41,19 @@ gem 'sass-rails', '~> 5.0'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
+gem 'faraday'
 gem 'letsencrypt_plugin'
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
 gem 'redis'
 gem 'reverse_markdown'
-gem 'faraday'
 # gem 'newrelic_rpm'
 
 
 group :development, :test do
   gem 'capybara'
+  gem 'poltergeist'
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
