@@ -1,5 +1,5 @@
 .clearfix.py1
-  %a.link.no-hover.mt2{:href => job_path(job), rel: 'nofollow', target: '_blank', 'ga-event-category' => 'Jobs', 'ga-event-action' => "#{location} - Featured Job", 'ga-event-label' => "#{job.company} - #{job.id}"}
+  %a.link.no-hover.mt2{:href => job.source, rel: 'nofollow', target: '_blank', 'ga-event-category' => 'Jobs', 'ga-event-action' => "#{location} - Featured Job", 'ga-event-label' => "#{job.company} - #{job.id}"}
     .col.col-3.md-col-2{class: (job.company_logo.present? ? '' : 'hide')}
       =image_tag(job.company_logo, class: '')
     .overflow-hidden.pl2

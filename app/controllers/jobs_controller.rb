@@ -27,18 +27,6 @@ class JobsController < ApplicationController
     @job = Job.new
   end
 
-  def show
-    @job = Job.find(params[:id])
-
-    JobView.create!(
-      job_id: @job.id,
-      user_id: current_user.try(:id),
-      ip: request.ip
-    )
-
-    redirect_to @job.source
-  end
-
   def create
     @job = Job.new(job_params)
     if !@job.save

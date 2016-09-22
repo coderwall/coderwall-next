@@ -48,7 +48,6 @@ namespace :db do
 
     namespace :jobs do
       task :clear => :environment do
-        JobView.delete_all
         Job.delete_all
       end
     end
