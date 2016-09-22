@@ -43,6 +43,8 @@ gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
 gem 'faraday'
 gem 'letsencrypt_plugin'
+gem 'capybara'
+gem 'poltergeist'
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
@@ -51,8 +53,6 @@ gem 'reverse_markdown'
 # gem 'newrelic_rpm'
 
 group :development, :test do
-  gem 'capybara'
-  gem 'poltergeist'
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
