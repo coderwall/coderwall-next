@@ -64,6 +64,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers'
   gem 'shoulda'
+  gem 'timecop'
 end
 
 group :development do
