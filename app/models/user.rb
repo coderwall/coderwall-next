@@ -100,6 +100,15 @@ class User < ActiveRecord::Base
     "#{username}?#{stream_key}"
   end
 
+  def ownership
+    return 0 if partner_coins.to_i <= 0
+    amount = ((partner_coins.to_f / User.sum(:partner_coins).to_f).to_f * 100).round(2)
+    if amount == 0.0
+      amount = ((partner_coins.to_f / User.sum(:partner_coins).to_f).to_f * 100).round(4)
+    end
+    amount
+  end
+
   def stream_sources
     [
       { file: "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"},

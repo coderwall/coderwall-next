@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922185544) do
+ActiveRecord::Schema.define(version: 20160923195619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -166,29 +166,34 @@ ActiveRecord::Schema.define(version: 20160922185544) do
     t.integer  "team_id"
     t.string   "api_key"
     t.boolean  "admin"
-    t.boolean  "receive_newsletter",                default: true
-    t.boolean  "receive_weekly_digest",             default: true
+    t.boolean  "receive_newsletter",                       default: true
+    t.boolean  "receive_weekly_digest",                    default: true
     t.integer  "last_ip"
     t.datetime "last_email_sent"
     t.datetime "last_request_at"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.citext   "username"
     t.citext   "email"
-    t.string   "encrypted_password",    limit: 128
-    t.string   "confirmation_token",    limit: 128
-    t.string   "remember_token",        limit: 128
-    t.string   "skills",                            default: [],                  array: true
+    t.string   "encrypted_password",           limit: 128
+    t.string   "confirmation_token",           limit: 128
+    t.string   "remember_token",               limit: 128
+    t.string   "skills",                                   default: [],                  array: true
     t.string   "github_id"
     t.string   "twitter_id"
     t.string   "github"
     t.string   "twitter"
-    t.string   "color",                             default: "#111"
-    t.integer  "karma",                             default: 1
+    t.string   "color",                                    default: "#111"
+    t.integer  "karma",                                    default: 1
     t.datetime "banned_at"
     t.text     "marketing_list"
     t.datetime "email_invalid_at"
     t.text     "stream_key"
+    t.datetime "partner_last_contribution_at"
+    t.string   "partner_asm_username"
+    t.string   "partner_slack_username"
+    t.string   "partner_email"
+    t.integer  "partner_coins"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree

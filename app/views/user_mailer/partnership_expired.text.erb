@@ -1,0 +1,14 @@
+Hi <%= @user.username %>
+
+You are receiving this email because you were a member of Assembly and a Contributing Partner on Coderwall. Unfortunately your <%= @user.ownership %>% of Coderwall App Coins expired on <%= (@user.partner_last_contribution_at + 1.year).strftime("%m/%d/%Y") %>. This was because more then 1 year had passed since your made your last eligible contribution on <%= @user.partner_last_contribution_at.strftime("%m/%d/%Y")%>. Without Coderwall App Coins you are no longer eligible to receive proceeds from Coderwall's future earnings but you will still receive distributions of earnings for the months where you had valid Coderwall App Coins.
+
+If you would like to stay active and participate in Coderwall we'd like to extend to you a 90 day grace period from today. Any eligible contributions you make to Coderwall before <%= 90.days.from_now.strftime("%m/%d/%Y") %> will earn you back all of your expired Coderwall App Coins. Check out the latest guidelines[1] in the Coderwall Github Repository[2] to start contributing again.
+
+If you believe there was an error, have any questions, or would like to explore other ways to contribute you can contact us anytime at support@coderwall.com or by joining the Coderwall Partners' Slack Channel [3].
+
+Regards
+Matt, Dave, and the Coderwall Team
+
+[1] https://github.com/coderwall/coderwall-next/blob/master/CONTRIBUTING.md
+[2] https://github.com/coderwall/coderwall-next
+[3] http://slack.coderwall.com
