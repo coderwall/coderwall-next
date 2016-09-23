@@ -1,7 +1,7 @@
 namespace :partners do
 
   task :load => :environment do
-    require 'CSV'
+    require 'csv'
     require 'open-uri'
     open(ENV['PARTNERS_CSV_URL']) do |file|
       CSV.parse(file, :headers => true) do |row|
