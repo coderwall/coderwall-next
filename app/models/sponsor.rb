@@ -1,15 +1,15 @@
 Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_url) do
+  HOST = "srv.buysellads.com"
+  PATH = "/ads/#{ENV['BSA_IDENTIFIER']}.json"
 
   class << self
     def ads_for(ip)
       return [] unless ENV['BSA_IDENTIFIER'].present?
-      url      = "https://srv.buysellads.com/ads/#{ENV['BSA_IDENTIFIER']}.json"
-      response = Faraday.get(url) do |request|
-        request.params['testMode'] = true if Rails.env.development?
-        request.params['ignore']   = true if Rails.env.development?
-        request.params['ip']       = ip
-      end
-      results  = JSON.parse(response.body)      
+      params = { ip: ip }
+      params.merge!( testMode: true, ignore: true ) if Rails.env.development?
+      uri      = URI::HTTPS.build(host: HOST, path: PATH, query: params.to_query)
+      response = Faraday.get(uri)
+      results  = JSON.parse(response.body)
       results['ads'].collect{ |data| build_sponsor(data) }
     end
 
