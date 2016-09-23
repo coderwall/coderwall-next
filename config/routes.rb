@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get    '/team/:slug'     => 'teams#show'
   get    '/live' => 'streams#index', as: :live_streams
   get    '/live/lunch-and-learn.ics' => 'streams#invite', as: :lunch_and_learn_invite
-  get    '/sponsors' => 'protips#sponsors', as: :sponsors
+  get    '/sponsors' => 'sponsors#show', as: :sponsors
 
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session,    controller: "clearance/sessions",  only: [:create]

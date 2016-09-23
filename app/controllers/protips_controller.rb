@@ -43,11 +43,6 @@ class ProtipsController < ApplicationController
     end
   end
 
-  def sponsors
-    @sponsors = Sponsor.ads_for(request.remote_ip)
-    render layout: false
-  end
-
   def new
     @protip = Protip.new
   end
