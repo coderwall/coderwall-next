@@ -41,13 +41,4 @@ namespace :partners do
       UserMailer.partnership_expired(user).deliver_now!
     end
   end
-
-  task :details => :environment do
-    total = User.sum(:partner_coins).to_f
-    puts "Current Partners: " + User.where("partner_coins IS NOT NULL AND partner_last_contribution_at >= ?", 1.year.ago).collect(&:username).join(', ')
-    User.where("partner_coins IS NOT NULL AND partner_last_contribution_at < ?", 1.year.ago).all.collect do |user|
-      puts "#{user.username}, #{user.partner_last_contribution_at} => #{user.ownership}%"
-    end
-  end
-
 end
