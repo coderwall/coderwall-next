@@ -41,7 +41,7 @@
           .center.mr1[:keywords]
             -@protip.tags.each do |tag|
               %h6.diminish.inline.px1=link_to tag, popular_topic_path(topic: tag)
-          .content.p2.mt4[:articleBody]
+          .content.p3.mt4[:articleBody]
             = preserve(sanitize(CoderwallFlavoredMarkdown.render_to_html(@protip.body)))
 
 
