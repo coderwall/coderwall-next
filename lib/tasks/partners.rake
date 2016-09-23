@@ -2,7 +2,7 @@ namespace :partners do
 
   task :load => :environment do
     require 'csv'
-    CSV(STDIN.read, :headers => true) do |row|
+    CSV.parse(STDIN.read, :headers => true) do |row|
       username = row[0]
       user = User.find_by_username(username)
       user.partner_asm_username         = row[1]
