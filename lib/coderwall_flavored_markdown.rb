@@ -48,7 +48,10 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
 
   def strip_leading_whitespace(text)
     lines = text.split("\n")
-    useless_space_count = lines.map{|l| l[/\A */].size }.min
+    useless_space_count = lines.
+      select{|l| l.size > 0 }.
+      map{|l| l[/\A */].size }.
+      min
     lines.map{|l| l[useless_space_count..-1] }.join("\n")
   end
 
