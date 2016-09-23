@@ -38,7 +38,18 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
   end
 
   def postprocess(text)
-    wrap_usernames_with_profile_link(text)
+    doc = Nokogiri::HTML(text)
+    doc.css('code').each do |c|
+      c.content = strip_leading_whitespace(c.content)
+    end
+
+    wrap_usernames_with_profile_link(doc.css('body').inner_html)
+  end
+
+  def strip_leading_whitespace(text)
+    lines = text.split("\n")
+    useless_space_count = lines.map{|l| l[/\A */].size }.min
+    lines.map{|l| l[useless_space_count..-1] }.join("\n")
   end
 
   def wrap_usernames_with_profile_link(text)
@@ -63,11 +74,11 @@ class CoderwallFlavoredMarkdown < Redcarpet::Render::HTML
   # def preprocess(text)
   #   turn_gist_links_into_embeds!(text)
   # end
-  #
+
   # def postprocess(text)
   #   embed_gists!(text)
   # end
-  #
+
   # def turn_gist_links_into_embeds!(text)
   #   text.gsub! /https?:\/\/gist\.github\.com\/(.*?)(\.js)?/ do
   #     "[gist #{Regexp.last_match.to_s}]"

@@ -42,7 +42,7 @@
             -@protip.tags.each do |tag|
               %h6.diminish.inline.px1=link_to tag, popular_topic_path(topic: tag)
           .content.p2.mt4[:articleBody]
-            = sanitize CoderwallFlavoredMarkdown.render_to_html(@protip.body)
+            = preserve(sanitize(CoderwallFlavoredMarkdown.render_to_html(@protip.body)))
 
 
           .clearfix.mt1.mb3.mx2.py2
@@ -116,11 +116,6 @@
           %hr.mt1
           - @sponsors.each do |sponsor|
             = render 'shared/sponsor', sponsor: sponsor
-
-      - if Stream.any_broadcasting?
-        - cache ['v1', 'protips', 'featured-stream', expires_in: 1.minute ] do
-          .clearfix.ml3.mt3.md-show
-            =render 'streams/preview', stream: Stream.broadcasting.sample
 
       - else
         - cache ['v3', @protip, 'featured-jobs', expires_in: 1.day ] do

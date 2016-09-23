@@ -46,8 +46,3 @@
             .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
         - else
           %a.btn.btn-primary.bg-purple.white.ml1{:href => sign_in_path} Sign In or Up
-
--#       %a.ml1.btn.xs-hide{:href => live_streams_path}
--#         Video Streams
--#         -if Stream.any_broadcasting?
--#           .inline.m0.rounded.white.bg-red.font-tiny{style: 'padding: .30rem;margin-left:0.30rem;'} LIVE

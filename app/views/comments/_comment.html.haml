@@ -11,7 +11,7 @@
         .author[:author]
           %a.bold.black.no-hover[:alternateName]{href: profile_path(username: comment.user.username)}
             =comment.user.username
-        .content.small[:text]= sanitize(CoderwallFlavoredMarkdown.render_to_html(comment.body))
+        .content.small[:text]= preserve(sanitize(CoderwallFlavoredMarkdown.render_to_html(comment.body)))
         - if style != :small
           .diminish.mt1{class: hide_on_chat}
             ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
