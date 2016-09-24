@@ -3,7 +3,7 @@ namespace :partners do
   task :load => :environment do
     require 'csv'
     require 'open-uri'
-    open("https://www.dropbox.com/s/nu84wd4uik17tzu/Partners.csv?dl=1") do |file|
+    open("") do |file|
       CSV.parse(file, :headers => true) do |row|
         username = row[0]
         user = User.find_by_username(username)
