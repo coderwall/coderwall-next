@@ -2,17 +2,19 @@ namespace :partners do
 
   task :load => :environment do
     require 'csv'
-    CSV.parse(STDIN.read, :headers => true) do |row|
-      username = row[0]
-      user = User.find_by_username(username)
-      user.partner_asm_username         = row[1]
-      user.partner_slack_username       = row[2]
-      user.partner_email                = row[3]
-      user.partner_last_contribution_at = Date.strptime(row[4], "%m/%d/%Y")
-      user.partner_coins                = row[5]
-      user.save!
+    require 'open-uri'
+    open("https://www.dropbox.com/s/nu84wd4uik17tzu/Partners.csv?dl=1") do |file|
+      CSV.parse(file, :headers => true) do |row|
+        username = row[0]
+        user = User.find_by_username(username)
+        user.partner_asm_username         = row[1]
+        user.partner_slack_username       = row[2]
+        user.partner_email                = row[3]
+        user.partner_last_contribution_at = Date.strptime(row[4], "%m/%d/%Y")
+        user.partner_coins                = row[5]
+        user.save!
+      end
     end
-
   end
 
   task :update => :environment do
