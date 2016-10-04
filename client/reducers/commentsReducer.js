@@ -4,16 +4,15 @@ import {
   HEART_REQUEST,
 } from '../actions/heartActions'
 
-const incHeart = (protips, id) => {
-  if (!protips) { return null }
-  const index = protips.findIndex(p => p.heartableId === id)
-  if (index === -1) { return protips }
-
-  const heartable = protips[index]
+const incHeart = (comments, id) => {
+  if (!comments) { return null }
+  const index = comments.findIndex(p => p.heartableId === id)
+  if (index === -1) { return comments }
+  const heartable = comments[index]
   return [
-    ...protips.slice(0, index),
+    ...comments.slice(0, index),
     { ...heartable, hearts: heartable.hearts + 1 },
-    ...protips.slice(index + 1),
+    ...comments.slice(index + 1),
   ]
 }
 

@@ -1,15 +1,17 @@
 class ProtipSerializer < ActiveModel::Serializer
   include ActionView::Helpers
 
-  attributes :public_id,
-             :title,
+  attributes :id,
              :body,
-             :html,
-             :tags,
-             :hearts,
-             :upvotes,
              :created_at,
-             :subscribers,
+             :heartableId,
+             :hearts,
+             :html,
+             :public_id,
+             :subscribed,
+             :tags,
+             :title,
+             :upvotes,
              :user
 
   protected
@@ -25,6 +27,16 @@ class ProtipSerializer < ActiveModel::Serializer
     CoderwallFlavoredMarkdown.render_to_html(object.body)
   end
 
+  def subscribed
+    return false unless scope
+
+    object.subscribers.include?(scope.id)
+  end
+
+  def heartableId
+    object.dom_id
+  end
+
   def hearts
     object.hearts_count
   end
@@ -32,5 +44,4 @@ class ProtipSerializer < ActiveModel::Serializer
   def upvotes
     object.hearts_count
   end
-
 end

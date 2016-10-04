@@ -198,6 +198,7 @@ GEM
       rails (>= 4.2, < 5.1)
     letter_opener (1.4.1)
       launchy (~> 2.2)
+    libv8 (5.0.71.48.3)
     little-plugger (1.1.4)
     logging (2.1.0)
       little-plugger (~> 1.1)
@@ -218,6 +219,8 @@ GEM
     mime-types (2.99.3)
     mini_magick (4.4.0)
     mini_portile2 (2.1.0)
+    mini_racer (0.1.4)
+      libv8 (~> 5.0, < 5.1.11)
     minitest (5.9.0)
     multi_json (1.12.1)
     multipart-post (2.0.0)
@@ -416,6 +419,7 @@ DEPENDENCIES
   lograge
   meta-tags
   mini_magick
+  mini_racer
   newrelic_rpm
   pg (~> 0.15)
   poltergeist

@@ -8,7 +8,7 @@ class ProtipSubscribeButton extends Component {
   static propTypes = {
     currentUser: T.object,
     dispatch: T.func.isRequired,
-    protipId: T.string,
+    protipId: T.number,
     subscribed: T.bool,
   }
 
@@ -33,15 +33,11 @@ class ProtipSubscribeButton extends Component {
 }
 
 function mapStateToProps(state) {
-  let subscribed = false
   const protip = state.currentProtip.item
-  const currentUser = state.currentUser.item
-  if (currentUser) {
-    subscribed = protip.subscribers.indexOf(currentUser.id) !== -1
-  }
+  const subscribed = protip.subscribed
 
   return {
-    protipId: protip.public_id,
+    protipId: protip.id,
     subscribed,
   }
 }

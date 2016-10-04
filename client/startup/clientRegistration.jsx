@@ -10,7 +10,7 @@ import ReactOnRails from 'react-on-rails'
 import store from '../stores/store'
 import Chat from '../components/Chat'
 import Heart from '../components/Heart'
-import Heartable from '../components/Heartable'
+import HeartButton from '../components/HeartButton'
 import NewJob from '../components/NewJob'
 import NewJobSubscription from '../components/NewJobSubscription'
 import ProtipSubscribeButton from '../components/ProtipSubscribeButton'
@@ -42,7 +42,7 @@ function registerContainers(containers) {
 registerContainers({
   Chat,
   Heart,
-  Heartable,
+  HeartButton,
   NewJob,
   NewJobSubscription,
   Sponsors,

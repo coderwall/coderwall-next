@@ -1,19 +1,12 @@
 class LikesController < ApplicationController
   before_action :require_login, only: :create
 
-  def index
-    @user  = User.find(params[:id])
-    if stale?(etag: ['v3', @user, @user.likes.count], public: true)
-      render json: @user.liked
-    end
-  end
-
   def create
     @likeable = find_likeable
     @likeable.likes.create(user: current_user) unless current_user.likes?(@likeable)
     @likeable.try(:subscribe!, current_user)
     respond_to do |format|
-      format.js { render(json: @likeable.likes_count, status: :ok) }
+      format.json { render(json: @likeable.likes_count, status: :ok) }
     end
   end
 

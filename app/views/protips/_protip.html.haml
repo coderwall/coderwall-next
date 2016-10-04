@@ -2,10 +2,8 @@
   .protip.card.clearfix.py2.likeable[protip]{id: dom_id(protip)}
     .col{class: hide_on_profile}
       .px2.mt-third
-        = react_component 'Heartable', props: { id: dom_id(protip),
-          href: protip_likes_path(protip),
-          initialCount: protip.likes_count,
-          showCount: true }
+        = react_component 'HeartButton', props: { heartableId: protip.dom_id,
+          href: protip_likes_path(protip) }
     .overflow-hidden
       %h3.mt0.mb0
         %a.diminish-viewed[:headline]{:href => protip_path(protip)}=protip.title

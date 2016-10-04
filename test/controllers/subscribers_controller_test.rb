@@ -7,7 +7,7 @@ class SubscribersControllerTest < ActionController::TestCase
     sign_in_as subscriber
 
     assert_difference ->{ protip.reload.subscribers.size }, 1 do
-      post :create, protip_id: protip.public_id, format: :json
+      post :create, protip_id: protip.id, format: :json
     end
 
     assert_includes assigns(:protip).subscribers, subscriber.id
@@ -20,7 +20,7 @@ class SubscribersControllerTest < ActionController::TestCase
     sign_in_as subscriber
 
     assert_difference ->{ protip.reload.subscribers.size }, -1 do
-      delete :destroy, protip_id: protip.public_id, format: :json
+      delete :destroy, protip_id: protip.id, format: :json
     end
 
     assert_not_includes assigns(:protip).subscribers, subscriber.id
