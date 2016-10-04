@@ -9,12 +9,31 @@ class ProtipsController < ApplicationController
 
   def index
     order_by = (params[:order_by] ||= 'score')
-    @protips = Protip.includes(:user).order({order_by => :desc}).where(flagged: false).page(params[:page])
+    @protips = Protip.
+      includes(:user).
+      order({order_by => :desc}).
+      where(flagged: false).
+      page(params[:page])
     if params[:topic]
       tags = Category::children(params[:topic].downcase)
       tags = params[:topic].downcase if tags.empty?
       @protips = @protips.with_any_tagged(tags)
     end
+
+    data = {
+      protips: { items: serialize(@protips) },
+    }
+    if current_user
+      hearted_protips = current_user.likes.
+        where(likable_id: @protips.map(&:id)).
+        pluck(:likable_id).
+        map{|id| dom_id(Protip, id) }
+
+      data[:hearts] = {
+        items: hearted_protips,
+      }
+    end
+    store_data(data)
   end
 
   def spam
@@ -26,11 +45,26 @@ class ProtipsController < ApplicationController
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
 
-    store_data(
-      currentProtip: {
-        item: serialize(@protip)
+    data = {
+      currentProtip: { item: serialize(@protip) },
+      comments: { items: serialize(@protip.comments) }
+    }
+    if current_user
+      hearted_protips = current_user.likes.
+        where(likable_id: @protip.id).
+        pluck(:likable_id).
+        map{|id| dom_id(Protip, id) }
+
+      hearted_comments = current_user.likes.where(
+        likable_id: @protip.comments.map(&:id)
+      ).pluck(:likable_id).map{|id| dom_id(Comment, id) }
+
+      data[:hearts] = {
+        items: hearted_protips + hearted_comments,
       }
-    )
+    end
+
+    store_data(data)
 
     respond_to do |format|
       format.json { render(json: @protip) }
@@ -82,6 +116,10 @@ class ProtipsController < ApplicationController
   end
 
   protected
+  def dom_id(klass, id)
+    [ActionView::RecordIdentifier.dom_class(klass), id].join('_')
+  end
+
   def slugs_match?
     params[:slug] == @protip.slug
   end

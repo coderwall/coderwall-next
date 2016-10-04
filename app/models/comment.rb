@@ -24,6 +24,10 @@ class Comment < ActiveRecord::Base
     ActionView::RecordIdentifier.dom_id(self)
   end
 
+  def hearts_count
+    likes_count
+  end
+
   def url_params
     [article, anchor: dom_id]
   end

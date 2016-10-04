@@ -25,7 +25,6 @@ jQuery ->
 
 @registerBSATracking = ->
   document.querySelectorAll('.bsap > a').forEach (item, i) ->
-    console.log('FOUND')
     item.addEventListener 'mousedown', (eventType) =>
       action = item.parentNode.parentNode.getAttribute('ga-location') + " - Banner"
       label  = item.getAttribute("title") + ' - ' + item.getAttribute("id")

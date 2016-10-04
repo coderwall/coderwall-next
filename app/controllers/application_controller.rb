@@ -68,6 +68,6 @@ class ApplicationController < ActionController::Base
 
   def serialize(obj, serializer = nil)
     serializer ||= ActiveModel::Serializer.serializer_for(obj)
-    serializer.new(obj, root: false).as_json if obj
+    serializer.new(obj, root: false, scope: current_user).as_json if obj
   end
 end

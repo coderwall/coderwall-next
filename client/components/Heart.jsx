@@ -17,13 +17,13 @@ const renderCount = (cnt) => (
   </div>
 )
 
-const renderLabel = (hearted) => (
+const renderLabels = (hearted, [off, on]) => (
   <span className="black ml1">
-    {hearted ? 'Recommended' : 'Recommend'}
+    {hearted ? on : off}
   </span>
 )
 
-const Heart = ({ hearted, showLabel, showCount, count, onClick }) => {
+const Heart = ({ hearted, labels, count, onClick }) => {
   const icon = hearted ? 'heart' : 'heart-o'
   return (
     <div className="inline pointer center purple" onClick={onClick}>
@@ -32,8 +32,7 @@ const Heart = ({ hearted, showLabel, showCount, count, onClick }) => {
         <Icon icon={icon} extraClasses="purple h5" />
       </span>
 
-      {showLabel && renderLabel(hearted)}
-      {showCount && renderCount(count)}
+      {labels ? renderLabels(hearted, labels) : renderCount(count)}
     </div>
   )
 }
@@ -42,8 +41,7 @@ Heart.propTypes = {
   count: T.number,
   hearted: T.bool,
   onClick: T.func,
-  showLabel: T.bool,
-  showCount: T.bool,
+  labels: T.arrayOf(T.string),
 }
 
 export default Heart

@@ -5,13 +5,13 @@ class SubscribersController < ApplicationController
   before_action :require_login, only: [:create, :destroy, :mute]
 
   def create
-    @protip = Protip.find_by_public_id!(params[:protip_id])
+    @protip = Protip.find(params[:protip_id])
     @protip.subscribe!(current_user)
     render json: @protip, root: false
   end
 
   def destroy
-    @protip = Protip.find_by_public_id!(params[:protip_id])
+    @protip = Protip.find(params[:protip_id])
     @protip.unsubscribe!(current_user)
     render json: @protip, root: false
   end
