@@ -60,6 +60,7 @@ namespace :db do
       results.each do |data|
         next if data['company_logo'].blank? || ENV['COMPANY_BLACKLIST'].split(',').include?(data['company'])
 
+        data['company_logo'].sub!('http:', '')
         data['created_at'] = Time.parse(data['created_at'])
         data['role_type']  = data.delete('type')
         desc  = data.delete("description")
