@@ -1,5 +1,4 @@
 jQuery ->
-  console.log('BSA -> Loading')
   bsa = document.createElement('script')
   bsa.type = 'text/javascript'
   bsa.async = true
@@ -8,5 +7,4 @@ jQuery ->
 
   $(document).on 'turbolinks:load', ->
     if window._bsap?
-      console.log("BSA -> Reloading")
       _bsap.reload()
