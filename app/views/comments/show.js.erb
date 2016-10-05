@@ -1,3 +1,4 @@
- $("#comments").
-  append("<%= escape_javascript(render partial: 'comment', locals: { comment: @comment, style: :small } ) %>");
-$('#chat').scrollTop($('#chat').prop("scrollHeight"));
+document.getElementById('comments').
+  appendChild("<%= escape_javascript(render partial: 'comment', locals: { comment: @comment, style: :small } ) %>");
+var chat = document.getElementById('chat');
+chat.scrollTop = chat.scrollHeight;

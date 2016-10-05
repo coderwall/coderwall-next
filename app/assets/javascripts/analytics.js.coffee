@@ -1,9 +1,8 @@
 # https://developers.google.com/analytics/devguides/collection/analyticsjs/sending-hits
-jQuery ->
-  $(document).on 'turbolinks:load', ->
-    trackPageView()
-    registerEventTracking()
-    setTimeout registerBSATracking, 1500
+document.addEventListener 'turbolinks:load', ->
+  trackPageView()
+  registerEventTracking()
+  setTimeout registerBSATracking, 1500
 
 @trackPageView = ->
   if window.ga?

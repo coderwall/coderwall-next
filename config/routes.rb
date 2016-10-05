@@ -97,13 +97,6 @@ Rails.application.routes.draw do
   get '/:username/live/stats' => 'streams#stats', as: :live_stream_stats
   get '/:username/impersonate' => 'users#impersonate', as: :impersonate
 
-  get '/stylesheets/jquery.coderwall.css', to: redirect(status: 301) {
-    '/legacy.jquery.coderwall.css'
-  }
-  get '/javascripts/jquery.coderwall.js',  to: redirect(status: 301) {
-    '/legacy.jquery.coderwall.js'
-  }
-
   resources :hooks, only: [] do
     collection do
       post 'sendgrid'

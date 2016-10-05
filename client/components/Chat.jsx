@@ -1,4 +1,4 @@
-/* global $, window, Pusher */
+/* global document, fetch, window, Pusher */
 
 import React, { PropTypes as T } from 'react'
 import ChatComment from './ChatComment'
@@ -74,24 +74,11 @@ export default class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const self = this
-    $(this.scrollable).bind('mousewheel DOMMouseScroll', (e) => {
-      if (this.scrollTop < 100) {
-        self.fetchOlderChatMessages()
-      }
-      const d = e.originalEvent.wheelDelta || -e.originalEvent.detail
-      const stop = d > 0 ?
-        this.scrollTop === 0 :
-        this.scrollTop > this.scrollHeight - this.offsetHeight
-      if (stop) {
-        return e.preventDefault()
-      }
-      return true
-    })
+    this.scrollable.addEventListener('wheel', this.handleScroll)
     this.scrollToBottom()
     this.fetchOlderChatMessages()
-    $(window).on('video-resize', this.constrainChatToStream)
-    $(window).on('video-time', (e, data) => this.setState({ timeOffset: data.position }))
+    window.addEventListener('video-resize', this.constrainChatToStream)
+    window.addEventListener('video-time', this.handleVideoTime)
   }
 
   componentWillUpdate() {
@@ -113,9 +100,9 @@ export default class Chat extends React.Component {
   }
 
   componentWillUnmount() {
-    $(this.scrollable).unbind('mousewheel DOMMouseScroll')
-    $(window).off('video-resize')
-    $(window).off('video-time')
+    this.scrollable.removeEventListener('wheel', this.handleScroll)
+    window.removeEventListener('video-resize', this.constrainChatToStream)
+    window.removeEventListener('video-time', this.handleVideoTime)
   }
 
   renderHeader() {
@@ -194,24 +181,21 @@ export default class Chat extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const clientId = `client-${messageId++}`
-    $.ajax({
-      url: '/comments',
+    fetch('/comments.json', {
       method: 'POST',
-      dataType: 'json',
-      data: {
+      body: JSON.stringify({
         socket_id: this.state.pusher.connection.socket_id,
         comment: {
           article_id: this.props.stream.id,
           body: this.body.value,
         },
-      },
-      success: (data) => {
-        const comments = this.state.comments
-        const comment = comments.find(c => c.id === clientId)
-        comment.id = data.id
-        comment.markup = data.markup
-        this.setState({ comments })
-      },
+      }),
+    }).then(resp => resp.json()).then(data => {
+      const comments = this.state.comments
+      const comment = comments.find(c => c.id === clientId)
+      comment.id = data.id
+      comment.markup = data.markup
+      this.setState({ comments })
     })
     this.setState({ comments: [...this.state.comments, {
       id: clientId,
@@ -222,41 +206,50 @@ export default class Chat extends React.Component {
     this.body.value = ''
   }
 
+  handleScroll = (e) => {
+    if (this.scrollTop < 100) {
+      this.fetchOlderChatMessages()
+    }
+    const d = e.originalEvent.wheelDelta || -e.originalEvent.detail
+    const stop = d > 0 ?
+      this.scrollTop === 0 :
+      this.scrollTop > this.scrollHeight - this.offsetHeight
+    if (stop) {
+      return e.preventDefault()
+    }
+    return true
+  }
+
+  handleVideoTime = (e, data) => this.setState({ timeOffset: data.position })
+
   fetchOlderChatMessages() {
     if (this.state.fetching || !this.state.moreComments) {
       return
     }
     const before = this.state.comments.length > 0 ? this.state.comments[0].created_at : null
     this.setState({ fetching: true })
-    $.ajax({
-      url: '/comments',
+    fetch(`/comments.json?article_id=${this.props.stream.id}&before=${before}`, {
       method: 'GET',
-      dataType: 'json',
-      data: {
-        article_id: this.props.stream.id,
-        before,
-      },
-      success: (data) => {
-        const existing = this.state.comments.map(c => c.id)
-        this.setState({
-          fetching: false,
-          moreComments: data.comments.length === 10,
-          comments: [
-            ...data.comments.reverse().filter(a => existing.indexOf(a.id) === -1),
-            ...this.state.comments,
-          ],
-        })
-      },
+    }).then(resp => resp.json()).then(data => {
+      const existing = this.state.comments.map(c => c.id)
+      this.setState({
+        fetching: false,
+        moreComments: data.comments.length === 10,
+        comments: [
+          ...data.comments.reverse().filter(a => existing.indexOf(a.id) === -1),
+          ...this.state.comments,
+        ],
+      })
     })
   }
 
   scrollToBottom() {
-    $(this.scrollable).scrollTop($(this.scrollable).prop("scrollHeight"))
+    this.scrollable.scrollTop = this.scrollable.scrollHeight
   }
 
   constrainChatToStream(e, data) {
     const anchorHeight = data.height
-    $('.js-video-height').css('min-height', anchorHeight - 47)
-    $('.js-video-height').css('max-height', anchorHeight - 47)
+    const el = document.querySelector('.js-video-height')
+    el.style.minHeight = el.style.maxHeight = anchorHeight - 47
   }
 }

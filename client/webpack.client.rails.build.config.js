@@ -13,8 +13,7 @@ config.output = {
 // You can add entry points specific to rails here
 config.entry.vendor.unshift(
   'es5-shim/es5-shim',
-  'es5-shim/es5-sham',
-  'jquery-ujs'
+  'es5-shim/es5-sham'
 )
 
 // See webpack.common.config for adding modules common to both the webpack dev server and rails
@@ -46,10 +45,6 @@ config.module.loaders.push(
   {
     test: require.resolve('react'),
     loader: 'imports?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
-  },
-  {
-    test: require.resolve('jquery-ujs'),
-    loader: 'imports?jQuery=jquery',
   }
 )
 
