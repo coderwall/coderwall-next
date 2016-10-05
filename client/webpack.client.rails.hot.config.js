@@ -10,11 +10,6 @@ config.entry.app.push(
   'webpack/hot/only-dev-server'
 )
 
-// These are Rails specific
-config.entry.vendor.push(
-  'jquery-ujs',
-)
-
 config.output = {
   filename: '[name]-bundle.js',
   path: path.join(__dirname, 'public'),
@@ -62,10 +57,6 @@ config.module.loaders.push(
       'sass-resources',
     ],
   },
-  {
-    test: require.resolve('jquery-ujs'),
-    loader: 'imports?jQuery=jquery',
-  }
 )
 
 config.plugins.push(

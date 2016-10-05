@@ -2,6 +2,7 @@
 // polyfills
 import 'whatwg-fetch'
 import 'pusher-js'
+import turbolinks from 'turbolinks'
 
 import { Provider } from 'react-redux'
 import React from 'react'
@@ -16,6 +17,8 @@ import NewJobSubscription from '../components/NewJobSubscription'
 import ProtipSubscribeButton from '../components/ProtipSubscribeButton'
 import Sponsors from '../components/Sponsors'
 import Video from '../components/Video'
+
+turbolinks.start()
 
 ReactOnRails.setOptions({
   traceTurbolinks: TRACE_TURBOLINKS, // eslint-disable-line no-undef

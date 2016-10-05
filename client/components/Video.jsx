@@ -1,4 +1,4 @@
-/* global $, document, window */
+/* global CustomEvent, document, window */
 import React, { PropTypes as T } from 'react'
 
 let id = 1
@@ -49,8 +49,8 @@ export default class Video extends React.Component {
       mute: !!this.props.mute,
     }).on('play', () => this.setState({ online: true })).
       on('bufferFull', () => this.setState({ online: true })).
-      on('resize', data => $(window).trigger('video-resize', data)).
-      on('time', data => $(window).trigger('video-time', data)).
+      on('resize', data => this.triggerCustom('video-resize', data)).
+      on('time', data => this.triggerCustom('video-time', data)).
       onError(this.onError.bind(this))
 
     // debug
@@ -103,5 +103,17 @@ export default class Video extends React.Component {
     // if (e !== 'time' && e !== 'meta') {
     console.log(e, data) // eslint-disable-line no-console
     // }
+  }
+
+  triggerCustom(e, data) {
+    let event
+    if (window.CustomEvent) {
+      event = new CustomEvent(e, data)
+    } else {
+      event = document.createEvent('CustomEvent')
+      event.initCustomEvent(e, true, true, data)
+    }
+
+    window.dispatchEvent(event)
   }
 }

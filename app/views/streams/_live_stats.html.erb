@@ -1,13 +1,22 @@
 <script>
 function updateLiveStats() {
-  $.getJSON(<%== live_stream_stats_path(@user.username).to_json %>, function(data) {
-    var connections = 0;
-    if (data) {
-      connections = data.connections;
-    }
+  var request = new XMLHttpRequest();
+  request.open('GET', <%== live_stream_stats_path(@user.username).to_json %>, true);
 
-    $('#js-live-viewers').text(connections)
-  })
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      var data = JSON.parse(request.responseText);
+      var connections = 0;
+      if (data) {
+        connections = data.connections;
+      }
+
+      var el = document.getElementById('js-live-viewers')
+      el.innerText = connections
+    }
+  };
+
+  request.send();
 }
 setInterval(updateLiveStats, 5000)
 updateLiveStats()

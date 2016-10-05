@@ -4,8 +4,6 @@
 // Those helpers are used here: app/views/layouts/application.html.erb
 
 // These assets are located in app/assets/webpack directory
-// CRITICAL that webpack/vendor-bundle must be BEFORE turbolinks
-// since it is exposing jQuery and jQuery-ujs
 
 //= require vendor-bundle
 //= require app-bundle

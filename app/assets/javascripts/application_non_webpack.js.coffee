@@ -1,27 +1,23 @@
 # Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 # about supported directives.
-#= require jquery
-#= require jquery_ujs
 #= require bsa
 #= require analytics
-#= require likes
 #= require textarea_with_file_drop_support
 
-$ ->
-  $.ajaxSetup error: (xhr, status, err) ->
-    promptUserSignInOn401(xhr)
-    return
+document.addEventListener 'turbolinks:load', ->
+  els = document.getElementsByTagName('textarea')
+  for el in els
+    el.addEventListener 'input', resizeTextAreaForNewInput
 
-  $('textarea').on 'input', resizeTextAreaForNewInput
-  $('.js-popout').click(openPopout)
+  el = document.querySelector('.js-popout')
+  if el
+    el.addEventListener('click', openPopout)
 
   unless document.current_user_id?
     setUserId()
 
-  document.current_user_likes = new Likes(document.current_user_id)
-
 @setUserId = ->
-  userId = $("meta[property='current_user:id']").attr("content")
+  userId = document.querySelector("meta[property='current_user:id']").content
   document.current_user_id = userId if userId?
 
 @promptUserSignInOn401 = (xhr) ->
