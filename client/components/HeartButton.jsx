@@ -42,7 +42,7 @@ function mapStateToProps(state, ownProps) {
     ...(state.protips.items || []),
     ...(state.comments.items || []),
     state.currentProtip.item,
-  ]
+  ].filter(h => h)
 
   const heartable = heartables.find(p => p.heartableId === ownProps.heartableId)
 

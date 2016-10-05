@@ -116,9 +116,6 @@ class ProtipsController < ApplicationController
   end
 
   protected
-  def dom_id(klass, id)
-    [ActionView::RecordIdentifier.dom_class(klass), id].join('_')
-  end
 
   def slugs_match?
     params[:slug] == @protip.slug

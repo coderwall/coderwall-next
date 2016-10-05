@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def dom_id(klass, id)
+    [ActionView::RecordIdentifier.dom_class(klass), id].join('_')
+  end
+
   def record_user_access
     if signed_in?
       current_user.update_columns(last_request_at: Time.now, last_ip:request.remote_ip)
@@ -41,7 +45,6 @@ class ApplicationController < ActionController::Base
     @store_data.merge!(props)
   end
   helper_method :store_data
-
 
   def strip_and_redirect_on_www
     if Rails.env.production?
