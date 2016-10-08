@@ -13,25 +13,30 @@ module.exports = {
 
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
-      'babel-polyfill',
-      'es5-shim/es5-shim',
-      'es5-shim/es5-sham',
+      'react',
+      'core-js',
+      'redux-form',
+      'pusher-js',
       'turbolinks',
 
-      // Below libraries are listed as entry points to be sure they get included in the
-      // vendor-bundle.js. Note, if we added some library here, but don't use it in the
-      // app-bundle.js, then we just wasted a bunch of space.
-      'classnames',
-      'immutable',
-      'marked',
-      'react-addons-pure-render-mixin',
-      'react-dom',
-      'react-redux',
-      'react-on-rails',
-      'react-router-redux',
-      'redux-thunk',
-      'redux-promise',
-      'redux-api-middleware',
+      // 'babel-polyfill',
+      // 'es5-shim/es5-shim',
+      // 'es5-shim/es5-sham',
+      // 'turbolinks',
+      //
+      // // Below libraries are listed as entry points to be sure they get included in the
+      // // vendor-bundle.js. Note, if we added some library here, but don't use it in the
+      // // app-bundle.js, then we just wasted a bunch of space.
+      // 'classnames',
+      // 'marked',
+      // 'react-addons-pure-render-mixin',
+      // 'react-dom',
+      // 'react-redux',
+      // 'react-on-rails',
+      // 'react-router-redux',
+      // 'redux-thunk',
+      // 'redux-promise',
+      // 'redux-api-middleware',
     ],
 
     // This will contain the app entry points defined by webpack.hot.config and webpack.rails.config

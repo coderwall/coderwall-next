@@ -1,10 +1,10 @@
--cache ['v3', protip, hide_on_profile] do
+-cache ['v4', protip, hide_on_profile] do
   .protip.card.clearfix.py2.likeable[protip]{id: dom_id(protip)}
-    .col{class: hide_on_profile}
-      .px2.mt-third
+    .col.col-1{class: hide_on_profile}
+      .mt-third.center
         = react_component 'HeartButton', props: { heartableId: protip.dom_id,
           href: protip_likes_path(protip) }
-    .overflow-hidden
+    .col.col-11.overflow-hidden
       %h3.mt0.mb0
         %a.diminish-viewed[:headline]{:href => protip_path(protip)}=protip.title
       .font-sm
