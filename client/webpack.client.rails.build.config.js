@@ -11,10 +11,10 @@ config.output = {
 }
 
 // You can add entry points specific to rails here
-config.entry.vendor.unshift(
-  'es5-shim/es5-shim',
-  'es5-shim/es5-sham'
-)
+// config.entry.vendor.unshift(
+//   'es5-shim/es5-shim',
+//   'es5-shim/es5-sham'
+// )
 
 // See webpack.common.config for adding modules common to both the webpack dev server and rails
 
@@ -41,10 +41,6 @@ config.module.loaders.push(
       '!sass' +
       '!sass-resources'
     ),
-  },
-  {
-    test: require.resolve('react'),
-    loader: 'imports?shim=es5-shim/es5-shim&sham=es5-shim/es5-sham',
   }
 )
 
