@@ -108,7 +108,7 @@
                 .bold=t(topic, scope: [:categories, :long])
 
 
-        = react_component 'Sponsors'
+      = react_component 'Sponsors'
 
       - cache ['v3', @protip, 'featured-jobs', expires_in: 1.day ] do
         .clearfix.sm-ml3.mt3.p1
