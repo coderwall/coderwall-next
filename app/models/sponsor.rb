@@ -10,7 +10,7 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
       uri      = URI::HTTPS.build(host: HOST, path: PATH, query: params.to_query)
       response = Faraday.get(uri)
       results  = JSON.parse(response.body)
-      results['ads'].select{|a| a['id'] }.collect{ |data| build_sponsor(data) }
+      results['ads'].select{|a| a['creativeid'] }.collect{ |data| build_sponsor(data) }
     end
 
     def build_sponsor(data)
