@@ -3,6 +3,7 @@
 #= require bsa
 #= require analytics
 #= require textarea_with_file_drop_support
+#= require confirm
 
 document.addEventListener 'turbolinks:load', ->
   els = document.getElementsByTagName('textarea')

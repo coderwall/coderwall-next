@@ -17,7 +17,8 @@
             ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
             -if current_user_can_edit?(comment)
               &middot;
-              %a{:href => comment_path(comment), 'data-method'=>'delete', 'data-confirm' => 'Are you sure you want to delete your comment?'}=icon('trash')
+              = button_to comment_path(comment), method: :delete, data: { confirm: "Are you sure you want to delete your comment?" }, form_class: "inline plain" do
+                = icon('trash')
             &middot;
             = react_component 'HeartButton', props: { heartableId: comment.dom_id,
                 href: comment_likes_path(comment), labels: ['',''] },

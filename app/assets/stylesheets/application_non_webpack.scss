@@ -236,3 +236,12 @@ div[data-react-class] {
 	min-width: 1.25rem;
 	display: inline-block;
 }
+
+.plain button {
+   background:none !important;
+   border:none !important;
+   padding:0 !important;
+   font: inherit;
+   cursor: pointer;
+	 color: inherit;
+}

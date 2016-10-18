@@ -14,7 +14,8 @@
         .clearfix.mt0.mb1
           .right.mt1
             -if current_user.try(:admin?) || params[:delete_account]
-              .diminish.inline.ml1.mr1=link_to(icon('trash'), user_path(@user), method: :delete, 'data-confirm': 'This makes us very sad. Are you sure?')
+              = button_to user_path(@user), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
+                = icon('trash')
               &middot;
               .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
               &middot;
