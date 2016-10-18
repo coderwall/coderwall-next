@@ -52,3 +52,5 @@ registerContainers({
   ProtipSubscribeButton,
   Video,
 })
+
+require('./confirm')
