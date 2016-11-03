@@ -24,14 +24,6 @@ Rails.application.routes.draw do
   get   '/t/:topic/popular(/:page)' => 'protips#index', order_by: :views_count, as: :popular_topic
   get   '/t/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at, as: :fresh_topic
 
-  # deprecated
-  get   '/p/t/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/p/t/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/p/t/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
-  get   '/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
-
-
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   get    "/goodbye"    => "clearance/sessions#destroy",            as: :sign_out
   get    "/signup"     => "clearance/users#new",                   as: :sign_up
@@ -79,6 +71,16 @@ Rails.application.routes.draw do
     end
   end
 
+  # deprecated
+  get   '/welcome' => redirect("/", status: 301)
+  get   '/p/t/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/n/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/p/t/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/p/t/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
+  get   '/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
+  #
+  
   resources :protips, path: '/p' do
     resources :likes, only: :create
     resources :subscribers, only: [:create] do
@@ -96,7 +98,6 @@ Rails.application.routes.draw do
     get :comments
     get :popout
   end
-
 
   get '/:username'          => 'users#show',   as: :profile
   get '/:username/protips'  => 'users#show',   as: :profile_protips,  protips:  true
