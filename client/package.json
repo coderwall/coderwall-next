@@ -107,6 +107,7 @@
     "react-addons-test-utils": "^15.3.1",
     "react-test-renderer": "^15.3.1",
     "react-transform-hmr": "^1.0.4",
+    "roboto": "^0.8.2",
     "sleep": "^4.0.0",
     "webpack-dev-server": "^1.15.2"
   }

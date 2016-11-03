@@ -21,8 +21,16 @@ Rails.application.routes.draw do
   get   '/trending(/:page)'       => 'protips#index', order_by: :score,        as: :trending
   get   '/popular(/:page)'        => 'protips#index', order_by: :views_count,  as: :popular
   get   '/fresh(/:page)'          => 'protips#index', order_by: :created_at,   as: :fresh
-  get   '/:topic/popular(/:page)' => 'protips#index', order_by: :views_count,  as: :popular_topic, :constraints => { :topic => /.*/ }
-  get   '/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at,   as: :fresh_topic, :constraints => { :topic => /.*/ }
+  get   '/t/:topic/popular(/:page)' => 'protips#index', order_by: :views_count, as: :popular_topic
+  get   '/t/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at, as: :fresh_topic
+
+  # deprecated
+  get   '/p/t/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/p/t/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/p/t/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
+  get   '/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
+  get   '/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
+
 
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   get    "/goodbye"    => "clearance/sessions#destroy",            as: :sign_out
