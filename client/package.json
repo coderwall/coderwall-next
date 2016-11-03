@@ -6,6 +6,7 @@
     "npm": "3.10.3"
   },
   "scripts": {
+    "crawl": "./checkLinks.js",
     "test": "jest",
     "test:debug": "npm run test -- --debug-brk",
     "build:production:client": "NODE_ENV=production webpack --config webpack.client.rails.build.config.js --production",
