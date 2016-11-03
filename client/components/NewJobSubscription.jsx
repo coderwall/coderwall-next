@@ -121,7 +121,7 @@ export default class NewJobSubscription extends React.Component {
   }
 
   handleBlur(e) {
-    const match = e.target.name.match(/\[(.*)\]/)
+    const match = e.target.name.match(/\[(.*)]/)
     if (!match) { return }
 
     const field = match[1]
