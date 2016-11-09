@@ -21,8 +21,8 @@ Rails.application.routes.draw do
   get   '/trending(/:page)'       => 'protips#index', order_by: :score,        as: :trending
   get   '/popular(/:page)'        => 'protips#index', order_by: :views_count,  as: :popular
   get   '/fresh(/:page)'          => 'protips#index', order_by: :created_at,   as: :fresh
-  get   '/t/:topic/popular(/:page)' => 'protips#index', order_by: :views_count, as: :popular_topic
-  get   '/t/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at, as: :fresh_topic
+  get   '/t/:topic/popular(/:page)' => 'protips#index', order_by: :views_count, as: :popular_topic, constraints: { :topic => /.*/ }
+  get   '/t/:topic/fresh(/:page)'   => 'protips#index', order_by: :created_at, as: :fresh_topic, constraints: { :topic => /.*/ }
 
   get    "/signin"     => "clearance/sessions#new",                as: :sign_in
   get    "/goodbye"    => "clearance/sessions#destroy",            as: :sign_out
@@ -71,16 +71,20 @@ Rails.application.routes.draw do
     end
   end
 
+  if Rails.env.development?
+    get 'impersonate' => 'users#impersonate', as: :impersonate_random
+  end
+
   # deprecated
   get   '/welcome' => redirect("/", status: 301)
-  get   '/p/t/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/n/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/p/t/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/p/t/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
-  get   '/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }
-  get   '/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }
+  get   '/p/t/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
+  get   '/n/:topic(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
+  get   '/p/t/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
+  get   '/p/t/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
+  get   '/:topic/popular(/:page)' => redirect("/t/%{topic}/popular/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
+  get   '/:topic/fresh(/:page)'   => redirect("/t/%{topic}/fresh/%{page}", status: 301), defaults: { page: 1 }, constraints: { :topic => /.*/ }
   #
-  
+
   resources :protips, path: '/p' do
     resources :likes, only: :create
     resources :subscribers, only: [:create] do

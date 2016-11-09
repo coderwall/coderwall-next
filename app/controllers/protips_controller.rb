@@ -67,13 +67,13 @@ class ProtipsController < ApplicationController
     store_data(data)
 
     respond_to do |format|
-      format.json { render(json: @protip) }
       format.html do
         seo_url   = slug_protips_url(id: @protip.public_id, slug: @protip.slug)
         return redirect_to(seo_url, status: 301) unless slugs_match?
         update_view_count(@protip)
         fresh_when(etag_key_for_protip)
       end
+      format.json { render(json: @protip) }
     end
   end
 

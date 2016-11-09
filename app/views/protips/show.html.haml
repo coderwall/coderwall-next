@@ -32,7 +32,7 @@
         - if signed_in? && current_user.can_edit?(@protip)
           .clearfix.mb2.mt2
             .right.mr1
-              = button_to protip_path(@protip), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline plain" do
+              = button_to seo_protip_path(@protip), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline plain" do
                 = icon('trash')
 
               %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}

@@ -50,7 +50,7 @@
                 %hr
                 -recently_created_protips.each do |protip|
                   .clearfix.mt2
-                    =link_to(protip.title, protip_path(protip), class: 'black no-hover')
+                    =link_to(protip.title, seo_protip_path(protip), class: 'black no-hover')
                     .block
                       .font-sm
                         =link_to protip.user.username, profile_path(username: protip.user.username)
@@ -69,7 +69,7 @@
                 %hr
                 -recently_viewed_protips.each do |protip|
                   .clearfix.mt2
-                    =link_to(protip.title, protip_path(protip), class: 'black no-hover')
+                    =link_to(protip.title, seo_protip_path(protip), class: 'black no-hover')
                     .font-sm
                       =link_to protip.user.username, profile_path(username: protip.user.username)
                       .diminish.inline

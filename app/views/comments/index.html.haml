@@ -4,7 +4,7 @@
     .sm-col.sm-col.sm-col-12.md-col-8
       -@comments.each do |comment|
         %h6.mt1
-          =link_to comment.article.title, protip_path(comment.article)
+          =link_to comment.article.title, seo_protip_path(comment.article)
         =render comment
         .bold.mb4
           =link_to("Delete #{comment.user.username} and their #{comment.user.comments.size} comments", user_path(comment.user), method: :delete, class: 'diminish mr1')

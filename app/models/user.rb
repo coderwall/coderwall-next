@@ -18,20 +18,22 @@ class User < ActiveRecord::Base
     admin
     administrator
     api
+    broadcast
     contact_us
     emails
     faq
+    impersonate
+    live
+    protips
     privacy_policy
     root
+    stream
+    streams
     superuser
     teams
     tos
     usernames
     users
-    live
-    stream
-    streams
-    broadcast
   }
 
   VALID_USERNAME_RIGHT_WAY = /\A[a-z0-9]+\z/

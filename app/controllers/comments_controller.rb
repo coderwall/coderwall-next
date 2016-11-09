@@ -99,6 +99,6 @@ class CommentsController < ApplicationController
 
   def on_spam_detected
     @article = Article.find(comment_params[:article_id])
-    redirect_to protip_path(@article)
+    redirect_to seo_protip_path(@article)
   end
 end

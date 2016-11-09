@@ -88,7 +88,7 @@
                     .overflow-hidden
                       .mt0
                         Posted to
-                        %a{:href => protip_path(comment.article)}
+                        %a{:href => seo_protip_path(comment.article)}
                           =comment.article.title
                         =time_ago_in_words_with_ceiling(comment.created_at)
                         ago

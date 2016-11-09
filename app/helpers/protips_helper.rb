@@ -100,6 +100,10 @@ module ProtipsHelper
     end
   end
 
+  def seo_protip_path(protip)
+    slug_protips_path(id: protip.public_id, slug: protip.slug)
+  end
+
   def topic_tags
     tags = Category.children(params[:topic])
     tags.empty? ? [params[:topic]] : tags

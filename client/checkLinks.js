@@ -13,6 +13,7 @@ const crawler = new roboto.Crawler({
 const deadLinks = []
 crawler.on('httpError', (statusCode, href, referer) => {
   if (statusCode === 404) {
+    console.log('Dead link: %s  found on page: %s', href, referer)
     deadLinks.push({
       href,
       referer,

@@ -6,14 +6,14 @@
           href: protip_likes_path(protip) }
     .col.col-11.overflow-hidden
       %h3.mt0.mb0
-        %a.diminish-viewed[:headline]{:href => protip_path(protip)}=protip.title
+        %a.diminish-viewed[:headline]{:href => seo_protip_path(protip)}=protip.title
       .font-sm
         %span{class: hide_on_profile}
           =link_to protip.user.try(:username), profile_path(username: protip.user.username)
           .diminish.inline &middot;
 
         .diminish.inline
-          %a[:url]{href: protip_path(protip)}
+          %a[:url]{href: slug_protips_url(id: protip.public_id, slug: protip.slug)}
             =pluralize(protip.comments.size, 'response')
           &middot;
           =protip.display_tags

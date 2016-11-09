@@ -24,6 +24,6 @@ class SubscribersController < ApplicationController
       @protip.unsubscribe!(current_user)
       flash[:notice] = "You will no longer receive new comment emails"
     end
-    redirect_to protip_path(@protip)
+    redirect_to seo_protip_path(@protip)
   end
 end
