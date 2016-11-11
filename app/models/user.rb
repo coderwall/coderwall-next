@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def editable_skills=(val)
-    self.skills = val.split(',').collect(&:strip)
+    self.skills = val.split(/,|\r\n|\n/).collect(&:strip)
   end
 
   def generate_stream_key
