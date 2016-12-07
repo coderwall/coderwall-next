@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923195619) do
+ActiveRecord::Schema.define(version: 20161207222630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,7 +168,7 @@ ActiveRecord::Schema.define(version: 20160923195619) do
     t.boolean  "admin"
     t.boolean  "receive_newsletter",                       default: true
     t.boolean  "receive_weekly_digest",                    default: true
-    t.integer  "last_ip"
+    t.string   "last_ip"
     t.datetime "last_email_sent"
     t.datetime "last_request_at"
     t.datetime "created_at",                                                null: false
