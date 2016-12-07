@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
   def record_user_access
     if signed_in?
-      current_user.update_columns(last_request_at: Time.now, last_ip:request.remote_ip)
+      current_user.update_columns(last_request_at: Time.now, last_ip: remote_ip)
     end
   end
 
@@ -72,5 +72,9 @@ class ApplicationController < ActionController::Base
   def serialize(obj, serializer = nil)
     serializer ||= ActiveModel::Serializer.serializer_for(obj)
     serializer.new(obj, root: false, scope: current_user).as_json if obj
+  end
+
+  def remote_ip
+    (request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip).split(",").first
   end
 end
