@@ -81,5 +81,7 @@ Rails.application.configure do
   # config.serve_static_assets = true
   config.static_cache_control = 'public, max-age=31536000'
 
-  config.middleware.use Rack::SslEnforcer, :except_hosts => /www.coderwall.com$/
+  config.middleware.use Rack::SslEnforcer,
+    :except_hosts => /www.coderwall.com$/,
+    :except => [%r{^/\.well-known/}]
 end
