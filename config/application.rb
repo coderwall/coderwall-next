@@ -36,5 +36,8 @@ module CoderwallNext
 
     config.log_tags = [:uuid]
     config.log_level = ENV['LOG_LEVEL'] || :debug
+
+    config.rakismet.key = ENV['AKISMET_KEY']
+    config.rakismet.url = 'https://coderwall.com/'
   end
 end

@@ -38,6 +38,7 @@ gem 'rack-ssl-enforcer'
 gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
 gem 'rails', '~> 4.2.5'
+gem 'rakismet'
 gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'sass-rails', '~> 5.0'

@@ -294,6 +294,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (11.2.2)
+    rakismet (1.5.3)
     react_on_rails (6.1.1)
       addressable
       connection_pool
@@ -432,6 +433,7 @@ DEPENDENCIES
   rails (~> 4.2.5)
   rails_12factor
   rails_stdout_logging
+  rakismet
   react_on_rails
   redcarpet (>= 3.3.4)
   redis

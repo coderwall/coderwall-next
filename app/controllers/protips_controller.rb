@@ -101,6 +101,13 @@ class ProtipsController < ApplicationController
   def create
     @protip = Protip.new(protip_params)
     @protip.user = current_user
+    if @protip.spam?
+      logger.info "[SPAM] \"#{@protip.title}\""
+      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+      render action: 'new'
+      return
+    end
+
     if @protip.save
       redirect_to protip_url(@protip)
     else

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207222630) do
+ActiveRecord::Schema.define(version: 20170109215300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20161207222630) do
     t.text     "recording_id"
     t.datetime "recording_started_at"
     t.integer  "subscribers",          default: [],    null: false, array: true
+    t.datetime "spam_detected_at"
   end
 
   add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree

@@ -1,4 +1,6 @@
 class Article < ActiveRecord::Base
+  include Rakismet::Model
+
   self.table_name = "protips"
 
   include ViewCountCacheBuster
@@ -8,6 +10,9 @@ class Article < ActiveRecord::Base
   friendly_id :slug_format, :use => :slugged
   paginates_per 40
   html_schema_type :TechArticle
+  rakismet_attrs  author: proc { user.username },
+                  author_email: proc { user.email },
+                  content: proc { [title, body].join("\n") }
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_calculated_score!
