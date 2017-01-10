@@ -90,8 +90,8 @@ class ProtipsController < ApplicationController
   def update
     @protip = Protip.find_by_public_id!(params[:id])
     return head(:forbidden) unless current_user.can_edit?(@protip)
-
     @protip.update(protip_params)
+    add_spam_fields(@protip)
 
     if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
       flash[:notice] = "Let us know if you're human below :D"
@@ -117,6 +117,7 @@ class ProtipsController < ApplicationController
   def create
     @protip = Protip.new(protip_params)
     @protip.user = current_user
+    add_spam_fields(@protip)
 
     if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
       flash[:notice] = "Let us know if you're human below :D"
@@ -147,6 +148,14 @@ class ProtipsController < ApplicationController
   end
 
   protected
+
+  def add_spam_fields(article)
+    article.update(
+      user_agent: request.user_agent,
+      user_ip: remote_ip,
+      referrer: request.referer,
+    )
+  end
 
   def slugs_match?
     params[:slug] == @protip.slug
