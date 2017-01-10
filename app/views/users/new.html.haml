@@ -13,6 +13,7 @@
       = form.text_field :email, type: 'email', class: 'field block col-10 mb1'
       = form.label :password
       = form.password_field :password, class: 'field block col-10 mb1'
+      .g-recaptcha{"data-sitekey" => ENV['CAPTCHA_SITE_KEY']}
       %button.btn.mt1.rounded.bg-green.white{type: 'submit'} Sign Up
       .mt1.font-sm.diminish
         Creating an account means you’re okay with Coderwall's
@@ -20,3 +21,5 @@
     .clearfix.mt3
       Already have an account?
       .inline.bold= link_to "Sign In", sign_in_path
+
+<script src='https://www.google.com/recaptcha/api.js'></script>

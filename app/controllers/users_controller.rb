@@ -36,6 +36,12 @@ class UsersController < ApplicationController
   def create
     return head(:forbidden) if signed_in?
     @user = User.new(new_user_params)
+    if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
+      flash[:notice] = "Let us know if you're human below :D"
+      render action: :new
+      return
+    end
+
     if @user.save
       sign_in(@user)
       redirect_to finish_signup_url
@@ -124,6 +130,17 @@ class UsersController < ApplicationController
       last_modified: @user.updated_at.utc,
       public: true
     }
+  end
+
+  def captcha_valid_user?(response, remoteip)
+    resp = Faraday.post(
+      "https://www.google.com/recaptcha/api/siteverify",
+      secret: ENV['CAPTCHA_SECRET'],
+      response: response,
+      remoteip: remoteip
+    )
+    logger.info resp.body
+    JSON.parse(resp.body)['success']
   end
 
 end
