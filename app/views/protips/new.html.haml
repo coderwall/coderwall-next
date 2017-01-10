@@ -29,9 +29,13 @@
             Comma seperated (e.g. ruby, docker, machine learning)
           = form.text_field :editable_tags, type: 'text', class: 'field block col-12 mb3'
 
+          .g-recaptcha{"data-sitekey" => ENV['CAPTCHA_SITE_KEY']}
+
           %button.btn.rounded.mt1.bg-green.white{type: 'submit'} Save
 
         .clearfix.mt2
           =link_to 'Cancel', :back
 
     .md-col.md-col-1.md-show &nbsp;
+
+<script src='https://www.google.com/recaptcha/api.js'></script>

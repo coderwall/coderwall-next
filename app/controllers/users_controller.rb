@@ -132,15 +132,4 @@ class UsersController < ApplicationController
     }
   end
 
-  def captcha_valid_user?(response, remoteip)
-    resp = Faraday.post(
-      "https://www.google.com/recaptcha/api/siteverify",
-      secret: ENV['CAPTCHA_SECRET'],
-      response: response,
-      remoteip: remoteip
-    )
-    logger.info resp.body
-    JSON.parse(resp.body)['success']
-  end
-
 end

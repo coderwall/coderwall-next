@@ -77,4 +77,15 @@ class ApplicationController < ActionController::Base
   def remote_ip
     (request.env['HTTP_X_FORWARDED_FOR'] || request.remote_ip).split(",").first
   end
+
+  def captcha_valid_user?(response, remoteip)
+    resp = Faraday.post(
+      "https://www.google.com/recaptcha/api/siteverify",
+      secret: ENV['CAPTCHA_SECRET'],
+      response: response,
+      remoteip: remoteip
+    )
+    logger.info resp.body
+    JSON.parse(resp.body)['success']
+  end
 end

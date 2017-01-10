@@ -101,6 +101,13 @@ class ProtipsController < ApplicationController
   def create
     @protip = Protip.new(protip_params)
     @protip.user = current_user
+
+    if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
+      flash[:notice] = "Let us know if you're human below :D"
+      render action: 'new'
+      return
+    end
+
     if @protip.spam?
       logger.info "[SPAM] \"#{@protip.title}\""
       flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
