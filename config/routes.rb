@@ -96,6 +96,7 @@ Rails.application.routes.draw do
       get '/:id/:slug' => 'protips#show', as: :slug
     end
     get 'mute/:signature' => 'subscribers#mute', as: :mute
+    post '/mark_spam' => 'protips#mark_spam'
   end
 
   resources :streams, path: '/s', only: [:show] do

@@ -31,6 +31,11 @@
         - if signed_in? && current_user.can_edit?(@protip)
           .clearfix.mb2.mt2
             .right.mr1
+              - if admin?
+                .px2.inline
+                  = button_to protip_mark_spam_path(@protip), data: { confirm: "Mark as spam?" }, form_class: "diminish inline plain" do
+                    = icon('meh-o')
+
               = button_to seo_protip_path(@protip), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline plain" do
                 = icon('trash')
 

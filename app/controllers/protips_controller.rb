@@ -41,6 +41,14 @@ class ProtipsController < ApplicationController
     render action: 'index'
   end
 
+  def mark_spam
+    @protip = Protip.find_by_public_id!(params[:protip_id])
+    @protip.spam!
+    @protip.touch(:spam_detected_at)
+    flash[:notice] = "Marked as spam"
+    redirect_to slug_protips_url(id: @protip.public_id, slug: @protip.slug)
+  end
+
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
@@ -90,7 +98,7 @@ class ProtipsController < ApplicationController
   def update
     @protip = Protip.find_by_public_id!(params[:id])
     return head(:forbidden) unless current_user.can_edit?(@protip)
-    @protip.update(protip_params)
+    @protip.assign_attributes(protip_params)
     add_spam_fields(@protip)
 
     if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
@@ -150,7 +158,7 @@ class ProtipsController < ApplicationController
   protected
 
   def add_spam_fields(article)
-    article.update(
+    article.assign_attributes(
       user_agent: request.user_agent,
       user_ip: remote_ip,
       referrer: request.referer,
