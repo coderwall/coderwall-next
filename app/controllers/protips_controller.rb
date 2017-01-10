@@ -90,7 +90,23 @@ class ProtipsController < ApplicationController
   def update
     @protip = Protip.find_by_public_id!(params[:id])
     return head(:forbidden) unless current_user.can_edit?(@protip)
+
     @protip.update(protip_params)
+
+    if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
+      flash[:notice] = "Let us know if you're human below :D"
+      render action: 'new'
+      return
+    end
+
+    if @protip.spam?
+      logger.info "[SPAM] \"#{@protip.title}\""
+      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+      render action: 'new'
+      return
+    end
+    logger.info "[NOT-SPAM] \"#{@protip.title}\""
+
     if @protip.save
       redirect_to protip_url(@protip)
     else
@@ -114,6 +130,7 @@ class ProtipsController < ApplicationController
       render action: 'new'
       return
     end
+    logger.info "[NOT-SPAM] \"#{@protip.title}\""
 
     if @protip.save
       redirect_to protip_url(@protip)
