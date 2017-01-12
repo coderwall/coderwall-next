@@ -8,12 +8,16 @@ class ProtipsController < ApplicationController
   end
 
   def index
-    order_by = (params[:order_by] ||= 'score')
+    order_by = (params[:order_by] ||= :score)
     @protips = Protip.
       includes(:user).
       order({order_by => :desc}).
       where(flagged: false).
       page(params[:page])
+
+    if params[:order_by] == :score
+      @protips = @protips.where('likes_count > 2')
+    end
     if params[:topic]
       tags = Category::children(params[:topic].downcase)
       tags = params[:topic].downcase if tags.empty?
