@@ -50,7 +50,14 @@ class Article < ActiveRecord::Base
       title ILIKE '% loans %' OR
       title ILIKE '%Exchange Migration%' OR
       title ILIKE '%customer service%' OR
-      title ILIKE '%phone number%' OR
+      title ILIKE '% phone number %' OR
+      title ILIKE '% help number %' OR
+      title ILIKE '% support number %' OR
+      title ILIKE '% hotline number %' OR
+      title ILIKE '%customer support %' OR
+      title ILIKE '%TECHNICAL SUPPORT%' OR
+      title ILIKE '%facebook number%' OR
+      title ILIKE '%download% APK %' OR
       title ILIKE '% quickbooks %'
     "
     where(spammy)
