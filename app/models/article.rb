@@ -48,7 +48,10 @@ class Article < ActiveRecord::Base
       title ILIKE '% PST %' OR
       title ILIKE '%exchange mailbox%' OR
       title ILIKE '% loans %' OR
-      title ILIKE '%Exchange Migration%'
+      title ILIKE '%Exchange Migration%' OR
+      title ILIKE '%customer service%' OR
+      title ILIKE '%phone number%' OR
+      title ILIKE '% quickbooks %'
     "
     where(spammy)
   end
