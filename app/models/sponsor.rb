@@ -5,7 +5,7 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
   class << self
     def ads_for(ip)
       return [] unless ENV['BSA_IDENTIFIER'].present?
-      params = { ip: ip }
+      params = { forwardedip: ip }
       params.merge!( testMode: true, ignore: true ) if Rails.env.development?
       uri      = URI::HTTPS.build(host: HOST, path: PATH, query: params.to_query)
       response = Faraday.get(uri)
