@@ -16,6 +16,7 @@ public/uploads
 TODO
 info
 .DS_Store
+.byebug*
 coderwall-production.dump
 contributions.csv
 google.docs.config.json

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby "2.2.4"
+ruby "2.4.0"
 
 gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
@@ -31,13 +31,12 @@ gem 'postmark-rails'
 gem 'puma_worker_killer'
 gem 'puma'
 gem 'pusher'
-gem 'quiet_assets'
 gem 'rack-cors'
 gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
-gem 'rack-timeout'
+# gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
-gem 'rails', '~> 4.2.5'
+gem 'rails', '~> 5.0'
 gem 'rakismet'
 gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
@@ -54,6 +53,7 @@ gem 'reverse_markdown'
 # gem 'newrelic_rpm'
 
 group :development, :test do
+  gem 'byebug'
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
@@ -65,6 +65,7 @@ end
 
 group :test do
   gem 'factory_girl_rails'
+  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
   gem 'shoulda'
   gem 'timecop'
@@ -72,7 +73,7 @@ end
 
 group :development do
   gem 'spring'
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 end
 
 group :production do

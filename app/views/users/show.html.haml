@@ -4,8 +4,8 @@
 - meta description: @user.about
 - meta twitter: { creator: @user.twitter }           if @user.twitter
 - meta twitter: { creator: { id: @user.twitter_id} } if @user.twitter_id
-- meta twitter: { image: avatar_url(@user) }         if @user.avatar
-- meta og:      { image: avatar_url(@user) }         if @user.avatar
+- meta twitter: { image: avatar_url(@user) }         if @user.avatar?
+- meta og:      { image: avatar_url(@user) }         if @user.avatar?
 
 - cache_if show_protips?, ['v2', @user, current_user] do
   .container[@user]
@@ -17,8 +17,15 @@
               = button_to user_path(@user), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
                 = icon('trash')
               &middot;
-              .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
+              -if current_user.try(:admin?)
+                .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
+              -else
+                Deleting your account is permanent!
               &middot;
+            -elsif current_user == @user
+              .diminish.inline.ml1.mr1
+                = link_to delete_account_path do
+                  = icon('trash')
 
             .diminish.inline.ml1.mr1
               ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"

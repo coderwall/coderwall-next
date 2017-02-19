@@ -1,4 +1,4 @@
-class Job < ActiveRecord::Base
+class Job < ApplicationRecord
   CENTS_PER_MONTH = 29900
   COST            = CENTS_PER_MONTH/100
   FULLTIME        = 'Full Time'

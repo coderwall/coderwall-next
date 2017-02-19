@@ -1,4 +1,4 @@
-class JobSubscription < ActiveRecord::Base
+class JobSubscription < ApplicationRecord
   CENTS_PER_MONTH = (ENV['JOB_SUBSCRIPTION_CENTS'].try(:to_i))
 
   validates :jobs_url, presence: true

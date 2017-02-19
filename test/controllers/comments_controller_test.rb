@@ -5,12 +5,11 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "creating comment sends email update to author" do
     protip = create(:protip, user: create(:user, email: 'author@example.com'))
-    protip.run_callbacks(:commit)
     author = protip.user
     commentor = create(:user, email: 'commentor@example.com')
     sign_in_as commentor
 
-    post :create, comment: { body: 'Justice rains from above!', article_id: protip.id }
+    post :create, params: { comment: { body: 'Justice rains from above!', article_id: protip.id } }
 
     email = ActionMailer::Base.deliveries.last
 
@@ -22,10 +21,13 @@ class CommentsControllerTest < ActionController::TestCase
   test "creating comment won't send email if muted" do
     protip = create(:protip, user: create(:user, email: 'author@example.com'))
     author = protip.user
+    protip.unsubscribe!(author)
     commentor = create(:user, email: 'commentor@example.com')
     sign_in_as commentor
 
-    post :create, comment: { body: 'Justice rains from above!', article_id: protip.id }
+    post :create, params: {
+      comment: { body: 'Justice rains from above!', article_id: protip.id }
+    }
 
     email = ActionMailer::Base.deliveries.last
 
@@ -38,18 +40,18 @@ class CommentsControllerTest < ActionController::TestCase
     sign_in_as commentor
 
     assert_difference 'Comment.count', 1 do
-      post :create, comment: { body: 'first!', article_id: protip.id }
+      post :create, params: { comment: { body: 'first!', article_id: protip.id } }
     end
 
     Timecop.freeze(1.second.from_now) do
       assert_difference 'Comment.count', 0 do
-        post :create, comment: { body: 'second!', article_id: protip.id }
+        post :create, params: { comment: { body: 'second!', article_id: protip.id } }
       end
     end
 
     Timecop.freeze(1.hour.from_now) do
       assert_difference 'Comment.count', 1 do
-        post :create, comment: { body: 'second!', article_id: protip.id }
+        post :create, params: { comment: { body: 'second!', article_id: protip.id } }
       end
     end
   end

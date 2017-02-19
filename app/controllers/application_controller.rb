@@ -88,4 +88,10 @@ class ApplicationController < ActionController::Base
     logger.info resp.body
     JSON.parse(resp.body)['success']
   end
+
+  def seo_protip_path(protip)
+    slug_protips_path(id: protip.public_id, slug: protip.slug)
+  end
+  helper_method :seo_protip_path
+
 end

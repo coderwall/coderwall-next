@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -28,9 +27,8 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "provider"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_badges_on_user_id", using: :btree
   end
-
-  add_index "badges", ["user_id"], name: "index_badges_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "body"
@@ -39,12 +37,11 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.integer  "likes_count", default: 0
+    t.index ["article_id"], name: "index_comments_on_article_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
-  add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
-
-  create_table "job_subscriptions", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "job_subscriptions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.string   "jobs_url",           null: false
@@ -54,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "subscribed_at"
   end
 
-  create_table "jobs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+  create_table "jobs", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "role_type"
@@ -68,9 +65,8 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "author_email"
     t.datetime "expires_at"
     t.text     "stripe_charge"
+    t.index ["expires_at"], name: "index_jobs_on_expires_at", using: :btree
   end
-
-  add_index "jobs", ["expires_at"], name: "index_jobs_on_expires_at", using: :btree
 
   create_table "letsencrypt_plugin_challenges", force: :cascade do |t|
     t.text     "response"
@@ -90,19 +86,17 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "likable_type"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["user_id", "likable_type", "likable_id"], name: "index_likes_on_user_id_and_likable_type_and_likable_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
   end
-
-  add_index "likes", ["user_id", "likable_type", "likable_id"], name: "index_likes_on_user_id_and_likable_type_and_likable_id", unique: true, using: :btree
-  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
 
   create_table "pictures", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "file"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["user_id"], name: "index_pictures_on_user_id", using: :btree
   end
-
-  add_index "pictures", ["user_id"], name: "index_pictures_on_user_id", using: :btree
 
   create_table "protips", force: :cascade do |t|
     t.string   "public_id"
@@ -129,15 +123,14 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "user_ip"
     t.string   "user_agent"
     t.string   "referrer"
+    t.index ["created_at"], name: "index_protips_on_created_at", using: :btree
+    t.index ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
+    t.index ["score"], name: "index_protips_on_score", using: :btree
+    t.index ["tags"], name: "index_protips_on_tags", using: :gin
+    t.index ["type"], name: "index_protips_on_type", using: :btree
+    t.index ["user_id"], name: "index_protips_on_user_id", using: :btree
+    t.index ["views_count"], name: "index_protips_on_views_count", using: :btree
   end
-
-  add_index "protips", ["created_at"], name: "index_protips_on_created_at", using: :btree
-  add_index "protips", ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
-  add_index "protips", ["score"], name: "index_protips_on_score", using: :btree
-  add_index "protips", ["tags"], name: "index_protips_on_tags", using: :gin
-  add_index "protips", ["type"], name: "index_protips_on_type", using: :btree
-  add_index "protips", ["user_id"], name: "index_protips_on_user_id", using: :btree
-  add_index "protips", ["views_count"], name: "index_protips_on_views_count", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -198,16 +191,15 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.string   "partner_slack_username"
     t.string   "partner_email"
     t.integer  "partner_coins"
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["email_invalid_at"], name: "index_users_on_email_invalid_at", using: :btree
+    t.index ["marketing_list"], name: "index_users_on_marketing_list", using: :btree
+    t.index ["receive_newsletter"], name: "index_users_on_receive_newsletter", using: :btree
+    t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
+    t.index ["skills"], name: "index_users_on_skills", using: :gin
+    t.index ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
+    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["email_invalid_at"], name: "index_users_on_email_invalid_at", using: :btree
-  add_index "users", ["marketing_list"], name: "index_users_on_marketing_list", using: :btree
-  add_index "users", ["receive_newsletter"], name: "index_users_on_receive_newsletter", using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
-  add_index "users", ["skills"], name: "index_users_on_skills", using: :gin
-  add_index "users", ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
-  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "badges", "users", name: "badges_user_id_fk"
   add_foreign_key "comments", "protips", column: "article_id", name: "comments_protip_id_fk"

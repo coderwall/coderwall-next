@@ -21,7 +21,7 @@
             = form.label :avatar
             = form.hidden_field :avatar_cache
             .block.col-12.mb3.mt1
-              = image_tag(avatar_url(@user))
+              = image_tag(avatar_url(@user)) if @user.avatar?
               = form.file_field :avatar
             = form.label :color, 'Customize Your Color Hex (#A26FF9)'
             = form.text_field :color, type: 'text', class: 'field block col-12 mb3'

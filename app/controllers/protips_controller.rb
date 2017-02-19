@@ -112,12 +112,20 @@ class ProtipsController < ApplicationController
     end
 
     if @protip.spam?
-      logger.info "[SPAM] \"#{@protip.title}\""
+      logger.info "[AK-SPAM] \"#{@protip.title}\""
       flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
       render action: 'new'
       return
     end
-    logger.info "[NOT-SPAM] \"#{@protip.title}\""
+    logger.info "[AK-NOT-SPAM] \"#{@protip.title}\""
+
+    # if smyte_spam?
+    #   logger.info "[SMYTE-SPAM] \"#{@protip.title}\""
+    #   flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+    #   render action: 'new'
+    #   return
+    # end
+    # logger.info "[SMYTE-NOT-SPAM] \"#{@protip.title}\""
 
     if @protip.save
       redirect_to protip_url(@protip)
@@ -198,4 +206,8 @@ class ProtipsController < ApplicationController
       public: false
     }
   end
+
+  # def smyte_spam?
+  #   Smyte.spam?(request)
+  # end
 end

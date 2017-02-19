@@ -4,13 +4,13 @@ class ProtipsControllerTest < ActionController::TestCase
   test "show signed in" do
     protip = create(:protip)
     sign_in
-    get :show, id: protip.public_id, slug: protip.slug
+    get :show, params: { id: protip.public_id, slug: protip.slug }
     assert_response :success
   end
 
   test "show signed out" do
     protip = create(:protip)
-    get :show, id: protip.public_id, slug: protip.slug
+    get :show, params: { id: protip.public_id, slug: protip.slug }
     assert_response :success
   end
 end

@@ -1,4 +1,4 @@
-class BaseMailer < ActionMailer::Base
+class ApplicationMailer < ActionMailer::Base
   def prevent_delivery
     mail.perform_deliveries = false
   end

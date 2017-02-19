@@ -1,4 +1,4 @@
-class CommentMailer < BaseMailer
+class CommentMailer < ApplicationMailer
   def new_comment(to, comment)
     @to = to
     @comment = comment

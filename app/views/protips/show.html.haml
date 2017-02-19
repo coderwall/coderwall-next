@@ -5,8 +5,8 @@
 - meta author: profile_url(username: @protip.user.username)
 - meta twitter: { creator: @protip.user.twitter }           if @protip.user.twitter
 - meta twitter: { creator: { id: @protip.user.twitter_id} } if @protip.user.twitter_id
-- meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar
-- meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar
+- meta twitter: { image: avatar_url(@protip.user) }         if @protip.user.avatar?
+- meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar?
 
 .container[@protip]
   .hide= time_tag @protip.updated_at, itemprop: "dateModified"

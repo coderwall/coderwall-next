@@ -43,6 +43,7 @@
             .sm-hide Post
             .inline.sm-show Post Tip
           %a.no-hover.black.mr2{href: profile_path(username: current_user.username)}
-            .avatar{style: "background-color: #{current_user.color};"}=image_tag(avatar_url(current_user), alt: current_user.username)
+            .avatar{style: "background-color: #{current_user.color};"}
+              =image_tag(avatar_url(current_user), alt: current_user.username) if current_user.avatar?
         - else
           %a.btn.btn-primary.bg-purple.white.ml1{:href => sign_in_path} Sign In or Up
