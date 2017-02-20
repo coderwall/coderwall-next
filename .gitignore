@@ -23,6 +23,7 @@ google.docs.config.json
 lib/tasks/recruiters.rake
 
 node_modules
+npm-debug.log
 client/node_modules
 client/npm-debug.log
 /app/assets/javascripts/application.js
