@@ -13,7 +13,7 @@
             =comment.user.username
         .content.small[:text]= preserve(sanitize(CoderwallFlavoredMarkdown.render_to_html(comment.body)))
         - if style != :small
-          .diminish.mt1{class: hide_on_chat}
+          .diminish.mt1
             ==#{time_ago_in_words_with_ceiling(comment.created_at)} ago
             -if current_user_can_edit?(comment)
               &middot;

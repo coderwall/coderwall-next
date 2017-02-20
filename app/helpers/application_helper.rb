@@ -21,14 +21,6 @@ module ApplicationHelper
     return 'hide' if params[:controller] == 'users'
   end
 
-  def hide_on_chat
-    return 'hide' if params[:controller] == 'streams'
-  end
-
-  def hide_border_on_chat
-    return 'no-border-ever' if params[:controller] == 'streams'
-  end
-
   def hide_on_auth
     if params[:controller] == 'clearance/sessions'  ||
        params[:controller] == 'clearance/users'     ||
@@ -87,10 +79,5 @@ module ApplicationHelper
   def next_lunch_and_learn
     day = Stream.next_weekly_lunch_and_learn
     day.strftime("%A %B #{day.day.ordinalize}")
-  end
-
-  def livestream_tweet_message
-    attribution = @stream.user.twitter ? @stream.user.twitter : "coderwall"
-    CGI.escape "[LIVE] #{@stream.title} via @#{attribution}\n\n#{profile_stream_url(username: @stream.user.username)}"
   end
 end

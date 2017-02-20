@@ -11,7 +11,6 @@ class User < ApplicationRecord
   has_many :protips,   ->{ order(created_at: :desc) }, dependent: :destroy
   has_many :comments,  ->{ on_protips.order(created_at: :desc) }, dependent: :destroy
   has_many :badges,    ->{ order(created_at: :desc) }, dependent: :destroy
-  has_many :streams,   ->{ order(created_at: :desc) }, dependent: :destroy
 
   RESERVED = %w{
     achievements
@@ -94,14 +93,6 @@ class User < ApplicationRecord
     self.skills = val.split(/,|\r\n|\n/).collect(&:strip)
   end
 
-  def generate_stream_key
-    self.stream_key = "cw_#{Digest::SHA1.hexdigest([Time.now.to_i, rand].join)[0..12]}"
-  end
-
-  def stream_name
-    "#{username}?#{stream_key}"
-  end
-
   def ownership
     return 0 if partner_coins.to_i <= 0
     amount = ((partner_coins.to_f / User.sum(:partner_coins).to_f).to_f * 100).round(2)
@@ -109,17 +100,6 @@ class User < ApplicationRecord
       amount = ((partner_coins.to_f / User.sum(:partner_coins).to_f).to_f * 100).round(4)
     end
     amount
-  end
-
-  def stream_sources
-    [
-      { file: "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/jwplayer.smil"},
-      { file: "http://quickstream.io:1935/coderwall/ngrp:#{username}_all/playlist.m3u8"},
-    ]
-  end
-
-  def active_stream
-    streams.not_archived.order(created_at: :desc).first
   end
 
   def unsubscribe_signature

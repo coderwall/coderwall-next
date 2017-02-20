@@ -2,40 +2,6 @@
 
 .container.clearfix
   %h1 FAQ
-
-  .clearfix.sm-col.sm-col-10
-    %h3= link_to 'What are recommended settings to livestream on Coderwall?', '#recommend-settings'
-    %p#recommend-settings
-      If you are using
-      %a{href: 'https://obsproject.com'} OBS
-      then we recommend the follow settings.
-      %br
-      %br
-      %strong Output
-      %br
-      Output Mode: Advanced
-      %br
-      Streaming Bitrate: 1500
-      %br
-      Keyframe Interval: 5
-      %br
-      Profile: High
-      %br
-      Audio Bitrate: 64
-      %br
-      %br
-      %strong Video
-      %br
-      Base (Canvas) Resolution:
-      %span#base-resolution.strong
-      %em.ml2 using your screen resolution
-      %br
-      Output (Scaled) Resolution:
-      %span#calc-resolution.strong
-      %em.ml2 calculated using your screen resolution
-      %br
-      Integer FPS (15-30 to adjust contrast, recommended): 30
-
     %h3.mt3= link_to 'How do I delete my account?', '#', 'name' => 'deleteaccount'
     %p
       You must be logged in to delete your account.

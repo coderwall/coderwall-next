@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170110195008) do
+ActiveRecord::Schema.define(version: 20170220093535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,7 +185,6 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.datetime "banned_at"
     t.text     "marketing_list"
     t.datetime "email_invalid_at"
-    t.text     "stream_key"
     t.datetime "partner_last_contribution_at"
     t.string   "partner_asm_username"
     t.string   "partner_slack_username"
@@ -197,7 +196,6 @@ ActiveRecord::Schema.define(version: 20170110195008) do
     t.index ["receive_newsletter"], name: "index_users_on_receive_newsletter", using: :btree
     t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
     t.index ["skills"], name: "index_users_on_skills", using: :gin
-    t.index ["stream_key"], name: "index_users_on_stream_key", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
