@@ -9,7 +9,8 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
       params.merge!( testMode: true, ignore: true ) if Rails.env.development?
       uri      = URI::HTTPS.build(host: HOST, path: PATH, query: params.to_query)
       response = Faraday.get(uri)
-      results  = JSON.parse(response.body)
+      results  = JSON.parse(response.body) rescue nil
+      return [] if results.nil?
       results['ads'].select{|a| a['creativeid'] }.collect{ |data| build_sponsor(data) }
     end
 
