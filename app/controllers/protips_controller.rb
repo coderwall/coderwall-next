@@ -111,21 +111,7 @@ class ProtipsController < ApplicationController
       return
     end
 
-    if @protip.spam?
-      logger.info "[AK-SPAM] \"#{@protip.title}\""
-      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
-      render action: 'new'
-      return
-    end
-    logger.info "[AK-NOT-SPAM] \"#{@protip.title}\""
-
-    # if smyte_spam?
-    #   logger.info "[SMYTE-SPAM] \"#{@protip.title}\""
-    #   flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
-    #   render action: 'new'
-    #   return
-    # end
-    # logger.info "[SMYTE-NOT-SPAM] \"#{@protip.title}\""
+    return if spam?
 
     if @protip.save
       redirect_to protip_url(@protip)
@@ -145,13 +131,7 @@ class ProtipsController < ApplicationController
       return
     end
 
-    if @protip.spam?
-      logger.info "[SPAM] \"#{@protip.title}\""
-      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
-      render action: 'new'
-      return
-    end
-    logger.info "[NOT-SPAM] \"#{@protip.title}\""
+    return if spam?
 
     if @protip.save
       redirect_to protip_url(@protip)
@@ -207,7 +187,36 @@ class ProtipsController < ApplicationController
     }
   end
 
-  # def smyte_spam?
-  #   Smyte.spam?(request)
-  # end
+  def spam?
+    if @protip.spam?
+      logger.info "[AK-SPAM] \"#{@protip.title}\""
+      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+      render action: 'new'
+      return true
+    end
+    logger.info "[AK-NOT-SPAM] \"#{@protip.title}\""
+
+    if smyte_spam?
+      logger.info "[SMYTE-SPAM] \"#{@protip.title}\""
+      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+      render action: 'new'
+      return true
+    end
+    logger.info "[SMYTE-NOT-SPAM] \"#{@protip.title}\""
+
+    false
+  end
+
+  def smyte_spam?
+    return false if ENV['SMYTE_URL'].nil?
+    data = {
+      actor: @protip.attributes,
+      protip: @protip.attributes.except("spam_detected_at", "flagged")
+    }
+    Smyte.new.spam?(
+      'post_protip',
+      data,
+      request
+    )
+  end
 end
