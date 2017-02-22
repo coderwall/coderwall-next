@@ -1,4 +1,4 @@
-Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_url) do
+Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_urls) do
   HOST = "srv.buysellads.com"
   PATH = "/ads/#{ENV['BSA_IDENTIFIER']}.json"
 
@@ -22,7 +22,7 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
         data['description'],
         data['statlink'],
         data['image'],
-        data['pixel']
+        (data['pixel'] || '').split('||')
       )
     end
   end

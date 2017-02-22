@@ -21,8 +21,15 @@ const Sponsor = (sponsor) => (
           <div className="blue bold">{sponsor.title}</div>
           <div className="font-sm black mt-third">
             {sponsor.text}
-            {sponsor.pixel_url &&
-              <img src={sponsor.pixel_url} width={1} height={1} role="presentation" />}
+            {sponsor.pixel_urls.map(url =>
+              <img
+                key={url}
+                src={url.replace('[timestamp]', Math.round(Date.now() / 10000) | 0)}
+                style={{ display: 'none' }}
+                width={1}
+                height={1}
+                role="presentation" />
+            )}
           </div>
         </div>
       </a>
