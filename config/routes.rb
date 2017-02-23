@@ -104,4 +104,6 @@ Rails.application.routes.draw do
       post 'postmark' => 'postmark#webhook'
     end
   end
+
+  match '*any', to: 'pages#show', page: 'not_found', via: [:get, :post] if Rails.env.production?
 end
