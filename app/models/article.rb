@@ -1,6 +1,4 @@
 class Article < ApplicationRecord
-  include Rakismet::Model
-
   self.table_name = "protips"
 
   include ViewCountCacheBuster
@@ -10,9 +8,6 @@ class Article < ApplicationRecord
   friendly_id :slug_format, :use => :slugged
   paginates_per 40
   html_schema_type :TechArticle
-  rakismet_attrs  author: proc { user.username },
-                  author_email: proc { user.email },
-                  content: proc { [title, body].join("\n") }
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_calculated_score!
@@ -42,25 +37,15 @@ class Article < ApplicationRecord
     self.public_id
   end
 
+  def self.spammy
+    ENV.fetch('SPAM_TITLES', '').split('||')
+  end
+
   def self.spam
-    spammy = "
-      title ILIKE '% OST %' OR
-      title ILIKE '% PST %' OR
-      title ILIKE '%exchange mailbox%' OR
-      title ILIKE '% loans %' OR
-      title ILIKE '%Exchange Migration%' OR
-      title ILIKE '%customer service%' OR
-      title ILIKE '% phone number %' OR
-      title ILIKE '% help number %' OR
-      title ILIKE '% support number %' OR
-      title ILIKE '% hotline number %' OR
-      title ILIKE '%customer support %' OR
-      title ILIKE '%TECHNICAL SUPPORT%' OR
-      title ILIKE '%facebook number%' OR
-      title ILIKE '%download% APK %' OR
-      title ILIKE '% quickbooks %'
-    "
-    where(spammy)
+    clauses = spammy.map do |clause|
+      "title ILIKE '%#{clause}%''"
+    end
+    where(clauses.join(' OR '))
   end
 
   def display_date
@@ -166,5 +151,9 @@ class Article < ApplicationRecord
       "subscribers = array(select i from unnest(subscribers) t(i) where i <> #{ActiveRecord::Base.connection.quote(user.id)})"
     )
     reload
+  end
+
+  def looks_spammy?
+    Article.spammy.any?{|key| title.include?(key) }
   end
 end

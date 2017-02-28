@@ -188,21 +188,22 @@ class ProtipsController < ApplicationController
   end
 
   def spam?
-    if @protip.spam?
-      logger.info "[AK-SPAM] \"#{@protip.title}\""
-      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
-      render action: 'new'
-      return true
-    end
-    logger.info "[AK-NOT-SPAM] \"#{@protip.title}\""
-
+    notice = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
     if smyte_spam?
-      logger.info "[SMYTE-SPAM] \"#{@protip.title}\""
-      flash[:notice] = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+      logger.info "[SMYTE-SPAM BLOCK] \"#{@protip.title}\""
+      flash.now[:notice] = notice
       render action: 'new'
       return true
     end
-    logger.info "[SMYTE-NOT-SPAM] \"#{@protip.title}\""
+    logger.info "[SMYTE-SPAM ALLOW] \"#{@protip.title}\""
+
+    if @protip.looks_spammy?
+      logger.info "[CW-SPAM BLOCK] \"#{@protip.title}\""
+      flash.now[:notice] = notice
+      render action: 'new'
+      return true
+    end
+    logger.info "[CW-SPAM ALLOW] \"#{@protip.title}\""
 
     false
   end
