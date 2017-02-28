@@ -4,7 +4,7 @@ module RenderingExtension
   def self.custom_context(view_context)
     {
       pusherKey: Pusher.key,
-      user: view_context.current_user,
+      user: UserSerializer.new(view_context.current_user, root: false).as_json,
     }
   end
 end

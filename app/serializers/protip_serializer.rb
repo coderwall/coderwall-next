@@ -11,8 +11,7 @@ class ProtipSerializer < ActiveModel::Serializer
              :subscribed,
              :tags,
              :title,
-             :upvotes,
-             :user
+             :upvotes
 
   protected
   def title
