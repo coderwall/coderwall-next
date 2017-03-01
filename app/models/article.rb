@@ -43,7 +43,7 @@ class Article < ApplicationRecord
 
   def self.spam
     clauses = spammy.map do |clause|
-      "title ILIKE '%#{clause}%''"
+      "title ~* '#{clause}''"
     end
     where(clauses.join(' OR '))
   end
@@ -154,6 +154,6 @@ class Article < ApplicationRecord
   end
 
   def looks_spammy?
-    Article.spammy.any?{|key| title.include?(key) }
+    Article.spammy.any?{|key| title =~ /#{key}/i }
   end
 end
