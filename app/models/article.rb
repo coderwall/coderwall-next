@@ -37,8 +37,20 @@ class Article < ApplicationRecord
     self.public_id
   end
 
-  def self.spammy
-    ENV.fetch('SPAM_TITLES', '').split('||')
+  def self.regexes(env)
+    ENV.fetch(env, '').split('||').map{|key| /#{key}/i }
+  end
+
+  def self.spam_titles
+    regexes('SPAM_TITLES')
+  end
+
+  def self.spam_tags
+    regexes('SPAM_TAGS')
+  end
+
+  def self.spam_body
+    regexes('SPAM_BODY')
   end
 
   def self.spam
@@ -154,6 +166,9 @@ class Article < ApplicationRecord
   end
 
   def looks_spammy?
-    Article.spammy.any?{|key| title =~ /#{key}/i }
+    return true if Article.spam_titles.any?{|r| title =~ r }
+    return true if Article.spam_tags.any?{|r| tags.join(' ') =~ r }
+    return true if Article.spam_body.any?{|r| body =~ r }
+    false
   end
 end

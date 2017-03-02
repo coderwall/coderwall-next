@@ -105,7 +105,7 @@ class ProtipsController < ApplicationController
     add_spam_fields(@protip)
 
     if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
-      flash[:notice] = "Let us know if you're human below :D"
+      flash.now[:notice] = "Let us know if you're human below :D"
       render action: 'new'
       return
     end
@@ -125,7 +125,7 @@ class ProtipsController < ApplicationController
     add_spam_fields(@protip)
 
     if !captcha_valid_user?(params["g-recaptcha-response"], remote_ip)
-      flash[:notice] = "Let us know if you're human below :D"
+      flash.now[:notice] = "Let us know if you're human below :D"
       render action: 'new'
       return
     end
