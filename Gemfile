@@ -36,7 +36,7 @@ gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
 # gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
-gem 'rails', '~> 5.0'
+gem 'rails', '~> 5.0.2'
 gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'sass-rails', '~> 5.0'

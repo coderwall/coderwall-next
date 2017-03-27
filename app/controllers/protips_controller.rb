@@ -210,8 +210,8 @@ class ProtipsController < ApplicationController
   def smyte_spam?
     return false if ENV['SMYTE_URL'].nil?
     data = {
-      actor: @protip.attributes,
-      protip: @protip.attributes.except("spam_detected_at", "flagged")
+      actor: serialize(current_user),
+      protip: serialize(@protip).except("spam_detected_at", "flagged")
     }
     Smyte.new.spam?(
       'post_protip',

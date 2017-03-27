@@ -13,4 +13,10 @@ class ProtipsControllerTest < ActionController::TestCase
     get :show, params: { id: protip.public_id, slug: protip.slug }
     assert_response :success
   end
+
+  test "create protip" do
+    sign_in
+    post :create, params: { protip: {editable_tags: %w[socker duby], body: 'Hey there', title: 'First!'} }
+    assert_response :success
+  end
 end
