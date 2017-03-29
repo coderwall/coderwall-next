@@ -269,7 +269,7 @@ namespace :db do
         legacy_impressions_key = "protip:#{protip.public_id}:impressions"
         protip.views_count = LegacyRedis.get(legacy_impressions_key).to_i
 
-        protip.flagged = row[:inappropriate].to_i > 0
+        protip.bad_content = row[:inappropriate].to_i > 0
 
         if protip.user.blank? || !protip.save
           not_ported << protip

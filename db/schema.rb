@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220093535) do
+ActiveRecord::Schema.define(version: 20170328232725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,10 +34,12 @@ ActiveRecord::Schema.define(version: 20170220093535) do
     t.text     "body"
     t.integer  "article_id"
     t.integer  "user_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "likes_count", default: 0
+    t.boolean  "bad_content", default: false, null: false
     t.index ["article_id"], name: "index_comments_on_article_id", using: :btree
+    t.index ["bad_content"], name: "index_comments_on_bad_content", using: :btree
     t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
 
@@ -111,7 +113,7 @@ ActiveRecord::Schema.define(version: 20170220093535) do
     t.string   "tags",                 default: [],                 array: true
     t.integer  "likes_count",          default: 0
     t.integer  "views_count",          default: 0
-    t.boolean  "flagged",              default: false
+    t.boolean  "bad_content",          default: false
     t.text     "type",                                 null: false
     t.datetime "published_at"
     t.datetime "archived_at"
@@ -123,6 +125,7 @@ ActiveRecord::Schema.define(version: 20170220093535) do
     t.string   "user_ip"
     t.string   "user_agent"
     t.string   "referrer"
+    t.index ["bad_content"], name: "index_protips_on_bad_content", using: :btree
     t.index ["created_at"], name: "index_protips_on_created_at", using: :btree
     t.index ["public_id"], name: "index_protips_on_public_id", unique: true, using: :btree
     t.index ["score"], name: "index_protips_on_score", using: :btree
@@ -190,6 +193,8 @@ ActiveRecord::Schema.define(version: 20170220093535) do
     t.string   "partner_slack_username"
     t.string   "partner_email"
     t.integer  "partner_coins"
+    t.boolean  "bad_user",                                 default: false,  null: false
+    t.index ["bad_user"], name: "index_users_on_bad_user", using: :btree
     t.index ["email"], name: "index_users_on_email", using: :btree
     t.index ["email_invalid_at"], name: "index_users_on_email_invalid_at", using: :btree
     t.index ["marketing_list"], name: "index_users_on_marketing_list", using: :btree

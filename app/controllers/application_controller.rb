@@ -79,6 +79,7 @@ class ApplicationController < ActionController::Base
   end
 
   def captcha_valid_user?(response, remoteip)
+    return true if !ENV['CAPTCHA_SECRET']
     resp = Faraday.post(
       "https://www.google.com/recaptcha/api/siteverify",
       secret: ENV['CAPTCHA_SECRET'],

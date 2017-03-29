@@ -91,7 +91,7 @@ class Article < ApplicationRecord
   end
 
   def cacluate_score
-    return 0 if flagged?
+    return 0 if bad_content?
     half_life      = 2.days.to_i
     # gravity        = 1.8 #used to look at upvote_velocity(1.week.ago)
     views_score    = views_count / 100.0

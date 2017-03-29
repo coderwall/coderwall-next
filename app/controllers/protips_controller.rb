@@ -12,7 +12,6 @@ class ProtipsController < ApplicationController
     @protips = Protip.
       includes(:user).
       order({order_by => :desc}).
-      where(flagged: false).
       page(params[:page])
 
     if params[:order_by] == :score
@@ -47,7 +46,7 @@ class ProtipsController < ApplicationController
 
   def mark_spam
     @protip = Protip.find_by_public_id!(params[:protip_id])
-    @protip.update!(spam_detected_at: Time.now, flagged: true)
+    @protip.update!(spam_detected_at: Time.now, bad_content: true)
     flash[:notice] = "Marked as spam"
     redirect_to slug_protips_url(id: @protip.public_id, slug: @protip.slug)
   end
@@ -210,8 +209,8 @@ class ProtipsController < ApplicationController
   def smyte_spam?
     return false if ENV['SMYTE_URL'].nil?
     data = {
-      actor: serialize(current_user),
-      protip: serialize(@protip).except("spam_detected_at", "flagged")
+      actor: serialize(current_user, CurrentUserSerializer),
+      protip: serialize(@protip).except("spam_detected_at", "bad_content")
     }
     Smyte.new.spam?(
       'post_protip',

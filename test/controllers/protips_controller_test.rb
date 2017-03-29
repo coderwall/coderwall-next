@@ -19,4 +19,10 @@ class ProtipsControllerTest < ActionController::TestCase
     post :create, params: { protip: {editable_tags: %w[socker duby], body: 'Hey there', title: 'First!'} }
     assert_response :success
   end
+
+  test "don't show bad content to signed out users" do
+    create(:protip, bad_content: true)
+    get :index
+    assert_response :success
+  end
 end

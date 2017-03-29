@@ -51,7 +51,7 @@ namespace :db do
 
       if protip = Protip.find_by_public_id(clash_of_clans_spam = '3tzscq')
         spammers = spammers + protip.comments.collect(&:user)
-        protip.update_column(:flagged, true)
+        protip.update_column(:bad_content, true)
       end
 
       spammers.uniq!
