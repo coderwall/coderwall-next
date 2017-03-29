@@ -48,6 +48,7 @@ class ProtipsController < ApplicationController
   def mark_spam
     @protip = Protip.find_by_public_id!(params[:protip_id])
     @protip.user.bad_user!
+    Rails.cache.clear # TODO: This is a little excessive 
     flash[:notice] = "Marked as spam"
     redirect_to slug_protips_url(id: @protip.public_id, slug: @protip.slug)
   end
