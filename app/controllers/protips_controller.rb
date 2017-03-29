@@ -11,6 +11,7 @@ class ProtipsController < ApplicationController
     order_by = (params[:order_by] ||= :score)
     @protips = Protip.
       includes(:user).
+      visible_to(current_user).
       order({order_by => :desc}).
       page(params[:page])
 
@@ -46,7 +47,7 @@ class ProtipsController < ApplicationController
 
   def mark_spam
     @protip = Protip.find_by_public_id!(params[:protip_id])
-    @protip.update!(spam_detected_at: Time.now, bad_content: true)
+    @protip.user.bad_user!
     flash[:notice] = "Marked as spam"
     redirect_to slug_protips_url(id: @protip.public_id, slug: @protip.slug)
   end
@@ -109,7 +110,10 @@ class ProtipsController < ApplicationController
       return
     end
 
-    return if spam?
+    if spam?
+      @protip.bad_content = true
+      current_user.update!(bad_user: true)
+    end
 
     if @protip.save
       redirect_to protip_url(@protip)
@@ -129,7 +133,10 @@ class ProtipsController < ApplicationController
       return
     end
 
-    return if spam?
+    if spam?
+      @protip.bad_content = true
+      current_user.update!(bad_user: true)
+    end
 
     if @protip.save
       redirect_to protip_url(@protip)
@@ -186,24 +193,22 @@ class ProtipsController < ApplicationController
   end
 
   def spam?
-    notice = "Oh no! This post looks like spam. Please edit it or contact support@coderwall.com if you think we got it wrong"
+    is_spam = false
     if smyte_spam?
+      is_spam = true
       logger.info "[SMYTE-SPAM BLOCK] \"#{@protip.title}\""
-      flash.now[:notice] = notice
-      render action: 'new'
-      return true
+    else
+      logger.info "[SMYTE-SPAM ALLOW] \"#{@protip.title}\""
     end
-    logger.info "[SMYTE-SPAM ALLOW] \"#{@protip.title}\""
 
     if @protip.looks_spammy?
+      is_spam = true
       logger.info "[CW-SPAM BLOCK] \"#{@protip.title}\""
-      flash.now[:notice] = notice
-      render action: 'new'
-      return true
+    else
+      logger.info "[CW-SPAM ALLOW] \"#{@protip.title}\""
     end
-    logger.info "[CW-SPAM ALLOW] \"#{@protip.title}\""
 
-    false
+    is_spam
   end
 
   def smyte_spam?

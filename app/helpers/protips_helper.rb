@@ -85,18 +85,20 @@ module ProtipsHelper
   end
 
   def recently_viewed_protips
+    protips = Protip.visible_to(current_user).recently_most_viewed
     if params[:topic]
-      Protip.recently_most_viewed.with_any_tagged(topic_tags)
+      protips.with_any_tagged(topic_tags)
     else
-      Protip.recently_most_viewed
+      protips
     end
   end
 
   def recently_created_protips
+    protips = Protip.visible_to(current_user).recently_created
     if params[:topic]
-      Protip.recently_created.with_any_tagged(topic_tags)
+      protips.with_any_tagged(topic_tags)
     else
-      Protip.recently_created
+      protips
     end
   end
 

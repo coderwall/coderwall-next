@@ -24,14 +24,15 @@ class Article < ApplicationRecord
   validates :tags, presence: true
   validates :slug, presence: true
 
-  scope :with_any_tagged, ->(tags){ where("tags && ARRAY[?]::varchar[]", tags) }
-  scope :with_all_tagged, ->(tags){ where("tags @> ARRAY[?]::varchar[]", tags) }
-  scope :without_any_tagged, ->(tags){ where.not("tags && ARRAY[?]::varchar[]", tags) }
-  scope :without_all_tagged, ->(tags){ where.not("tags @> ARRAY[?]::varchar[]", tags) }
+  scope :all_time_popular, -> {where(public_id: %w{ewk0mq kvzbpa vsdrug os6woq w7npmq _kakfa})}
   scope :random, ->(count=1) { order("RANDOM()").limit(count) }
   scope :recently_created, ->(count=5) { order(created_at: :desc).limit(count)}
   scope :recently_most_viewed, ->(count=5) { order(views_count: :desc).limit(count)}
-  scope :all_time_popular, -> {where(public_id: %w{ewk0mq kvzbpa vsdrug os6woq w7npmq _kakfa})}
+  scope :visible_to, ->(user) { where(bad_content: false) unless user.try(:bad_user) }
+  scope :with_all_tagged, ->(tags){ where("tags @> ARRAY[?]::varchar[]", tags) }
+  scope :with_any_tagged, ->(tags){ where("tags && ARRAY[?]::varchar[]", tags) }
+  scope :without_all_tagged, ->(tags){ where.not("tags @> ARRAY[?]::varchar[]", tags) }
+  scope :without_any_tagged, ->(tags){ where.not("tags && ARRAY[?]::varchar[]", tags) }
 
   def to_param
     self.public_id

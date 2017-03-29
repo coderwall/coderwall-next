@@ -68,6 +68,17 @@ class User < ApplicationRecord
     ((Time.now - created_at) / 60 / 60 / 24 ).floor
   end
 
+  def bad_user!
+    Protip.where(user: self).update_all(
+      spam_detected_at: Time.now,
+      bad_content: true
+    )
+    Comment.where(user: self).update_all(
+      bad_content: true
+    )
+    update!(bad_user: true)
+  end
+
   def display_name
     name.presence || username
   end
