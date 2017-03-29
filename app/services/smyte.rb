@@ -17,12 +17,19 @@ class Smyte
       }
     }.to_json
 
-    resp = Excon.post(ENV.fetch('SMYTE_URL'),
-      headers: {
-        'Content-Type' => 'application/json'
-      },
-      body: payload
-    )
+    resp = begin
+      Excon.post(ENV.fetch('SMYTE_URL'),
+        headers: {
+          'Content-Type' => 'application/json'
+        },
+        body: payload,
+        idempotent: true,
+        retry_limit: 3
+      )
+    rescue
+      Rails.logger.info "[SMYTE] service unresponsive"
+      return false
+    end
 
     Rails.logger.info "[SMYTE] #{resp.body}"
     result = JSON.parse(resp.body) rescue nil
