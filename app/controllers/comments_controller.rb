@@ -5,16 +5,16 @@ class CommentsController < ApplicationController
   end
 
   def index
+    @comments = Comment.visible_to(current_user).order(created_at: :desc)
     respond_to do |format|
       format.html {
         # TODO: do we need this check?
         return head(:forbidden) unless admin?
-        @comments = Comment.on_protips.order(created_at: :desc).page(params[:page])
+        @comments = @comments.on_protips.page(params[:page])
       }
       format.json {
-        @comments = Comment.
+        @comments = @comments.
           where(article_id: params[:article_id]).
-          order(created_at: :desc).
           limit(10)
 
         @comments = @comments.where('created_at < ?', Time.at(params[:before].to_i)) unless params[:before].blank?

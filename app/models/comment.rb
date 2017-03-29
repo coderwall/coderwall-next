@@ -13,8 +13,9 @@ class Comment < ApplicationRecord
 
   validates :body,   length: { minimum: 2 }
 
-  scope :recently_created, ->(count=10) { order(created_at: :desc).limit(count)}
   scope :on_protips, -> { joins(:article).where(protips: {type: 'Protip'}) }
+  scope :visible_to, ->(user) { where(bad_content: false) unless user.try(:bad_user) }
+  scope :recently_created, ->(count=10) { order(created_at: :desc).limit(count)}
 
   def auto_like_article_for_author
     article.likes.create(user: user) unless user.likes?(article)

@@ -93,13 +93,13 @@
                 .clearfix.mt2
                   %button.rounded.border.border--silver.px2.py1.green.bg-white.bold{type: 'submit'} Respond
 
-          -if @protip.comments.present?
+          -if @comments.present?
             .clearfix.mt3.px2
               %h4
-                =pluralize(@protip.comments.size, 'Response')
+                =pluralize(@comments.size, 'Response')
                 .right.hide
                   .btn.btn-small.green Add your response
-              =render @protip.comments
+              =render @comments
 
     .sm-col.sm-col.sm-col-12.md-col-4
       -if @protip.related_topics.present?

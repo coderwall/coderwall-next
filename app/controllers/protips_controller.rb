@@ -48,7 +48,7 @@ class ProtipsController < ApplicationController
   def mark_spam
     @protip = Protip.find_by_public_id!(params[:protip_id])
     @protip.user.bad_user!
-    Rails.cache.clear # TODO: This is a little excessive 
+    Rails.cache.clear # TODO: This is a little excessive
     flash[:notice] = "Marked as spam"
     redirect_to slug_protips_url(id: @protip.public_id, slug: @protip.slug)
   end
@@ -56,10 +56,11 @@ class ProtipsController < ApplicationController
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
     @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
+    @comments = @protip.comments.visible_to(current_user)
 
     data = {
       currentProtip: { item: serialize(@protip) },
-      comments: { items: serialize(@protip.comments) }
+      comments: { items: serialize(@comments) }
     }
     if current_user
       hearted_protips = current_user.likes.
@@ -68,7 +69,7 @@ class ProtipsController < ApplicationController
         map{|id| dom_id(Protip, id) }
 
       hearted_comments = current_user.likes.where(
-        likable_id: @protip.comments.map(&:id)
+        likable_id: @comments.map(&:id)
       ).pluck(:likable_id).map{|id| dom_id(Comment, id) }
 
       data[:hearts] = {
