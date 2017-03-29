@@ -1,4 +1,4 @@
-ENV.clear # does rails test automatically pull in .env now??
+ENV.delete('CAPTCHA_SECRET') # does rails test automatically pull in .env now??
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
