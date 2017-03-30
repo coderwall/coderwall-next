@@ -55,7 +55,7 @@ class ProtipsController < ApplicationController
 
   def show
     return (@protip = Protip.random.first) if params[:id] == 'random'
-    @protip = Protip.includes(:comments).find_by_public_id!(params[:id])
+    @protip = Protip.includes(:comments).visible_to(current_user).find_by_public_id!(params[:id])
     @comments = @protip.comments.visible_to(current_user)
 
     data = {
