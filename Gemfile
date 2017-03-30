@@ -56,7 +56,6 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
-  gem 'google_drive'
   gem 'letter_opener'
   gem 'rubocop', require: false
   gem 'traceroute'
