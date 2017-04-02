@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resource :session,    controller: "clearance/sessions",  only: [:create]
 
   resources :users do
+    get '/new', on: :collection, to: redirect('/signup')
     member do
       get '/endorsements' => 'users#show' #legacy url
       resources :likes, only: :index
