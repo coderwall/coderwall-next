@@ -9,9 +9,11 @@ The codebase for [coderwall.com](https://coderwall.com). Coderwall is a develope
 * Heroku Toolbelt (or foreman gem)
 
 
-## Getting Started
+## Get Started
+```bash
+cp .env.sample .env  # (most settings are not required for core functionality)
+bundle install
+rake db:create db:migrate
+heroku local
+```
 
-* cp .env.sample .env (most settings are not required for core functionality)
-* bundle install
-* rake db:create db:migrate
-* heroku local
