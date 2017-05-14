@@ -36,7 +36,7 @@
                   = button_to protip_mark_spam_path(@protip), title: 'Mark as spam', data: { confirm: "Mark as spam?" }, form_class: "diminish inline plain" do
                     = icon('meh-o')
 
-              = button_to seo_protip_path(@protip), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline plain" do
+              = button_to protip_path(@protip), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline plain" do
                 = icon('trash')
 
               %a.ml1.btn.rounded.bg-green.white{href: edit_protip_path(@protip)}
