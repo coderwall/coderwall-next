@@ -81,6 +81,10 @@ test:
 #
 production:
   <<: *default
+  connect_timeout: 1
+  checkout_timeout: 1
   database: coderwall-next_production
   username: coderwall-next
   password: <%= ENV['CODERWALL-NEXT_DATABASE_PASSWORD'] %>
+  variables:
+    statement_timeout: 500 # ms

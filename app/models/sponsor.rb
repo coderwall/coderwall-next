@@ -8,8 +8,21 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
       params = { forwardedip: ip }
       params.merge!( testMode: true, ignore: true ) if Rails.env.development?
       uri      = URI::HTTPS.build(host: HOST, path: PATH, query: params.to_query)
-      response = Faraday.get(uri)
-      results  = JSON.parse(response.body) rescue nil
+
+      results = begin
+        start = Time.now
+        response = Faraday.new(url: uri).get do |req|
+          req.options.timeout = 2           # open/read timeout in seconds
+          req.options.open_timeout = 1      # connection open timeout in seconds
+        end
+        logger.info "sponsor=success seconds=#{"%.2f" % (Time.now - start)}"
+
+        JSON.parse(response.body) rescue nil
+      rescue Faraday::TimeoutError
+        logger.info "sponsor=timeout seconds=#{"%.2f" % (Time.now - start)}"
+        nil
+      end
+
       return [] if results.nil?
       results['ads'].select{|a| a['creativeid'] }.collect{ |data| build_sponsor(data) }
     end
