@@ -18,8 +18,8 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
         Rails.logger.info "sponsor=success seconds=#{"%.2f" % (Time.now - start)}"
 
         JSON.parse(response.body) rescue nil
-      rescue Faraday::TimeoutError
-        Rails.logger.info "sponsor=timeout seconds=#{"%.2f" % (Time.now - start)}"
+      rescue Faraday::TimeoutError, Net::OpenTimeout => e
+        Rails.logger.info "sponsor=timeout seconds=#{"%.2f" % (Time.now - start)} type=#{e}"
         nil
       end
 
