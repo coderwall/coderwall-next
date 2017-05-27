@@ -15,11 +15,11 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
           req.options.timeout = 2           # open/read timeout in seconds
           req.options.open_timeout = 1      # connection open timeout in seconds
         end
-        logger.info "sponsor=success seconds=#{"%.2f" % (Time.now - start)}"
+        Rails.logger.info "sponsor=success seconds=#{"%.2f" % (Time.now - start)}"
 
         JSON.parse(response.body) rescue nil
       rescue Faraday::TimeoutError
-        logger.info "sponsor=timeout seconds=#{"%.2f" % (Time.now - start)}"
+        Rails.logger.info "sponsor=timeout seconds=#{"%.2f" % (Time.now - start)}"
         nil
       end
 
