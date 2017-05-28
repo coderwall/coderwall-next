@@ -54,6 +54,7 @@ if (devBuild) {
   config.devtool = 'eval-source-map'
 } else {
   console.error('Webpack production build for Rails') // eslint-disable-line no-console
+  config.devtool = 'source-map'
 }
 
 module.exports = config
