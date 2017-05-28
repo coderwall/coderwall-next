@@ -18,7 +18,7 @@ Sponsor = Struct.new(:id, :title, :cta, :text, :click_url, :image_url, :pixel_ur
         end
 
         JSON.parse(response.body) rescue nil
-      rescue Faraday::TimeoutError, Net::OpenTimeout => e
+      rescue Faraday::TimeoutError, Net::OpenTimeout, Faraday::ConnectionFailed => e
         error = e
         nil
       end
