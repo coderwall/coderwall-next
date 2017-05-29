@@ -91,7 +91,7 @@ class Article < ApplicationRecord
     factor * (weight = 20)
   end
 
-  def cacluate_score
+  def calculate_score
     return 0 if bad_content?
     half_life      = 2.days.to_i
     # gravity        = 1.8 #used to look at upvote_velocity(1.week.ago)
@@ -124,7 +124,7 @@ class Article < ApplicationRecord
   end
 
   def cache_calculated_score!
-    self.score = cacluate_score
+    self.score = calculate_score
   end
 
   def display_tags
