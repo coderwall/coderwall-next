@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.4.0"
 
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.9.4'
 gem 'bcrypt', '~> 3.1.7'
 gem 'browser'
 gem 'bugsnag'
