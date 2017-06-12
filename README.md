@@ -17,3 +17,12 @@ rake db:create db:migrate
 heroku local
 ```
 
+## Updating SSL
+
+```
+$ heroku run rake letsencrypt_plugin
+# copy output to cert and key files
+$ heroku certs:update coderwall.com-cert.pem coderwall.com-key.pem
+
+```
+>>>>>>> Add ssl instructions

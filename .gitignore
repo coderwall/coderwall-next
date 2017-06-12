@@ -33,3 +33,4 @@ server.key
 capybara-*.html
 debug.png
 scripts
+coderwall.com-*
