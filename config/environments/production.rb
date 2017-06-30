@@ -81,8 +81,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.delivery_method     = :postmark
-  config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
+  # config.action_mailer.delivery_method     = :postmark
+  # config.action_mailer.postmark_settings   = { api_token: ENV['POSTMARK_API_TOKEN'] }
   config.action_controller.asset_host = ENV['ASSET_HOST'] if ENV['ASSET_HOST']
   Rails.application.routes.default_url_options[:host] = 'coderwall.com'
 
