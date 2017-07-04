@@ -102,7 +102,6 @@ Rails.application.routes.draw do
   resources :hooks, only: [] do
     collection do
       post 'sendgrid'
-      post 'postmark' => 'postmark#webhook'
     end
   end
 

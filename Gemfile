@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby "2.4.0"
 
+# gem 'rack-timeout'
 gem 'active_model_serializers', '~> 0.9.4'
 gem 'bcrypt', '~> 3.1.7'
 gem 'browser'
@@ -21,20 +22,19 @@ gem 'icalendar'
 gem 'invisible_captcha'
 gem 'jbuilder'
 gem 'kaminari'
+gem 'letsencrypt_plugin'
 gem 'lograge'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'mini_racer'
 gem 'pg', '~> 0.15'
 gem 'poltergeist'
-gem 'postmark-rails'
 gem 'puma_worker_killer'
 gem 'puma'
 gem 'pusher'
 gem 'rack-cors'
 gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
-# gem 'rack-timeout'
 gem 'rails_stdout_logging', group: [:development, :production]
 gem 'rails', '~> 5.0.2'
 gem 'react_on_rails'
@@ -43,7 +43,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
-gem 'letsencrypt_plugin'
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
@@ -75,6 +74,7 @@ group :development do
 end
 
 group :production do
+  gem 'mailgun-ruby'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
