@@ -1,5 +1,7 @@
 # Coderwall
 
+[![Build Status](https://travis-ci.org/coderwall/coderwall-next.svg?branch=master)](https://travis-ci.org/coderwall/coderwall-next)
+
 The codebase for [coderwall.com](https://coderwall.com). Coderwall is a developer community used by nearly half a million developers each month to learn and share programming tips.
 
 ## Prerequisites
@@ -25,4 +27,3 @@ $ heroku run rake letsencrypt_plugin
 $ heroku certs:update coderwall.com-cert.pem coderwall.com-key.pem
 
 ```
->>>>>>> Add ssl instructions
