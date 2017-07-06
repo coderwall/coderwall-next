@@ -85,7 +85,7 @@ class CommentsController < ApplicationController
     # TODO: move to job
     email_recipients.each do |to|
       logger.info(event: 'email-notify', email: to, comment: @comment.id)
-      CommentMailer.new_comment(to, @comment).deliver_now!
+      CommentMailer.new_comment(to, @comment).deliver_now
     end
   end
 

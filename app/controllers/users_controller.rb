@@ -80,7 +80,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     head(:forbidden) unless current_user.can_edit?(@user)
-    UserMailer.destroy_email(@user).deliver!
+    UserMailer.destroy_email(@user).deliver_now
     @user.destroy
     if @user == current_user
       sign_out

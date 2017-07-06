@@ -38,7 +38,7 @@ namespace :partners do
 
   task :email => :environment do
     User.where("partner_coins IS NOT NULL AND partner_last_contribution_at < ?", 1.year.ago).all.each do |user|
-      UserMailer.partnership_expired(user).deliver_now!
+      UserMailer.partnership_expired(user).deliver_now
     end
   end
 end
