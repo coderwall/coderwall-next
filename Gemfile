@@ -24,6 +24,7 @@ gem 'jbuilder'
 gem 'kaminari'
 gem 'letsencrypt_plugin'
 gem 'lograge'
+gem 'mailgun-ruby'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'mini_racer'
@@ -74,7 +75,6 @@ group :development do
 end
 
 group :production do
-  gem 'mailgun-ruby'
   gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
