@@ -73,7 +73,7 @@ class UsersController < ApplicationController
         User.order('random()').first
       end
       sign_in(@user)
-      redirect_to profile_url(username: user.username)
+      redirect_to profile_url(username: @user.username)
     end
   end
 
