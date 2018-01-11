@@ -195,34 +195,13 @@ class ProtipsController < ApplicationController
   end
 
   def spam?
-    is_spam = false
-    if smyte_spam?
-      is_spam = true
-      logger.info "[SMYTE-SPAM BLOCK] \"#{@protip.title}\""
+    flags = Spaminator.new.protip_flags(@protip)
+    if flags.any?
+      logger.info "[SPAM BLOCK] \"#{@protip.title}\"  #{flags.inspect}"
+      true
     else
-      logger.info "[SMYTE-SPAM ALLOW] \"#{@protip.title}\""
+      logger.info "[SPAM ALLOW] \"#{@protip.title}\""
+      false
     end
-
-    if @protip.looks_spammy?
-      is_spam = true
-      logger.info "[CW-SPAM BLOCK] \"#{@protip.title}\""
-    else
-      logger.info "[CW-SPAM ALLOW] \"#{@protip.title}\""
-    end
-
-    is_spam
-  end
-
-  def smyte_spam?
-    return false if ENV['SMYTE_URL'].nil?
-    data = {
-      actor: serialize(current_user, CurrentUserSerializer),
-      protip: serialize(@protip).except("spam_detected_at", "bad_content")
-    }
-    Smyte.new.spam?(
-      'post_protip',
-      data,
-      request
-    )
   end
 end
