@@ -203,7 +203,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_magick (4.7.0)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     mini_racer (0.1.9)
       libv8 (~> 5.3)
     minitest (5.10.2)
@@ -212,8 +212,8 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (4.2.0.334)
     nio4r (2.1.0)
-    nokogiri (1.7.2)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
     numerizer (0.1.1)
     parallel (1.11.2)
     parser (2.4.0.0)
@@ -394,6 +394,7 @@ DEPENDENCIES
   mini_magick
   mini_racer
   newrelic_rpm
+  nokogiri (~> 1.8.1)
   pg (~> 0.15)
   poltergeist
   puma
