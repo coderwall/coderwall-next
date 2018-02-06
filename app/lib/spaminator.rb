@@ -10,7 +10,11 @@ class Spaminator
   end
 
   def customer_support?(text)
-    text.scan(/customer|support|phonenumber|phonesupport/i).size > 10
+    text.scan(/customer|support|phonenumber|phonesupport|toll|/i).size > 10
+  end
+
+  def marketing?(text)
+    text.scan(/herb|medical|marijuana|cannabis|/i).size > 10
   end
 
   def download_links?(text, urls, title)
