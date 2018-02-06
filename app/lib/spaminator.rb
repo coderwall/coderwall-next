@@ -1,5 +1,3 @@
-URLS = /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix
-
 class Spaminator
   def bad_links?(text, urls)
     text.scan(/shurll.com|shorl.com/i).size > 1
