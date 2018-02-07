@@ -4,16 +4,17 @@ class UsersController < ApplicationController
     if: ->{ request.format.json? }
 
   def show
+    scope = User.visible_to(current_user)
     if params[:username].blank? && params[:id]
-      @user = User.find(params[:id])
+      @user = scope.find(params[:id])
       return redirect_to(profile_path(username: @user.username))
     elsif params[:username] == 'random'
-      @user = User.order("random()").first
+      @user = scope.order("random()").first
     elsif params[:delete_account]
       return redirect_to(sign_in_url) unless signed_in?
       @user = current_user
     else
-      @user = User.includes(:badges, :protips).find_by_username!(params[:username])
+      @user = scope.includes(:badges, :protips).find_by_username!(params[:username])
     end
     respond_to do |format|
       format.html do

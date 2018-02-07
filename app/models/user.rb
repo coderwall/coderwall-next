@@ -46,6 +46,8 @@ class User < ApplicationRecord
 
   validates_presence_of :username, :email
 
+  scope :visible_to, ->(user) { where(bad_user: false) unless user.try(:bad_user) }
+
   def self.authenticate(username_or_email, password)
     param = username_or_email.to_s.downcase
     user  = where('username = ? OR email = ?', param, param).first
