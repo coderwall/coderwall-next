@@ -5,6 +5,7 @@ class ProtipsController < ApplicationController
   def home
     redirect_to(trending_url) if signed_in?
     @protips = Protip.all_time_popular + Protip.recently_most_viewed(20)
+    protips_store_data
   end
 
   def index
@@ -24,6 +25,10 @@ class ProtipsController < ApplicationController
       @protips = @protips.with_any_tagged(tags)
     end
 
+    protips_store_data
+  end
+
+  def protips_store_data
     data = {
       protips: { items: serialize(@protips) },
     }
