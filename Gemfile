@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 ruby "2.4.0"
 
-# gem 'rack-timeout'
 gem 'active_model_serializers', '~> 0.9.4'
 gem 'bcrypt', '~> 3.1.7'
 gem 'browser'
 gem 'bugsnag'
 gem 'capybara'
-gem 'carrierwave_backgrounder'
 gem 'carrierwave-aws'
+gem 'carrierwave_backgrounder'
 gem 'clearance'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'connection_pool'
@@ -31,14 +30,15 @@ gem 'mini_racer'
 gem 'nokogiri', '~> 1.8.1'
 gem 'pg', '~> 0.15'
 gem 'poltergeist'
-gem 'puma_worker_killer'
 gem 'puma'
+gem 'puma_worker_killer'
 gem 'pusher'
 gem 'rack-cors'
 gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
-gem 'rails_stdout_logging', group: [:development, :production]
+gem 'rack-timeout'
 gem 'rails', '~> 5.0.2'
+gem 'rails_stdout_logging', group: [:development, :production]
 gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
 gem 'sass-rails', '~> 5.0'
