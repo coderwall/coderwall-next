@@ -329,6 +329,8 @@ GEM
     shoulda-context (1.2.2)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    skylight (1.5.1)
+      activesupport (>= 3.0.0)
     spring (2.0.2)
       activesupport (>= 4.2)
     sprockets (3.7.1)
@@ -430,6 +432,7 @@ DEPENDENCIES
   sequel
   shoulda
   shoulda-matchers
+  skylight
   spring
   stripe
   timecop
