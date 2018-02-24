@@ -36,7 +36,7 @@ gem 'pusher'
 gem 'rack-cors'
 gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
-gem 'rack-timeout'
+# gem 'rack-timeout'   # causing memory issues
 gem 'rails', '~> 5.0.2'
 gem 'rails_stdout_logging', group: [:development, :production]
 gem 'react_on_rails'
@@ -54,6 +54,7 @@ gem 'reverse_markdown'
 
 group :development, :test do
   gem 'byebug'
+  gem 'derailed'
   gem 'dotenv-rails'
   gem 'fabrication-rails'
   gem 'faker'
