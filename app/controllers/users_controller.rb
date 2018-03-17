@@ -73,8 +73,15 @@ class UsersController < ApplicationController
       else
         User.order('random()').first
       end
-      sign_in(@user)
-      redirect_to profile_url(username: @user.username)
+      logger.info "signing in as #{@user.username}"
+      sign_in(@user) do |status|
+        if status.success?
+          redirect_back_or Clearance.configuration.redirect_url
+        else
+          flash.now.notice = status.failure_message
+          render template: "sessions/new", status: :unauthorized
+        end
+      end
     end
   end
 

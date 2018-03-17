@@ -4,6 +4,7 @@ Clearance.configure do |config|
   config.routes   = false #disable clearance routes
   config.mailer_sender = "support@coderwall.com"
   config.cookie_expiration = ->(cookies){ 2.years.from_now.utc }
+  config.rotate_csrf_on_sign_in = true
 
   if Rails.env.development?
     config.cookie_domain = 'localhost'

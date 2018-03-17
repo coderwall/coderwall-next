@@ -14,13 +14,13 @@
         .clearfix.mt0.mb1
           .right.mt1
             -if current_user.try(:admin?) || params[:delete_account]
-              = button_to user_path(@user), method: :delete, data: { confirm: "This makes us very sad. Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
+              = button_to user_path(@user), method: :delete, data: { confirm: "Deleting your account is permanent! Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
                 = icon('trash')
               &middot;
               -if current_user.try(:admin?)
                 .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
               -else
-                Deleting your account is permanent!
+                Deleting your account is permanent! Click the trash can again to continue
               &middot;
             -elsif current_user == @user
               .diminish.inline.ml1.mr1
