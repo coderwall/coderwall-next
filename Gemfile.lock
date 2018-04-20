@@ -197,6 +197,8 @@ GEM
     letter_opener (1.4.1)
       launchy (~> 2.2)
     libv8 (5.3.332.38.5)
+    license-list (1.0.1)
+      rails (>= 3.2)
     lograge (0.5.1)
       actionpack (>= 4, < 5.2)
       activesupport (>= 4, < 5.2)
@@ -408,6 +410,7 @@ DEPENDENCIES
   kaminari
   letsencrypt_plugin
   letter_opener
+  license-list
   lograge
   mailgun-ruby
   meta-tags

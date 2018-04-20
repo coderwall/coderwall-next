@@ -73,6 +73,7 @@ group :test do
 end
 
 group :development do
+  gem 'license-list'
   gem 'spring'
   gem 'web-console'
 end
