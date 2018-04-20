@@ -98,7 +98,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     connection_pool (2.2.1)
-    crass (1.0.3)
+    crass (1.0.4)
     dalli (2.7.6)
     derailed (0.1.0)
       derailed_benchmarks
@@ -203,7 +203,7 @@ GEM
       actionpack (>= 4, < 5.2)
       activesupport (>= 4, < 5.2)
       railties (>= 4, < 5.2)
-    loofah (2.2.0)
+    loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.0)
@@ -417,7 +417,7 @@ DEPENDENCIES
   mini_magick
   mini_racer
   newrelic_rpm
-  nokogiri (~> 1.8.1)
+  nokogiri (~> 1.8.2)
   pg (~> 0.15)
   poltergeist
   puma
