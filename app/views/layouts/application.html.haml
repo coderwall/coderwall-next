@@ -40,4 +40,4 @@
               %p.inline-block.diminish.inline.mr1="Copyright #{Time.now.strftime('%Y')}"
 
     = redux_store("store", props: store_data) if store_data
-    = render 'shared/tracking'
+    -# gdpr disabled render 'shared/tracking'

@@ -7,7 +7,6 @@ document.addEventListener 'turbolinks:load', ->
 @trackPageView = ->
   if window.ga?
     ga('set',  'location', location.href.split('#')[0])
-    ga('set',  'userId',   document.current_user_id) if document.current_user_id?
     ga('send', 'pageview', { "title": document.title })
 
 @registerEventTracking = ->
