@@ -229,7 +229,6 @@ GEM
     multi_json (1.12.1)
     multipart-post (2.0.0)
     netrc (0.11.0)
-    newrelic_rpm (4.2.0.334)
     nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
@@ -416,7 +415,6 @@ DEPENDENCIES
   meta-tags
   mini_magick
   mini_racer
-  newrelic_rpm
   nokogiri (~> 1.8.2)
   pg (~> 0.15)
   poltergeist
@@ -452,4 +450,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.6
+   1.16.2

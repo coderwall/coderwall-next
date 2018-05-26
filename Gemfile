@@ -51,7 +51,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'sequel'
 gem 'redis'
 gem 'reverse_markdown'
-# gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'byebug'
@@ -79,6 +78,5 @@ group :development do
 end
 
 group :production do
-  gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
