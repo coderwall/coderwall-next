@@ -10,8 +10,8 @@ The codebase for [coderwall.com](https://coderwall.com). Coderwall is a develope
 * Postgres
 * Heroku Toolbelt (or foreman gem)
 
-
 ## Get Started
+
 ```bash
 cp .env.sample .env  # (most settings are not required for core functionality)
 bundle install
@@ -22,8 +22,5 @@ heroku local
 ## Updating SSL
 
 ```
-$ heroku run rake letsencrypt_plugin
-# copy output to cert and key files
-$ heroku certs:update coderwall.com-cert.pem coderwall.com-key.pem
-
+$ ./update-ssl.sh
 ```
