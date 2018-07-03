@@ -6,7 +6,7 @@ namespace :spam do
     good_protips = []
     protips.each do |p|
       flags = Spaminator.new.protip_flags(p)
-      if flags.any?
+      if flags.any? && p.hearts_count <= 1
         Rails.logger.debug "#{p.id} – #{p.title} – #{p.body[0..100].gsub("\n", '')}"
         Rails.logger.debug "#{flags.inspect}" if flags.any?
         Rails.logger.debug
