@@ -7,22 +7,22 @@
 - meta twitter: { image: avatar_url(@user) }         if @user.avatar?
 - meta og:      { image: avatar_url(@user) }         if @user.avatar?
 
-- cache_if show_protips?, ['v2', @user, current_user] do
+- cache_if show_protips? && !account_deletion?, ['v2', @user, current_user] do
   .container[@user]
     .clearfix
       .sm-col.sm-col.sm-col-12.md-col-8
         .clearfix.mt0.mb1
           .right.mt1
-            -if current_user.try(:admin?) || params[:delete_account]
+            - if current_user&.admin? || account_deletion?
               = button_to user_path(@user), method: :delete, data: { confirm: "Deleting your account is permanent! Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
                 = icon('trash')
               &middot;
-              -if current_user.try(:admin?)
+              - if current_user&.admin?
                 .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
-              -else
+              - else
                 Deleting your account is permanent! Click the trash can again to continue
               &middot;
-            -elsif current_user == @user
+            - elsif current_user == @user
               .diminish.inline.ml1.mr1
                 = link_to delete_account_path do
                   = icon('trash')
@@ -31,10 +31,10 @@
               ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
             &middot;
             .ml1.mr1.inline[:alternateName]
-              =link_to @user.try(:username), profile_path(username: @user.username)
+              =link_to @user&.username, profile_path(username: @user.username)
 
         .card.p3{style: "border-top:solid 5px #{@user.color}"}
-          -if current_user == @user || current_user.try(:admin?)
+          -if current_user == @user || current_user&.admin?
             .clearfix.mb3
               .right
                 =link_to('Sign out', sign_out_path, method: :delete, class: 'diminish')
@@ -61,7 +61,7 @@
                 -if @user.github.present?
                   =link_to icon("github", class: "fa-1x", style: "color: #{@user.color}"), "http://github.com/#{@user.github}"
                   .hide_last_child.inline &middot;
-                -if current_user.try(:admin?)
+                -if current_user&.admin?
                   =link_to icon("envelope", class: "fa-1x", style: "color: #{@user.color}"), "mailto:#{@user.email}"
                   .hide_last_child.inline &middot;
 
@@ -123,7 +123,7 @@
                 %h6.mt0=badge.name
                 .mt0.diminish[:award]=badge.description
 
-        - if @user.skills.any? || current_user.try(:admin?)
+        - if @user.skills.any? || current_user&.admin?
           .clearfix.sm-ml3.mt3.p1
             %h5.mt0.mb1
               Interests & Skills

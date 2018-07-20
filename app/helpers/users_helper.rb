@@ -12,6 +12,10 @@ module UsersHelper
     !show_comments?
   end
 
+  def account_deletion?
+    params[:delete_account].present?
+  end
+
   def show_comments?
     params[:comments].present?
   end
