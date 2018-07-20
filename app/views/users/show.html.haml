@@ -7,32 +7,32 @@
 - meta twitter: { image: avatar_url(@user) }         if @user.avatar?
 - meta og:      { image: avatar_url(@user) }         if @user.avatar?
 
-- cache_if show_protips? && !account_deletion?, ['v2', @user, current_user] do
-  .container[@user]
-    .clearfix
-      .sm-col.sm-col.sm-col-12.md-col-8
-        .clearfix.mt0.mb1
-          .right.mt1
-            - if current_user&.admin? || account_deletion?
-              = button_to user_path(@user), method: :delete, data: { confirm: "Deleting your account is permanent! Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
-                = icon('trash')
-              &middot;
-              - if current_user&.admin?
-                .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
-              - else
-                Deleting your account is permanent! Click the trash can again to continue
-              &middot;
-            - elsif current_user == @user
-              .diminish.inline.ml1.mr1
-                = link_to delete_account_path do
-                  = icon('trash')
-
-            .diminish.inline.ml1.mr1
-              ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
+.container[@user]
+  .clearfix
+    .sm-col.sm-col.sm-col-12.md-col-8
+      .clearfix.mt0.mb1
+        .right.mt1
+          - if current_user&.admin? || params[:delete_account]
+            = button_to user_path(@user), method: :delete, data: { confirm: "Deleting your account is permanent! Are you sure?" }, form_class: "diminish inline ml1 mr1 plain" do
+              = icon('trash')
             &middot;
-            .ml1.mr1.inline[:alternateName]
-              =link_to @user&.username, profile_path(username: @user.username)
+            - if current_user&.admin?
+              .inline.diminish.mr1="Last accessed #{time_ago_in_words(@user.last_request_at)} ago"
+            - else
+              Deleting your account is permanent! Click the trash can again to continue
+            &middot;
+          - elsif current_user == @user
+            .diminish.inline.ml1.mr1
+              = link_to delete_account_path do
+                = icon('trash')
 
+          .diminish.inline.ml1.mr1
+            ="Joined #{@user.created_at.to_formatted_s(:explicitly_bold)}"
+          &middot;
+          .ml1.mr1.inline[:alternateName]
+            =link_to @user&.username, profile_path(username: @user.username)
+
+      - cache ['user-details', @user, current_user] do
         .card.p3{style: "border-top:solid 5px #{@user.color}"}
           -if current_user == @user || current_user&.admin?
             .clearfix.mb3
@@ -102,6 +102,7 @@
                       .content.small.px2.mt1{style:"border-left: 3px solid #{@user.color}"}
                         =sanitize CoderwallFlavoredMarkdown.render_to_html(comment.body)
 
+    - cache ['user-sidebar', @user, current_user] do
       .sm-col.sm-col.sm-col-12.md-col-4
         .clearfix.sm-ml3.mt3.p1
           %h5.mt0.mb1
@@ -114,7 +115,6 @@
           %h6.diminish.mb2
             =number_with_delimiter(@user.protips.sum(:views_count))
             Total ProTip Views
-
 
           -@user.badges.each do |badge|
             .dropdown.relative.mr1.mt1
