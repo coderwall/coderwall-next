@@ -23,6 +23,7 @@ gem 'jbuilder'
 gem 'kaminari'
 gem 'letsencrypt_plugin'
 gem 'lograge'
+# gem 'libv8', '5.9.211.38.1' # had trouble compiling other versions on mac
 gem 'mailgun-ruby'
 gem 'meta-tags'
 gem 'mini_magick'
