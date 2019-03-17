@@ -223,7 +223,7 @@ GEM
     mini_magick (4.7.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
-    mini_racer (0.2.0)
+    mini_racer (0.2.4)
       libv8 (>= 6.3)
     minitest (5.11.3)
     multi_json (1.12.1)
@@ -414,7 +414,7 @@ DEPENDENCIES
   mailgun-ruby
   meta-tags
   mini_magick
-  mini_racer
+  mini_racer (~> 0.2.1)
   nokogiri (~> 1.8.2)
   pg (~> 0.15)
   poltergeist
@@ -450,4 +450,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.16.3
+   1.16.6
