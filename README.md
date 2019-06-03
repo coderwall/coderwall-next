@@ -18,9 +18,3 @@ bundle install
 rake db:create db:migrate
 heroku local
 ```
-
-## Updating SSL
-
-```
-$ ./update-ssl.sh
-```
