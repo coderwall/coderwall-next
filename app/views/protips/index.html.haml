@@ -1,5 +1,5 @@
 - title protips_title
-- description protips_description
+-# - description protips_description
 - keywords (topic_tags + ['tips', 'programming', 'coding'])
 
 -content_for :breadcrumbs do
@@ -13,10 +13,10 @@
   .container
     .clearfix
       .sm-col.sm-col.sm-col-12.md-col-8
-        -if first_page?
-          .purple{style: "border-bottom:solid 5px;"}
-            %h2.mt0.black=protips_heading
-            %p.clearfix.py1.font-lg.black=protips_description
+        -# -if first_page?
+        .purple{style: "border-bottom:solid 5px;"}
+          %h1.mt0.black=protips_heading
+          %p.clearfix.py1.font-lg.black=protips_description
         .py2.bg-white
           .pr1=render @protips
 

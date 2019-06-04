@@ -36,7 +36,7 @@ module ApplicationHelper
     {
       charset: 'UTF-8',
       viewport: 'width=device-width,initial-scale=1',
-      description: "Programming tips, tools, and projects from our developer community.",
+      description: "Programming tips, tools, and projects from our developer community. A collaborative learning platform for software developers.",
       keywords: 'prgramming tips, coderwall, learn to program, code, coding, open source programming, OSS, developers, programmers',
       og: {
         title: :title,
