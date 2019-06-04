@@ -15,6 +15,7 @@ The codebase for [coderwall.com](https://coderwall.com). Coderwall is a develope
 ```bash
 cp .env.sample .env  # (most settings are not required for core functionality)
 bundle install
+npm install
 rake db:create db:migrate
 heroku local
 ```
