@@ -120,7 +120,7 @@ GEM
     email_validator (1.6.0)
       activemodel
     erubis (2.7.0)
-    excon (0.56.0)
+    excon (0.71.0)
     execjs (2.7.0)
     fabrication (2.16.1)
     fabrication-rails (0.0.1)
