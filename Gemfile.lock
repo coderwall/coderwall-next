@@ -221,7 +221,7 @@ GEM
     mimemagic (0.3.2)
     mini_magick (4.7.0)
     mini_mime (1.0.0)
-    mini_portile2 (2.3.0)
+    mini_portile2 (2.4.0)
     mini_racer (0.2.0)
       libv8 (>= 6.3)
     minitest (5.13.0)
@@ -229,8 +229,8 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.8.4)
-      mini_portile2 (~> 2.3.0)
+    nokogiri (1.10.8)
+      mini_portile2 (~> 2.4.0)
     numerizer (0.1.1)
     parallel (1.11.2)
     parser (2.4.0.0)
@@ -413,7 +413,7 @@ DEPENDENCIES
   meta-tags
   mini_magick
   mini_racer
-  nokogiri (~> 1.8.2)
+  nokogiri (~> 1.10.8)
   pg (~> 0.15)
   poltergeist
   puma
