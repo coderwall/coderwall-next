@@ -59,8 +59,8 @@
     "file-loader": "^0.9.0",
     "imports-loader": "^0.6.5",
     "loader-utils": "^0.2.15",
-    "lodash": "^4.15.0",
-    "marked": "^0.3.6",
+    "lodash": "^4.17.13",
+    "marked": "^0.3.18",
     "node-sass": "^3.10.0",
     "node-uuid": "^1.4.7",
     "postcss-loader": "^0.13.0",
@@ -110,6 +110,6 @@
     "react-transform-hmr": "^1.0.4",
     "roboto": "^0.8.2",
     "sleep": "^4.0.0",
-    "webpack-dev-server": "^1.15.2"
+    "webpack-dev-server": "^3.1.11"
   }
 }
