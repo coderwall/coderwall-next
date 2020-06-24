@@ -254,7 +254,7 @@ GEM
       multi_json (~> 1.0)
       pusher-signature (~> 0.1.8)
     pusher-signature (0.1.8)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
     rack-mini-profiler (0.10.5)
