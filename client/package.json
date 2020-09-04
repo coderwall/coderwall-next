@@ -61,7 +61,7 @@
     "loader-utils": "^0.2.15",
     "lodash": "^4.17.13",
     "marked": "^0.3.18",
-    "node-sass": "^3.10.0",
+    "node-sass": "^4.13.1",
     "node-uuid": "^1.4.7",
     "postcss-loader": "^0.13.0",
     "pusher-js": "^3.2.1",
