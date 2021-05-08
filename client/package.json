@@ -59,7 +59,7 @@
     "file-loader": "^0.9.0",
     "imports-loader": "^0.6.5",
     "loader-utils": "^0.2.15",
-    "lodash": "^4.17.13",
+    "lodash": "^4.17.21",
     "marked": "^0.3.18",
     "node-sass": "^3.10.0",
     "node-uuid": "^1.4.7",
