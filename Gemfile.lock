@@ -114,9 +114,9 @@ GEM
       email_validator (~> 2.0)
       railties (>= 5.0)
     cliver (0.3.2)
-    coffee-rails (4.1.1)
+    coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
-      railties (>= 4.0.0, < 5.1.x)
+      railties (>= 4.0.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
@@ -446,7 +446,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  bcrypt (~> 3.1.7)
+  bcrypt
   browser
   bugsnag
   byebug
@@ -454,7 +454,7 @@ DEPENDENCIES
   carrierwave-aws
   carrierwave_backgrounder
   clearance
-  coffee-rails (~> 4.1.0)
+  coffee-rails
   connection_pool
   dalli
   derailed
@@ -480,7 +480,7 @@ DEPENDENCIES
   mini_magick
   mini_racer
   nokogiri
-  pg (~> 0.15)
+  pg (~> 0.18)
   poltergeist
   puma
   puma_worker_killer
@@ -491,7 +491,7 @@ DEPENDENCIES
   rails (~> 5.0.7.2)
   rails-controller-testing
   rails_stdout_logging
-  redcarpet (>= 3.3.4)
+  redcarpet
   redis
   reverse_markdown
   rubocop
@@ -504,7 +504,7 @@ DEPENDENCIES
   timecop
   traceroute
   turbolinks
-  uglifier (>= 1.3.0)
+  uglifier
   web-console
 
 RUBY VERSION

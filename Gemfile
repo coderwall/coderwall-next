@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 ruby "2.7.8"
 
 gem 'active_model_serializers'
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
 gem 'browser'
 gem 'bugsnag'
 gem 'capybara'
 gem 'carrierwave-aws'
 gem 'carrierwave_backgrounder'
 gem 'clearance'
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 gem 'connection_pool'
 gem 'dalli'
 gem 'excon'
@@ -29,7 +29,7 @@ gem 'meta-tags'
 gem 'mini_magick'
 gem 'mini_racer'
 gem 'nokogiri'
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 0.18'
 gem 'poltergeist'
 gem 'puma'
 gem 'puma_worker_killer'
@@ -41,14 +41,14 @@ gem 'rack-ssl-enforcer'
 gem 'rails', '~> 5.0.7.2'
 gem 'rails_stdout_logging', group: [:development, :production]
 # gem 'react_on_rails'
-gem 'redcarpet', ">=3.3.4"
+gem 'redcarpet' #, ">=3.3.4"
 # gem 'sass-rails', '~> 5.0'
 # gem 'sassc-ruby'
 gem "sassc-rails"
 # gem 'skylight'
 gem 'stripe'
 gem 'turbolinks'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier' #, '>= 1.3.0'
 
 # Legacy gems needed for porting, can remove soon
 gem 'sequel'
