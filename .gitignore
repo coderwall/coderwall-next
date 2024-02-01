@@ -34,3 +34,5 @@ capybara-*.html
 debug.png
 scripts
 coderwall.com-*
+
+public/assets

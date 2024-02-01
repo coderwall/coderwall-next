@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-ruby "2.4.0"
+ruby "2.7.8"
 
-gem 'active_model_serializers', '~> 0.9.4'
+gem 'active_model_serializers'
 gem 'bcrypt', '~> 3.1.7'
 gem 'browser'
 gem 'bugsnag'
@@ -28,7 +28,7 @@ gem 'mailgun-ruby'
 gem 'meta-tags'
 gem 'mini_magick'
 gem 'mini_racer'
-gem 'nokogiri', '~> 1.10.8'
+gem 'nokogiri'
 gem 'pg', '~> 0.15'
 gem 'poltergeist'
 gem 'puma'
@@ -38,12 +38,14 @@ gem 'rack-cors'
 gem 'rack-mini-profiler', require: false
 gem 'rack-ssl-enforcer'
 # gem 'rack-timeout'   # causing memory issues
-gem 'rails', '~> 5.0.2'
+gem 'rails', '~> 5.0.7.2'
 gem 'rails_stdout_logging', group: [:development, :production]
-gem 'react_on_rails'
+# gem 'react_on_rails'
 gem 'redcarpet', ">=3.3.4"
-gem 'sass-rails', '~> 5.0'
-gem 'skylight'
+# gem 'sass-rails', '~> 5.0'
+# gem 'sassc-ruby'
+gem "sassc-rails"
+# gem 'skylight'
 gem 'stripe'
 gem 'turbolinks'
 gem 'uglifier', '>= 1.3.0'
@@ -78,6 +80,3 @@ group :development do
   gem 'web-console'
 end
 
-group :production do
-  gem 'rails_12factor'
-end

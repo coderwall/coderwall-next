@@ -5,8 +5,5 @@
 
 // These assets are located in app/assets/webpack directory
 
-//= require vendor-bundle
-//= require app-bundle
-
 // Non-webpack assets incl turbolinks
 //= require application_non_webpack
