@@ -9,8 +9,6 @@
 - meta og:      { image: avatar_url(@protip.user) }         if @protip.user.avatar?
 
 .container[@protip]
-  .hide= time_tag @protip.updated_at, itemprop: "dateModified"
-  .hide[:name]= @protip.public_id
 
   .clearfix
     .sm-col.sm-col.sm-col-12.md-col-8
@@ -60,16 +58,10 @@
 
             .clearfix.mt1
               .btn.btn-small.pl0.mr1.mb1.xs-block
-                = react_component 'HeartButton', props: { heartableId: @protip.dom_id,
-                  href: protip_likes_path(@protip),
-                  labels: ['Recommend', 'Recommended'] }
 
               %a.btn.btn-small.pl0.mb1.mr1.xs-block{href: "http://twitter.com/home?status=#{protip_tweet_message}", target: 'twitter'}
                 %span.fixed-space-4=icon('twitter', class: 'aqua h4')
                 %span Say Thanks
-
-              .btn.btn-small.pl0.mb1.mr1.xs-block
-                = react_component 'ProtipSubscribeButton'
 
               - if !signed_in?
                 %a.btn.btn-small.pl0.mb1.mr1.xs-block{ href: sign_up_path }
@@ -113,8 +105,6 @@
               %a{href: popular_topic_path(topic: topic)}
                 .bold=t(topic, scope: [:categories, :long])
 
-
-      = react_component 'Sponsors'
 
       - cache ['v3', @protip, 'featured-jobs', expires_in: 1.day ] do
         .clearfix.sm-ml3.mt3.p1

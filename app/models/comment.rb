@@ -1,7 +1,6 @@
 class Comment < ApplicationRecord
   include TimeAgoInWordsCacheBuster
   paginates_per 10
-  html_schema_type :Comment
 
   VIDEO_LAG = 25.seconds # TODO: measure the real lag value
 

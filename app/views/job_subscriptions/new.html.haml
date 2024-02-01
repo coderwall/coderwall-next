@@ -20,8 +20,6 @@
         -@subscription.errors.full_messages.each do |error|
           %p.red.bold=error
 
-        = react_component 'NewJobSubscription', props: { stripePublishable: ENV['STRIPE_PUBLISHABLE_KEY'], cost: JobSubscription::CENTS_PER_MONTH }
-
         .mt2.diminish
           Coderwall securely accepts all major credit cards.
 

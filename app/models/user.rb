@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   include Clearance::User
 
-  html_schema_type :Person
   mount_uploader :avatar, AvatarUploader
 
   before_create :generate_unique_color

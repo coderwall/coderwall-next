@@ -98,7 +98,8 @@ Rails.application.configure do
     }
   end
 
-  config.static_cache_control = 'public, max-age=31536000'
+  # config.static_cache_control = 'public, max-age=31536000'
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=31536000' }
 
   config.middleware.use Rack::SslEnforcer,
     :except_hosts => /www.coderwall.com$/,

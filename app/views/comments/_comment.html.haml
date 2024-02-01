@@ -1,8 +1,6 @@
 - cache ['v3', comment, current_user_can_edit?(comment)] do
   - style ||= :large
   .inline-block.py1.mb1[comment]{class: ('border-top' if style != :small), style: 'width: 100%'}
-    .hide= time_tag comment.created_at, itemprop: "datePublished"
-    .hide[:name]= comment.id
 
     .left.mt1.mr2.avatar.small{style:"background-color: #{comment.user.color};"}
       =avatar_url_tag(comment.user)
@@ -19,7 +17,3 @@
               &middot;
               = button_to comment_path(comment), method: :delete, data: { confirm: "Are you sure you want to delete your comment?" }, form_class: "inline plain" do
                 = icon('trash')
-            &middot;
-            = react_component 'HeartButton', props: { heartableId: comment.dom_id,
-                href: comment_likes_path(comment), labels: ['',''] },
-              html_options: { style: "display:inline-block" }

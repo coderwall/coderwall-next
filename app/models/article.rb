@@ -7,7 +7,6 @@ class Article < ApplicationRecord
 
   friendly_id :slug_format, :use => :slugged
   paginates_per 40
-  html_schema_type :TechArticle
 
   BIG_BANG = Time.parse("05/07/2012").to_i #date protips were launched
   before_update :cache_calculated_score!

@@ -15,7 +15,7 @@ gem 'dalli'
 gem 'excon'
 gem 'faraday'
 gem 'friendly_id'
-gem 'green_monkey'
+# gem 'green_monkey'
 gem 'haml-rails'
 gem 'icalendar'
 gem 'invisible_captcha'
@@ -51,9 +51,7 @@ gem 'turbolinks'
 gem 'uglifier' #, '>= 1.3.0'
 
 # Legacy gems needed for porting, can remove soon
-gem 'sequel'
 gem 'redis'
-gem 'reverse_markdown'
 
 group :development, :test do
   gem 'byebug'
